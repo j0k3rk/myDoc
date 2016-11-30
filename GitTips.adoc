@@ -1,0 +1,27 @@
+== Proxy
+
+----
+// 查询
+git config --global --get http.proxy
+// 设置网址、用户、密码
+git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YOUR.PROXY.SERVER:8080
+// 重置
+git config --global --unset http.proxy
+----
+
+== Remote
+
+----
+// 查询
+git remote -v
+// 增加
+git remote add origin http://REMOTE_SERVER:PORT/tfs/Collection/_git/YOUR_PROJECT
+// 移除
+git remote remove origin
+----
+
+== 用户信息
+----
+git config --global user.email "YourName@google.com"
+git config --global user.name "YourName"
+----

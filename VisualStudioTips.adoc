@@ -1,0 +1,92 @@
+=== 常用快捷键
+[width="50%"]
+|====
+|F4	|属性窗口
+|F5	|编译及运行
+|F7	|代码窗口
+|F12 |查看定义
+|Ctrl + F5	|编译及运行（不调试）
+|Ctrl + F6	|切换到下一个Tab
+|Ctrl + Tab |Tab切换
+|Ctrl + L | 删除当前行
+|Ctrl + Enter | 在当前行前插入一行
+|Ctrl + Shift + Enter | 当前行后插入一行
+|Ctrl + comma(,)	|导航到
+|Ctrl + M & M	|折叠/展开代码块
+|Ctrl + Alt + P	|运行中开始调试
+|Ctrl + Shift + B |生成解决方案
+|Alt + W_L	|关闭所有Tab
+|Shift + Alt + Enter | 全屏显示/退出全屏显示
+|Shift + F7	|对象窗口
+|====
+
+
+=== 提高生产力的6个小技巧
+
+* 1.使用书签
+
+* 2.使用代码片段
++
+[width="50%", cols="<,<"]
+|====
+|ctor	|constructor（构造器）
+|cw		|Console.WriteLine
+|for	|for循环递增
+|forr	|for循环递减
+|foreach|foreach循环
+|prop	|property
+|svm	|static...void...Main
+|try	|try...catch
+|tryf	|try...finally
+|while	|while循环
+|====
++
+
+* 3.格式化代码
+
+* 4.用键盘管理Tabs
+
+* 5.代码块折叠
+
+* 6.使用ReSharper
+
+
+
+=== 扩展及设定
+
+* Productivity Power Tools
+** 关闭“Structure Visualizer”，以免和“Indent Guides”的线条冲突。
+** 在“PowerCommands - General”中，将“Format document on save”和“Remove and Sort Usings on save”选中。
+
+* Indent Guides
+
+* VSColorOutput
+
+* Web Essentials ?
+
+* Resharper $$$ ?
+
+* Visual Assistant $$$ ?
+
+
+
+=== 其他
+
+* 强制卸载
+----
+vs_ultimate.exe /uninstall /force
+----
+
+* Code First 更新数据库
+----
+实际开发中难免会修改模型和派生的Context，修改后再次运行会出现异常，提示“支持“MyContext”上下文的模型已在数据库创建后发生更改。请考虑使用 Code First 迁移更新数据库”异常。
+
+可以通过如下步骤更新数据库，消除上述异常：
+
+1、在项目的“程序包管理控制台"窗口，输入”enable-migrations"，回车，导致在项目中生成一个“Migrations"文件夹，其中包含两个.cs类。
+
+2、在1中生成的Configuration.cs中修改构造函数中代码为：”AutomaticMigrationsEnabled = true;“
+
+3、保存修改后，在“程序包管理控制台"中输入”update-database"，回车，再次运行即可。
+----
+
