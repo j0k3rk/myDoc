@@ -1,24 +1,34 @@
-=== 备忘知识点
+=== 备忘知识点（根据廖雪峰的Python教程）
 
-. \
+. 特殊符号，特殊值，操作符
+
+.. \
 +
 转义符
-+
 
-. r'\\'
+.. r'\\'
 +
 使用r后，引号内部的字符串不转义
-+
 
-. '''...'''
+.. '''...'''
 +
 交互模式下，三个引号可以表示多行内容
-+
 
-. None
+.. None
 +
 空值是Python里一个特殊的值，用None表示。
+
+.. inf（无限大）
 +
+整数没有大小限制。浮点数也没有大小限制，但超出一定范围就直接表示为inf（无限大）。
+
+.. //
++
+取整除法，返回商的整数部分。
+
+.. %
++
+取模，返回除法的余数。
 
 . 变量赋值
 +
@@ -29,22 +39,6 @@ b = a
 a = 'XYZ'
 print(b)
 ----
-+
-
-. //
-+
-取整除法，返回商的整数部分。
-+
-
-. %
-+
-取模，返回除法的余数。
-+
-
-. 整数和浮点数的范围
-+
-整数没有大小限制。浮点数也没有大小限制，但超出一定范围就直接表示为inf（无限大）。
-+
 
 . 字符串
 
@@ -60,7 +54,6 @@ print(b)
 >>> chr(25991)
 '文'
 ----
-+
 
 .. 如果知道字符的整数编码，还可以用十六进制
 +
@@ -68,7 +61,6 @@ print(b)
 >>> '\u4e2d\u6587'
 '中文'
 ----
-+
 
 .. 以Unicode表示的str通过encode()方法可以编码为指定的bytes
 +
@@ -78,7 +70,6 @@ b'ABC'
 >>> '中文'.encode('utf-8')
 b'\xe4\xb8\xad\xe6\x96\x87'
 ----
-+
 
 .. 把bytes变为str，需要用decode()方法
 +
@@ -88,7 +79,6 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 >>> b'\xe4\xb8\xad\xe6\x96\x87'.decode('utf-8')
 '中文'
 ----
-+
 
 .. len()函数计算的是str的字符数，如果换成bytes，len()函数就计算字节数
 +
@@ -104,7 +94,6 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 >>> len('中文'.encode('utf-8'))
 6
 ----
-+
 
 .. 为了避免乱码问题，应始终坚持使用UTF-8编码对 str 和 bytes 进行转换。通常在Python源代码文件开头写上如下两行
 +
@@ -112,7 +101,6 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 ----
-+
 
 . 格式化
 
@@ -125,7 +113,6 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 |%x |十六进制整数
 |%% |转义，表示一个%
 |===
-+
 
 .. 格式化整数和浮点数还可以指定是否补0和整数与小数的位数
 +
@@ -135,10 +122,8 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 >>> '%.2f' % 3.1415926
 '3.14'
 ----
-+
 
 . tuple
-+
 
 .. 因为括号()既可以表示tuple，又可以表示数学公式中的小括号，这种情况下，按小括号进行计算。
 要定义一个只有1个元素的tuple，定义时必须加一个逗号,，来消除歧义。
@@ -151,7 +136,6 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 >>> t
 (1,)
 ----
-+
 
 .. “可变的”tuple：tuple每个元素的“指向”不可改变，但指向的List允许改变，参考下例：
 +
@@ -162,24 +146,139 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 >>> t
 ('a', 'b', ['X', 'Y'])
 ----
-+
 
 . pass
 +
 占位符
-+
 
 . 函数
+
 .. 函数执行完毕也没有return语句时，自动return none。
+
 .. 函数可以同时返回多个值，但其实就是一个tuple。
+
+.. 默认参数
++
+----
+#  异常
+def add_end(L=[]):
+    L.append('END')
+    return L
+
+>>> add_end()
+['END']
+>>> add_end()
+['END', 'END']
+
+# 正常
+def add_end(L=None):
+    if L is None:
+        L = []
+    L.append('END')
+    return L
+
+>>> add_end()
+['END']
+>>> add_end()
+['END']
+----
+
+.. 可变参数
++
+可变参数允许你传入0个或任意个参数，这些可变参数在函数调用时自动组装为一个tuple。
++
+----
+#  给定一组数字a，b，c……，请计算a2 + b2 + c2 + ……
+def calc(*numbers):  #加个*即可
+    sum = 0
+    for n in numbers:
+        sum = sum + n * n
+    return sum
+
+----
+
+.. 关键字参数
++
+关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict。
++
+----
+#  给定一组数字a，b，c……，请计算a2 + b2 + c2 + ……
+def person(name, age, **kw):
+    print('name:', name, 'age:', age, 'other:', kw)
+
+>>> person('Adam', 45, gender='M', job='Engineer')
+name: Adam age: 45 other: {'gender': 'M', 'job': 'Engineer'}
+>>> extra = {'city': 'Beijing', 'job': 'Engineer'}
+
+#  **extra表示把extra这个dict的所有key-value用关键字参数传入到函数的**kw参数，kw将获得一个dict。
+#  注意kw获得的dict是extra的一份拷贝，对kw的改动不会影响到函数外的extra。
+>>> person('Jack', 24, **extra)
+name: Jack age: 24 other: {'city': 'Beijing', 'job': 'Engineer'}
+----
+
+.. 命名关键字参数
++
+如果要限制关键字参数的名字，就可以用命名关键字参数，例如，只接收city和job作为关键字参数。
++
+----
+#  特殊分隔符*后面的参数被视为命名关键字参数。
+def person(name, age, *, city, job):
+    print(name, age, city, job)
+
+>>> person('Jack', 24, city='Beijing', job='Engineer')
+Jack 24 Beijing Engineer
+
+#  如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了。
+def person(name, age, *args, city, job):
+    print(name, age, args, city, job)
+
+#  由于命名关键字参数city具有默认值，调用时，可不传入city参数
+def person(name, age, *, city='Beijing', job):
+    print(name, age, city, job)
+
+>>> person('Jack', 24, job='Engineer')
+Jack 24 Beijing Engineer
+----
+
+.. 参数组合
+
+... 参数定义的顺序必须是：必选参数、默认参数、可变参数、命名关键字参数和关键字参数。
+
+... 使用*args和**kw是Python的习惯写法，当然也可以用其他参数名，但最好使用习惯用法。
+.... *args是可变参数，args接收的是一个tuple；
+.... **kw是关键字参数，kw接收的是一个dict。
+
+. 高级特性
+
+.. 切片
++
+L[0:3]表示，从索引0开始取，直到索引3为止，但不包括索引3。即索引0，1，2，正好是3个元素。
+如果第一个索引是0，还可以省略。
++
+----
+>>> L = list(range(100))
+>>> L
+[0, 1, 2, 3, ..., 99]
+----
++
+前10个数：
++
+----
+>>> L[:10]
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+----
+后10个数：
 +
 
 
 
+.. 迭代
 
+.. 列表生成式
 
+.. 生成器
 
-
+.. 迭代器
 
 
 
