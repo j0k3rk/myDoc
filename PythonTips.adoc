@@ -992,8 +992,17 @@ Message
 
 . 访问数据库
 
+.. sqlite
++
+Python内置了SQLite3。cursor示例：
++
+----
+cursor.execute('select * from user where name=? and pwd=?', ('abc', 'password'))
+----
++
+要确保打开的Connection对象和Cursor对象都正确地被关闭，否则，资源就会泄露。
 
-
+.. ORM框架SQLAlchemy
 
 . Web开发
 
