@@ -1,3 +1,18 @@
+=== Anaconda
+
+. 配置文件所在目录如下，如不存在可手动创建：
++
+----
+C:\Users\JohnDoe\.condarc
+
+auto_update_conda: false
+proxy_servers:
+    http: http://user:password@proxy.server.com:8080
+    https: http://user:password@proxy.server.com:8080
+ssl_verify: False
+----
+
+
 === 备忘知识点（ref: www.liaoxuefeng.com）
 
 . 特殊符号，特殊值，操作符
