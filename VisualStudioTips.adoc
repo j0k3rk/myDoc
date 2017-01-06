@@ -1,5 +1,5 @@
 === 常用快捷键
-[width="50%"]
+[width="90%"]
 |====
 |F4	|属性窗口
 |F5	|编译及运行
@@ -21,11 +21,11 @@
 |====
 
 
-=== 提高生产力的6个小技巧
+=== 提高生产力的小技巧（剩余待实施）
 
-* 1.使用书签
+. 使用书签
 
-* 2.使用代码片段
+. 使用代码片段
 +
 [width="50%", cols="<,<"]
 |====
@@ -40,44 +40,34 @@
 |tryf	|try...finally
 |while	|while循环
 |====
+
+
+=== 必备扩展及插件
+
+. Productivity Power Tools
+.. 关闭“Structure Visualizer”，以免和“Indent Guides”的线条冲突。
+.. 在“PowerCommands - General”中，将“Format document on save”和“Remove and Sort Usings on save”选中。
+
+. VSColorOutput
+
+. Web Essentials （待验证）
+
+. Resharper $$$
 +
-
-* 3.格式化代码
-
-* 4.用键盘管理Tabs
-
-* 5.代码块折叠
-
-* 6.使用ReSharper
-
-
-
-=== 扩展及设定
-
-* Productivity Power Tools
-** 关闭“Structure Visualizer”，以免和“Indent Guides”的线条冲突。
-** 在“PowerCommands - General”中，将“Format document on save”和“Remove and Sort Usings on save”选中。
-
-* Indent Guides
-
-* VSColorOutput
-
-* Web Essentials ?
-
-* Resharper $$$ ?
-
-* Visual Assistant $$$ ?
+※ VS2013通过proxy无法更新Resharper，修改“devenv.exe.config”的方法实测无效。
 
 
 
 === 其他
 
-* 强制卸载
+. 强制卸载
++
 ----
 vs_ultimate.exe /uninstall /force
 ----
 
-* Code First 更新数据库
+. Code First 更新数据库
++
 ----
 实际开发中难免会修改模型和派生的Context，修改后再次运行会出现异常，提示“支持“MyContext”上下文的模型已在数据库创建后发生更改。请考虑使用 Code First 迁移更新数据库”异常。
 
@@ -89,4 +79,7 @@ vs_ultimate.exe /uninstall /force
 
 3、保存修改后，在“程序包管理控制台"中输入”update-database"，回车，再次运行即可。
 ----
+
+
+
 
