@@ -1,3 +1,15 @@
+
+== git状态表
+[cols="^,^,^,^"]
+|===
+|Untracked |Unmodified |Modified |Staged
+|Add the file→ |→ |→ |→●
+| |Edit the file→ |→● |
+| | |Stage the file→ |→●
+|●← |←Remove the file | |
+| |●← |← |←Commit
+|===
+
 == Proxy
 
 ----
@@ -20,8 +32,13 @@ git remote add origin http://REMOTE_SERVER:PORT/tfs/Collection/_git/YOUR_PROJECT
 git remote remove origin
 ----
 
-== 用户信息
+== 常用设定
+
 ----
+git config --list
+
 git config --global user.email "YourName@google.com"
 git config --global user.name "YourName"
+
+git config --global gui.encoding "utf-8"
 ----
