@@ -12,6 +12,35 @@ proxy_servers:
 ssl_verify: False
 ----
 
+. 简单用法
++
+----
+conda list
+conda install package-name
+----
+
+=== Keras
+
+. backend 切换
++
+----
+If you have run Keras at least once, you will find the Keras configuration file at:
+
+~/.keras/keras.json
+
+If it isn't there, you can create it.
+
+The default configuration file looks like this:
+
+{
+    "image_dim_ordering": "tf",
+    "epsilon": 1e-07,
+    "floatx": "float32",
+    "backend": "tensorflow"
+}
+
+Simply change the field backend to either "theano" or "tensorflow", and Keras will use the new configuration next time you run any Keras code.
+----
 
 === 备忘知识点
 
