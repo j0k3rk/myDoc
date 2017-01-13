@@ -1,5 +1,6 @@
 
-== git状态表
+. git状态表
++
 [cols="^,^,^,^"]
 |===
 |Untracked |Unmodified |Modified |Staged
@@ -10,35 +11,56 @@
 | |●← |← |←Commit
 |===
 
-== Proxy
 
+. config
+
+.. user
++
+----
+// 查询
+git config --list
+
+// 全局设定
+git config --global user.email "YourName@gmail.com"
+git config --global user.name "YourName"
+
+// 单项目设定（优先于全局设定）
+git config user.email "YourName@gmail.com"
+git config user.name "YourName"
+
+// 重置
+git config --unset user.name "YourName"
+----
+
+.. http.proxy
++
 ----
 // 查询
 git config --global --get http.proxy
+
 // 设置网址、用户、密码
 git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YOUR.PROXY.SERVER:8080
+
 // 重置
 git config --global --unset http.proxy
 ----
 
-== Remote
+.. gui
++
+----
+// utf-8
+git config --global gui.encoding "utf-8"
+----
 
+. Remote
++
 ----
 // 查询
 git remote -v
+
 // 增加
 git remote add origin http://REMOTE_SERVER:PORT/tfs/Collection/_git/YOUR_PROJECT
+
 // 移除
 git remote remove origin
-----
-
-== 常用设定
-
-----
-git config --list
-
-git config --global user.email "YourName@google.com"
-git config --global user.name "YourName"
-
-git config --global gui.encoding "utf-8"
 ----
