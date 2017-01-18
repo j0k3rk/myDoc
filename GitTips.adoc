@@ -5,6 +5,39 @@ image:images/file_status_lifecycle.png[file status lifecycle]
 
 === git
 
+
+. branch
++
+----
+// 列出当前所有分支的清单
+git branch
+
+// 查看各个分支最后一个提交对象的信息
+git branch -v
+
+// 筛选出已经（或尚未）与当前分支合并的分支，可以用 --merged 和 --no-merged 选项
+git branch --merged
+
+// 简单地用 git branch -d 删除未合并进来的分支会提示错误
+git branch -d branch-testing
+// 如果确实想要删除，可以用大写的删除选项 -D 强制执行
+git branch -D branch-testing
+----
+
+
+. checkout
++
+----
+// 要切换到其他分支，可以执行 git checkout 命令
+git checkout branch-testing
+
+// 在远程分支的基础上分化出一个新的分支来
+git checkout -b serverfix origin/serverfix
+// 还可以用 --track 选项简化
+git checkout --track origin/serverfix
+----
+
+
 . commit
 +
 ----
@@ -25,7 +58,48 @@ git commit --amend
 git reset HEAD file.txt
 ----
 
+
 . config
+
+.. alias
++
+----
+// 使用别名后，如果要输入 git commit 只需键入 git ci 即可
+git config --global alias.ci commit
+
+// 取消暂存文件
+git config --global alias.unstage 'reset HEAD --'
+// 以下两条命令等效
+git unstage fileA
+git reset HEAD fileA
+
+// 查看最后一次的提交信息
+git config --global alias.last 'log -1 HEAD'
+git last
+
+// 运行某个外部命令，而非 Git 的子命令，只需要在命令前加上 ! 就行
+git config --global alias.visual '!gitk'
+----
+
+.. gui
++
+----
+// utf-8
+git config --global gui.encoding "utf-8"
+----
+
+.. http.proxy
++
+----
+// 查询
+git config --global --get http.proxy
+
+// 设置网址、用户、密码
+git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YOUR.PROXY.SERVER:8080
+
+// 重置
+git config --global --unset http.proxy
+----
 
 .. user
 +
@@ -45,25 +119,15 @@ git config user.name "YourName"
 git config --unset user.name "YourName"
 ----
 
-.. http.proxy
+
+. fetch
 +
 ----
-// 查询
-git config --global --get http.proxy
-
-// 设置网址、用户、密码
-git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YOUR.PROXY.SERVER:8080
-
-// 重置
-git config --global --unset http.proxy
+// fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
+// pull 会将远端分支自动合并到本地仓库中的当前分支。
+git fetch [remote-name]
 ----
 
-.. gui
-+
-----
-// utf-8
-git config --global gui.encoding "utf-8"
-----
 
 . log
 +
@@ -127,6 +191,7 @@ git log --pretty=format:"%h - %an, %ar : %s"
 |--all-match | 要得到同时满足两个选项搜索条件的提交，必须用此选项。否则，满足任意一个条件的提交都会被匹配出来。
 |===
 
+
 . mv
 +
 ----
@@ -138,18 +203,52 @@ git rm README.txt
 git add README
 ----
 
+
+. push
++
+----
+// 推送本地分支到远程同名分支
+git push origin serverfix
+// 推送本地分支到远程不同名分支
+git push origin serverfix:awesomebranch
+----
++
+[red yellow-background]*删除远程分支：*
++
+----
+// 参照 git push [远程名] [本地分支]:[远程分支] 语法，如果省略 [本地分支]，
+// 那就等于“在这里提取空白然后把它变成[远程分支]”
+git push origin :serverfix
+----
+
+
+. rebase
++
+准则：[red yellow-background]*一旦分支中的提交对象发布到公共仓库，就不要对该分支进行衍合操作。*
+
+
 . remote
 +
 ----
-// 查询
+// 查询远程地址（v:verbose）
 git remote -v
 
-// 增加
+// 增加远程仓库
 git remote add origin http://REMOTE_SERVER:PORT/tfs/Collection/_git/YOUR_PROJECT
 
-// 移除
+// 移除远程仓库
 git remote remove origin
+
+// 查看远程仓库信息
+git remote show [remote-name]
+
+// 远程仓库的重命名
+git remote rename [name-from] [name-to]
+
+// 远程仓库的删除
+git remote rm [remote-name]
 ----
+
 
 . rm
 +
@@ -162,6 +261,40 @@ git rm -f file.txt
 // 换句话说，仅是从跟踪清单中删除。
 git rm --cached file.txt
 ----
+
+
+. tag
++
+----
+// 列出 1.4.2 系列的标签
+git tag -l 'v1.4.2.*'
+
+// 创建轻量级标签
+git tag v1.4-lw
+
+// 创建一个含附注类型的标签，a:annotated
+git tag -a v1.4 -m 'my version 1.4'
+
+// 签署标签，s:signed
+git tag -s v1.5 -m 'my signed 1.5 tag'
+
+// 验证标签，v:verify
+// 此命令会调用 GPG 来验证签名，需要有签署者的公钥（存放在 keyring 中）
+git tag -v [tag-name]
+
+// 后期加注标签，在打标签的时候跟上对应提交对象的校验和（或前几位字符）即可
+// git log --pretty=oneline
+// 15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch 'experiment'
+// 9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
+// 8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme
+git tag -a v1.2 9fceb02
+
+// 分享标签，默认情况下，git push 并不会把标签传送到远端服务器上，需使用显式命令
+git push origin [tagname]
+// 一次推送所有本地新增的标签上去，可以使用 --tags 选项
+git push origin --tags
+----
+
 
 == gitk
 
