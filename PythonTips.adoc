@@ -915,11 +915,30 @@ class Student(object):
 
 
 .. 访问限制
+... 属性名称前加双下划线(__)表示私有变量
++
+----
+// 不能直接访问__name是因为解释器对外把__name改成了_Student__name，所以仍能通过_Student__name来访问__name变量。
+// 但强烈建议不要这么干，因为不同版本的Python解释器可能会把__name改成不同的变量名。
 
-
+// 注意下面这种错误写法
+>>> bart = Student('Bart Simpson', 98)
+>>> bart.get_name()
+'Bart Simpson'
+>>> bart.__name = 'New Name' # 设置__name变量！
+>>> bart.__name
+'New Name'
+// 表面上外部代码“成功”设置了__name变量，但实际这个__name变量和class内部的__name变量不是一个变量！
+// 内部的__name变量已经被Python解释器自动改成了_Student__name，而外部代码给bart新增了一个__name变量。
+>>> bart.get_name() # get_name()内部返回self.__name
+'Bart Simpson'
+----
+... 变量名以双下划线开头，并且以双下划线结尾的，是特殊变量，特殊变量可以直接访问
+... 单下划线开头的变量名，外部可以访问，但按照约定俗成的用法，“虽然可以被访问，但是，请视为私有变量，不要随意访问”。
 
 .. 继承和多态
-
+... 对于静态语言（例如Java）来说，如果需要传入Animal类型，则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。
+... 对于Python这样的动态语言来说，则不一定需要传入Animal类型。我们只需要保证传入的对象有一个run()方法就可以了。
 
 
 .. 获取对象信息
@@ -966,7 +985,8 @@ class Student(object):
 
 
 . 网络编程
-
++
+（略）
 
 
 . 电子邮件
