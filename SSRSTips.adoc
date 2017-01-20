@@ -1,0 +1,43 @@
+=== For VS2013
+. 新建报表时长和宽默认以英寸(inch)为单位，如何默认以厘米(cm)为单位？
++
+=> 针对手动创建的报表，可在以下路径查找 Report.rdl 模板：
++
+----
+<Visual_Studio_Install_dir>\Common7\IDE\PrivateAssemblies\ProjectItems\ReportProject
+----
++
+原内容如下：
++
+----
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+	<Width>6.5in</Width>
+	<Body>
+		<Height>2in</Height>
+	</Body>
+	<rd:ReportTemplate>true</rd:ReportTemplate>
+  <Page>
+  </Page>
+</Report>
+----
++
+修改后如下：
++
+----
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+	<Width>16.51Cm</Width>
+	<Body>
+		<Height>5.08Cm</Height>
+	</Body>
+	<rd:ReportTemplate>true</rd:ReportTemplate>
+	<rd:ReportUnitType>Cm</rd:ReportUnitType>
+  <Page>
+  </Page>
+</Report>
+----
++
+注意：此方法对通过向导创建的报表似乎无效。
+
+
