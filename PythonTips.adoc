@@ -65,6 +65,10 @@ Simply change the field backend to either "theano" or "tensorflow", and Keras wi
 +
 转义符
 
+.. b''
++
+b表示bytes
+
 .. r'\\'
 +
 使用r后，引号内部的字符串不转义
@@ -940,13 +944,17 @@ class Student(object):
 ... 对于静态语言（例如Java）来说，如果需要传入Animal类型，则传入的对象必须是Animal类型或者它的子类，否则，将无法调用run()方法。
 ... 对于Python这样的动态语言来说，则不一定需要传入Animal类型。我们只需要保证传入的对象有一个run()方法就可以了。
 
-
 .. 获取对象信息
-
-
+... type()函数
+... isinstance()函数
+... dir()函数
++
+获得一个对象的所有属性和方法
+... 配合getattr()、setattr()以及hasattr()，可以直接操作一个对象的状态
 
 .. 实例属性和类属性
-
++
+不要把实例属性和类属性使用相同的名字，因为相同名称的实例属性将屏蔽掉类属性，但是当你删除实例属性后，再使用相同的名称，访问到的将是类属性。
 
 
 . 面向对象高级编程
@@ -954,23 +962,338 @@ class Student(object):
 （略）
 
 
-
 . 错误、调试和测试
 
+.. 错误处理
 
+... 错误处理
+
+.... 如果先捕获父类异常，子类异常将无法捕获。
+.... Python 3 内建 Exception 层次结构如下：
++
+----
+BaseException
+ +-- SystemExit
+ +-- KeyboardInterrupt
+ +-- GeneratorExit
+ +-- Exception
+      +-- StopIteration
+      +-- StopAsyncIteration
+      +-- ArithmeticError
+      |    +-- FloatingPointError
+      |    +-- OverflowError
+      |    +-- ZeroDivisionError
+      +-- AssertionError
+      +-- AttributeError
+      +-- BufferError
+      +-- EOFError
+      +-- ImportError
+           +-- ModuleNotFoundError
+      +-- LookupError
+      |    +-- IndexError
+      |    +-- KeyError
+      +-- MemoryError
+      +-- NameError
+      |    +-- UnboundLocalError
+      +-- OSError
+      |    +-- BlockingIOError
+      |    +-- ChildProcessError
+      |    +-- ConnectionError
+      |    |    +-- BrokenPipeError
+      |    |    +-- ConnectionAbortedError
+      |    |    +-- ConnectionRefusedError
+      |    |    +-- ConnectionResetError
+      |    +-- FileExistsError
+      |    +-- FileNotFoundError
+      |    +-- InterruptedError
+      |    +-- IsADirectoryError
+      |    +-- NotADirectoryError
+      |    +-- PermissionError
+      |    +-- ProcessLookupError
+      |    +-- TimeoutError
+      +-- ReferenceError
+      +-- RuntimeError
+      |    +-- NotImplementedError
+      |    +-- RecursionError
+      +-- SyntaxError
+      |    +-- IndentationError
+      |         +-- TabError
+      +-- SystemError
+      +-- TypeError
+      +-- ValueError
+      |    +-- UnicodeError
+      |         +-- UnicodeDecodeError
+      |         +-- UnicodeEncodeError
+      |         +-- UnicodeTranslateError
+      +-- Warning
+           +-- DeprecationWarning
+           +-- PendingDeprecationWarning
+           +-- RuntimeWarning
+           +-- SyntaxWarning
+           +-- UserWarning
+           +-- FutureWarning
+           +-- ImportWarning
+           +-- UnicodeWarning
+           +-- BytesWarning
+           +-- ResourceWarning
+----
++
+.... 使用try...except捕获错误可以跨越多层调用，不需要在每个可能出错的地方去捕获错误，只要在合适的层次去捕获就可以了。
+
+... 调用堆栈
++
+如果错误没有被捕获，它就会一直往上抛，最后被Python解释器捕获，打印一个错误信息，然后程序退出。
+
+... 记录错误
++
+内置logging模块
+
+... 抛出错误
++
+raise语句如果不带参数，就会把当前错误原样抛出。
+
+.. 调试
+
+... 调试
++
+直接使用 print() 打印可能有问题的变量
+
+... 断言
++
+如果断言失败，assert语句本身就会抛出AssertionError。
+启动Python解释器时可以用 -O 参数来关闭assert。
+
+... logging
++
+----
+import logging
+logging.basicConfig(level=logging.INFO)
+----
+.... 允许指定记录信息的级别，有debug，info，warning，error等几个级别。
+.... 通过简单的配置，一条语句可以同时输出到不同的地方，比如console和文件。
+
+... pdb
++
+----
+// 以参数-m pdb启动，单步执行
+python3 -m pdb err.py
+----
+
+.... l ：查看代码
+.... n ：单步执行
+.... p 变量名 ：查看变量
+.... q ：结束调试
+
+... pdb.set_trace()
++
+不需要单步执行，只需import pdb，在可能出错的地方放置pdb.set_trace()，就可以设置断点。
+
+... IDE
+
+.. 单元测试
+
+... Python自带unittest模块，举例如下：
+
+.... mydict.py
++
+----
+class Dict(dict):
+    def __init__(self, **kw):
+        super().__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+----
+
+.... mydict_test.py
++
+----
+import unittest
+
+from mydict import Dict
+
+
+class TestDict(unittest.TestCase):
+    def test_init(self):
+        d = Dict(a=1, b='test')
+        self.assertEqual(d.a, 1)
+        self.assertEqual(d.b, 'test')
+        self.assertTrue(isinstance(d, dict))
+
+    def test_key(self):
+        d = Dict()
+        d['key'] = 'value'
+        self.assertEqual(d.key, 'value')
+
+    def test_attr(self):
+        d = Dict()
+        d.key = 'value'
+        self.assertTrue('key' in d)
+        self.assertEqual(d['key'], 'value')
+
+    def test_keyerror(self):
+        d = Dict()
+        with self.assertRaises(KeyError):
+            value = d['empty']
+
+    def test_attrerror(self):
+        d = Dict()
+        with self.assertRaises(AttributeError):
+            value = d.empty
+
+
+if __name__ == '__main__':
+    unittest.main()
+----
+
+... setUp()和tearDown()
++
+.... 这两个方法会分别在每调用一个测试方法的前后分别被执行。
+.... 设想测试需要启动一个数据库，这时就可以在setUp()中连接数据库，在tearDown()中关闭数据库，这样不必在每个测试方法中重复相同的代码。
+
+.. 文档测试
++
+Python内置的“文档测试”（doctest）模块可以直接提取注释中的代码并执行测试。
++
+以下示例无输出，说明doctest都是正确的。如果有问题，比如把__getattr__()方法注释掉，再运行就会报错。
++
+----
+class Dict(dict):
+    '''
+    Simple dict but also support access as x.y style.
+
+    >>> d1 = Dict()
+    >>> d1['x'] = 100
+    >>> d1.x
+    100
+    >>> d1.y = 200
+    >>> d1['y']
+    200
+    >>> d2 = Dict(a=1, b=2, c='3')
+    >>> d2.c
+    '3'
+    >>> d2['empty']
+    Traceback (most recent call last):
+        ...
+    KeyError: 'empty'
+    >>> d2.empty
+    Traceback (most recent call last):
+        ...
+    AttributeError: 'Dict' object has no attribute 'empty'
+    '''
+    def __init__(self, **kw):
+        super(Dict, self).__init__(**kw)
+
+    def __getattr__(self, key):
+        try:
+            return self[key]
+        except KeyError:
+            raise AttributeError(r"'Dict' object has no attribute '%s'" % key)
+
+    def __setattr__(self, key, value):
+        self[key] = value
+
+if __name__=='__main__':
+    import doctest
+    doctest.testmod()
+----
 
 . IO编程
+
+.. 文件读写
+
+... 读文件
++
+----
+f = open('/Users/michael/test.txt', 'r')
+f.read()
+f.close()
+----
+标示符'r'表示读，如果文件不存在，open()函数就会抛出一个IOError的错误。
+如果文件打开成功，接下来调用read()方法可以一次读取文件的全部内容。
++
+----
+with open('/path/to/file', 'r') as f:
+    print(f.read())
+----
+.... 调用read()会一次性读取文件的全部内容，可反复调用read(size)方法，每次最多读取size个字节的内容。
+.... 调用readline()可以每次读取一行内容。
+.... 调用readlines()一次读取所有内容并按行返回list。
+
+... file-like Object
+.... 像open()函数返回的这种有个read()方法的对象，在Python中统称为file-like Object。
+.... file-like Object不要求从特定类继承，只要写个read()方法就行。
+.... StringIO就是在内存中创建的file-like Object，常用作临时缓冲。
+
+... 二进制文件
+要读取二进制文件，比如图片、视频等等，用'rb'模式打开文件即可：
++
+----
+>>> f = open('/Users/michael/test.jpg', 'rb')
+>>> f.read()
+b'\xff\xd8\xff\xe1\x00\x18Exif\x00\x00...' # 十六进制表示的字节
+----
+
+... 字符编码
+要读取非UTF-8编码的文本文件，需要给open()函数传入encoding参数，例如，读取GBK编码的文件：
++
+----
+>>> f = open('/Users/michael/gbk.txt', 'r', encoding='gbk')
+>>> f.read()
+'测试'
+----
+遇到编码不规范的文件，open()函数还接收一个errors参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：
++
+----
+f = open('/Users/michael/gbk.txt', 'r', encoding='gbk', errors='ignore')
+----
+
+... 写文件
+调用open()函数时，传入标识符'w'或者'wb'表示写文本文件或写二进制文件：
++
+----
+>>> f = open('/Users/michael/test.txt', 'w')
+>>> f.write('Hello, world!')
+>>> f.close()
+----
+操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，只有调用close()方法时，操作系统才保证把没有写入的数据全部写入磁盘。
++
+----
+with open('/Users/michael/test.txt', 'w') as f:
+    f.write('Hello, world!')
+----
+要写入特定编码的文本文件，需传入encoding参数。
+
+.. StringIO 和 BytesIO
++
+（略）
+
+.. 操作文件和目录
++
+Python内置的os模块可以直接调用操作系统提供的接口函数。
+
+
+
+
+.. 序列化
+
+
 
 
 
 . 进程和线程
-
-
-
++
+（略）
 
 . 正则表达式
-
-
++
+（略）
 
 . 常用内建模块
 
@@ -981,8 +1304,8 @@ class Student(object):
 
 
 . 图形界面
-
-
++
+（略）
 
 . 网络编程
 +
@@ -1084,11 +1407,12 @@ cursor.execute('select * from user where name=? and pwd=?', ('abc', 'password'))
 .. ORM框架SQLAlchemy
 
 . Web开发
-
-
++
+（略）
 
 . 异步IO
-
++
+（略）
 
 
 
