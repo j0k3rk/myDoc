@@ -1275,32 +1275,336 @@ with open('/Users/michael/test.txt', 'w') as f:
 （略）
 
 .. 操作文件和目录
+
+... Python内置的os模块可以直接调用操作系统提供的接口函数。一部分在os模块中，另一部分在os.path模块中。
 +
-Python内置的os模块可以直接调用操作系统提供的接口函数。
+----
+>>> import os
+>>> os.name
+>>> os.environ
+>>> os.environ.get('key')
 
+# 查看当前目录的绝对路径:
+>>> os.path.abspath('.')
+'/Users/michael'
+# 在某个目录下创建一个新目录，首先把新目录的完整路径表示出来:
+>>> os.path.join('/Users/michael', 'testdir')
+'/Users/michael/testdir'
+# 然后创建一个目录:
+>>> os.mkdir('/Users/michael/testdir')
+# 删掉一个目录:
+>>> os.rmdir('/Users/michael/testdir')
+----
 
+... 把两个路径合成一个时，不要直接拼字符串，而要通过os.path.join()函数，这样可以正确处理不同操作系统的路径分隔符。
+要拆分路径时，同理，要用os.path.split()函数。
++
+----
+>>> os.path.split('/Users/michael/testdir/file.txt')
+('/Users/michael/testdir', 'file.txt')
+----
 
+... os.path.splitext()可以直接得到文件扩展名：
++
+----
+>>> os.path.splitext('/path/to/file.txt')
+('/path/to/file', '.txt')
+----
++
+这些合并、拆分路径的函数并不要求目录和文件要真实存在，它们只对字符串进行操作。
+
+... 重命名和删除
++
+----
+# 对文件重命名:
+>>> os.rename('test.txt', 'test.py')
+# 删掉文件:
+>>> os.remove('test.py')
+----
+
+... 复制
+复制文件的函数在os模块中不存在！原因是复制文件并非由操作系统提供的系统调用。
+
+... shutil模块提供了copyfile()的函数，shutil模块中有很多实用函数，可以看做是os模块的补充。
+
+... 过滤文件
++
+----
+# 列出当前目录下的所有目录
+>>> [x for x in os.listdir('.') if os.path.isdir(x)]
+['.lein', '.local', '.m2', '.npm', '.ssh', '.Trash', '.vim', 'Applications', 'Desktop', ...]
+
+# 列出所有的.py文件
+>>> [x for x in os.listdir('.') if os.path.isfile(x) and os.path.splitext(x)[1]=='.py']
+['apis.py', 'config.py', 'models.py', 'pymonitor.py', 'test_db.py', 'urls.py', 'wsgiapp.py']
+----
 
 .. 序列化
 
+... Pickle
 
+.... 序列化在Python中叫pickling(腌渍)，在其他语言中也被称之为serialization，marshalling，flattening等等。
++
+----
+>>> import pickle
+>>> d = dict(name='Bob', age=20, score=88)
+>>> pickle.dumps(d)
+b'\x80\x03}q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x04\x00\x00\x00nameq\x03X\x03\x00\x00\x00Bobq\x04u.'
 
+>>> f = open('dump.txt', 'wb')
+>>> pickle.dump(d, f)
+>>> f.close()
+----
+
+.... 反序列化为unpickling。
++
+----
+>>> f = open('dump.txt', 'rb')
+>>> d = pickle.load(f)
+>>> f.close()
+>>> d
+{'age': 20, 'score': 88, 'name': 'Bob'}
+----
+
+.... Pickle只能用于Python，且不同版本可能彼此不兼容，因此只能用Pickle保存那些不重要的数据。
+
+... JSON
+要在不同的编程语言之间传递对象，就必须把对象序列化为标准格式，比如XML，但更好的方法是序列化为JSON。
+
+.... 类型对照表
++
+|===
+|JSON类型 |Python类型
+|{} |dict
+|[] |list
+|"string" |str
+|1234.56 |int或float
+|true/false |True/False
+|null | None
+|===
+
+.... 把Python对象变成一个JSON：
++
+----
+>>> import json
+>>> d = dict(name='Bob', age=20, score=88)
+>>> json.dumps(d)
+'{"age": 20, "score": 88, "name": "Bob"}'
+----
+
+.... 把JSON反序列化为Python对象
++
+----
+>>> json_str = '{"age": 20, "score": 88, "name": "Bob"}'
+>>> json.loads(json_str)
+{'age': 20, 'score': 88, 'name': 'Bob'}
+----
+
+.... JSON标准规定JSON编码是UTF-8
+
+.... 把类class序列化为JSON：
++
+----
+import json
+
+class Student(object):
+    def __init__(self, name, age, score):
+        self.name = name
+        self.age = age
+        self.score = score
+
+def student2dict(std):
+    return {
+        'name': std.name,
+        'age': std.age,
+        'score': std.score
+    }
+
+s = Student('Bob', 20, 88)
+print(json.dumps(s, default=student2dict))
+----
++
+上面的方法如果换一个类的实例，将无法序列化为JSON。把任意class的实例变为dict可用如下方法：
++
+----
+# 因为通常class的实例都有一个__dict__属性，它就是一个dict
+print(json.dumps(s, default=lambda obj: obj.__dict__))
+----
+
+.... 把JSON反序列化为一个类的对象实例，使用loads()方法：
++
+----
+def dict2student(d):
+    return Student(d['name'], d['age'], d['score'])
+
+json_str = '{"age": 20, "score": 88, "name": "Bob"}'
+print(json.loads(json_str, object_hook=dict2student))
+----
 
 
 . 进程和线程
 +
 （略）
 
+
 . 正则表达式
+
+.. 基础
 +
-（略）
+----
+\d      # 一个数字
+\w      # 一个字母或数字
+.       # 任意字符
+*       # 任意个字符（包括0个）
++       # 至少一个字符
+?       # 0个或1个字符
+{n}     # n个字符
+{n,m}   # n-m个字符
+----
+
+.. 进阶
++
+----
+[]      # 范围
+[0-9a-zA-Z\_]   # 匹配一个数字、字母或者下划线
+
+A|B     # 匹配A或B
+(P|p)ython  # 可以匹配'Python'或者'python'
+
+^       # 行的开头
+^\d     # 必须以数字开头
+
+$       # 行的结束
+\d$     # 表示必须以数字结束
+----
+
+.. re模块
++
+match()方法判断是否匹配，如果匹配成功，返回一个Match对象，否则返回None。
+
+.. 切分字符串
++
+----
+>>> 'a b   c'.split(' ')
+['a', 'b', '', '', 'c']
+
+>>> re.split(r'\s+', 'a b   c')
+['a', 'b', 'c']
+
+>>> re.split(r'[\s\,\;]+', 'a,b;; c  d')
+['a', 'b', 'c', 'd']
+----
+
+.. 分组
++
+用()表示要提取的分组（Group）：
++
+----
+>>> m = re.match(r'^(\d{3})-(\d{3,8})$', '010-12345')
+>>> m
+<_sre.SRE_Match object; span=(0, 9), match='010-12345'>
+>>> m.group(0)
+'010-12345'
+>>> m.group(1)
+'010'
+>>> m.group(2)
+'12345'
+----
++
+group(0)是原始字符串，group(1)、group(2)……表示第1、2、……个子串。
+
+.. 贪婪匹配
++
+正则匹配默认是贪婪匹配，也就是匹配尽可能多的字符。举例如下，匹配出数字后面的0：
++
+----
+>>> re.match(r'^(\d+)(0*)$', '1002300').groups()
+('1002300', '')
+----
++
+加个?就可以让\d+采用非贪婪匹配：
++
+----
+>>> re.match(r'^(\d+?)(0*)$', '1002300').groups()
+('10023', '00')
+----
+
+.. 编译
+
+... 在Python中使用正则表达式时，re模块内部会干两件事情：
+.... 编译正则表达式，如果正则表达式的字符串本身不合法，会报错；
+.... 用编译后的正则表达式去匹配字符串。
+
+... 如果一个正则表达式要重复使用几千次，出于效率考虑，可以预编译该表达式：
++
+----
+>>> import re
+# 编译:
+>>> re_telephone = re.compile(r'^(\d{3})-(\d{3,8})$')
+# 使用：
+>>> re_telephone.match('010-12345').groups()
+('010', '12345')
+>>> re_telephone.match('010-8086').groups()
+('010', '8086')
+----
+
 
 . 常用内建模块
+
+.. datetime
+
+
+
+.. collections
+
+
+
+
+.. base64
+
+
+
+
+.. struct
+
+
+
+
+.. hashlib
+
+
+
+
+
+.. itertools
+
+
+
+.. contextlib
+
+
+
+
+.. XML
+
+
+
+
+.. HTMLParser
+
+
+
+.. urllib
+
 
 
 
 . 常用第三方模块
 
+.. PIL
+
+
+. virtualenv
 
 
 . 图形界面
