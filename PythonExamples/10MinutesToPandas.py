@@ -1,7 +1,8 @@
 # coding=UTF-8
 
-# coding=UTF-8
-
+# refer to:
+# （1）翻译：http://www.cnblogs.com/chaosimple/p/4153083.html
+# （2）原文：http://pandas.pydata.org/pandas-docs/stable/10min.html
 
 import pandas as pd
 import numpy as np
@@ -199,6 +200,176 @@ s = pd.Series(np.random.randint(0, 7, size=10))
 s = pd.Series(['A', 'B', 'C', 'Aaba', 'Baca', np.nan, 'CABA', 'dog', 'cat'])
 # print(s.str.lower())
 
-# 合并
+# --- 合并 -----------------------------------------------------------------
 
-#
+# Concat
+df = pd.DataFrame(np.random.randn(10, 4))
+# print(df)
+pieces = [df[:3], df[3:7], df[7:]]
+# print(pd.concat(pieces))
+
+# Join 类似于SQL类型的合并
+left = pd.DataFrame({'key': ['foo', 'foo'], 'lval': [1, 2]})
+right = pd.DataFrame({'key': ['foo', 'foo'], 'rval': [4, 5]})
+# print(left)
+# print(right)
+# print(pd.merge(left, right, on='key'))
+left = pd.DataFrame({'key': ['foo', 'bar'], 'lval': [1, 2]})
+right = pd.DataFrame({'key': ['foo', 'bar'], 'rval': [4, 5]})
+# print(left)
+# print(right)
+# print(pd.merge(left, right, on='key'))
+
+# Append 将一行连接到一个DataFrame上
+df = pd.DataFrame(np.random.randn(8, 4), columns=['A', 'B', 'C', 'D'])
+# print(df)
+s = df.iloc[3]
+# print(s)
+# print(df.append(s, ignore_index=True))
+
+# --- 分组 ------------------------------------------------------------------
+
+# 对于”group by”操作，我们通常是指以下一个或多个操作步骤：
+# · （Splitting）按照一些规则将数据分为不同的组
+# · （Applying）对于每组数据分别执行一个函数
+# · （Combining）将结果组合到一个数据结构中
+df = pd.DataFrame({'A': ['foo', 'bar', 'foo', 'bar',
+                          'foo', 'bar', 'foo', 'foo'],
+                   'B': ['one', 'one', 'two', 'three',
+                          'two', 'two', 'one', 'three'],
+                   'C': np.random.randn(8),
+                   'D': np.random.randn(8)})
+# print(df)
+
+# 分组并对每个分组执行sum函数
+# print(df.groupby('A').sum())
+
+# 通过多个列进行分组形成一个层次索引，然后执行函数
+# print(df.groupby(['A', 'B']).sum())
+
+# --- Reshaping -----------------------------------------------------------
+
+# Stack
+tuples = list(zip(*[['bar', 'bar', 'baz', 'baz',
+                     'foo', 'foo', 'qux', 'qux'],
+                    ['one', 'two', 'one', 'two',
+                     'one', 'two', 'one', 'two']]))
+index = pd.MultiIndex.from_tuples(tuples, names=['first', 'second'])
+# print(index)
+df = pd.DataFrame(np.random.randn(8, 2), index=index, columns=['A', 'B'])
+# print('-- df --')
+# print(df)
+df2 = df[:4]
+# print('-- df2 --')
+# print(df2)
+stacked = df2.stack()
+# print('-- stacked --')
+# print(stacked)
+# print('-- stacked.unstack() --')
+# print(stacked.unstack())
+# print('-- stacked.unstack(1) --')
+# print(stacked.unstack(1))
+# print('-- stacked.unstack(0) --')
+# print(stacked.unstack(0))
+
+# 数据透视表
+df = pd.DataFrame({'A': ['one', 'one', 'two', 'three'] * 3,
+                   'B': ['A', 'B', 'C'] * 4,
+                   'C': ['foo', 'foo', 'foo', 'bar', 'bar', 'bar'] * 2,
+                   'D': np.random.randn(12),
+                   'E': np.random.randn(12)})
+# print(df)
+# print(pd.pivot_table(df, values='D', index=['A', 'B'], columns=['C']))
+
+# --- 时间序列 ----------------------------------------------------------
+
+rng = pd.date_range('1/1/2012', periods=100, freq='S')
+# print(rng)
+ts = pd.Series(np.random.randint(0, 500, len(rng)), index=rng)
+# print(ts)
+# print(ts.resample('5Min').sum())
+
+# 时区表示
+rng = pd.date_range('3/6/2012 00:00', periods=5, freq='D')
+ts = pd.Series(np.random.randn(len(rng)), rng)
+# print(ts)
+ts_utc = ts.tz_localize('UTC')
+# print(ts_utc)
+
+# 时区转换
+# print(ts_utc.tz_convert('US/Eastern'))
+
+# 时间跨度转换
+rng = pd.date_range('1/1/2012', periods=5, freq='M')
+ts = pd.Series(np.random.randn(len(rng)), index=rng)
+# print(ts)
+ps = ts.to_period()
+# print(ps)
+# print(ps.to_timestamp())
+
+# 时期和时间戳之间的转换使得可以使用一些方便的算术函数
+prng = pd.period_range('1990Q1', '2000Q4', freq='Q-NOV')
+# print(prng)
+ts = pd.Series(np.random.randn(len(prng)), prng)
+ts.index = (prng.asfreq('M', 'e') + 1).asfreq('H', 's') + 9
+# print(ts.head())
+
+# --- Categoricals -----------------------------------------------
+
+df = pd.DataFrame({"id": [1, 2, 3, 4, 5, 6], "raw_grade": ['a', 'b', 'b', 'a', 'a', 'e']})
+# print(df)
+
+# 将原始的grade转换为Categorical数据类型
+df["grade"] = df["raw_grade"].astype("category")
+# print(df)
+# print(df["grade"])
+
+# 将Categorical类型数据重命名为更有意义的名称
+df["grade"].cat.categories = ["very good", "good", "very bad"]
+# print(df)
+
+# 对类别进行重新排序，增加缺失的类别
+df["grade"] = df["grade"].cat.set_categories(["very bad", "bad", "medium", "good", "very good"])
+# print(df)
+# print(df["grade"])
+
+# 排序是按照Categorical的顺序进行的而不是按照字典顺序进行
+# print(df.sort_values(by="grade"))
+
+# 对Categorical列进行排序时存在空的类别
+# print(df.groupby("grade").size())
+
+# --- 画图 -------------------------------------------------------------------
+
+ts = pd.Series(np.random.randn(1000), index=pd.date_range('1/1/2000', periods=1000))
+# print(ts)
+ts = ts.cumsum()
+# print(ts)
+# ts.plot()
+# plt.show()
+
+df = pd.DataFrame(np.random.randn(1000, 4), index=ts.index,
+                  columns=['A', 'B', 'C', 'D'])
+df = df.cumsum()
+# df.plot()
+# plt.legend(loc='best')
+# plt.show()
+
+# --- 导入和保存数据 ----------------------------------------------------------
+
+# 写入csv文件
+# df.to_csv('foo.csv')
+# 从csv文件中读取
+# print(pd.read_csv('foo.csv'))
+
+# 写入HDF5存储
+# df.to_hdf('foo.h5', 'df')
+# 从HDF5存储中读取
+# print(pd.read_hdf('foo.h5', 'df'))
+
+#  写入excel文件
+# df.to_excel('foo.xlsx', sheet_name='Sheet1')
+# 从excel文件中读取
+# print(pd.read_excel('foo.xlsx', 'Sheet1', index_col=None, na_values=['NA']))
+
+
