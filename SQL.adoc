@@ -1,5 +1,54 @@
 
-=== SQL深入理解
+=== 通用
 
 . SQL Joins
 image:images/SQL-Joins.jpg[SQL Joins]
+
+
+=== T-SQL
+
+(【AdventureWorks2012】作为示例数据库)
+
+. 日期/时间
+----
+
+-- 本月第1天
+SELECT DATEADD(s,0,DATEADD(mm, DATEDIFF(m,0,getdate()),0))
+
+-- 本月最后1天
+SELECT DATEADD(s,-1,DATEADD(mm, DATEDIFF(m,0,GETDATE())+1,0))
+
+-- 本年第1天
+SELECT DATEADD(yy, DATEDIFF(yy,0,getdate()), 0)
+
+-- 本年最后1天
+SELECT DATEADD(dd,-1,DATEADD(yy,0,DATEADD(yy,DATEDIFF(yy,0,getdate())+1,0)))
+
+-- 数字2代表第2个字段
+select ProductID, Name, ProductNumber, Color, Size, ListPrice
+from Production.Product
+order by 2
+
+-- 在查询结果中，将null转换为空
+select ProductID, Name, ProductNumber, isnull(Color, ''), isnull(Size, ''), ListPrice
+from Production.Product
+
+-- Like通配符：% 和 _
+select * from Production.Product
+where name like '%Mountain%'
+select * from Production.Product
+where name like '_ountain%'
+
+-- in
+select * from Production.Product
+where color in ('red','white','black')
+
+-- 聚合函数示例
+select SalesPersonID,OrderDate,Max(TotalDue) as MaximumTotalSales
+from Sales.SalesOrderHeader
+where SalesPersonID is not null and OrderDate >= '2007/1/1'
+group by salesPersonID,OrderDate
+having Max(TotalDue)>150000
+order by OrderDate desc
+
+----

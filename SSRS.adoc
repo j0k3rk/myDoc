@@ -1,4 +1,24 @@
-=== For VS2013
+=== VS2013报表设计
+
+. 日期/时间
++
+----
+
+-- 本月第1天
+Today.AddDays(1-Today.Day)
+
+-- 本月最后1天
+Today.AddDays(1-Today.Day).AddMonths(1).AddDays(-1)
+
+-- 本年第1天
+Today.AddMonths(1-Today.month).AddDays(1-Today.day)
+
+-- 本年最后1天
+Today.AddDays(1-Today.Day).AddMonths(13-today.month).AddDays(-1)
+
+----
+
+
 . 新建报表时长和宽默认以英寸(inch)为单位，如何默认以厘米(cm)为单位？
 +
 => 针对手动创建的报表，可在以下路径查找 Report.rdl 模板：

@@ -1,3 +1,8 @@
+=== git使用流程参考
+（ref: http://www.ruanyifeng.com/blog/2015/08/git-use-process.html）
+
+image:images/git-process.png[git process]
+
 
 === 文件状态变化周期
 
