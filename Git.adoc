@@ -216,6 +216,10 @@ git add README
 git push origin serverfix
 // 推送本地分支到远程不同名分支
 git push origin serverfix:awesomebranch
+
+// 创建远程空白仓库后，可用如下命令推送本地项目到远程。
+git remote add origin url
+git push -u origin master
 ----
 +
 [red yellow-background]*删除远程分支：*
@@ -238,8 +242,8 @@ git push origin :serverfix
 // 查询远程地址（v:verbose）
 git remote -v
 
-// 增加远程仓库
-git remote add origin http://REMOTE_SERVER:PORT/tfs/Collection/_git/YOUR_PROJECT
+// 增加远程仓库(以TFS为例)
+git remote add origin http://REMOTE_SERVER:PORT/tfs/YOUR_Collection/_git/YOUR_PROJECT
 
 // 移除远程仓库
 git remote remove origin
