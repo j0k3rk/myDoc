@@ -1,0 +1,9 @@
+
+.Plugins
+|===
+|插件名 |可用IDE |实用IDE |备注
+|AsciiDoc |-MPS |PyCharm |-MPS：除MPS以外的所有产品
+|CodeGlance |-MPS |DataGrip, PyCharm |
+|RegexpTester |-MPS |PyCharm |
+|String Manipulation |-MPS |DataGrip, PyCharm |
+|===
