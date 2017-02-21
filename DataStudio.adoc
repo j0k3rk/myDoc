@@ -1,0 +1,46 @@
+=== IBM Data Studio v4.1.2
+
+. 安装完成后无法启动，错误日志举例如下：
++
+----
+!ENTRY org.eclipse.equinox.registry 2 0 2017-02-21 10:31:38.280
+!MESSAGE 忽略了捆绑软件“com.ibm.datatools.attributesexplorer.nl1”中的扩展和扩展点。捆绑软件未被标记为单一捆绑软件。
+----
++
+解决方法参考：https://www.ibm.com/developerworks/community/forums/html/topic?id=a29fda4a-5ec8-4380-9400-b03c385a0f70
+
+.. 第一回处理
+... Entry command line (cmd)
+... input Data Studio installation path,for example:
++
+----
+cd C:\Program Files\IBM\DS4.1.2
+----
+... input command: 'eclipse.exe -data workspace path',for example:
++
+----
+eclipse.exe -data C:\yangchaorui_work\Data Studio\workspace_test
+----
+
+.. 第二回处理
+... cmd
+... entry your Data Studio installation path, for example:
++
+----
+cd C:\Program Files\IBM\DS4.1.2
+----
+... input 'eclipse -configuration validpath'. For example:
++
+----
+eclipse -configuration C:\Program Files\IBM\DS4.1.2
+----
+
+.. [red]*第三回处理*
+... Add one line
++
+----
+-Dequinox.ds.block_timeout=60000
+----
+at bottom of the file 'eclipse.ini' that located in the 'C:\Program Files\IBM\DS4.1.2'.
+... Specify the workspace path without special sign like '#'
+... Delete all files(.fileTable.*) which located in the 'C:\Program Files\IBM\DS4.1.2\configuration\org.eclipse.osgi\.manager'.
