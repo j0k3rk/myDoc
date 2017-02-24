@@ -10,6 +10,7 @@ image:images/SQL-Joins.jpg[SQL Joins]
 (【AdventureWorks2012】作为示例数据库)
 
 . 日期/时间
++
 ----
 
 -- 本月第1天
@@ -51,6 +52,37 @@ group by salesPersonID,OrderDate
 having Max(TotalDue)>150000
 order by OrderDate desc
 
+----
+
+. 数据库日志文件清理
++
+----
+declare @DB varchar(20),@FLog varchar(20),@SQL varchar(8000)
+Select @DB=Name From Master..SysDataBases Where DbId=(Select Dbid From Master..SysProcesses Where Spid = @@spid)
+select @FLog = FILE_NAME(2)
+
+set @SQL = 'USE '+@DB + CHAR(10)
+          --+'GO ' + CHAR(10)
+          +'ALTER DATABASE ' +@DB+ ' SET RECOVERY '+ CHAR(10)
+          +'SIMPLE WITH NO_WAIT '+ CHAR(10)
+          --+'GO '+CHAR(10)
+          +'ALTER DATABASE ' +@DB+ ' SET RECOVERY '+ CHAR(10)
+          +'SIMPLE '+ CHAR(10)
+          --+'GO '+ CHAR(10)
+          + 'USE '+@DB + CHAR(10)
+          --+'GO ' + CHAR(10)
+          +'DBCC SHRINKFILE(N'''+@FLog+''',1,TRUNCATEONLY) '+ CHAR(10)
+          --+'GO ' + CHAR(10)
+          +'USE '+@DB + CHAR(10)
+         -- +'GO ' + CHAR(10)
+          +'ALTER DATABASE '+@DB +' SET RECOVERY FULL '+ CHAR(10)
+          +'WITH NO_WAIT '+ CHAR(10)
+         -- +'GO ' +CHAR(10)
+          +'ALTER DATABASE '+@DB +' SET RECOVERY FULL '+ CHAR(10)
+          --+'GO '
+
+PRINT(@SQL)
+EXEC(@SQL)
 ----
 
 
