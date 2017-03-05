@@ -1,0 +1,66 @@
+=== Shadowsocks Setup
+
+. VPS安装
++
+选择CentOS 7 x64
+
+. SSH远程登录
+
+. Shadowsocks安装
++
+----
+yum install m2crypto python-setuptools
+
+easy_install pip
+
+pip install shadowsocks
+----
+
+. Shadowsocks设置
+.. 用vi打开配置文件
++
+----
+vi  /etc/shadowsocks.json
+----
+
+.. 编辑内容
++
+----
+{
+    "server":"Your_VPS_IP",
+    "server_port":Your_VPS_Port,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"Your_Shadowsocks_Password",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+----
+【Insert】插入编辑，【Esc】退出编辑，“:wq”保存退出
+
+. 防火墙安装
++
+----
+yum install firewalld
+
+systemctl start firewalld
+----
+
+. 防火墙设置
++
+----
+firewall-cmd --permanent --zone=public --add-port=Your_VPS_Port/tcp
+
+firewall-cmd --reload
+----
+
+. Shadowsocks启动
++
+----
+# 前台运行
+ssserver -c /etc/shadowsocks.json
+
+# 或 后台运行
+nohup ssserver -c /etc/shadowsocks.json &
+----
