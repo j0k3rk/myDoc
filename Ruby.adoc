@@ -1,0 +1,81 @@
+=== Jekyll 3 on Windows 安装配置
+(ref:https://labs.sverrirs.com/jekyll/)
+
+. Ruby
+
+.. 下载安装 RubyInstaller
+... 下载时注意版本和架构（32bit/64bit），建议用 32bit 的，以确保所有 gem 不出兼容性问题。
+... 安装时注意勾选 “Add Ruby executables to your PATH”。
+
+.. 下载解压 RubyDevKit
+... 注意目录名为纯英文，不要有空格，例如：C:\RubyDevKit
+
+.. 执行以下命令，完成初始化。
++
+----
+cd C:\RubyDevKit
+
+ruby dk.rb init
+ruby dk.rb review   # 确认结果用，可以不执行。
+
+ruby dk.rb install
+----
+
+. Jekyll
++
+----
+gem install jekyll bundler
+gem install --http-proxy http://USER:PASSWORD@PROXY.ADDRESS:PORT jekyll bundler     # 代理环境下使用
+
+gem install jekyll-paginate-v2
+gem install jekyll-feed
+gem install jekyll-gist
+----
+
+. Syntax Highlighter
++
+----
+gem install rouge
+----
+
+. Markdown
++
+----
+gem install markdown
+----
+
+. Watch
++
+----
+gem install wdm
+
+gem list | findstr listen
+----
+.. Windows 环境下 Gemfile 文件末尾需追加：
++
+----
+gem 'wdm', '~> 0.1.0' if Gem.win_platform?
+----
+
+. Run
++
+在 _config.yml 文件中追加：
++
+----
+encoding: bom|utf-8
+
+encoding: utf-8
+----
++
+使用如下语句运行：
++
+----
+bundle exec jekyll serve
+
+jekyll build
+jekyll build --watch
+jekyll build -w
+jekyll serve
+jekyll serve --watch
+jekyll serve -w
+----
