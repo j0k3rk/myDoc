@@ -1,0 +1,58 @@
+=== Oracle Instant Client 安装配置
+
+. 在 Oracle 官网下载 Basic 和 ODBC 包。（BasicLite不支持中文）
+
+. 解压缩到同一目录下，例如：C:\Oracle\instantclient_11_2
+
+. 系统环境变量
+.. 创建 TNS_ADMIN，值为 Oracle 目录。
+.. 将 Oracle 目录添加到 PATH 变量中。
+
+. 配置文件
+
+.. 在 Oracle 根目录下，新建文件 tnsnames.ora ，其内容举例如下：
++
+----
+MY_ORACLE_SOURCE =
+    (DESCRIPTION =
+        (ADDRESS_LIST =
+            (ADDRESS =
+                (PROTOCOL = TCP)
+                (HOST = hostname)
+                (PORT = portnum))
+        )
+        (CONNECT_DATA =
+            (SID = XE) (SERVER = DEDICATED)
+        )
+    )
+----
++
+----
+MY_ORACLE_SOURCE =
+  (DESCRIPTION =
+    (FAILOVER = ON)
+	  (ADDRESS_LIST =
+        (ADDRESS =
+		  (PROTOCOL = TCP)
+		  (HOST = hostname1)
+		  (PORT = portnum1))
+        (ADDRESS =
+		  (PROTOCOL = TCP)
+		  (HOST = hostname2)
+		  (PORT = portnum2))
+      )
+    (CONNECT_DATA =
+      (SID = XXX)
+    )
+  )
+----
+
+.. 新建文件 sqlnet.ora（是否必需？） ，内容如下：
++
+----
+TCP.CONNECT_TIMEOUT=5
+----
+
+. （以管理员身份）打开命令行 cmd ，进入 Oracle 目录，执行 odbc_install
+
+. 打开数据源（ODBC）管理工具，配置并测试是否连通。
