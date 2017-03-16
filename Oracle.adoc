@@ -56,3 +56,13 @@ TCP.CONNECT_TIMEOUT=5
 . （以管理员身份）打开命令行 cmd ，进入 Oracle 目录，执行 odbc_install
 
 . 打开数据源（ODBC）管理工具，配置并测试是否连通。
+
+=== 常见问题
+
+. oci.dll 无法删除
++
+使用如下命令停止服务后再试：
++
+----
+net stop msdtc
+----
