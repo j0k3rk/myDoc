@@ -1,3 +1,29 @@
+=== 常用语句
+
+. 系统表/视图
++
+----
+-- 组件版本
+select * from v$version;
+
+-- 区域/语言支持
+select * from nls_database_parameters;
+
+-- select * from user_role_privs;
+-- select * from session_privs;
+-- select * from user_sys_privs;
+
+-- 当前用户被授权的表
+select * from user_tab_privs;
+----
+
+. 密码修改
++
+----
+alter user USER_NAME identified by NEW_PASSWORD;
+----
+
+
 === Oracle Instant Client 安装配置
 
 . 在 Oracle 官网下载 Basic 和 ODBC 包。（BasicLite不支持中文）
