@@ -85,6 +85,21 @@ PRINT(@SQL)
 EXEC(@SQL)
 ----
 
+. 删除数据库所有表中的数据
++
+----
+CREATE PROCEDURE sp_DeleteAllData
+AS
+EXEC sp_MSForEachTable 'ALTER TABLE ? NOCHECK CONSTRAINT ALL'
+EXEC sp_MSForEachTable 'ALTER TABLE ? DISABLE TRIGGER ALL'
+EXEC sp_MSForEachTable 'DELETE FROM ?'
+EXEC sp_MSForEachTable 'ALTER TABLE ? CHECK CONSTRAINT ALL'
+EXEC sp_MSForEachTable 'ALTER TABLE ? ENABLE TRIGGER ALL'
+EXEC sp_MSFOREACHTABLE 'SELECT * FROM ?'
+GO
+
+Exec sp_DeleteAllData
+----
 
 === SQL优化技巧
 （ref：《DB2 SQL性能调优秘笈》）
