@@ -17,6 +17,14 @@ ssl_verify: False
 ----
 conda list
 conda install package-name
+conda config --show
+----
+
+. 需额外安装的常用包
++
+----
+conda install seaborn
+conda install basemap
 ----
 
 === Keras
