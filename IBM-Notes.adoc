@@ -1,0 +1,47 @@
+=== ACL
+
+[cols="^.^,^.^,^.^,^.^,^.^,^.^,^.^"]
+|===
+|权限 |作者域 |读者域 |作者 |读者 |写 |读
+
+
+.9+|管理者/设计者/编辑者 .6+|有 .4+|有 |Y |Y .3+|OK .3+|OK
+|Y |N
+|N |Y
+|N |N |[red yellow-background]*NG* |[red yellow-background]*NG*
+.2+|无 |Y |- .2+|OK .2+|OK
+|N |-
+.3+|无 .2+|有 |- |Y |OK |OK
+|- |N |[red yellow-background]*NG* |[red yellow-background]*NG*
+|无 |- |- |OK |OK
+
+
+.9+|作者 .6+|有 .4+|有 |Y |Y .2+|OK .3+|OK
+|Y |N
+|N |Y |[red blue-background]*NG*
+|N |N |[red yellow-background]*NG* |[red yellow-background]*NG*
+.2+|无 |Y |- |OK .2+|OK
+|N |- |[red blue-background]*NG*
+.3+|无 .2+|有 |- |Y |[red blue-background]*NG* |OK
+|- |N |[red yellow-background]*NG* |[red yellow-background]*NG*
+|无 |- |- |[red blue-background]*NG* |OK
+
+
+.9+|读者 .6+|有 .4+|有 |Y |Y .9+|[red blue-background]*NG* .3+|OK
+|Y |N
+|N |Y
+|N |N |[red yellow-background]*NG*
+.2+|无 |Y |- .3+|OK
+|N |-
+.3+|无 .2+|有 |- |Y
+|- |N |[red yellow-background]*NG*
+|无 |- |- |OK
+
+
+|存放者 |* |* |* |* |[red blue-background]*NG* |[red blue-background]*NG*
+
+
+|无访问权限 |* |* |* |* |[red blue-background]*NG* |[red blue-background]*NG*
+
+
+|===
