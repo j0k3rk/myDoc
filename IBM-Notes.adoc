@@ -18,16 +18,16 @@
 
 .9+|作者 .6+|有 .4+|有 |Y |Y .2+|OK .3+|OK
 |Y |N
-|N |Y |[red blue-background]*NG*
+|N |Y |[blue]*NG*
 |N |N |[red yellow-background]*NG* |[red yellow-background]*NG*
 .2+|无 |Y |- |OK .2+|OK
-|N |- |[red blue-background]*NG*
-.3+|无 .2+|有 |- |Y |[red blue-background]*NG* |OK
+|N |- |[blue]*NG*
+.3+|无 .2+|有 |- |Y |[blue]*NG* |OK
 |- |N |[red yellow-background]*NG* |[red yellow-background]*NG*
-|无 |- |- |[red blue-background]*NG* |OK
+|无 |- |- |[blue]*NG* |OK
 
 
-.9+|读者 .6+|有 .4+|有 |Y |Y .9+|[red blue-background]*NG* .3+|OK
+.9+|读者 .6+|有 .4+|有 |Y |Y .9+|[blue]*NG* .3+|OK
 |Y |N
 |N |Y
 |N |N |[red yellow-background]*NG*
@@ -38,10 +38,36 @@
 |无 |- |- |OK
 
 
-|存放者 |* |* |* |* |[red blue-background]*NG* |[red blue-background]*NG*
+|存放者 |* |* |* |* |[blue]*NG* |[blue]*NG*
 
 
-|无访问权限 |* |* |* |* |[red blue-background]*NG* |[red blue-background]*NG*
+|无访问权限 |* |* |* |* |[blue]*NG* |[blue]*NG*
 
 
 |===
+
+
+=== 异常
+
+. 邮件归档时报错：
++
+----
+Notes error: This server is not permitted to passthru to the specified server
+----
++
+解决方法：创建代理，删除"archive profile"
++
+----
+Dim se  As New NotesSession
+Dim db  As NotesDatabase
+Dim doc As NotesDocument
+
+Set db = se.CurrentDatabase
+Set doc = db.GetProfileDocument("archive profile")
+
+If doc.RemovePermanently(True) = True Then
+	Msgbox("The archive profile document is removed!")
+Else
+	Msgbox("Error!")
+End If
+----
