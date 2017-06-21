@@ -1,3 +1,26 @@
+=== NotesSQL
+. 32位/64位选择
++
+驱动程序有32位和64位之分，安装时机器上应有Notes客户端或Domino服务端，并据此进行选择。
+
+.. 目前Notes客户端都是32位的，Domino服务端既有32位的，也有64位的。
+
+. Notes SQL 语句示例
+
+.. SQL关键字统一用大写，表名、字段名等大小写敏感。
++
+----
+SELECT * FROM MainqViewqAll MainqViewqAll
+----
+
+.. 使用表的别名、字段名为特殊保留字时，应使用双引号包裹。
++
+----
+SELECT "Date", "Week", DateType, Category, Total
+FROM "f_ReportD" rd
+WHERE "Date" >= 20170101
+----
+
 === ACL
 
 [cols="^.^,^.^,^.^,^.^,^.^,^.^,^.^"]
@@ -46,6 +69,31 @@
 
 |===
 
+=== XPages
+
+. 源代码
+
+.. ${ 开头，表示只在页面载入时计算一次。#{ 开头，表示每次访问时都会被计算。
++
+----
+propertyName="${<language>:<expression>}"
+propertyName="#{<language>:<expression>}"
+----
+
+.. MaskConverter
++
+[cols="^.^,^.^"]
+|===
+|掩码字符 |描述
+|# |任何有效小数（使用Character.isDigit）
+|' |用来跳过任意特殊格式字符
+|U |所有的小写字母映射为大写（使用Character.isLetter）
+|L |所有的大写字母映射为小写（使用Character.isLetter）
+|A |任何有效的十进制数或字母（使用Character.isDigit和Character.isLetter）
+|? |任何一个字母
+|* |任何字符
+|H |任何有效的十六进制字符（0~9、a~f或A~F）
+|===
 
 === 异常
 
