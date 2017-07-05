@@ -25,6 +25,7 @@ conda config --show
 ----
 conda install seaborn
 conda install basemap
+conda install -c conda-forge scrapy
 ----
 
 === Keras
@@ -77,6 +78,16 @@ Simply change the field backend to either "theano" or "tensorflow", and Keras wi
 |diff | 计算一阶差分（对时间序列很有用）
 |pct_change | 计算百分数变化
 |===
+
+=== PyWin32
+
+. 版本、32/64位选择
++
+以Python的版本为准，例如64位Windows安装了32位的Python，PyWin32应安装32位的版本。
+
+=== Scrapy
+
+. 常见问题（ref: https://doc.scrapy.org/en/latest/faq.html）
 
 
 === 备忘知识点
