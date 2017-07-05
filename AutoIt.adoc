@@ -1,0 +1,50 @@
+== AutoIt（版本v3.3.14.0），参考 autoitx.com 中文版（v3.3.5.5 beta）
+
+=== FAQ
+
+. 变量输出
++
+----
+// 方法1
+MsgBox(0, "示例", "我的变量是" & $msg)
+
+// 方法2
+$msg = StringFormat("变量1是 %s, 变量2是 %s, 变量3是 %s, V变量4是 %s, 变量5是 %s", $var1, $var2, $var3, $var4, $var5)
+MsgBox(0, "示例", $msg)
+----
+
+. Send()函数
++
+! ^ + {SPACE} 等特殊字符,将会被解释为特殊的键击动作，这种情况下使用 Send() 函数的原文模式。
++
+----
+Send($myvar, 1)
+----
+
+. 使用热键退出脚本
++
+按下CTRL+ALT+x后退出脚本:
++
+----
+HotKeySet("^!x", "MyExit")
+...
+...
+; 其它代码
+...
+...
+Func MyExit()
+    Exit
+EndFunc
+----
+
+. 确保只有一个脚本实例运行
+.. 使用 _Singleton() 函数
+.. 在脚本首次运行时重命名(隐藏的)AutoIt窗口的标题.然后在同一脚本中检查该窗口标题是否存在——如果存在则说明另外一个脚本副本正在运行.
++
+----
+; 请置于脚本顶部
+$g_szVersion = "我的脚本"
+If WinExists($g_szVersion) Then Exit ; 此脚本已经运行了
+AutoItWinSetTitle($g_szVersion)
+; 下面是脚本的其它代码
+----
