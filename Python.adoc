@@ -89,6 +89,11 @@ Simply change the field backend to either "theano" or "tensorflow", and Keras wi
 
 . 常见问题（ref: https://doc.scrapy.org/en/latest/faq.html）
 
+. 创建新项目
++
+----
+scrapy startproject myproject
+----
 
 === 备忘知识点
 
