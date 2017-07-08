@@ -2,7 +2,7 @@
 === 通用
 
 . SQL Joins
-image:images/SQL-Joins.jpg[SQL Joins]
+image:images/sql_joins.jpg[SQL Joins]
 
 
 === T-SQL

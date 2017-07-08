@@ -1,15 +1,21 @@
 === git使用流程参考
 （ref: http://www.ruanyifeng.com/blog/2015/08/git-use-process.html）
 
-image:images/git-process.png[git process]
+image:images/git_process.png[git process]
 
 
 === 文件状态变化周期
 
-image:images/file_status_lifecycle.png[file status lifecycle]
+image:images/git_file_status_lifecycle.png[file status lifecycle]
 
 === git命令
 
+. add
++
+----
+// 指定参数“.”，可以把所有的文件加入到索引。
+git add .
+----
 
 . branch
 +
@@ -86,6 +92,24 @@ git last
 git config --global alias.visual '!gitk'
 ----
 
+.. color
++
+----
+// 让Git以彩色显示
+git config --global color.ui auto
+----
+
+.. core
++
+----
+// 如果提交信息包含非ASCII字符，不要使用 -m 选项，而要用外部编辑器输入。
+// 外部编辑器必须能与字符编码 UTF-8 和换行码 LF 兼容。
+git config --global core.editor "\"[编辑器的路径]\""
+
+// 让含非ASCII字符的文件名正确显示
+git config --global core.quotepath off
+----
+
 .. gui
 +
 ----
@@ -131,6 +155,13 @@ git config --unset user.name "YourName"
 // fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
 // pull 会将远端分支自动合并到本地仓库中的当前分支。
 git fetch [remote-name]
+----
+
+. init
++
+----
+// 初始化
+git init
 ----
 
 . gitk
@@ -307,20 +338,22 @@ git push origin [tagname]
 git push origin --tags
 ----
 
-=== 修改 commit 的作者名称和邮箱
+=== 常见问题（FAQ）
 
-. 方法一，参照: https://help.github.com/articles/changing-author-info/
+. 如何修改 commit 的作者名称和邮箱？
 
-.. Open Git Bash.
+.. 方法一，参照: https://help.github.com/articles/changing-author-info/
 
-.. Create a fresh, bare clone of your repository:
+... Open Git Bash.
+
+... Create a fresh, bare clone of your repository:
 +
 ----
 git clone --bare https://github.com/user/repo.git
 cd repo.git
 ----
 
-.. Copy and paste the script, replacing the following variables based on the information you gathered:
+... Copy and paste the script, replacing the following variables based on the information you gathered:
 +
 ----
 OLD_EMAIL
@@ -351,24 +384,24 @@ fi
 ' --tag-name-filter cat -- --branches --tags
 ----
 
-.. Press Enter to run the script.
+... Press Enter to run the script.
 
-.. Review the new Git history for errors.
+... Review the new Git history for errors.
 
-.. Push the corrected history to GitHub:
+... Push the corrected history to GitHub:
 +
 ----
 git push --force --tags origin 'refs/heads/*'
 ----
 
-.. Clean up the temporary clone:
+... Clean up the temporary clone:
 +
 ----
 cd ..
 rm -rf repo.git
 ----
 
-. 方法二，参照：http://stackoverflow.com/questions/3042437/change-commit-author-at-one-specific-commit
+.. 方法二，参照：http://stackoverflow.com/questions/3042437/change-commit-author-at-one-specific-commit
 +
 ----
 git commit --amend --author="Author Name <email@address.com>"
@@ -376,13 +409,73 @@ git commit --amend --author="Author Name <email@address.com>"
 +
 For example, if your commit history is A-B-C-D-E-F with F as HEAD, and you want to change the author of C and D, then you would...
 
-.. Specify git rebase -i B
-.. change the lines for both C and D to edit
-.. Once the rebase started, it would first pause at C
-.. You would git commit --amend --author="Author Name <email@address.com>"
-.. Then git rebase --continue
-.. It would pause again at D
-.. Then you would git commit --amend --author="Author Name <email@address.com>" again
-.. git rebase --continue
-.. The rebase would complete.
-.. + (git push -f)?
+... Specify git rebase -i B
+... change the lines for both C and D to edit
+... Once the rebase started, it would first pause at C
+... You would git commit --amend --author="Author Name <email@address.com>"
+... Then git rebase --continue
+... It would pause again at D
+... Then you would git commit --amend --author="Author Name <email@address.com>" again
+... git rebase --continue
+... The rebase would complete.
+... + (git push -f)?
+
+
+. 分支的切换（checkout操作）
+
+.. HEAD
++
+HEAD指向现在使用中的分支的最后一次更新。通过移动HEAD，就可以变更使用的分支。
+
+... 波浪符（tilder ~）和脱字符（caret ^）的用法区别是什么？
++
+----
+//【ref~】是【ref~1】的简写，【ref~1】是第1个亲，【ref~2】是第1个亲的第1个亲。
+//【ref^】是【ref^1】的简写，【ref^1】是第1个亲，【ref~2】是第2个亲。
+
+G   H   I   J
+ \ /     \ /
+  D   E   F
+   \  |  / \
+    \ | /   |
+     \|/    |
+      B     C
+       \   /
+        \ /
+         A
+
+A =      = A^0
+B = A^   = A^1     = A~1
+C = A^2  = A^2
+D = A^^  = A^1^1   = A~2
+E = B^2  = A^^2
+F = B^3  = A^^3
+G = A^^^ = A^1^1^1 = A~3
+H = D^2  = B^^2    = A^^^2  = A~2^2
+I = F^   = B^3^    = A^^3^
+J = F^2  = B^3^2   = A^^3^2
+----
++
+image:images/git_tilder_and_caret.png[git tilder and caret]
+
+.. stash
+
+... 切换分支时，如果有还未提交的修改，修改内容会从原来的分支移动到目标分支。
+
+... 但若在checkout的目标分支中相同的文件也有修改，checkout会失败的。此时要么先提交修改内容，要么用stash暂时保存修改内容后再checkout。
+
+. 分支的合并（merge 或 rebase）
+
+.. merge
++
+保持修改内容的历史记录，但是历史记录会很复杂。
+
+.. rebase
++
+历史记录简单，是在原有提交的基础上将差异内容反映进去。因此，可能导致原本的提交内容无法正常运行。
+
+.. 若想简化历史记录：
+... 在topic分支中更新merge分支的最新代码，使用rebase。
+... 向merge分支导入topic分支，先用rebase，再用merge。
+
+
