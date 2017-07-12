@@ -1301,6 +1301,326 @@ TLD文件必须放在META-INF下，或者META-INF的子目录下。
 
 ==== (七)Web应用安全
 
+. 安全的四大要素
+
+.. 认证
+.. 授权
+.. 机密性
+.. 数据完整性
+
+. 启用认证
++
+可以在DD中加入如下代码：
++
+----
+<login-config>
+    <auth-method>BASIC</auth-method>
+</login-config>
+----
+
+. 授权
+
+.. 定义角色
+... 开发商特定：tomcat-users.xml中的<role>元素。
+... Servlet规范：web.xml中的DD<security-role>元素。
+
+.. 定义资源/方法约束
+... DD中的<security-constraint>元素。
+
+
+.. 举例：
++
+----
+<web-app...>
+...
+<security-constraint>
+    <web-resource-collection>
+
+        <web-resource-name>UpdateRecipes</web-resource-name>
+
+        <url-pattern>/Beer/AddRecipe/*</url-pattern>
+        <url-pattern>/Beer/ReviewRecipe/*</url-pattern>
+
+        <http-method>GET</http-method>
+        <http-method>POST</http-method>
+
+    </web-resource-collection>
+
+    <auth-constraint>
+        <role-name>Admin</role-name>
+        <role-name>Member</role-name>
+    </auth-constraint>
+</security-constraint>
+...
+</web-app>
+----
+
+... <web-resource-collection>子元素的作用是告诉容器哪些资源和HTTP方法组合要以某种方式受约束，即只能由相应<auth-constraint>标记中的角色访问。
+
+... <web-resource-name>元素是必要的（尽管你自己可能不会用到）。
+
+... <description>元素是可选的。
+
+... 必须至少指定一个<url-pattern>。
+
+... <http-method>元素的方法包括：GET，POST，PUT，TRACE，DELETE，HEAD，OPTIONS。
+
+... 如果没有指定任何<http-method>，那么 所有方法 都是受约束的。
+
+... 如果指定了<http-method>，那么只有 指定方法 是受约束的。
+
+... 一个<security-constraint>中可以有多个<web-resource-collection>元素。
+
+... <auth-constraint>元素应用于<security-constraint>中的所有<web-resource-collection>元素。
+
+... 不是资源本身受到约束，实际上是 资源+HTTP方法组合 受到约束。
+
+... <security-constraint>中<auth-constraint>子元素的规则：
+
+.... <role-name>规则：
+..... <role-name>元素可选。
+..... 如果存在<auth-constraint>元素，但是没有任何<role-name>元素，那么所有用户都遭拒绝。
+..... 如果有<role-name>*</role-name>，那么所有用户都是允许的。
+..... 角色名区分大小写。
+
+.... <auth-constraint>规则：
+..... <auth-constraint>元素可选。
+..... 如果存在一个<auth-constraint>，容器必须对相关URL完成认证。
+..... 如果不存在<auth-constraint>，容器允许不经认证就能访问这些URL。
+..... 为了提高可读性，可以在<auth-constraint>中增加一个<description>。
+
+. 多个<auth-constraint>元素如何交互？
++
+举例：
++
+----
+<web-app...>
+...
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Recipes</web-resource-name>
+        <url-pattern>/Beer/DisplayRecipes/*</url-pattern>
+        <url-pattern>/Beer/UpdateRecipes/*</url-pattern>
+        <http-method>POST</http-method>
+    </web-resource-collection>
+
+    <auth-constraint>
+        <role-name>【A】</role-name>
+    </auth-constraint>
+</security-constraint>
+
+<security-constraint>
+    <web-resource-collection>
+        <web-resource-name>Recipes</web-resource-name>
+        <url-pattern>/Beer/UpdateUsers/*</url-pattern>
+        <url-pattern>/Beer/UpdateRecipes/*</url-pattern>
+        <http-method>POST</http-method>
+    </web-resource-collection>
+
+    <auth-constraint>
+        <role-name>【B】</role-name>
+    </auth-constraint>
+</security-constraint>
+
+...
+</web-app>
+----
++
+|===
+|用户 |角色
+|Annie |Admin,Member,Guest
+|Diane |Member
+|Ted |Guest
+|===
++
+|===
+|【A】的内容 |【B】的内容 |谁能访问UpdateRecipes
+|Guest |Admin |Ted,Annie
+|Guest |* |所有人
+|存在且为空标记 |Admin |没人
+|不存在<auth-constraint>元素 |Admin |所有人
+|===
+
+.. 解释：
+... 合并单个角色名时，所列的所有角色名都允许访问。
+... 角色名“*”与其他设置合并时，所有人都允许访问。
+... 空的<auth-constraint>标记与其他设置合并时，所有人都不允许访问。
+... 如果某个<security-constraint>中没有<auth-constraint>元素，它与其他设置合并时，所有人都允许访问。
+
+.. 放一个空的<auth-constraint>元素会使任何角色的任何人都不能访问受限资源，这有什么意义？
++
+【答】没有人能访问是指“Web应用之外的任何人都不允许访问”，Web应用的其他部分是可以的，例如请求分派器。
+可以把受限资源想成是Java类中的某种私有方法，仅供内部使用。
+
+. HttpServletRequest中有3个方法与程序式安全有关：
+
+.. getUserPrincipal()：主要用于EJB。
+
+.. getRemoteUser()：可以用于检查认证状态，很少使用。
+
+.. isUserInRole()：可以不在HTTP方法层次（GET、POST等）上完成授权，而是对方法中的某些部分建立访问授权（是否允许访问方法中的某一部分）。
+... 调用前，用户要得到 认证 ，否则容器总会返回false。
+
+.. 示例
+
+... Servlet：
++
+----
+if( request.isUserInRole("Manager")) {
+    // 处理UpdateRecipe页面
+    ...
+} else {
+    // 处理ViewRecipe页面
+    ...
+}
+----
+
+... DD：
++
+----
+<web-app...>
+    <servlet>
+        <security-role-ref>
+            <role-name>Manager</role-name>
+            <role-link>Admin</role-link>
+        </security-role-ref>
+        ...
+    </servlet>
+    ...
+    <security-role>
+        <role-name>Admin</role-name>
+    </security-role>
+    ...
+</web-app>
+----
++
+备注：不管<security-role>中的“Manager”是否实际存在，容器都会先查找<security-role-ref>，把它映射为“Admin”后再查找。
+
+. 四种类型的认证：
+
+.. 如下四种：
+... 基本（BASIC）：以一种未加密的编码形式（base64）传输登录信息，安全性很弱。
+... 摘要（DIGEST）：安全一些，但由于加密机制没有得到广泛应用，并不要求J2EE容器一定支持。
+... 客户证书（CLIENT-CERT）：非常安全，使用了公共秘钥证书（Public Key Certificates）。缺点是：客户必须先有一个证书才能登录系统，
+主要用于B2B应用。
+... 表单（FORM）：允许利用合法的HTML建立自己的定制登录表单（前三种都使用了浏览器的标准弹出表单来输入用户名和密码）。
+四种认证中最不安全的方式，用户名和口令都在HTTP请求中发回，而且未经加密。
+
+.. 除了表单认证，一旦在DD中声明了<login-config>元素，实现认证就将由容器自动处理（假设已经在服务器中配置了用户名/口令/角色信息）。
++
+|===
+|类型 |规范 |数据完整性 |注释
+
+|BASIC
+|HTTP
+|Base64-弱
+|HTTP标准，所有浏览器都支持
+
+|DIGEST
+|HTTP
+|强一些-但不是SSL
+|对于HTTP和J2EE容器是可选的
+
+|FORM
+|J2EE
+|非常弱，没有加密
+|允许有定制的登录屏幕
+
+|CLIENT-CERT
+|J2EE
+|强-公共密钥（PKC）
+|很强，但是用户必须有证书
+|===
+
+. 基于表单的认证
+
+.. 需要作以下处理：
+
+... 在DD中声明<login-config>
++
+----
+<login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+        <form-login-page>/loginPage.html</form-login-page>
+        <form-error-page>/loginError.html</form-error-page>
+    </form-login-config>
+</login-config>
+----
+
+... 创建一个HTML登录表单
++
+----
+<!-- loginPage.html -->
+Please login ...
+<form method="POST" action="j_security_check">
+    <input type="text" name="j_username">
+    <input type="password" name="j_password">
+    <input type="submit" value="Enter">
+</form>
+----
+
+... 创建一个HTML错误表单
++
+----
+<!-- loginError.html -->
+<html><body>
+    Sorry dude, wrong password
+</body></html>
+----
+
+.. HTML登录表单中有3项是与容器通信的关键：
+... j_security_check
+... j_username
+... j_password
+
+.. 注意一定要启用SSL或会话跟踪，否则返回登录表单时容器可能不认识。
+
+. 以声明方式保守地实现数据机密性和完整性
+
+.. 在<security-constraint>中追加<user-data-constraint>元素
++
+----
+<user-data-constraint>
+    <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+</user-data-constraint>
+----
+
+.. <transport-guarantee>的合法值
+... NONE：默认值，意味着没有数据保护。
+... INTEGRAL：数据在传输过程中不能更改。
+... CONFIDENTIAL：数据在传输过程中不能被别人看到。
++
+备注：尽管规范里没有要求，但实际中几乎所有容器都使用了SSL来实现可靠传输，这说明INTEGRAL和CONFIDENTIAL的效果是一样的，
+任意一个都能同时提供机密性和数据完整性。
+
+.. 为了确保用户的登录数据能安全地传输到服务器，要对每个可能触发登录过程的受限资源设置一个传输保证。
+
+.. 未经认证的客户请求一个受限资源时的对比：
++
+|===
+|步骤 |没有传输保证 |有机密性传输保证
+
+|①
+|客户请求/BuyStuff.jsp（DD中已经配置了<security-constraint>）。
+|客户请求/BuyStuff.jsp
+
+|②
+|容器向客户发送一个401响应，告诉浏览器要从用户获得登录信息。
+|容器向客户发送一个301响应，告诉浏览器使用安全传输来完成请求的重定向。
+
+|③
+|浏览器再做请求，这一次会在首部中提供用户登录信息。
+|浏览器再做一次资源请求，不过这次通过安全连接（HTTPS）。
+
+|④
+|容器对用户进行认证，对请求授权，…，发送响应。
+|容器看到资源是受限的，且用户未经认证，所以开始认证过程，向浏览器发送一个401响应…
+
+|⑤
+|-
+|浏览器再做请求，这一次会在首部中提供用户登录信息，而且请求使用安全连接传送。
+|===
 
 
 ==== (八)过滤器和包装器
