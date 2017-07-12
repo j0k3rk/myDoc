@@ -127,7 +127,49 @@ propertyName="#{<language>:<expression>}"
 %END REM
 ----
 
-=== 异常
+=== R7异常
+
+. notesItem.Contains(value)，当value为全角字符时，检查失败。
++
+可遍历 notesItem 的值，逐个比较是否等于 value 。
+
+. Set notesItem = notesItem.CopyItemToDocument( document, newName$ )，
+当 Item 为 RichTextItem 且内容很多时，拷贝可能失败（提示 Item 不存在）。
++
+拷贝整个文档，再将不需要的 Item 移除。
+
+. 由外部系统发送的邮件（例如SQL Server的报表订阅），附件格式有时不能被正常处理，附件的名称和格式后缀可能丢失。
+
+.. 无额外处理的，将地址本中该NotesID的收信格式改为“Keep in senders’ format”即可正常收信。
+
+.. 有额外处理、但不需要附件的，可将原文档拷贝到内存中使用。
+
+.. 有额外处理、且需要附件的，应先把附件拆到本地，再重新添付附件，最后删除本地的附件。
+
+... 对SQL Server 2014 报表订阅邮件进行了测试，只要有任何读富文本域的操作，
+例如 set item = doc.GetFirstItem(“body”)，重新保存文档后，附件名称和格式即发生异常。
+
+
+. 在代理中使用LotusScript遍历大量文档时，namgr可能因内存不足（out of memory）发生异常，
+进而导致整个Domino服务崩溃。
+
+.. 遍历时使用 Delete doc 删除文档的 reference（注意不是删除文档）。(参考：http://www-10.lotus.com/ldd/nd6forum.nsf/55c38d716d632d9b8525689b005ba1c0/114292faefca69b0852574ec004529a8?OpenDocument&Highlight=0,out,of,memory,agent,delete)
+
+.. 将遍历放在 sub routine 中，sub routine 退出后，内存即得以释放。（参考：http://www-10.lotus.com/ldd/nd6forum.nsf/55c38d716d632d9b8525689b005ba1c0/c4968cfbdb09be2e85256fce0063aa50?OpenDocument）
+
+. Round() 和 @Round
++
+----
+'原版函数采用“银行家舍入”，重写如下：
+Function RoundX(number As Double, places As Integer) As Double
+
+    Dim factor As Double
+
+    factor = 10 ^ places
+    RoundX = Sgn(number) * Fix( Abs(number) * factor + 0.5) / factor
+
+End Function
+----
 
 . 邮件归档时报错：
 +
