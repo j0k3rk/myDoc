@@ -1,3 +1,153 @@
+=== Servlet & JSP 基础
+
+==== （一）请求、响应、会话等
+
+. 只有 请求属性 和 局部变量 是线程安全的。
+
+. RequestDispatcher
+
+.. 两种获得方法
++
+----
+//1.从ServletRequest获得
+RequestDispatcher view = request.getRequestDispatcher("result.jsp");
+
+//2.从ServletContext获得，不能指定相对路径，路径必须以【斜线】开头
+RequestDispatcher view = getServletContext().getRequestDispatcher("/result.jsp");
+----
+
+.. 只有2个方法
++
+----
+//常用，转发请求
+forward()
+
+//不常用，转发请求，处理完后再返回发送者
+include()
+----
+
+. 如果已经提交了响应，就不能再转发请求。
+
+. 会话关联URL要点
+
+.. 在写至响应的HTML中，URL重写把会话ID增加到其中所有URL的最后。
+.. 会话ID作为请求URL最后的“额外”信息再通过请求返回。
+.. 如果客户不接受cookie，URL重写会自动发生，但是必须显式地对所有URL编码。
+.. 要对一个URL编码，需要调用response.encodeURL(aString)。
+.. 没有办法对静态页面完成自动的URL重写，所以，如果依赖于会话，就必须使用动态生成的页面。
+
+. 会话有3种死法：
+
+.. 超时
+.. 在会话对象上调用invalidate()。
+.. 应用结束（崩溃或取消部署）。
+
+. 设置会话超时
+
+.. 在DD（deployment descriptor）中配置会话超时
++
+----
+<web-app ...>
+    <servlet>
+    ...
+    </servlet>
+    <session-config>
+        <!-- 以分钟为单位 -->
+        <session-timeout>15</session-timeout>
+    </session-config>
+</web-app>
+----
+
+.. 设定一个特定会话的会话超时
++
+----
+//以秒为单位，设为0时表示立即超时
+session.setMaxInactiveInterval(20*60);
+----
+
+. 设置cookie在客户端上的存活时间
++
+----
+//以秒为单位。若设为-1，浏览器退出时cookie即消失。
+cookie.setMaxAge(30*60);
+----
+
+. 从客户请求得到cookie（或多个cookie）
++
+----
+//没有getCookie(String)方法，只能得到一个数组，然后循环处理。
+Cookie[] cookies = request.getCookies();
+if ( cookies != null ) {
+    for (int i = 0; i < cookies.length; i++) {
+        Cookie cookie = cookies[i];
+        if (cookie.getName().equals("username")) {
+            String userName = cookie.getValue();
+            out.println("Hello " + userName);
+            break;
+        }
+    }
+}
+----
+
+. Cookie和首部的区别
+
+.. 向响应增加一个首部时，名和值String作为参数传入。
++
+----
+response.addHeader("foo", "bar");
+----
+
+.. 向响应增加一个Cookie时，要传递一个Cookie对象。
++
+----
+Cookie cookie = new Cookie("name", name);
+response.addCookie(cookie);
+----
+
+.. 首部既有setHeader()方法，又有addHeader()方法，替换现有值或增加一个值。
+
+.. 不存在setCookie()方法，只有addCookie()方法。
+
+. 监听者类型
++
+|===
+|里程碑 |事件和监听者类型
+|生命周期 - 创建/撤销 会话 |HttpSessionEvent HttpSessionListener
+|属性 - 增加/删除/替换 属性 |HttpSessionBindingEvent HttpSessionAttributeListener
+|迁移 - 会话准备钝化/会话已经激活 |HttpSessionEvent HttpSessionActivationListener
+|===
++
+上述3个监听者必须在DD中注册，但HttpSessionBindingListener不在DD中配置。
+
+. 只有HttpSession对象（及其属性）会从一个VM移到另一个VM。
+
+.. 每个VM中有一个ServletContext。
+.. 每个VM上的每个Servlet都有一个ServletConfig。
+.. 对于每个Web应用的一个给定的会话ID，只有一个HttpSession对象，而不论应用分布在多少个VM上。
+
+. 与会话有关的监听者
++
+|===
+|场景 |监听者接口/方法 |事件类型
+
+|有多少个并发用户（活动的会话）
+|HttpSessionListener(javax.servlet.http) sessionCreated sessionDestroyed
+|HttpSessionEvent
+
+|会话何时从一个VM移到另一个VM
+|HttpSessionActivationListener(javax.servlet.http) sessionDidActivate sessionWillPassivate
+|HttpSessionEvent(注意:没有特定的HttpSessionActivationEvent)
+
+|有一个属性类(对象作为一个属性值)，此类对象绑定到会话或从会话删除时得到通知
+|HttpSessionBindingListener(javax.servlet.http) valueBound valueUnbound
+|HttpSessionBindingEvent
+
+|会话什么时候增加、删除或替换会话属性
+|HttpSessionAttributeListener(javax.servlet.http) attributeAdded attributeRemoved attributeReplaced
+|HttpSessionBindingEvent(注意:没有特定的HttpSessionAttributeEvent)
+|===
+
+
 === 环境变量设置
 
 . Java
@@ -44,3 +194,8 @@
 ;%ANT_HOME%\bin;
 ----
 
+=== 其他
+
+. JavaBean
+
+.. boolean属性命名时，应避免使用“is”开头。
