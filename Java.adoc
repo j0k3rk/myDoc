@@ -1625,6 +1625,123 @@ Please login ...
 
 ==== (八)过滤器和包装器
 
+. 只有一个过滤器接口：Filter
++
+没有RequestFilter或ResponseFilter，只有一个Filter。
+
+. 过滤器是模块化的，可以在DD中配置。过滤器设计为完全自包含，运行顺序也由DD控制。
+
+. 过滤器与servlet相似的3个方面：
+
+.. 容器知道过滤器API
+.. 容器管理过滤器的生命周期
+...     init()：必须实现，通常只需要保存配置（FilterConfig）对象。
+...     destroy()：作具体工作，有3个参数：
+....         ServletRequest（不是HttpServletRequest）
+....         ServletResponse（不是HttpServletResponse）
+....         FilterChain
+...     doFilter()：必须实现，但通常为空。
+.. 都在DD中声明
+
+. 过滤器不知道谁来调用它们，也不知道过滤器链中下一个是谁。FilterChain控制过滤器的执行顺序，由DD中指定的filter元素驱动。
+
+.. doFilter()方法中调用了chain.doFilter()，是否会造成无限递归？ => 不会，FilterChain接口的doFilter()与Filter接口的doFilter()不同，主要区别如下：
+... FilterChain的doFilter()方法负责明确接下来调用谁的doFilter()方法，如果已经到了链尾，则是确定调用哪个servlet的service()方法。
+... ilter接口的doFilter()方法只完成过滤。
+.. 可以认为过滤器”可入栈“
+
+. 声明过滤器
+
+.. 声明过滤器
+
+... <filter>的规则：
+.... 必须有<filter-name>
+.... 必须有<filter-class>
+.... <init-param>可选，可以有多个。
++
+----
+<filter>
+    <filter-name>BeerRequest</filter-name>
+    <filter-class>com.example.web.BeerRequestFilter</filter-class>
+    <init-param>
+        <param-name>LogFileName</param-name>
+        <param-value>UserLog.txt</param-value>
+    </init-param>
+</filter>
+----
+
+.. 声明对应URL模式的过滤器映射
+
+... <filter-mapping>的规则：
+.... 必须有<filter-name>，用于链接到适当的<filter>元素。
+.... <url-pattern>或<servlet-name>元素这二者必有其一。
+.... <url-pattern>元素定义了哪些Web应用资源需要使用该过滤器。
++
+----
+<filter-mapping>
+    <filter-name>BeerRequest</filter-name>
+    <url-pattern>*.do</url-pattern>
+</filter-mapping>
+----
+
+.. 声明对应Servlet名的过滤器
+
+... <filter-mapping>的规则：
+.... <servlet-name>元素定义了哪个Web应用资源需要使用该过滤器。
++
+----
+<filter-mapping>
+    <filter-name>BeerRequest</filter-name>
+    <servlet-name>AdviceServlet</servlet-name>
+</filter-mapping>
+----
+
+. 确定过滤器顺序的容器规则
++
+当多个过滤器映射到一个给定资源时，容器会使用以下规则：
+
+.. [line-through]#先找到与URL模式匹配的所有过滤器。过滤器会按DD中声明的顺序组成一个链。#
+.. [line-through]#一旦将与URL匹配的所有过滤器都放在链中，容器会用同样的办法确定与DD中<servlet-name>匹配的过滤器。#
+
++
+简而言之：URL匹配的过滤器“先”，servlet匹配的过滤器“后”，按DD中定义的顺序执行。
+
+. 为通过请求分派请求的Web资源声明一个过滤器映射：
++
+----
+<filter-mapping>
+    <filter-name>MonitorFilter</filter-name>
+    <url-pattern>*.do</url-pattern>
+
+    <dispatcher>REQUEST</dispatcher>
+    <!-- 和/或 -->
+    <dispatcher>INCLUDE</dispatcher>
+    <!-- 和/或 -->
+    <dispatcher>FORWARD</dispatcher>
+    <!-- 和/或 -->
+    <dispatcher>ERROR</dispatcher>
+
+</filter-mapping>
+----
+
+.. 声明规则：
+
+... 必须有<filter-name>。
+
+... 必须有<url-pattern>或<servlet-name>其中之一。
+
+... 可以有0~4个<dispatcher>。
+.... REQUEST值表示对客户的请求启用过滤器。如果没有<dispatcher>元素，则默认为REQUEST。
+.... INCLUDE值表示对一个include()调用分派来的请求启用过滤器。
+.... FORWARD值表示对一个forward()调用分派来的请求启用过滤器。
+.... ERROR值表示对错误处理器调用的资源启用过滤器。
+
+. 包装器：创建过滤器时，有4个“便利”类可以更容易的完成任务。
+
+.. ServletRequestWrapper
+.. HttpServletRequestWrapper
+.. ServletResponseWrapper
+.. HttpServletResponseWrapper
 
 
 ==== (九)模式和struts
