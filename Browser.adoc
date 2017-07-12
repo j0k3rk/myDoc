@@ -1,0 +1,32 @@
+=== Firefox
+
+. Ajax监听
++
+网络 - XHR，注意参数【wd】的值。
+
+. console
++
+----
+//基本
+console.log();
+console.info();
+console.debug();
+console.warn();
+console.error();
+
+//分组
+console.group('第一组');
+console.log("101");
+console.log("102");
+console.log("103");
+console.groupEnd();
+
+//计时
+console.time("test");
+for(var i=0; i<1000000; i++){
+}
+console.timeEnd("test");
+
+//显示对象的所有函数，console的其他函数可用如下语句查询
+console.dir(console);
+----
