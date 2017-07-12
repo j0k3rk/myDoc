@@ -32,7 +32,7 @@ C:\Program Files\Microsoft SQL Server\MSRS12.SSLK01\Reporting Services\ReportSer
 . 部署
 .. 在【解决方案资源管理器】视图中，右击报表项目，选择【属性】，可以设置目标服务器的URL和文件夹等。
 .. 如果不清楚目标服务器的URL，可打开【报表服务配置管理器】，连接到服务器后，在【Web服务URL】中查询确认，一般默认的值为：
-http://server:port/ReportServer。（端口为80时可省略）
+http://server:port/ReportServer （端口为80时可省略）
 
 . 新建报表时长和宽默认以英寸(inch)为单位，如何默认以厘米(cm)为单位？
 +

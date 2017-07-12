@@ -56,7 +56,48 @@
 +
 ※ VS2013通过proxy无法更新Resharper，修改“devenv.exe.config”的方法实测无效。
 
+=== Web Deploy 测试记录
 
+. 环境
+.. 服务器：Windows Server 2008 R2 （64bit）
+.. 开发机：VS2013
+
+. 测试步骤
+
+.. 在服务器上添加 IIS。
+
+.. 下载并安装Web Deploy，注意安装时选择【完整安装】，否则后面VS无法成功部署。
+
+.. 使用 IIS管理器：
+... 打开Host中的管理服务，启用远程连接，设定【标识凭据】等。
+... 如果上一步使用了【IIS管理器凭据】，则可在【IIS管理器用户】中添加用户。
+... 添加新网站，并指定物理路径。
+... 对于新添加的网站，鼠标右键菜单中选择【部署】-【启用 Web Deploy 发布】，选择授予发布权限的用户等，
+将生成的【*.PublishSettings】拷贝到开发机。
+
+.. 在开发机上【发布】已完成的项目，导入从服务器拷贝的【*.PublishSettings】配置文件，【设置】中勾选”在发布期间预编译“，完成即可。
+
+.. 注意：如果服务器端先添加IIS服务、后安装.NET框架，打开网站时会报错”HTTP 错误 500.21”、”PageHandlerFactory-Integrated“，
+此时需使用.NET框架安装目录中的 aspnet_regiis.exe 手工注册.NET框架。（注册方法参考：
+http://blog.csdn.net/mazhaojuan/article/details/7660657%20%E2%80%9D%E9%93%BE%E6%8E%A5%E2%80%9C ）
+
+.. 其他参考：
+
+... Web Deploy v3.5 官方下载
++
+https://www.microsoft.com/zh-cn/download/details.aspx?id=39277
+
+... 如何：使用 Visual Studio 中的一键式发布来部署 Web 应用程序项目
++
+https://msdn.microsoft.com/zh-cn/library/dd465337.aspx
+
+... IIS 7.0、IIS 7.5 和 IIS 8.0 中的 HTTP 状态代码
++
+https://support.microsoft.com/zh-cn/kb/943891
+
+... How to Configure Windows Server 2008 R2 to support Web Deploy (for Web Matrix)
++
+http://blog.scnetstudio.com/post/2011/01/08/How-to-Configure-Windows-Server-2008-R2-to-support-Web-Deploy-%28for-Web-Matrix%29.aspx
 
 === 其他
 
