@@ -1,6 +1,6 @@
 === VS2013报表设计
 
-. 日期/时间
+. 日期/时间 处理
 +
 ----
 
@@ -18,6 +18,21 @@ Today.AddDays(1-Today.Day).AddMonths(13-today.month).AddDays(-1)
 
 ----
 
+. 外部引用
+
+.. 在设计窗口点击报表，顶部菜单会多出2项：【格式】和【报表】。点击【报表】-【报表属性】，可在其中设置外部程序集和类的引用，
+或者编写自定义的代码。
+
+.. 为了正常生成和预览，自定义的程序集可放在VS安装目录下的【PrivateAssemblies】文件夹中，例如：
+C:\Program Files\Microsoft Visual Studio 11.0\Common7\IDE\PrivateAssemblies
+
+.. 为了正常部署到服务器，自定义的程序集可放在本地SQL Server安装目录下的【ReportServer】-【bin】文件夹中，例如：
+C:\Program Files\Microsoft SQL Server\MSRS12.SSLK01\Reporting Services\ReportServer\bin
+
+. 部署
+.. 在【解决方案资源管理器】视图中，右击报表项目，选择【属性】，可以设置目标服务器的URL和文件夹等。
+.. 如果不清楚目标服务器的URL，可打开【报表服务配置管理器】，连接到服务器后，在【Web服务URL】中查询确认，一般默认的值为：
+http://server:port/ReportServer。（端口为80时可省略）
 
 . 新建报表时长和宽默认以英寸(inch)为单位，如何默认以厘米(cm)为单位？
 +
