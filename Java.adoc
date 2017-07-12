@@ -307,6 +307,271 @@ JspWriter与从HttpServletResponse得到的PrintWriter类似，增加了一些�
 
 ==== (三)无脚本的JSP
 
+. JavaBean标准动作
++
+----
+<jsp:useBean>
+<jsp:getProperty>
+<jsp:setProperty>
+----
+
+. JavaBean 和 EnterpriseJavaBean（EJB）不同，使用规则如下：
+
+.. 必须有一个无参数的公共构造函数。
+
+.. 必须按命名约定来命名公共的获取方法和设置方法：
+... 首先是 get 和 set ，如果是布尔类property，获取方法的前缀为 is。后面跟同一个词，例如：getFoo(), setFoo()
+... 要得到property名，先去掉 get 和 set，再把余下部分的第一个字母变成小写。
+
+.. 设置方法的参数类型和获取方法的返回类型必须一样。
+.. property名和类型是由获取方法和设置方法得出，而不是得自于类中的一个成员。
+.. 结合JSP使用时，property类型必须是String，或者是一个基本类型。
+
+. <jsp:useBean>
+
+.. <jsp:useBean>体中的代码会有条件的运行，只有找不到bean而且创建一个新bean时才会运行。
++
+----
+<jsp:useBean id="person" class="foo.Person" scope="page" >
+         <jsp:setProperty name="person" property="name" value="Fred" />
+</jsp:useBean >
+----
+
+.. type==引用类型（可以是抽象类），class==对象类型（必须是具体类）。
++
+----
+type x = new class()
+----
+
+.. 如果使用了type，但没有class，bean必须已经存在。
+
+.. 如果使用了class（有或没有type），class不能是抽象类，而且必须有一个无参数的公共构造函数。
+
+.. scope属性默认为“page”
+
+.. 利用param属性，可以把bean的property value设置为一个请求参数的值。只需指定请求参数。
+
+.. 如果请求参数名与bean的property name匹配，就不需要在<jsp:setProperty>标记中为该property指定值。
+
+.. 如果所有请求参数名都与bean的property name匹配，可以按如下处理（设为*号）：
++
+----
+<jsp:useBean id="person" type="foo.Person" class="foo.Employee">
+         <jsp:setProperty name="person" property="*">
+</jsp:useBean>
+----
+
+.. Bean标记会自动转换String或基本类型的property。
+
+.. 如果使用脚本，就不会自动完成String到基本类型的转换。即使表达式在<jsp:setProperty>标记中也会失败。
+
+.. 利用<jsp:getProperty>只能访问bean属性的property，不能访问嵌套的property。
+（例如property不是String或基本类型，而是Object类型。）可以使用表达式语言（EL）解决问题，例如：
++
+----
+<html><body>
+         Dog's name is: ${person.dog.name}
+</body></html>
+----
+
+. EL隐式对象
+
+.. pageScope
+
+.. requestScope
+... requestScope不是请求对象，只是请求作用域属性的一个Map。可以使用 ${pageContext.request.method}来得到请求对象的方法。
+
+.. sessionScope
+
+.. applicationScope
+
+.. param
+
+.. paramValues
+
+.. header
+
+.. headerValues
+
+.. cookie
+
+.. initParam
+... servlet初始化参数由<init-param>配置，上下文参数由<context-param>配置。EL中隐式对象 initParam 对应的是 上下文参数。
+
+.. pageContext
+... 唯一不是映射的对象，是pageContext对象的实际引用，是一个JavaBean。
+
+. EL操作符和保留字
+
+.. 最常用的是点号(.)和中括号([])，以下两行代码等价：
++
+----
+<%-- bean和Map可使用点号(.) --%>
+
+${person.name}
+
+<%-- bean、Map、List、数组等都可以使用[]。
+     中括号左边是一个List或数组时，且索引是一个String直接量，则索引会自动强制转换为int。
+     如果中括号里没有引号（不是String直接量），容器就会计算其中的内容。
+     在中括号里可以使用嵌套表达式，深度不限。
+--%>
+
+${person["name"]}
+----
+
+.. 算术操作符（5个）
+
+... 加法：+
+... 减法：-
+... 乘法：*
+... 除法：/ 和 div （可以除0，得 Infinity）
+... 取模：% 和 mod
+
+.. 逻辑操作符（3个）
+
+... 与：&& 和 and
+... 或：|| 和 or
+... 非：! 和 not
+
+.. 关系操作符（6个）
+
+... 等于：== 和 eq
+... 不等于：!= 和 ne
+... 小于：< 和 lt
+... 大于：> 和 gt
+... 小于等于：<= 和 le
+... 大于等于：>= 和 ge
+
+.. 保留字
+
+... true/false
+... null
+... instanceof
+... empty
+
++
+要在JSP中使用函数，必须使用 taglib 指令声明一个命名空间。在 taglib 指令中放一个 prefix 属性，
+告诉容器你要调用的函数在哪个TLD里能找到。例如：
++
+----
+<%@ taglib prefix="mine" uri="/WEB-INF/foo.tld" %>
+----
+
+. EL函数可以有参数，但TLD中要为每个参数指定完全限定名（除非是一个基本类型）。
++
+例如，如果函数取一个Map参数，则应当是：
++
+----
+<function-signature>
+         int rollDice(java.util.Map)
+</function-signature>
+----
+
+. EL能妥善处理null值，即使找不到表达式中指定名的属性/性质/键，也能正常显示页面。
+
+.. 算术表达式中，EL把null值看作“0”。
+.. 逻辑表达式中，EL把null值看作“false”。
+
+. 可重用的模板部件
+
+.. include 指令，在转换时插入”Header.jsp”的源代码。
++
+----
+...
+<%@ include file="Header.jsp" %>
+...
+----
+
+.. <jsp:include>标准动作，在运行时插入“Header.jsp”的响应。
++
+----
+...
+<jsp:include page="Header.jsp" />
+...
+----
+
+.. 备注：
+... <jsp:include>标准动作会带来额外的性能开销，但总能保证有最新内容。
+... 使用include指令时，Tomcat也可以自动检测到所包含文件发生了变化。问题是，规范并不保证这一点，如果代码全依赖于此，应用就不一定能够顺利移植到其他容器。
+... 两者都是位置敏感的。
+... 虽然include指令是静态的，但是如果所包含的东西是动态的，每次访问页面时，所包含的东西会动态运行。
+... 全部源代码都会粘贴，不要把开始和结束HTML、BODY标记放在可重用部件中。
+
+. 使用<jsp:param>定制包含的内容
+
+.. 笨方法：把定制内容放在主页面上。
+
+.. 好方法：把定制内容作为请求参数传递给所包含的页面。例如：
+
+... 完成包含的JSP
++
+----
+<html><body>
+
+<jsp:include page="Header.jsp" >
+    <jsp:param name="subTitle" value="xxxxx" />
+</jsp:include>
+
+<br>
+<em>Web Services Support Group.</em> <br><br>
+Contact us at: ${initParam.mainEmail}
+</body></html>
+----
+
+... 使用新参数的被包含页眉（Header.jsp）
++
+----
+<img src="images/Web-Services.jpg" > <br>
+<em><strong>${param.subTitle}</strong></em> <br>
+----
+
++
+注意：这种使用参数的方法对于include指令没有意义（因为不是动态的），只适用于<jsp:include>标准动作。
+
+. 利用<jsp:forward>标准动作有条件的转发
+
+.. 提供转发条件的JSP（Hello.jsp）
++
+----
+<html><body>
+Welcome to our page!
+<% if (request.getParameter("userName") == null) { %>
+    <jsp:forward page="HandleIt.jsp" />
+<% } %>
+Hello ${param.userName}
+</body></html>
+----
+
+.. 请求转发到的目标JSP（HandleIt.jsp）
++
+----
+<html><body>
+We're sorry... you need to log in again.
+
+<form action="Hello.jsp" method="get">
+Name: <input name="userName" type="text">
+<input name="Submit" type="submit">
+</form>
+
+</body></html>
+----
+
+.. 注意：缓冲区会在转发前清空，不要先刷新输出（out.flush()）再转发。
+
+.. 不用脚本就完成条件转发的例子（使用JSTL）：
++
+----
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html><body>
+Welcome to our page!
+
+<c:if test="${empty param.userName}" >
+    <jsp:forward page="HandleIt.jsp" />
+</c:if>
+
+Hello ${param.userName}
+</body></html>
+----
 
 
 ==== (四)JSTL
