@@ -492,7 +492,8 @@ ${person["name"]}
 
 .. 备注：
 ... <jsp:include>标准动作会带来额外的性能开销，但总能保证有最新内容。
-... 使用include指令时，Tomcat也可以自动检测到所包含文件发生了变化。问题是，规范并不保证这一点，如果代码全依赖于此，应用就不一定能够顺利移植到其他容器。
+... 使用include指令时，Tomcat也可以自动检测到所包含文件发生了变化。问题是，规范并不保证这一点，如果代码全依赖于此，
+应用就不一定能够顺利移植到其他容器。
 ... 两者都是位置敏感的。
 ... 虽然include指令是静态的，但是如果所包含的东西是动态的，每次访问页面时，所包含的东西会动态运行。
 ... 全部源代码都会粘贴，不要把开始和结束HTML、BODY标记放在可重用部件中。
@@ -1016,10 +1017,286 @@ We survived.
 
 ==== (五)定制标记开发
 
+. (待补充)
 
 
 ==== (六)Web应用部署
 
+. 把文件放在 WEB-INF 下可以避免直接访问，或者如果应用部署为一个WAR文件，
+可以把不允许直接访问的文件放在 META-INF 下。
+
+. servlet映射
+
+.. 简单示例
++
+----
+<web-app ...>
+  ...
+  <servlet>
+    <servlet-name>Beer</servlet-name>
+    <servlet-class>com.example.web.BeerSelect</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Beer</servlet-name>
+    <url-pattern>/Beer/SelectBeer.do</url-pattern>
+  </servlet-mapping>
+
+</web-app>
+----
+
+.. 三种<url-pattern>元素
+
+... 完全匹配
+... 目录匹配
+... 扩展名匹配
+
++
+----
+<url-pattern>/Beer/SelectBeer.do</url-pattern>
+<url-pattern>/Beer/*</url-pattern>
+<url-pattern>*.do</url-pattern>
+----
+
+.. 备注：
+
+... DD中的URL模式不会映射到<servlet-name>元素以外的其他元素。
+... <servlet-name>是映射的键。
+... 客户按<url-pattern>请求servlet，不是按<servlet-name>。
+... 匹配的优先顺序是：完全匹配>目录匹配>扩展名匹配。
+
+. <welcome-file-list>
+
+.. 元素中的文件不以斜线开头
++
+----
+<web-app ...>
+  ...
+         <welcome-file-list>
+                 <welcome-file>index.html</welcome-file>
+                 <welcome-file>index.htm</welcome-file>
+                 <welcome-file>index.jsp</welcome-file>
+                 <welcome-file>default.html</welcome-file>
+                 <welcome-file>default.htm</welcome-file>
+                 <welcome-file>default.jsp</welcome-file>
+         </welcome-file-list>
+...
+</web-app>
+----
+
+. 声明一个错误页面
+
+.. “普遍型”错误页面
++
+----
+<error-page>
+         <exception-type>java.lang.Throwable</exception-type>
+         <location>/errorPage.jsp</location>
+</error-page>
+----
++
+可以增加一个有errorPage属性的page指令，覆盖单个JSP的错误页面设置。
+
+.. 更明确异常的错误页面
++
+----
+<error-page>
+         <exception-type>java.lang.ArithmeticException</exception-type>
+         <location>/arithmeticError.jsp</location>
+</error-page>
+----
+
+.. HTTP状态码的错误页面
++
+----
+<error-page>
+         <error-code>404</error-code>
+         <location>/notFoundError.jsp</location>
+</error-page>
+----
+
+.. 备注：
+
+... 不能在同一个<error-page>标记中同时使用<error-code>和<exception-type>。
+
+... 只要是Throwable，<exception-type>中就可以声明，包括：java.lang.Error、运行时异常和所有受查异常。其中必须使用完全限定类名。
+
+... 可以调用HttpServletResponse的sendError()方法自己生成错误，例如：
++
+----
+//以下两种方法都行
+response.sendError(HttpServletResponse.SC_FORBIDDEN);
+response.sendError(403);
+----
+
+. 在DD中配置servlet初始化
+
+.. servlet默认会在第一个请求到来时初始化，如果希望部署时即提前加载，可以使用<load-on-startup>元素。
+.. 非负值就意味着要提早加载，数值越小，优先级越高。
+.. 数值相等时，按DD中声明的顺序来加载。
+
+. XML兼容的JSP：JSP文档
+
+.. 正常的JSP是一个页面，除非采用了与正常JSP语法对应的XML语法来编写，这样它就成为一个JSP文档。
+
+... 指令（taglib除外）
++
+----
+// 正常JSP页面语法
+<%@ page import=”java.util.*” %>
+
+// JSP文档语法
+<jsp:directive.page import=”java.util.*” />
+----
+
+... 声明
++
+----
+// 正常JSP页面语法
+<%! int y = 3; %>
+
+// JSP文档语法
+<jsp:declaration>
+  int y = 3;
+</jsp:declaration>
+----
+
+... Scriptlet
++
+----
+// 正常JSP页面语法
+<% list.add(“Fred”); %>
+
+// JSP文档语法
+<jsp:scriptlet>
+  list.add(“Fred”);
+</jsp:scriptlet>
+----
+
+... 文本
++
+----
+// 正常JSP页面语法
+There is no spoon.
+
+// JSP文档语法
+<jsp:text>
+  There is no spoon.
+</jsp:text>
+----
+
+... 脚本表达式
++
+----
+// 正常JSP页面语法
+<%= it.next() %>
+
+// JSP文档语法
+<jsp:expression>
+  it.next()
+</jsp:expression>
+----
+
+. 与EJB有关的DD标记
+
+.. 本地bean的引用（本地bean指：客户（这里是一个servlet）和bean必须在同一个JVM中运行）
++
+----
+<ejb-local-ref>
+         <ejb-ref-name>ejb/Customer</ejb-ref-name>
+         <ejb-ref-type>Entity</ejb-ref-type>
+         <local-home>com.xxx.CustomerHome</local-home>
+         <local>com.xxx.Customer</local>
+</ejb-local-ref>
+----
+
+.. 远程bean的引用（远程bean指：客户（这里是一个servlet）和bean可能在不同的JVM中运行（可能还在不同的物理主机上））
++
+----
+<ejb-ref>
+         <ejb-ref-name>ejb/LocalCustomer</ejb-ref-name>
+         <ejb-ref-type>Entity</ejb-ref-type>
+         <home>com.xxx.CustomerHome</home>
+         <remote>com.xxx.Customer</remote>
+</ejb-ref>
+----
+
+.. 备注：
+
+... 本地和远程bean DD标记中有两个相同的元素：<ejb-ref-name>列出完成JNDI查找时所用的逻辑查找名。
+<ejb-ref-type>描述了这是一个实体bean还是会话bean。
+... 远程bean是<ejb-ref>，不是<ejb-remote-ref>。因为最初定义时，根本没有“本地”，那时所有的企业bean都是“远程”的，所以没必要区别。
+... 远程bean是<home>，不是<remote-home>，原因同第2点。
+
+. JNDI<env-entry>DD标记
+
+.. 可以把环境项认为是应用可以使用的某种部署时常量，就像servlet和上下文初始化参数一样。
+
+.. 部署时，容器读取DD，使用在DD标记中提供的名和值，建立一个JNDI项（假设是一个完全J2EE兼容的应用，不只是一个只有Web容器的服务器）。
+声明应用的JNDI环境项举例如下：
++
+----
+<env-entry>
+         <env-entry-name>rates/discountRate</env-entry-name>
+         <env-entry-type>java.lang.Integer</env-entry-type>
+         <env-entry-value>10</env-entry-value>
+</env-entry>
+----
+
+.. 备注：
+... <env-entry-type>不能是基本类型，构造函数取一个String或Character参数才可以。
+... 还可以包括一个可选的<description>。
+
+. <mime-mapping>DD标记
+
+.. 声明举例：
++
+----
+<mime-mapping>
+         <extension>mpg</extension>
+         <mime-type>video/mpeg</mime-type>
+</mime-mapping>
+----
+
+.. 备注：
+
+... 扩展名里没有“.”。
+... 不是<file-type>和<content-type>。
+
+. 资源部署位置列表
++
+|===
+|资源类型 |部署位置
+
+|部署描述文件（web.xml）
+|直接放在WEB-INF中
+
+|标记文件（.tag或.tagx）
+|如果未部署在JAR中，标记文件必须放在WEB-INF/tags中，或WEB-INF/tags的一个子目录中。
+如果部署在一个JAR文件中，标记文件则必须放在META-INF/tags或META-INF/tags的一个子目录中。
+注意：如果标记文件部署在JAR中，那么JAR中还必须有一个TLD。
+
+|HTML和JSP（可以直接访问的）
+|客户能访问的HTML和JSP可以放在Web根目录下，或者它的任何子目录下，但不能放在WEB-INF下（包括子目录）。
+如果在WAR文件中，这些页面不能放在META-INF下（包括子目录）。
+
+|HTML和JSP（不允许客户直接访问）
+|客户不能直接访问WEB-INF及WAR文件中的META-INF下的页面。
+
+|TLD（.tld）
+|如果不在JAR中，TLD文件必须放在WEB-INF中，或者放在WEB-INF的子目录下。如果部署在一个JAR中，
+TLD文件必须放在META-INF下，或者META-INF的子目录下。
+
+|Servlet类
+|Servlet类必须放在与包结构匹配的一个目录结构里，置于WEB-INF/classes下的一个目录中（例如，
+类com.example.Ring要放在WEB-INF/classes/com/example中），或者放在WEB-INF/lib下一个JAR文件里的适当包结构中。
+
+|标记处理器类
+|实际上，Web应用所用的所有类（除非是类路径上类库的一部分）都必须像servlet类一样遵循同样的规则，要放在WEB-INF/classes下，
+而且要有与包结构匹配的目录结构（或者放在WEB-INF/lib下一个JAR文件里的适当包结构中）。
+
+|JAR文件
+|JAR文件必须放在WEB-INF/lib目录中。
+|===
 
 
 ==== (七)Web应用安全
