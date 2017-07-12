@@ -576,6 +576,442 @@ Hello ${param.userName}
 
 ==== (四)JSTL
 
+. JSTL 1.1版有5个库，其中4个是定制标记库，列出标记如下：
+
+.. 核心库
+
+... 通用：<c:out> <c:set> <c:remove> <c:catch>
+... 条件：<c:if> <c:choose> <c:when> <c:otherwise>
+... 与URL相关：<c:import> <c:url> <c:redirect> <c:param>
+... 循环：<c:forEach> <c:forTokens>
+
+.. 格式化库
+
+... 国际化：<fmt:message> <fmt:setLocale> <fmt:bundle> <fmt:setBundle> <fmt:param> <fmt:requestEncoding>
+... 格式化：<fmt:timeZone> <fmt:setTimeZone> <fmt:formatNumber> <fmt:parseNumber> <fmt:parseDate>
+
+.. SQL库
+
+... 数据库访问：<sql:query> <sql:update> <sql:setDataSource> <sql:param> <sql:dateParam>
+
+.. XML库
+
+... 核心XML动作：<x:parse> <x:out> <x:set>
+... XML流控制：<x:if> <x:choose> <x:when> <x:otherwise> <x:forEach>
+... 转换动作：<x:transform> <x:param>
+
+. <c:…>标记中，前缀不一定用“c（core）”，但这是一个标准的约定，建议采用。
+
+. <c:out>标记
+
+.. 使用escapeXml属性（默认为true），显式地声明（不）转换XML实体。
++
+----
+<div class='tipBox'>
+    <b>Tip of the Day:</b> <br/> <br/>
+    <c:out value='${pageContent.currentTip}' escapeXml='false' />
+</div>
+----
+
+.. 哪些HTML特殊字符需要转换？ 只有5个：
++
+----
+< 	&lt;
+> 	&gt;
+& 	&amp;
+‘ 	&#039;
+“ 	&#034;
+----
+
+.. Null值呈现为空文本，可用default属性设置一个默认值。
++
+----
+<b>Hello <c:out value='${user}' default='guest' />.</b>
+----
++
+----
+<b>Hello <c:out value='${user}'>guest</c:out>.</b>
+----
+
+. <c:forEach>标记
+
+.. var为变量，items为集合，varStatus为循环计数器。var作用域仅限于标记内部。
++
+----
+<c:forEach var="movie" items="${movieList}" varStatus="movieLoopCount" >
+...
+</c:forEach>
+----
+
+.. <c:forEach>标记可以嵌套。
+
+.. 可选的属性还有 begin 、end 、step 等，查询 JSTL 规范可以获取所有属性的细节。
+
+. <c:if>标记
++
+----
+<c:if test="${userType eq 'member' }" >
+    <jsp:include page="inputComments.jsp" />
+</c:if>
+----
+
+. <c:choose>标记、<c:when>标记、<c:otherwise>标记
++
+----
+<c:choose>
+    <c:when test="${userPref == 'performance'}">
+        ...
+    </c:when>
+    <c:when test="${userPref == 'safety'}">
+        ...
+    </c:when>
+    <c:when test="${userPref == 'maintenance'}">
+        ...
+    </c:when>
+
+    <c:otherwise>
+        ...
+    </c:otherwise>
+</c:choose>
+----
+
+. <c:set>标记
+
+.. 设置属性变量var
++
+----
+<c:set var="userLevel" scope="session" value="Cowboy" />
+
+<c:set var="Fido" value="${person.dog}" />
+----
++
+----
+<c:set var="userLevel" scope="session" >
+    Sheriff, Bartender, Cowgirl
+</c:set>
+----
+
+.. 设置一个目标性质或值
++
+----
+<c:set target="${PetMap}" property="dogName" value="Clover" />
+----
++
+----
+<c:set target="${person}" property="name" >
+    ${foo.name}
+</c:set>
+----
+
+.. 要点和技巧
+
+... <c:set>中不能同时有“var”和“target”属性。
+... “scope”是可选的，如果没有，则默认为页面（page）作用域，且标记只在页面作用域中查找一次，不会在所有作用域中搜索。
+... 如果“value”计算为null，var指定的属性会被删除。
+... 如果“var”指定的属性不存在，则会创建一个属性。
+... 如果“target”表达式为null，容器会抛出异常。
+... 如果“target”表达式不是一个Map或bean，容器会抛出异常。
+... “target”中要放入一个能解析为实际对象的表达式。不能放入一个String直接量（表示bean或Map的“id”名）。
+... 如果“target”表达式是一个bean，这个bean没有与“property”匹配的性质，容器会抛出异常。
+
+. <c:remove>标记
++
+----
+<c:remove var="userStatus" scope="request" />
+----
++
+注：var必须是String直接量，不能是表达式。scope可选，如果未指定，就会从所有作用域中删除该属性。
+
+. <c:import>标记
++
+----
+<c:import url="http://www.xxx.com/xxx.html" />
+----
++
+注：动态，在请求时增加内容到当前页面。不同于另外两种包含机制，<c:import>中的url可以来自Web容器范围之外。
+
+. <c:param>标记
+
+.. 使用<c:import>的JSP
++
+----
+...
+<c:import url="Header.jsp" >
+    <c:param name="subTitle" value="xxx" />
+</c:import>
+...
+----
+
+.. 所包含的文件（Header.jsp）
++
+----
+<img src="images/Web-Services.jpg" > <br>
+<em><strong>${param.subTitle}</strong></em>
+<br>
+----
+
+. <c:url>标记
+
+.. servlet的URL重写
++
+----
+public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    response.setContentType("text/html");
+    PrintWriter out = response.getWriter();
+    HttpSession session = request.getSession();
+
+    out.println("<html><body>");
+    out.println("<a href=\"" + response.encodeURL("/BeerTest.do") + "\">click</a>");
+    out.println("</body></html>");
+}
+----
+
+.. JSP的URL重写
++
+----
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html><body>
+
+This is a hyperlink with URL rewriting enabled.
+
+<a href="<c:url value='/inputComments.jsp' />">Click here</a>
+
+</body></html>
+----
+
+.. 如果URL需要编码，可参考下例：
++
+----
+<c:url value="/inputComments.jsp" var="inputURL" >
+    <c:param name="firstName" value="${first}" />
+    <c:param name="lastName" value="${last}" />
+</c:url>
+----
+
+. 使用指令建立错误页面
+
+.. 指定的错误页面（“errorPage.jsp”）：
++
+----
+<%@ page isErrorPage="true" %>
+
+<html><body>
+<strong>Bummer.</strong>
+<img src="images/bummerGuy.jpg">
+</body></html>
+----
+
+.. 抛出异常的页面（“badPage.jsp”）：
++
+----
+<%@ page errorPage="errorPage.jsp" %>
+
+<html><body>
+About to be bad...
+<% int x = 10/0; %>
+</body></html>
+----
+
+. 使用<error-page>标记，在DD中为整个应用声明错误页面。
+
+.. 如果JSP有一个明确的 errorPage page 指令，容器会优先使用指令。
+
+.. 声明一个“普遍”型错误页面：
++
+----
+<error-page>
+    <exception-type>java.lang.Throwable</exception-type>
+    <location>/errorPage.jsp</location>
+</error-page>
+----
+
+.. 为更明确的异常声明一个错误页面：
++
+----
+<error-page>
+    <exception-type>java.lang.ArithmeticException</exception-type>
+    <location>/arithmeticError.jsp</location>
+</error-page>
+----
+
+.. 根据HTTP状态码声明一个错误页面：
++
+----
+<error-page>
+    <error-code>404</error-code>
+    <location>/notFoundError.jsp</location>
+</error-page>
+----
++
+注：<location>必须相对于 web-app 根上下文，所以须以斜线开头。
+
+.. 容器为错误页面提供了一个额外的exception对象，JSP中可以使用EL隐式对象 ${pageContext.exception}。
+（非指定的错误页面，无法得到异常对象）。一个更明确的错误页面（errorPage.jsp）如下：
++
+----
+<%@ page isErrorPage="true" %>
+
+<html><body>
+<strong>Bummer.</strong><br>
+
+you caused a ${pageContext.exception} on the server.<br>
+
+<img src="images/bummerGuy.jpg">
+</body></html>
+----
+
+. <c:catch>标记
+
+.. 简单例子如下：
++
+----
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page errorPage="errorPage.jsp" %>
+<html><body>
+
+About to do a risky thing: <br>
+
+<c:catch>
+    <% int x = 10/0; %>
+</c:catch>
+
+If you see this, we survived.
+</body></html>
+----
+
+.. 访问异常对象的例子：
++
+----
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page errorPage="errorPage.jsp" %>
+<html><body>
+
+About to do a risky thing: <br>
+
+<c:catch var="myException">
+    <% int x = 10/0; %>
+</c:catch>
+
+<c:if test="${myException != null}">
+    There was an exception: ${myException.message} <br>
+</c:if>
+
+We survived.
+</body></html>
+----
++
+注：<c:catch>标记更像是Java代码中的try块，抛出异常后，直接跳到<c:catch>标记体的下面。
+
+. 要使用定制标记库，必须阅读TLD。
+
+.. JSP使用定制标记时，容器调用的方法名必须是 doTag()。定制标记处理器不使用其他定制的方法名。TLD示例如下：
++
+----
+<taglib ...>
+...
+<uri>randomThings</uri>
+<tag>
+    <description>random advice</description>
+    <name>advice</name>
+    <tag-class>foo.AdvisorTagHandler</tag-class>
+    <body-content>empty</body-content>
+    <attribute>
+        <name>user</name>
+        <required>true</required>
+        <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+</taglib ...>
+----
+
+.. <rtexprvalue>表明属性值是在转换时计算，还是在运行时计算。不设定时（默认值为false），
+属性值只能是String直接量，不能是表达式。值为true时，可以使用3种表达式：
++
+----
+<%-- 1.EL表达式 --%>
+<mine:advice user="${userName}" />
+----
++
+----
+<%-- 2.脚本表达式 --%>
+<mine:advice user='<%= request.getAttribute("username") %>' />
+----
++
+----
+<%-- 3.<jsp:attribute>标准动作 --%>
+<mine:advice>
+    <jsp:attribute name="user">${userName}</jsp:attribute>
+</mine:advice>
+----
+
+.. <body-content>元素的取值范围：
+
+... empty：该标记不能有body
+... scriptless：该标记不能有脚本元素，但可以是模板文本和EL，也可以是定制和标准动作。
+... tagdependent：标记体要看作纯文本，不会计算EL，也不会触发标记/动作。
+... JSP：能放在JSP中的东西都能放在此标记body中。
+
+.. <body-content>声明为“empty”，仍可以利用<jsp:attribute>在标记体中放属性。
+
+... 外部标记中有3个属性，body中就会有3个<jsp:attribute>标记。
+... <jsp:attribute>自己的属性是“name”。
+
+.. 没有body的标记，有3种调用方法：
++
+----
+<%-- 1.空标记 --%>
+<mine:advice user="${userName}" />
+----
++
+----
+<%-- 2.开始和结束标记之间没有内容的标记 --%>
+<mine:advice user="${userName}"> </mine:advice>
+----
++
+----
+<%-- 3.开始和结束标记之间只有<jsp:attribute>标记 --%>
+<mine:advice>
+    <jsp:attribute name="user">${userName}</jsp:attribute>
+</mine:advice>
+----
+
+.. taglib中的<uri>只是一个名，不是一个位置。
+
+.. JSP 2.0之前，需要在DD中将taglib uri映射到TLD文件：
++
+----
+<web-app>
+...
+<jsp-config>
+    <taglib>
+        <taglib-uri>randomThings</taglib-uri>
+        <taglib-location>/WEB-INF/myFunctions.tld</taglib-location>
+    </taglib>
+</jsp-config>
+</web-app>
+----
+
+.. JSP 2.0之后，DD中没有<taglib>项，容器会自动查找并建立TLD和<uri>名之间的映射。
+
+.. 容器会在4个位置查找TLD：
+
+... WEB-INF目录
+... WEB-INF的一个子目录
+... WEB-INF/lib下一个JAR文件中的META-INF目录
+... WEB-INF/lib下一个JAR文件中的META-INF目录的子目录
+
+.. 如果JSP使用了多个标记库
+
+... 确保taglib uri唯一。
+
+... 不要使用保留的前缀：
+.... jsp:
+.... jspx:
+.... java:
+.... javax:
+.... servlet:
+.... sun:
+.... sunw:
 
 
 ==== (五)定制标记开发
