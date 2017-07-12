@@ -1,0 +1,46 @@
+=== 环境变量设置
+
+. Java
+
+.. JAVA_HOME
++
+安装路径
++
+注意：某些环境下引用 %JAVA_HOME% 可能出问题，例如 eclipse 下的 javadoc 。
+
+.. CLASSPATH
++
+----
+.\;%JAVA_HOME%\lib\tools.jar;%JAVA_HOME%\lib\dt.jar
+----
+
+.. PATH
++
+----
+;%JAVA_HOME%\bin;
+----
+
+. Tomcat
+
+.. CATALINA_HOME
++
+安装路径
+
+.. CLASSPATH
++
+----
+.\;%CATALINA_HOME%\lib;
+----
+
+. Ant
+
+.. ANT_HOME
++
+安装路径
+
+.. PATH
++
+----
+;%ANT_HOME%\bin;
+----
+
