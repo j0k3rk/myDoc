@@ -147,6 +147,191 @@ response.addCookie(cookie);
 |HttpSessionBindingEvent(注意:没有特定的HttpSessionAttributeEvent)
 |===
 
+==== (二)JSP基本用法
+
+. JSP隐式对象
++
+|===
+|API |隐式对象
+|JspWriter |out
+|HttpServletRequest |request
+|HttpServletResponse |response
+|HttpSession |session
+|ServletConfig |config
+|Throwable |exception
+|PageContext |pageContext
+|Object |page
+|===
++
+JspWriter与从HttpServletResponse得到的PrintWriter类似，增加了一些缓冲功能。
+
+. JSP中的两种注释
++
+----
+<!-- HTML注释 -->
+<%-- JSP注释 --%>
+----
+
+. 容器根据JSP生成一个类，这个类实现了HttpJspPage接口，有3个关键方法：
+
+.. jspInit()，可以覆盖
+.. jspDestroy()，可以覆盖
+.. _jspService()，不能覆盖
+
+. 属性设置：servlet VS JSP
++
+|===
+| |servlet |JSP(隐式对象)
+
+|应用
+|getServletContext().setAttribute(“foo”, barObj);
+|application.setAttribute(“foo”, barObj);
+
+|请求
+|request.setAttribute(“foo”, barObj);
+|request.setAttribute(“foo”, barObj);
+
+|会话
+|request.getSession().setAttribute(“foo”, barObj);
+|session.setAttribute(“foo”, barObj);
+
+|页面
+|不适用！
+|pageContext.setAttribute(“foo”, barObj);
+|===
++
+注意“ServletContext”这个容易误导的命名，没有“上下文”、只有“应用”。
+
+. pageContext 获取/设置 属性示例
++
+----
+<%-- pageContext对应页面作用域，有两个重载的getAttribute()，
+一个String参数的为默认，String+int 参数的可以取其他作用域的属性。 --%>
+
+<%-- 设置一个页面作用域属性 --%>
+<% Float one = new Float(42.5); %>
+<% pageContext.setAttribute("foo", one); %>
+
+<%-- 获得一个页面作用域属性 --%>
+<%= pageContext.getAttribute("foo") %>
+
+<%-- 设置一个会话作用域属性 --%>
+<% Float two = new Float(22.4); %>
+<% pageContext.setAttribute("foo", two, PageContext.SESSION_SCOPE); %>
+
+<%-- 获得一个会话作用域属性 --%>
+<%= pageContext.getAttribute("foo", PageContext.SESSION_SCOPE) %>
+<%-- 等价于 --%>
+<%= session.getAttribute("foo") %>
+
+<%-- 获得一个应用作用域属性 --%>
+<%= pageContext.getAttribute("mail", pageContext.APPLICATION_SCOPE) %>
+<%-- 等价于 --%>
+<%= application.getAttribute("mail") %>
+
+<%-- 不知道作用域，也可以查找属性。
+查找顺序：页面作用域->请求作用域->会话作用域->应用作用域。
+在一个作用域中找到即不再继续。 --%>
+<%= pageContext.findAttribute("foo") %>
+----
+
+. JSP指令
+
+.. page
+
+... import 属性
+.... java.lang、javax.servlet、javax.servlet.http、javax.servlet.jsp 将自动默认添加。
+
+... isThreadSafe 属性
+... contentType 属性
+... isELIgnored 属性
+... isErrorPage 属性
+... errorPage 属性
+... language 属性
+... extends 属性
+... session 属性
+... buffer 属性
+... autoFlush 属性
+... info 属性
+... pageEncoding 属性
+
+.. taglib
+.. include
+
+. 在DD中使用 <scripting-invalid> 禁用脚本元素
++
+----
+<web-app ...>
+    ...
+    <jsp-config>
+        <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <scripting-invalid>
+            true
+        </scripting-invalid>
+        </jsp-property-group>
+    </jsp-config>
+    ...
+</web-app>
+----
++
+注意，JSP规范中已经 删除 了如下指令属性：
++
+----
+<%@ page isScriptingEnabled="false" %>
+----
+
+. EL默认启用，如果需要忽略EL，可以在DD中使用<el-ignored> 或者在JSP中使用 isELIgnored page指令属性。
++
+----
+<web-app ...>
+    ...
+    <jsp-config>
+        <jsp-property-group>
+        <url-pattern>*.jsp</url-pattern>
+        <el-ignored>
+            true
+        </el-ignored>
+        </jsp-property-group>
+    </jsp-config>
+    ...
+</web-app>
+----
++
+----
+<%@ page isELIgnored="true" %>
+----
++
+注意：如果以上两者冲突，page指令优先于DD设置。
+
+
+==== (三)无脚本的JSP
+
+
+
+==== (四)JSTL
+
+
+
+==== (五)定制标记开发
+
+
+
+==== (六)Web应用部署
+
+
+
+==== (七)Web应用安全
+
+
+
+==== (八)过滤器和包装器
+
+
+
+==== (九)模式和struts
+
+
 
 === 环境变量设置
 
