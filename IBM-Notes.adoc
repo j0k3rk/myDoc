@@ -95,6 +95,38 @@ propertyName="#{<language>:<expression>}"
 |H |任何有效的十六进制字符（0~9、a~f或A~F）
 |===
 
+=== LC LSX(Lotus Connection LotusScript Extension)
+
+. 示例代码
++
+----
+%REM
+<Connection Type = "odbc2">
+	Name			"odbc2"
+	IsConnected		True
+	IsPooled		False
+	Server			""
+	Userid			""
+	Password		""
+	Metadata		""
+	MapByName		False
+	Writeback		False
+	FieldNames		""
+	OrderNames		""
+	Condition		""
+	StampField		""
+	BaseStamp		0:00:00
+	MaxStamp		0:00:00
+	TextFormat		65535
+	CharacterSet    "NATIVE"
+	Procedure		""
+	Owner			""
+	AlternateMetadata	False
+	ConnectTimeout	0
+	RecordLimit		0
+%END REM
+----
+
 === 异常
 
 . 邮件归档时报错：
