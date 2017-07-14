@@ -174,6 +174,71 @@ CLOSE PlansToFix;
 DEALLOCATE PlansToFix;
 ----
 
+. 由 SQL Server 2008 R2 创建的维护计划需要稍微修改一下：
++
+----
+USE msdb;
+DECLARE @oldservername AS VARCHAR(MAX);
+SET @oldservername = '<server name>\<instance name>';
+
+SELECT id,CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX))
+FROM sysssispackages
+WHERE(CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX)) LIKE '%Data Source='+@oldservername+'%');
+----
++
+----
+USE msdb;
+DECLARE @oldservername AS VARCHAR(MAX);
+SET @oldservername = '<server name>\<instance name>';
+
+-- set the new server name to the current server name
+
+DECLARE @newservername AS VARCHAR(MAX);
+SET @newservername = @@servername;
+DECLARE @xml AS VARCHAR(MAX);
+DECLARE @packagedata AS VARBINARY(MAX);
+
+-- get all the plans that have the old server name in their connection string
+
+DECLARE PlansToFix CURSOR
+FOR SELECT id
+    FROM sysssispackages
+    WHERE(CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX)) LIKE '%Data Source='+@oldservername+'%');
+OPEN PlansToFix;
+DECLARE @planid UNIQUEIDENTIFIER;
+FETCH NEXT FROM PlansToFix INTO @planid;
+WHILE(@@fetch_status <> -1)  -- for each plan
+
+    BEGIN
+        IF(@@fetch_status <> -2)
+            BEGIN
+                SELECT @xml = CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX))
+                FROM sysssispackages
+                WHERE id = @planid;  -- get the plan's xml converted to an xml string
+
+                DECLARE @planname VARCHAR(MAX);
+                SELECT @planname = [name]
+                FROM sysssispackages
+                WHERE id = @planid;  -- get the plan name
+                PRINT 'Changing '+@planname+' server from '+@oldservername+' to '+@newservername;  -- print out what change is happening
+
+                SET @xml = REPLACE(@xml, 'Data Source='+@oldservername, 'Data Source='+@newservername);  -- replace the old server name with the new server name in the connection string
+                SELECT @packagedata = CAST(@xml AS VARBINARY(MAX));  -- convert the xml back to binary
+                UPDATE sysssispackages
+                  SET
+                      packagedata = @packagedata
+                WHERE(id = @planid);  -- update the plan
+
+            END;
+        FETCH NEXT FROM PlansToFix INTO @planid;  -- get the next plan
+
+    END;
+CLOSE PlansToFix;
+DEALLOCATE PlansToFix;
+----
++
+[NOTE]
+脚本成功执行后，subplan有可能仍然执行失败，可编辑subplan中的connection，先选中一个临时新建的connection，再选回原来的，保存退出即可。
 
 [[X3]]
 SQL Server Express
