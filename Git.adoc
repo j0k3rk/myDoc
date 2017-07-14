@@ -1,32 +1,32 @@
-=== git使用流程参考
-（ref: http://www.ruanyifeng.com/blog/2015/08/git-use-process.html）
+Git
+===
+:icons:
+:toc:
+:numbered:
 
-image:images/git_process.png[git process]
+git命令
+------
 
+add
+~~~
 
-=== 文件状态变化周期
-
-image:images/git_file_status_lifecycle.png[file status lifecycle]
-
-=== git命令
-
-. add
-+
 ----
 // 指定参数“.”，可以把所有的文件加入到索引。
 git add .
 ----
 
-. amend
-+
+amend
+~~~~~
+
 修改同一个分支最近的提交内容和注解。主要使用的场合：
 
-.. 添加最近提交时漏掉的文件
-.. 修改最近提交的注解
+. 添加最近提交时漏掉的文件
+. 修改最近提交的注解
 
 
-. branch
-+
+branch
+~~~~~~
+
 ----
 // 列出当前所有分支的清单
 git branch
@@ -44,8 +44,9 @@ git branch -D branch-testing
 ----
 
 
-. checkout
-+
+checkout
+~~~~~~~~
+
 ----
 // 要切换到其他分支，可以执行 git checkout 命令
 git checkout branch-testing
@@ -56,16 +57,18 @@ git checkout -b serverfix origin/serverfix
 git checkout --track origin/serverfix
 ----
 
-. cherry-pick
-+
+cherry-pick
+~~~~~~~~~~~
+
 从其他分支复制指定的提交，然后导入到现在的分支。主要使用的场合：
 
-.. 把弄错分支的提交移动到正确的地方
-.. 把其他分支的提交添加到现在的分支
+. 把弄错分支的提交移动到正确的地方
+. 把其他分支的提交添加到现在的分支
 
 
-. commit
-+
+commit
+~~~~~~
+
 ----
 // -a:跳过使用暂存区域, -m:message
 git commit -a -m 'added new file'
@@ -85,9 +88,10 @@ git reset HEAD file.txt
 ----
 
 
-. config
+config
+~~~~~~
 
-.. alias
+. alias
 +
 ----
 // 使用别名后，如果要输入 git commit 只需键入 git ci 即可
@@ -107,14 +111,14 @@ git last
 git config --global alias.visual '!gitk'
 ----
 
-.. color
+. color
 +
 ----
 // 让Git以彩色显示
 git config --global color.ui auto
 ----
 
-.. core
+. core
 +
 ----
 // 如果提交信息包含非ASCII字符，不要使用 -m 选项，而要用外部编辑器输入。
@@ -125,14 +129,14 @@ git config --global core.editor "\"[编辑器的路径]\""
 git config --global core.quotepath off
 ----
 
-.. gui
+. gui
 +
 ----
 // utf-8
 git config --global gui.encoding "utf-8"
 ----
 
-.. http.proxy
+. http.proxy
 +
 ----
 // 查询
@@ -145,7 +149,7 @@ git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YO
 git config --global --unset http.proxy
 ----
 
-.. user
+. user
 +
 ----
 // 查询
@@ -164,27 +168,31 @@ git config --unset user.name "YourName"
 ----
 
 
-. fetch
-+
+fetch
+~~~~~
+
 ----
 // fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
 // pull 会将远端分支自动合并到本地仓库中的当前分支。
 git fetch [remote-name]
 ----
 
-. init
-+
+gitk
+~~~~
+
+启动图形界面，基本上相当于 git log 命令的可视化版本。
+
+init
+~~~~
+
 ----
 // 初始化
 git init
 ----
 
-. gitk
-+
-启动图形界面，基本上相当于 git log 命令的可视化版本。
+log
+~~~
 
-. log
-+
 ----
 // log很长时，bash画面下方的冒号(:)表示还有内容未显示。
 // 【J】：向下一行，【K】：向上一行，【Q】：退出
@@ -199,7 +207,7 @@ git log --stat
 // format 可以定制要显示的记录格式，这样的输出便于后期编程提取分析
 git log --pretty=format:"%h - %an, %ar : %s"
 ----
-+
+
 [cols="^,"]
 |===
 |选项 | 说明
@@ -219,8 +227,8 @@ git log --pretty=format:"%h - %an, %ar : %s"
 |%cr| 提交日期，按多久以前的方式显示
 |%s | 提交说明
 |===
-+
-其他常用选项及释义：
+
+- 其他常用选项及释义：
 +
 [cols="^,"]
 |===
@@ -245,16 +253,17 @@ git log --pretty=format:"%h - %an, %ar : %s"
 |--all-match | 要得到同时满足两个选项搜索条件的提交，必须用此选项。否则，满足任意一个条件的提交都会被匹配出来。
 |===
 
-. merge
+merge
+~~~~~
+
+- 特殊选项：squash
 +
-特殊选项：squash
-用这个选项指定分支的合并，就可以把所有汇合的提交添加到分支上。主要使用的场合：
+用这个选项指定分支的合并，就可以把所有汇合的提交添加到分支上。
+主要使用的场合：汇合主题分支的提交，然后合并提交到目标分支。
 
-.. 汇合主题分支的提交，然后合并提交到目标分支。
+mv
+~~
 
-
-. mv
-+
 ----
 // 移动文件（重命名）
 git mv file_from file_to
@@ -265,8 +274,9 @@ git add README
 ----
 
 
-. push
-+
+push
+~~~~
+
 ----
 // 推送本地分支到远程同名分支
 git push origin serverfix
@@ -287,8 +297,9 @@ git push origin :serverfix
 ----
 
 
-. rebase
-+
+rebase
+~~~~~~
+
 准则：[red yellow-background]*一旦分支中的提交对象发布到公共仓库，就不要对该分支进行衍合操作。*
 +
 指定 i 选项，可以改写、替换、删除或合并提交。主要使用的场合：
@@ -298,8 +309,9 @@ git push origin :serverfix
 .. 添加最近提交时漏掉的文件。
 
 
-. remote
-+
+remote
+~~~~~~
+
 ----
 // 查询远程地址（v:verbose）
 git remote -v
@@ -320,8 +332,9 @@ git remote rename [name-from] [name-to]
 git remote rm [remote-name]
 ----
 
-. reset
-+
+reset
+~~~~~
+
 遗弃不再使用的提交。执行遗弃时，需要根据影响范围指定不同的模式：
 +
 [cols="^,^,^,^"]
@@ -338,16 +351,18 @@ git remote rm [remote-name]
 .. 彻底取消最近的提交(hard)
 .. 只取消提交(soft)
 
-. revert
-+
+revert
+~~~~~~
+
 取消指定的提交内容。使用 rebase -i 或 reset 也可以删除提交。但是，不能随便删除已发布的提交，这时需要通过revert创建要否定的提交。
 主要使用的场合：
 
 .. 安全地取消过去发布的提交
 
 
-. rm
-+
+rm
+~~
+
 ----
 // 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项：-f
 git rm -f file.txt
@@ -358,9 +373,9 @@ git rm -f file.txt
 git rm --cached file.txt
 ----
 
+tag
+~~~
 
-. tag
-+
 ----
 // 列出 1.4.2 系列的标签
 git tag -l 'v1.4.2.*'
@@ -391,22 +406,25 @@ git push origin [tagname]
 git push origin --tags
 ----
 
-=== 常见问题（FAQ）
 
-. 如何修改 commit 的作者名称和邮箱？
+常见问题（FAQ）
+---------
 
-.. 方法一，参照: https://help.github.com/articles/changing-author-info/
+如何修改 commit 的作者名称和邮箱？
+~~~~~~~~~~~~~~~~~~~~~
 
-... Open Git Bash.
+. 方法一 https://help.github.com/articles/changing-author-info/[参考]
 
-... Create a fresh, bare clone of your repository:
+.. Open Git Bash.
+
+.. Create a fresh, bare clone of your repository:
 +
 ----
 git clone --bare https://github.com/user/repo.git
 cd repo.git
 ----
 
-... Copy and paste the script, replacing the following variables based on the information you gathered:
+.. Copy and paste the script, replacing the following variables based on the information you gathered:
 +
 ----
 OLD_EMAIL
@@ -437,24 +455,24 @@ fi
 ' --tag-name-filter cat -- --branches --tags
 ----
 
-... Press Enter to run the script.
+.. Press Enter to run the script.
 
-... Review the new Git history for errors.
+.. Review the new Git history for errors.
 
-... Push the corrected history to GitHub:
+.. Push the corrected history to GitHub:
 +
 ----
 git push --force --tags origin 'refs/heads/*'
 ----
 
-... Clean up the temporary clone:
+.. Clean up the temporary clone:
 +
 ----
 cd ..
 rm -rf repo.git
 ----
 
-.. 方法二，参照：http://stackoverflow.com/questions/3042437/change-commit-author-at-one-specific-commit
+. 方法二 http://stackoverflow.com/questions/3042437/change-commit-author-at-one-specific-commit[参考]
 +
 ----
 git commit --amend --author="Author Name <email@address.com>"
@@ -462,25 +480,26 @@ git commit --amend --author="Author Name <email@address.com>"
 +
 For example, if your commit history is A-B-C-D-E-F with F as HEAD, and you want to change the author of C and D, then you would...
 
-... Specify git rebase -i B
-... change the lines for both C and D to edit
-... Once the rebase started, it would first pause at C
-... You would git commit --amend --author="Author Name <email@address.com>"
-... Then git rebase --continue
-... It would pause again at D
-... Then you would git commit --amend --author="Author Name <email@address.com>" again
-... git rebase --continue
-... The rebase would complete.
-... + (git push -f)?
+.. Specify git rebase -i B
+.. change the lines for both C and D to edit
+.. Once the rebase started, it would first pause at C
+.. You would git commit --amend --author="Author Name <email@address.com>"
+.. Then git rebase --continue
+.. It would pause again at D
+.. Then you would git commit --amend --author="Author Name <email@address.com>" again
+.. git rebase --continue
+.. The rebase would complete.
+.. + (git push -f)?
 
 
-. 分支的切换（checkout操作）
+分支的切换（checkout操作）
+~~~~~~~~~~~~~~~~~
 
-.. HEAD
+. HEAD
 +
 HEAD指向现在使用中的分支的最后一次更新。通过移动HEAD，就可以变更使用的分支。
 
-... 波浪符（tilder ~）和脱字符（caret ^）的用法区别是什么？
+    ** 波浪符（tilder ~）和脱字符（caret ^）的用法区别是什么？
 +
 ----
 //【ref~】是【ref~1】的简写，【ref~1】是第1个亲，【ref~2】是第1个亲的第1个亲。
@@ -511,24 +530,39 @@ J = F^2  = B^3^2   = A^^3^2
 +
 image:images/git_tilder_and_caret.png[git tilder and caret]
 
-.. stash
+. stash
 
-... 切换分支时，如果有还未提交的修改，修改内容会从原来的分支移动到目标分支。
+.. 切换分支时，如果有还未提交的修改，修改内容会从原来的分支移动到目标分支。
 
-... 但若在checkout的目标分支中相同的文件也有修改，checkout会失败的。此时要么先提交修改内容，要么用stash暂时保存修改内容后再checkout。
+.. 但若在checkout的目标分支中相同的文件也有修改，checkout会失败的。此时要么先提交修改内容，要么用stash暂时保存修改内容后再checkout。
 
-. 分支的合并（merge 或 rebase）
+分支的合并（merge 或 rebase）
+~~~~~~~~~~~~~~~~~~~~~
 
-.. merge
+. merge
 +
 保持修改内容的历史记录，但是历史记录会很复杂。
 
-.. rebase
+. rebase
 +
 历史记录简单，是在原有提交的基础上将差异内容反映进去。因此，可能导致原本的提交内容无法正常运行。
 
-.. 若想简化历史记录：
-... 在topic分支中更新merge分支的最新代码，使用rebase。
-... 向merge分支导入topic分支，先用rebase，再用merge。
+. 若想简化历史记录：
+.. 在topic分支中更新merge分支的最新代码，使用rebase。
+.. 向merge分支导入topic分支，先用rebase，再用merge。
 
 
+git流程
+------
+- 流程图
++
+image:images/git_process.png[git process]
++
+http://www.ruanyifeng.com/blog/2015/08/git-use-process.html[参考]
+
+
+文件状态变化周期
+--------
+- 周期图
++
+image:images/git_file_status_lifecycle.png[file status lifecycle]
