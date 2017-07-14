@@ -1,0 +1,35 @@
+C# & .NET
+=========
+:icons:
+:toc:
+:numbered:
+
+[[x1]]
+ADO.NET连接AS/400(System i)测试记录
+----------------------------
+
+- 环境需求：
+    * Entity Framework 6 Tools
+    * DB2 Connect 10.5 FP6（最新版为11.1）
+    * NuGet包：
++
+----
+Install-Package EntityFramework.IBM.DB2
+----
+
+- 安装 DB2 Connect 10.5 FP6 时遇到的问题：
+
+    * 收费产品需购买版权
+
+    * 先安装驱动包（若直接安装 vs add-ins 会提示缺少驱动。
+
+    * 安装驱动包后，可以在cmd窗口中使用如下命令检测：
++
+----
+db2cli validate
+----
+
+    * 安装 vs add-ins 时会自动注册（或事后手动注册），出现提示 vs 2010 shell 授权数据无效。
+
+    ** 卸载 vs2010 shell isolated 后重新注册成功。
+    ** 此shell是安装 SQL Server 2014 时产生的，卸载后 SSMS 无法正常启动，可下载独立安装包重装解决。
