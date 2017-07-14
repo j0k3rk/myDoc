@@ -1,11 +1,21 @@
-=== Firefox
+浏览器配置
+=====
+:icons:
+:toc:
+:numbered:
 
-. Ajax监听
-+
+[[X1]]
+Firefox
+-------
+
+Ajax监听
+~~~~~~
+
 网络 - XHR，注意参数【wd】的值。
 
-. console
-+
+Console
+~~~~~~~
+
 ----
 //基本
 console.log();
@@ -30,3 +40,16 @@ console.timeEnd("test");
 //显示对象的所有函数，console的其他函数可用如下语句查询
 console.dir(console);
 ----
+
+[[X2]]
+Chrome
+------
+
+
+
+
+
+[[X3]]
+IE
+--
+
