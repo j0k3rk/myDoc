@@ -1,6 +1,14 @@
-== AutoIt（版本v3.3.14.0），参考 autoitx.com 中文版（v3.3.5.5 beta）
+AutoIt
+======
+:icons:
+:toc:
+:numbered:
 
-=== FAQ
+软件版本v3.3.14.0，参考 autoitx.com 中文文档 v3.3.5.5 beta
+
+[[X1]]
+FAQ
+---
 
 . 变量输出
 +

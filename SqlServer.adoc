@@ -1,9 +1,19 @@
-=== 报表设计（VS2013）
+Microsoft SQL Server 相关
+=======================
+:icons:
+:toc:
+:numbered:
 
-. 日期/时间 处理
-+
+[[X1]]
+报表服务
+-----
+
+    开发工具：VS2013
+
+日期和时间的处理
+~~~~~~~~
+
 ----
-
 -- 本月第1天
 Today.AddDays(1-Today.Day)
 
@@ -15,28 +25,32 @@ Today.AddMonths(1-Today.month).AddDays(1-Today.day)
 
 -- 本年最后1天
 Today.AddDays(1-Today.Day).AddMonths(13-today.month).AddDays(-1)
-
 ----
 
-. 外部引用
+外部引用
+~~~~
 
-.. 在设计窗口点击报表，顶部菜单会多出2项：【格式】和【报表】。点击【报表】-【报表属性】，可在其中设置外部程序集和类的引用，
+. 在设计窗口点击报表，顶部菜单会多出2项：【格式】和【报表】。点击【报表】-【报表属性】，可在其中设置外部程序集和类的引用，
 或者编写自定义的代码。
 
-.. 为了正常生成和预览，自定义的程序集可放在VS安装目录下的【PrivateAssemblies】文件夹中，例如：
+. 为了正常生成和预览，自定义的程序集可放在VS安装目录下的【PrivateAssemblies】文件夹中，例如：
 C:\Program Files\Microsoft Visual Studio 11.0\Common7\IDE\PrivateAssemblies
 
-.. 为了正常部署到服务器，自定义的程序集可放在本地SQL Server安装目录下的【ReportServer】-【bin】文件夹中，例如：
+. 为了正常部署到服务器，自定义的程序集可放在本地SQL Server安装目录下的【ReportServer】-【bin】文件夹中，例如：
 C:\Program Files\Microsoft SQL Server\MSRS12.SSLK01\Reporting Services\ReportServer\bin
 
-. 部署
-.. 在【解决方案资源管理器】视图中，右击报表项目，选择【属性】，可以设置目标服务器的URL和文件夹等。
-.. 如果不清楚目标服务器的URL，可打开【报表服务配置管理器】，连接到服务器后，在【Web服务URL】中查询确认，一般默认的值为：
+报表部署
+~~~~
+
+. 在【解决方案资源管理器】视图中，右击报表项目，选择【属性】，可以设置目标服务器的URL和文件夹等。
+
+. 如果不清楚目标服务器的URL，可打开【报表服务配置管理器】，连接到服务器后，在【Web服务URL】中查询确认，一般默认的值为：
 http://server:port/ReportServer （端口为80时可省略）
 
-. 新建报表时长和宽默认以英寸(inch)为单位，如何默认以厘米(cm)为单位？
-+
-=> 针对手动创建的报表，可在以下路径查找 Report.rdl 模板：
+长宽由英寸(inch)转换为厘米(cm)
+~~~~~~~~~~~~~~~~~~~~
+
+. 针对手动创建的报表，可在以下路径查找 Report.rdl 模板：
 +
 ----
 <Visual_Studio_Install_dir>\Common7\IDE\PrivateAssemblies\ProjectItems\ReportProject
@@ -75,10 +89,101 @@ http://server:port/ReportServer （端口为80时可省略）
 +
 注意：此方法对通过向导创建的报表似乎无效。
 
-===  SQL Server Express
+
+[[X2]]
+SQL Server 运维
+-------------
+
+主机名或IP地址变更
+~~~~~~~~~~
+
+. 变更方法参考 https://msdn.microsoft.com/en-us/library/ms143799%28SQL.100%29.aspx[How to: Rename a Computer that Hosts a Stand-Alone Instance of SQL Server]
++
+----
+SELECT @@SERVERNAME
+
+sp_dropserver <old_name\instancename>
+GO
+sp_addserver <new_name\instancename>, local
+GO
+
+-- 重启 SQL Server
+----
+
+. 域名或IP地址变更后，维护计划中的连接并未更新且无法编辑，可参考如下方法处理（针对由 SQL Server 2005 创建的维护计划）：
+http://dba.stackexchange.com/questions/55090/how-to-changes-or-update-local-server-connection-in-maintenance-plan-job[How to changes or update local server connection in Maintenance plan job]
++
+----
+USE msdb;
+DECLARE @oldservername AS VARCHAR(MAX);
+SET @oldservername = '<server name>\<instance name>';
+
+SELECT id,CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX))
+FROM sysssispackages
+WHERE(CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX)) LIKE '%server='''+@oldservername+'%');
+----
++
+----
+USE msdb;
+DECLARE @oldservername AS VARCHAR(MAX);
+SET @oldservername = '<server name>\<instance name>';
+
+-- set the new server name to the current server name
+
+DECLARE @newservername AS VARCHAR(MAX);
+SET @newservername = @@servername;
+DECLARE @xml AS VARCHAR(MAX);
+DECLARE @packagedata AS VARBINARY(MAX);
+
+-- get all the plans that have the old server name in their connection string
+
+DECLARE PlansToFix CURSOR
+FOR SELECT id
+    FROM sysssispackages
+    WHERE(CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX)) LIKE '%server='''+@oldservername+'%');
+OPEN PlansToFix;
+DECLARE @planid UNIQUEIDENTIFIER;
+FETCH NEXT FROM PlansToFix INTO @planid;
+WHILE(@@fetch_status <> -1)  -- for each plan
+
+    BEGIN
+        IF(@@fetch_status <> -2)
+            BEGIN
+                SELECT @xml = CAST(CAST(packagedata AS VARBINARY(MAX)) AS VARCHAR(MAX))
+                FROM sysssispackages
+                WHERE id = @planid;  -- get the plan's xml converted to an xml string
+
+                DECLARE @planname VARCHAR(MAX);
+                SELECT @planname = [name]
+                FROM sysssispackages
+                WHERE id = @planid;  -- get the plan name
+                PRINT 'Changing '+@planname+' server from '+@oldservername+' to '+@newservername;  -- print out what change is happening
+
+                SET @xml = REPLACE(@xml, 'server='''+@oldservername+'''', 'server='''+@newservername+'''');  -- replace the old server name with the new server name in the connection string
+                SELECT @packagedata = CAST(@xml AS VARBINARY(MAX));  -- convert the xml back to binary
+                UPDATE sysssispackages
+                  SET
+                      packagedata = @packagedata
+                WHERE(id = @planid);  -- update the plan
+
+            END;
+        FETCH NEXT FROM PlansToFix INTO @planid;  -- get the next plan
+
+    END;
+CLOSE PlansToFix;
+DEALLOCATE PlansToFix;
+----
+
+
+[[X3]]
+SQL Server Express
+------------------
+
+允许远程管理
+~~~~~~
 
 . Express版本默认无法远程连接，需按如下方法配置防火墙规则，重启后即可访问。
-(参考： https://msdn.microsoft.com/zh-cn/library/ms175043%28v=sql.120%29.aspx )
+https://msdn.microsoft.com/zh-cn/library/ms175043%28v=sql.120%29.aspx[参考]
 
 .. 打开 Windows 防火墙的端口以进行 TCP 访问
 
