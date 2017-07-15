@@ -1,5 +1,13 @@
-=== Jekyll 3 on Windows 安装配置
-(ref:https://labs.sverrirs.com/jekyll/)
+Ruby
+====
+:icons:
+:toc:
+:numbered:
+
+Jekyll 3 on Windows 安装配置
+------------------------
+
+https://labs.sverrirs.com/jekyll/[参考]
 
 . Ruby
 

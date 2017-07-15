@@ -1,4 +1,11 @@
-=== Anaconda
+Python
+======
+:icons:
+:toc:
+:numbered:
+
+Anaconda
+--------
 
 . 配置文件所在目录如下，如不存在可手动创建：
 +
@@ -28,7 +35,8 @@ conda install basemap
 conda install -c conda-forge scrapy
 ----
 
-=== Keras
+Keras
+-----
 
 . backend 切换
 +
@@ -51,10 +59,12 @@ The default configuration file looks like this:
 Simply change the field backend to either "theano" or "tensorflow", and Keras will use the new configuration next time you run any Keras code.
 ----
 
-=== Pandas
+Pandas
+------
 
 . 常用统计函数
 +
+[options="autowidth"]
 |===
 |统计函数 |说明
 
@@ -79,15 +89,17 @@ Simply change the field backend to either "theano" or "tensorflow", and Keras wi
 |pct_change | 计算百分数变化
 |===
 
-=== PyWin32
+PyWin32
+-------
 
 . 版本、32/64位选择
 +
 以Python的版本为准，例如64位Windows安装了32位的Python，PyWin32应安装32位的版本。
 
-=== Scrapy
+Scrapy
+------
 
-. 常见问题（ref: https://doc.scrapy.org/en/latest/faq.html）
+. https://doc.scrapy.org/en/latest/faq.html[常见问题参考]
 
 . 创建新项目
 +
@@ -95,22 +107,26 @@ Simply change the field backend to either "theano" or "tensorflow", and Keras wi
 scrapy startproject myproject
 ----
 
-=== 备忘知识点
+备忘知识点
+-----
 
 . 运算符按优先级顺序列出如下：
-.. 函数调用，寻址，下标
-.. 幂运算**
-.. 翻转运算~
-.. 正负号+-
-.. 乘*，除/，余%
-.. 加减号+-
-.. 左移<<，右移>>
-.. 按位 与&，异或^，或|
-.. 比较运算符
-.. 逻辑 not and or
-.. lambda表达式
+    - 函数调用，寻址，下标
+    - 幂运算**
+    - 翻转运算~
+    - 正负号+-
+    - 乘*，除/，余%
+    - 加减号+-
+    - 左移<<，右移>>
+    - 按位 与&，异或^，或|
+    - 比较运算符
+    - 逻辑 not and or
+    - lambda表达式
 
-=== LXF教程笔记（ref: www.liaoxuefeng.com）
+LXF教程学习笔记
+---------
+
+http://www.liaoxuefeng.com[教程链接]
 
 . 特殊符号，特殊值，操作符
 
@@ -222,6 +238,7 @@ b'\xe4\xb8\xad\xe6\x96\x87'
 
 .. 常见占位符
 +
+[options="autowidth"]
 |===
 |%d |整数
 |%f |浮点数
@@ -1426,6 +1443,7 @@ b'\x80\x03}q\x00(X\x03\x00\x00\x00ageq\x01K\x14X\x05\x00\x00\x00scoreq\x02KXX\x0
 
 .... 类型对照表
 +
+[options="autowidth"]
 |===
 |JSON类型 |Python类型
 |{} |dict

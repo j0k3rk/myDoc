@@ -1,4 +1,12 @@
-=== NotesSQL
+IBM Notes & Domino
+==================
+:icons:
+:toc:
+:numbered:
+
+NotesSQL
+--------
+
 . 32位/64位选择
 +
 驱动程序有32位和64位之分，安装时机器上应有Notes客户端或Domino服务端，并据此进行选择。
@@ -21,9 +29,10 @@ FROM "f_ReportD" rd
 WHERE "Date" >= 20170101
 ----
 
-=== ACL
+ACL
+---
 
-[cols="^.^,^.^,^.^,^.^,^.^,^.^,^.^"]
+[cols="^.^,^.^,^.^,^.^,^.^,^.^,^.^", options="autowidth"]
 |===
 |权限 |作者域 |读者域 |作者 |读者 |写 |读
 
@@ -69,7 +78,8 @@ WHERE "Date" >= 20170101
 
 |===
 
-=== XPages
+XPages
+------
 
 . 源代码
 
@@ -82,7 +92,7 @@ propertyName="#{<language>:<expression>}"
 
 .. MaskConverter
 +
-[cols="^.^,^.^"]
+[cols="^.^,^.^", options="autowidth"]
 |===
 |掩码字符 |描述
 |# |任何有效小数（使用Character.isDigit）
@@ -95,7 +105,8 @@ propertyName="#{<language>:<expression>}"
 |H |任何有效的十六进制字符（0~9、a~f或A~F）
 |===
 
-=== LC LSX(Lotus Connection LotusScript Extension)
+LC LSX(Lotus Connection LotusScript Extension)
+----------------------------------------------
 
 . 示例代码
 +
@@ -127,7 +138,8 @@ propertyName="#{<language>:<expression>}"
 %END REM
 ----
 
-=== R7异常
+Tips & Tricks (R7)
+------------------
 
 . notesItem.Contains(value)，当value为全角字符时，检查失败。
 +
@@ -194,12 +206,18 @@ Else
 End If
 ----
 
-.  LEI (Lotus Enterprise Integrator for Domino) 7.0.4 升级到 8.5.3 问题记录
-+
-系统环境：
-Windows Server 2003 standard (32-bit) → 2008 R2 Standard (64bit), Office 2010
+LEI (Lotus Enterprise Integrator for Domino) 7.0.4 升级 8.5.3 记录
+--------------------------------------------------------------
 
-.. 升级后原来正常的LotusScript代理发生错误，Excel在服务器端无法正常打开，错误代码 213，错误提示如下：
+- 系统环境：
+
+    * 升级前：Windows Server 2003 standard (32-bit)
+
+    * 升级后：2008 R2 Standard (64bit), Office 2010
+
+- 问题点：
+
+    . 升级后原来正常的LotusScript代理发生错误，Excel在服务器端无法正常打开，错误代码 213，错误提示如下：
 +
 ----
 Microsoft Office Excel cannot access the file 'C:\Temp\test.xlsx'. There are several possible reasons:
@@ -218,4 +236,4 @@ C:\Windows\System32\config\systemprofile\
 C:\Windows\SysWOW64\config\systemprofile\
 ----
 +
-方法来源： http://www-10.lotus.com/ldd/nd85forum.nsf/5f27803bba85d8e285256bf10054620d/ce0a15474733fc888525799e0060392b?OpenDocument
+http://www-10.lotus.com/ldd/nd85forum.nsf/5f27803bba85d8e285256bf10054620d/ce0a15474733fc888525799e0060392b?OpenDocument[方法来源]

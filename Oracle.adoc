@@ -1,4 +1,11 @@
-=== 常用语句
+Oracle
+======
+:icons:
+:toc:
+:numbered:
+
+常用语句
+-----
 
 . 系统表/视图
 +
@@ -23,8 +30,8 @@ select * from user_tab_privs;
 alter user USER_NAME identified by NEW_PASSWORD;
 ----
 
-
-=== Oracle Instant Client 安装配置
+Oracle Instant Client 安装配置
+--------------------------
 
 . 在 Oracle 官网下载 Basic 和 ODBC 包。（BasicLite不支持中文）
 
@@ -83,7 +90,8 @@ TCP.CONNECT_TIMEOUT=5
 
 . 打开数据源（ODBC）管理工具，配置并测试是否连通。
 
-=== 常见问题
+FAQ
+----
 
 . oci.dll 无法删除
 +
