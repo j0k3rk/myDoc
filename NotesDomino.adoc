@@ -32,51 +32,48 @@ WHERE "Date" >= 20170101
 ACL
 ---
 
-[cols="^.^,^.^,^.^,^.^,^.^,^.^,^.^", options="autowidth"]
+[cols="^.^, ^.^, ^.^, ^.^, ^.^", options="autowidth"]
 |===
-|权限 |作者域 |读者域 |作者 |读者 |写 |读
+|权限 |作者 |读者 |写 |读
 
+.9+|管理者/设计者/编辑者
+|Y |Y |OK |OK
+|Y |N |OK |OK
+|N |Y |OK |OK
+|N |N |[red-background]#NG# |[red-background]#NG#
+|Y |- |OK |OK
+|N |- |OK |OK
+|- |Y |OK |OK
+|- |N |[red-background]#NG# |[red-background]#NG#
+|- |- |OK |OK
 
-.9+|管理者/设计者/编辑者 .6+|有 .4+|有 |Y |Y .3+|OK .3+|OK
-|Y |N
-|N |Y
-|N |N |[red yellow-background]*NG* |[red yellow-background]*NG*
-.2+|无 |Y |- .2+|OK .2+|OK
-|N |-
-.3+|无 .2+|有 |- |Y |OK |OK
-|- |N |[red yellow-background]*NG* |[red yellow-background]*NG*
-|无 |- |- |OK |OK
+.9+|作者
+|Y |Y |OK |OK
+|Y |N |OK |OK
+|N |Y |[blue-background]#NG# |OK
+|N |N |[red-background]#NG# |[red-background]#NG#
+|Y |- |OK |OK
+|N |- |[blue-background]#NG# |OK
+|- |Y |[blue-background]#NG# |OK
+|- |N |[red-background]#NG# |[red-background]#NG#
+|- |- |[blue-background]#NG# |OK
 
+.9+|读者
+|Y |Y |[blue-background]#NG# |OK
+|Y |N |[blue-background]#NG# |OK
+|N |Y |[blue-background]#NG# |OK
+|N |N |[red-background]#NG# |[red-background]#NG#
+|Y |- |[blue-background]#NG# |OK
+|N |- |[blue-background]#NG# |OK
+|- |Y |[blue-background]#NG# |OK
+|- |N |[red-background]#NG# |[red-background]#NG#
+|- |- |[blue-background]#NG# |OK
 
-.9+|作者 .6+|有 .4+|有 |Y |Y .2+|OK .3+|OK
-|Y |N
-|N |Y |[blue]*NG*
-|N |N |[red yellow-background]*NG* |[red yellow-background]*NG*
-.2+|无 |Y |- |OK .2+|OK
-|N |- |[blue]*NG*
-.3+|无 .2+|有 |- |Y |[blue]*NG* |OK
-|- |N |[red yellow-background]*NG* |[red yellow-background]*NG*
-|无 |- |- |[blue]*NG* |OK
+|存放者 |ALL |ALL |[blue-background]#NG# |[blue-background]#NG#
 
-
-.9+|读者 .6+|有 .4+|有 |Y |Y .9+|[blue]*NG* .3+|OK
-|Y |N
-|N |Y
-|N |N |[red yellow-background]*NG*
-.2+|无 |Y |- .3+|OK
-|N |-
-.3+|无 .2+|有 |- |Y
-|- |N |[red yellow-background]*NG*
-|无 |- |- |OK
-
-
-|存放者 |* |* |* |* |[blue]*NG* |[blue]*NG*
-
-
-|无访问权限 |* |* |* |* |[blue]*NG* |[blue]*NG*
-
-
+|无访问权限 |ALL |ALL |[blue-background]#NG# |[blue-background]#NG#
 |===
+
 
 XPages
 ------
