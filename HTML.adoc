@@ -1,0 +1,30 @@
+HTML
+====
+:icons:
+:toc:
+:numbered:
+
+HTML 颜色
+-------
+
+[options="autowidth"]
+|===
+|Name |HEX(RGB) | Color
+|White  |#FFFFFF |[White-background]#abcdefg#
+|Silver |#C0C0C0 |[Silver-background]#abcdefg#
+|Gray   |#808080 |[Gray-background]#abcdefg#
+|Black  |#000000 |[Black-background]#abcdefg#
+|Red    |#FF0000 |[Red-background]#abcdefg#
+|Maroon |#800000 |[Maroon-background]#abcdefg#
+|Yellow |#FFFF00 |[Yellow-background]#abcdefg#
+|Olive  |#808000 |[Olive-background]#abcdefg#
+|Lime   |#00FF00 |[Lime-background]#abcdefg#
+|Green  |#008000 |[Green-background]#abcdefg#
+|Aqua   |#00FFFF |[Aqua-background]#abcdefg#
+|Teal   |#008080 |[Teal-background]#abcdefg#
+|Blue   |#0000FF |[Blue-background]#abcdefg#
+|Navy   |#000080 |[Navy-background]#abcdefg#
+|Fuchsia|#FF00FF |[Fuchsia-background]#abcdefg#
+|Purple |#800080 |[Purple-background]#abcdefg#
+|===
+
