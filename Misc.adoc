@@ -4,30 +4,6 @@
 :toc:
 :numbered:
 
-[[X1]]
-编程字体
-----
-
-- *新宋体*
-    * 优点
-        ** Visual Studio 2013 默认字体，对中文、全角符号的支持较好，字体放大或缩小后仍然等宽。
-    * 缺点
-        ** 数字0和大写字母O，数字1和小写字母l  的辨识度稍差。
-
-- *MS Gothic*
-    * 优缺点参考新宋体。
-
-- *Inziu Iosevka SC / Inziu IosevkaCC SC / ...*
-    * 优点
-        ** 对中文支持较好，其中后者支持全角符号等宽。数字0和大写字母O，数字1和小写字母l  的辨识度较高。
-    * 缺点
-        ** 默认的12号字效果较好，但在个别编辑器中（NotePad++），字体放大或缩小后不再等宽。
-
-- *其他字体（包括但不限于：Consolas，Courier，Source Code Pro）*
-    * 缺点
-        ** 对中文支持不够。
-
-[[X2]]
 cmder
 -----
 
@@ -111,3 +87,84 @@ ssserver -c /etc/shadowsocks.json
 # 或 后台运行
 nohup ssserver -c /etc/shadowsocks.json &
 ----
+
+编程字体
+----
+
+- *新宋体*
+    * 优点
+        ** Visual Studio 2013 默认字体，对中文、全角符号的支持较好，字体放大或缩小后仍然等宽。
+    * 缺点
+        ** 数字0和大写字母O，数字1和小写字母l  的辨识度稍差。
+
+- *MS Gothic*
+    * 优缺点参考新宋体。
+
+- *Inziu Iosevka SC / Inziu IosevkaCC SC / ...*
+    * 优点
+        ** 对中文支持较好，其中后者支持全角符号等宽。数字0和大写字母O，数字1和小写字母l  的辨识度较高。
+    * 缺点
+        ** 默认的12号字效果较好，但在个别编辑器中（NotePad++），字体放大或缩小后不再等宽。
+
+- *其他字体（包括但不限于：Consolas，Courier，Source Code Pro）*
+    * 缺点
+        ** 对中文支持不够。
+
+Talend Open Studio for Data Integration 测试记录
+--------------------------------------------
+
+. 测试环境
+
+    - Windows Server 2008 R2 64bit 中文标准版
+    - 内存4G
+    - 硬盘80G
+    - server-jre-8u74-windows-x64
+    - TOSDI 6.1.1
+
+. 测试对象
+
+    - IBM AS/400 V5R4
+    - IBM Lotus Notes 7 Database
+    - Microsoft SQL Server 2008 R2
+    - Oracle ???
+
+. 准备工作
+
+    - 下载jre，解压后放C盘，注意目录尽量短且不要包含空格。
+    - JAVA_HOME、Path环境变量配置。
+    - 打开TOSDI，菜单中选 Help -> Install Additional Packages，提前安装缺少的包。（也可以测试的时候再安装）
+
+. 测试过程（略）
+
+. 注意事项
+
+    - Notes相关
+        * 机器上必须安装Notes客户端或服务端程序，设计job时必须先使用 tLibraryLoad 组件加载 Notes.jar 。
+        * tNotesInput、tNotesOutput、tNotesRunAgent 三个Notes组件可以在TalendExchange中下载，下载后解压到用户自定义的组件文件夹中，并在TOSDI的 Preferences>Talend>Compents 中设定用户组件文件夹的位置，重启TOSDI即可看到新的组件了。
+            ** talend_tNotesInput
+            ** talend_tNotesOutput
+            ** talend_tNotesRunAgent
+
+    - AS/400相关
+
+. 测试结果
+
++
+.表1
+|===
+|Source |Target |DirectTransfer |Replication |Comments
+
+|AS/400 |MSSQL |OK |? |在源查询中使用“CAST(table1.item1 AS CHAR(nn) CCSID xxx)”可以解决中文乱码问题。
+|MSSQL |AS/400 |OK |? |-
+|Notes |Notes |OK |OK |-
+|===
+
++
+.表2
+|===
+|Source |SP/Agent call |Comments
+|AS/400 |OK |目前没有 tAS400SP 组件，可使用 tJDBCSP 组件替代。
+|Notes |OK |按官方示例 tLibraryLoad -> tNotesRunAgent，无法正常运行代理，在两组件之间增加 tNotesInput 后则成功。tNotesInput 可选择不存在的视图或表单，不用输出row，只起构造作用。
+|===
+
+. 待续...
