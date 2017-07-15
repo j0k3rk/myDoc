@@ -4,6 +4,16 @@
 :toc:
 :numbered:
 
+JetBrains IDEs
+--------------
+
+. 常用插件
+
+- AsciiDoc
+- CodeGlance
+- String Manipulation
+- RegexpTester
+
 cmder
 -----
 
