@@ -1,7 +1,14 @@
-=== CentOS 7 常用命令
+Linux
+=====
+:icons:
+:toc:
+:numbered:
 
-==== 目录
+CentOS 7 常用命令
+-------------
 
+目录类
+~~~
 . mkdir
 +
 创建目录
@@ -18,10 +25,14 @@
 +
 删除文件或目录。
 +
-.. [red]*rm -rf*
+----
+rm -rf
+----
++
 强制删除目录下所有的东西，-r 表示递归，-f 表示强制。
 
-==== 文件
+文件类
+~~~
 
 . touch
 +
@@ -43,15 +54,16 @@ cp myFile myFile.bk
 mv myFile myDir
 ----
 
-==== 其他
+其他
+~~
 
-. CentOS 7 初始化建立
+. CentOS 7 初始化搭建
 +
-（参考：www.vultr.com/docs/initial-setup-of-a-centos-7-server）
+http://www.vultr.com/docs/initial-setup-of-a-centos-7-server[参考]
 
 . 时区和 NTP 设置
 +
-（参考：www.vultr.com/docs/setup-timezone-and-ntp-on-centos-6）
+http://www.vultr.com/docs/setup-timezone-and-ntp-on-centos-6[参考]
 
 .. 修改时区
 +
