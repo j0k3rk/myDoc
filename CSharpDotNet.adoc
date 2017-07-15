@@ -4,8 +4,7 @@ C# & .NET
 :toc:
 :numbered:
 
-[[x1]]
-基础知识
+c#基础
 -----
 
 运算符计算顺序举例
@@ -16,10 +15,408 @@ int a = 5;
 int b = a++ + (++a) * 2 + ++a;  // b = 5 + 7 * 2 + 8 = 27
 ----
 
+ASP.NET基础
+---------
 
-[[x901]]
-ADO.NET连接AS/400(System i)测试记录
-----------------------------
+. Web窗体代码片段类型
++
+[options="autowidth"]
+|===
+|代码 |含义
+|<%   |表示标准代码片段，其中包含由ASP.NET Framework计算的代码语句。如果希望发送给浏览器的响应中包含HTML，则必须在代码片段中使用Response.Write方法。
+|<%=  |表示内容代码片段。与标准代码片段相似，但其结果将被插入到发送给浏览器的响应中，无需显式调用Response.Write。
+|<%:  |表示已编码代码片段。类似于<%=，但响应将进行HTML编码。
+|<%#  |表示数据绑定代码片段，用于引用当前数据对象。
+|<%#: |表示已编码数据绑定代码片段，期中的数据绑定值已编码。
+|<%$  |属性代码片段。用于引用配置值（如那些在Web.config中定义的值）。
+|<%@  |表示指令，用于配置Web窗体（或控件和母版页，具体因指令的类型而异）。
+|===
+
+. HttpApplication类定义的请求生命周期事件
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|[aqua]#Start#
+|Application_Start
+
+|BeginRequest
+|ASP.NET Framework收到新请求时触发的第一个事件
+
+|AuthenticateRequest PostAuthenticateRequest
+|当ASP.NET Framework需要识别提出请求的用户时，将触发AuthenticateRequest事件。处理完所有事件处理程序后，将触发PostAuthenticateRequest事件
+
+|AuthorizeRequest PostAuthorizeRequest
+|当ASP.NET Framework需要授权请求时，将触发AuthorizeRequest事件。处理完所有事件处理程序后，将触发PostAuthorizeRequest事件
+
+|ResolveRequestCache PostResolveRequestCache
+|当ASP.NET Framework需要解析缓存数据中的请求时，将触发ResolveRequestCache事件。处理完所有事件处理程序后，将触发PostResolveRequestCache事件
+
+|MapRequestHandler PostMapRequestHandler
+|当ASP.NET Framework需要为请求查找处理程序时，将触发MapRequestHandler事件。选择处理程序后，将触发PostMapRequestHandler事件
+
+|[aqua]#Session_Start#
+|Session_Start
+
+|AcquireRequestState PostAcquireRequestState
+|当ASP.NET Framework需要与请求关联的状态（会话状态）时，将触发AcquireRequestState事件。处理完所有事件处理程序后，将触发PostAcquireRequestState事件
+
+|PreRequestHandlerExecute
+|在要求处理程序处理请求之前，会立即触发这些事件
+
+|[aqua]#显示页面#
+|-
+
+|PostRequestHandlerExecute
+|在要求处理程序处理请求之后，会立即触发这些事件
+
+|ReleaseRequestState PostReleaseRequestState
+|当ASP.NET Framework不再需要与请求关联的状态时，将触发ReleaseRequestState事件。处理完所有事件处理程序后，将触发PostReleaseRequestState事件。
+
+|UpdateRequestCache
+|触发此事件以便负责缓存的模块更新其状态。
+
+|LogRequest PostLogRequest
+|当ASP.NET Framework需要记录此请求的详细信息时，将触发LogRequest事件。处理完所有事件处理程序后，将触发PostLogRequest事件。
+
+|EndRequest
+|当ASP.NET Framework处理完请求、准备向浏览器发送响应时，将触发EndRequest事件
+
+|PreSendRequestHeaders
+|将在向浏览器发送HTTP标头之前触发PreSendRequestHeaders事件
+
+|PreSendRequestContent
+|将在发送标头之后、在向浏览器发送内容之前触发PreSendRequestContent事件
+
+|[aqua]#Error#
+|将在遇到错误时触发Error事件——处理请求的任何阶段都可能发生此事件
+
+|[aqua]#End#
+|Application_End
+|===
+
+. HttpContext 成员
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|Application
+|返回用于管理应用程序状态数据的HttpApplicationState对象
+
+|ApplicationInstance
+|返回与当前请求关联的HttpApplication对象
+
+|Cache
+|返回用于缓存响应数据的Cache对象
+
+|Current
+|（静态）返回当前请求的HttpContext对象
+
+|IsDebuggingEnabled
+|如果已将调试器附加到Web窗体应用程序，则返回true。可以将此成员用于执行特定于调试的操作，但如果要这样做，部署之前请在不使用调试器的情况下进行全面测试。
+
+|Items
+|返回可用于在参与处理请求的ASP.NET Framework组件之间传递状态数据的集合
+
+|GetSection(name)
+|从Web.config文件中获取指定的配置部分
+
+|Profile
+|返回用于访问每个用户配置文件数据的ProfileBase对象。并非所有的安全模块都会设置此值，因此，应该使用ProfileBase.Create方法
+
+|Request
+|返回提供所处理的请求的详细信息的HttpRequest对象
+
+|Response
+|返回一个HttpResponse对象，该对象提供正在构建并将发送到浏览器的响应的详细信息
+
+|Session
+|返回用于访问会话状态的HttpSession状态对象。此属性将返回null，直到触发PostAcquireRequestState应用程序事件
+
+|Server
+|返回一个HttpServerUtility对象，其中可能包含实用功能，最有用的功能包括：用于对字符串进行安全编码已将其作为HTML显示的方法，以及用于控制请求处理程序执行的功能
+
+|TimeStamp
+|返回一个DateTime对象，其中包含创建HttpContext对象的时间
+
+|User
+|返回用于访问有关请求的安全信息的IPrincipal接口实现
+|===
+
+. HttpApplication 成员
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|Application
+|与HttpContext.Application属性对应
+
+|CompleteRequest()
+|废弃当前请求的生命周期，直接转到EndRequest事件
+
+|Context
+|返回当前请求的HttpContext对象
+
+|Init()
+|在每个注册的模块上调用Init方法后调用
+
+|Modules
+|返回提供应用程序中模块详细信息的HttpModuleCollection对象
+
+|RegisterModule(type)
+|添加一个新模块
+
+|Request
+|返回HttpContext.Request的值，但如果该值为null，将抛出HttpException
+
+|Response
+|返回HttpContext.Response的值，但如果该值为null，将抛出HttpException
+
+|Server
+|与HttpContext.Server属性对应
+
+|Session
+|返回HttpContext.Session的值，但如果该值为null，将抛出HttpException
+
+|User
+|返回HttpContext.User的值，但如果该值为null，将抛出HttpException
+|===
+
+. HttpRequest 属性
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|AcceptTypes
+|返回浏览器接受的MIME类型的字符串数组
+
+|Browser
+|返回描述浏览器功能的HttpBrowserCapabilities对象
+
+|ContentEncoding
+|返回一个System.Text.Encoding对象，该对象表示用于对请求数据进行编码的字符集
+
+|ContentLength
+|返回请求中内容的字节数
+
+|ContentType
+|返回请求中内容的MIME类型
+
+|Cookies
+|返回包含请求中的cookie的HttpCookieCollection对象
+
+|Files
+|返回浏览器在窗体中发送的文件的集合
+
+|Form
+|用于访问窗体数据
+
+|Headers
+|返回一个包含请求头的集合
+
+|HttpMethod
+|返回用于提出请求的HTTP方法（GET、POST等）
+
+|InputStream
+|返回可用于读取请求内容的流
+
+|IsLocal
+|如果请求源自本地计算机，则返回true
+
+|Params
+|查询字符串、窗体字段和cookie中的组合数据项的集合。也可以直接在HttpRequest对象上使用数组风格的索引器，以使Request[“myname”]与Request.Params[“myname”]相同
+
+|QueryString
+|返回查询字符串参数的集合
+
+|RawUrl
+|返回URL中域名之后的部分
+
+|Url
+|以System.Uri对象的形式返回请求URL
+
+|UrlReferrer
+|以System.Uri对象的形式返回引用URL
+
+|UserAgent
+|返回浏览器提供的用户代理字符串
+
+|UserHostAddress
+|返回远程客户端的IP地址（用字符串表示）
+
+|UserHostName
+|返回远程客户端的DNS名称
+
+|UserLanguages
+|返回浏览器/用户首选的语言的字符串数组
+|===
+
+. HttpResponse 属性
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|AppendCookie(cookie)
+|用于将cookie添加到集合中的便捷方法
+
+|AppendHeader(name, val)
+|用于在响应中添加新头部的便捷方法
+
+|BufferOutput
+|获取或设置一个值，表明是否应在将请求发送给浏览器之前完全缓冲请求，默认值为true。如果将此值更改为false，随后的模块和处理程序将无法更改响应
+
+|Cache
+|返回为响应指定缓存策略的HttpCachePolicy对象
+
+|CacheControl
+|获取或设置响应的cache-control HTTP标头
+
+|Charset
+|获取或设置为响应指定的字符集
+
+|Clear() ClearContent()
+|这些方法是等价的，用于从响应中删除内容
+
+|ClearHeaders()
+|从响应中删除所有头部
+
+|ContentEncoding
+|获取或设置响应中内容的编码
+
+|Cookies
+|获取响应的cookie集合
+
+|Headers
+|返回响应头的集合
+
+|IsClientConnected
+|如果客户端仍连接到服务器，则返回true
+
+|IsRequestBeingDirected
+|如果将向浏览器发送重定向，则返回true
+
+|Output
+|返回可用于向响应中写入文本的TextWriter
+
+|OutputStream
+|返回可用于向响应中写入二进制数据的Stream
+
+|RedirectLocation
+|获取或设置HTTP Location头的值
+
+|Status
+|获取或设置响应的状态，默认值为200(OK)
+
+|StatusCode
+|获取或设置状态的数字部分，默认值为200
+
+|StatusDescription
+|获取或设置状态的文本部分，默认值为(OK)
+
+|SuppressContent
+|如果设置为true，会避免将响应内容发送给客户端
+
+|Write(data)
+|将数据写入到响应输出流中
+
+|WriteFile(path)
+|将指定文件的内容写入到输出流中
+|===
+
+. HttpModulesCollection 属性
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|AllKeys
+|返回一个包含所有已注册模块名称的字符串数组
+
+|Count
+|返回已注册的模块数
+|===
+
+. 模块(Module)与处理程序(Handler)的选择
+
+    - 定制现有应用处理响应的方式，使用模块。
+    - 创建新的Web应用，使用处理程序。
+    - 模块为处理程序准备请求，处理程序为客户端生成响应。不要在模块中生成响应，也不要在处理程序中实现请求功能（如状态管理和安全性）。
+
+. System.Web.UI.Page类事件
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|PreInit
+|在ASP.NET Framework调用由IHttpHandler接口定义的ProcessRequest方法后触发。此事件用于配置页面，通常通过设置与Page指令中的特性对应的属性的值来完成操作
+
+|Init
+|在将页面中的所有控件发送给Initial事件后触发
+
+|InitComplete
+|在设置视图状态时触发。在触发此事件之前分配的视图状态数据值将会丢失
+
+|PreLoad
+|在处理请求中的数据后触发。这些数据包括视图状态和表单数据
+
+|Load
+|在将Load事件发送给Web窗体中的控件之前触发。此事件有助于设置控件所需的资源（如数据库）
+
+|LoadComplete
+|在执行所有控件的事件处理程序后触发。这包括控件Load事件以及控件触发的任何自定义事件
+
+|PreRender
+|在从Web窗体生成HTML响应之前触发。此事件用于对Web窗体内容、可编程HTML元素或它包含的控件做出最终调整
+
+|PreRenderComplete
+|在将PreRender事件发送给Web窗体包含的控件后调用
+
+|SaveStateComplete
+|在保存状态数据（包括视图和会话状态）后触发。在触发此事件之后对状态所做的更改将会丢失，但它们将会影响HTML响应
+
+|Unload
+|在生成HTML响应以便释放Web窗体使用的所有资源（如数据库连接）后触发
+
+|Error
+|在Web窗体或它包含的其中一个控件中出现未经处理的异常时触发。此事件可以在事件序列的任何位置触发
+|===
+
+. 发送给控件的事件
+
++
+[options="autowidth"]
+|===
+|名称 |说明
+
+|Init
+|在首次初始化控件时触发。处理此事件可执行基本的初始化，如设置数据库连接。可以访问有关请求的基本信息，但视图状态和表单数据不可用。不要尝试访问其他控件，因为它们可能尚未初始化
+
+|Load
+|在视图状态和表单数据可用时触发。可以定位Web窗体中的其他控件并与其交互
+
+|PreRender
+|在调用Render方法来为响应生成HTML片段之前触发。处理此事件可设置要生成的内容，包括管理包含在标记中的嵌套控件
+
+|Unload
+|在呈现过程之后调用。处理此事件可释放一直使用的任何资源，如数据库连接
+|===
+
+
+ADO.NET 连接 AS/400 测试记录
+----------------------
 
 - 环境需求：
     * Entity Framework 6 Tools
