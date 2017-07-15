@@ -1,6 +1,14 @@
-=== Servlet & JSP 基础
+Java
+====
+:icons:
+:toc:
+:numbered:
 
-==== （一）请求、响应、会话等
+Servlet & JSP 基础
+----------------
+
+请求、响应、会话等
+~~~~~~~~~
 
 . 只有 请求属性 和 局部变量 是线程安全的。
 
@@ -110,6 +118,7 @@ response.addCookie(cookie);
 
 . 监听者类型
 +
+[options="autowidth"]
 |===
 |里程碑 |事件和监听者类型
 |生命周期 - 创建/撤销 会话 |HttpSessionEvent HttpSessionListener
@@ -147,10 +156,12 @@ response.addCookie(cookie);
 |HttpSessionBindingEvent(注意:没有特定的HttpSessionAttributeEvent)
 |===
 
-==== (二)JSP基本用法
+JSP基本用法
+~~~~~~~
 
 . JSP隐式对象
 +
+[options="autowidth"]
 |===
 |API |隐式对象
 |JspWriter |out
@@ -180,6 +191,7 @@ JspWriter与从HttpServletResponse得到的PrintWriter类似，增加了一些�
 
 . 属性设置：servlet VS JSP
 +
+[options="autowidth"]
 |===
 | |servlet |JSP(隐式对象)
 
@@ -305,7 +317,8 @@ JspWriter与从HttpServletResponse得到的PrintWriter类似，增加了一些�
 注意：如果以上两者冲突，page指令优先于DD设置。
 
 
-==== (三)无脚本的JSP
+无脚本的JSP
+~~~~~~~
 
 . JavaBean标准动作
 +
@@ -574,8 +587,8 @@ Hello ${param.userName}
 </body></html>
 ----
 
-
-==== (四)JSTL
+JSTL
+~~~~
 
 . JSTL 1.1版有5个库，其中4个是定制标记库，列出标记如下：
 
@@ -1014,13 +1027,13 @@ We survived.
 .... sun:
 .... sunw:
 
+定制标记开发
+~~~~~~
 
-==== (五)定制标记开发
+- (待补充)
 
-. (待补充)
-
-
-==== (六)Web应用部署
+Web应用部署
+~~~~~~~
 
 . 把文件放在 WEB-INF 下可以避免直接访问，或者如果应用部署为一个WAR文件，
 可以把不允许直接访问的文件放在 META-INF 下。
@@ -1264,6 +1277,7 @@ There is no spoon.
 
 . 资源部署位置列表
 +
+[options="autowidth"]
 |===
 |资源类型 |部署位置
 
@@ -1298,8 +1312,8 @@ TLD文件必须放在META-INF下，或者META-INF的子目录下。
 |JAR文件必须放在WEB-INF/lib目录中。
 |===
 
-
-==== (七)Web应用安全
+Web应用安全
+~~~~~~~
 
 . 安全的四大要素
 
@@ -1426,6 +1440,7 @@ TLD文件必须放在META-INF下，或者META-INF的子目录下。
 </web-app>
 ----
 +
+[options="autowidth"]
 |===
 |用户 |角色
 |Annie |Admin,Member,Guest
@@ -1433,6 +1448,7 @@ TLD文件必须放在META-INF下，或者META-INF的子目录下。
 |Ted |Guest
 |===
 +
+[options="autowidth"]
 |===
 |【A】的内容 |【B】的内容 |谁能访问UpdateRecipes
 |Guest |Admin |Ted,Annie
@@ -1508,6 +1524,7 @@ if( request.isUserInRole("Manager")) {
 
 .. 除了表单认证，一旦在DD中声明了<login-config>元素，实现认证就将由容器自动处理（假设已经在服务器中配置了用户名/口令/角色信息）。
 +
+[options="autowidth"]
 |===
 |类型 |规范 |数据完整性 |注释
 
@@ -1598,6 +1615,7 @@ Please login ...
 
 .. 未经认证的客户请求一个受限资源时的对比：
 +
+[options="autowidth"]
 |===
 |步骤 |没有传输保证 |有机密性传输保证
 
@@ -1622,8 +1640,8 @@ Please login ...
 |浏览器再做请求，这一次会在首部中提供用户登录信息，而且请求使用安全连接传送。
 |===
 
-
-==== (八)过滤器和包装器
+过滤器和包装器
+~~~~~~~
 
 . 只有一个过滤器接口：Filter
 +
@@ -1743,8 +1761,8 @@ Please login ...
 .. ServletResponseWrapper
 .. HttpServletResponseWrapper
 
-
-==== (九)模式和struts
+模式和struts
+~~~~~~~~~
 
 . 3个最主要的非功能性需求：
 
@@ -1763,8 +1781,8 @@ Please login ...
 
 . 支持远程模型组件的模式
 
-
-=== 环境变量设置
+环境变量设置
+~~~~~~
 
 . Java
 
@@ -1810,7 +1828,8 @@ Please login ...
 ;%ANT_HOME%\bin;
 ----
 
-=== 其他
+其他
+~~
 
 . JavaBean
 
