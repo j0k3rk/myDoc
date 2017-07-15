@@ -1,0 +1,101 @@
+JavaScript
+==========
+:icons:
+:toc:
+:numbered:
+
+
+jQuery
+------
+
+----
+//根据类型、类或id选择元素
+$('*')         //选择文档中的所有元素
+$('.myclass')  //选择所有已向其分配CSS类myclass的元素
+$('element')   //选择所有类型为element的元素
+$('#myid')     //选择id为myid的元素
+
+// 根据关系和联合选择元素
+$('tr td')         //匹配所有作为tr元素的后代的td元素
+$('tr > td')       //匹配所有作为tr元素的直接后代的td元素
+$('h2 + table')    //匹配紧接在h2元素后面的table元素
+$('h2 ~ table')   //匹配h2元素后面的table元素（不一定紧邻h2元素）
+$('tr, td')        //匹配tr和td元素
+
+//特性选择器
+$('[attr]')        //选择具有attr特性的元素，不论其特性值如何
+$('[attr]="val"')  //选择具有attr特性且其值为val的元素
+$('[attr]!="val"') //选择具有attr特性且其值不为val的元素
+$('[attr]^="val"') //选择具有attr特性且其值以val开头的元素
+$('[attr]~="val"')    //选择具有attr特性且其值包含val的元素
+$('[attr]$="val"')   //选择具有attr特性且其值以val结尾的元素
+$('[attr]|="val"') //选择具有attr特性且其值为val或以val后连接字符（val-）开头的元素
+
+//基本过滤器
+:eq(n)          //使用以零为基准的索引选择第n个元素
+:even:odd       //选择编号为偶数或奇数的元素
+:first:last     //选择第一个或最后一个元素
+:gt(n):lt(n)    //选择其索引相对于其同级大于或小于n的所有元素
+:header         //选择所有属于标题（h1、h2等）的元素
+:not(selector)  //选择所有与选择器不匹配的元素
+
+//内容过滤器
+:contains('text')   //选择包含text或其子元素包含text的元素
+:has('selector')    //选择至少有一个子元素与selector匹配的元素
+:empty              //选择没有子元素的元素
+:parent             //选择至少有一个其他元素的元素
+:first-child        //选择作为其父元素的第一个子元素的元素
+:last-child         //选择作为其父元素的最后一个子元素的元素
+:nth-child(n)       //使用以1为起始的索引，选择作为其父元素的第n个子元素的元素
+:only-child         //选择作为其父元素的唯一子元素的元素
+
+//表单过滤器
+:button             //选择类型为button的button元素和input元素
+:checkbox           //选择复选框
+:checked            //选择处于选中状态的复选框和单选按钮
+:disabled:enabled   //分别选择已启用或已禁用的元素
+:input              //选择input元素
+:password           //选择password元素
+:radio              //选择单选按钮
+:reset              //选择类型为reset的input元素
+:selected           //选择处于选中状态的option元素
+:submit             //选择类型为submit的input元素
+:text               //选择类型为text的input元素
+
+//CSS函数
+addClass('myClass')     //将指定的类名添加到所选元素的class特性中
+hasClass('myClass')     //如果已将指定类分配给所选的元素，则返回true
+removeClass('myClass')  //从所选元素的class特性中删除指定的类名
+toggleClass('myClass')  //如果指定的类不存在，则添加该类，否则删除该类
+css('property', 'value')    //将指定的属性和值添加到所选元素的样式特性中
+css('property')         //从第一个匹配的元素返回特定属性的值
+
+//DOM导航函数
+children()          //获取所选元素的子元素
+closest('selector') //遍历所选的每个元素的祖先元素，查找与指定选择器匹配的第一个元素实例
+filter('selector')  //将所选元素缩减到那些与指定选择器匹配的元素
+first('selector')   //遍历所选元素的后代，查找所有与指定选择器匹配的元素
+next()              //获取紧接在所选元素之后的同级元素
+prev()              //获取紧靠在所选元素之前的同级元素
+parent()            //返回所选元素的直接父元素
+sibilings()         //返回所选元素的同级元素
+
+//DOM操作函数
+before('new')after('new')   //将new元素插入到所选元素之前或之后
+insertBefore()insertAfter() //用法与before和after相同，但会颠倒新元素和选择器的顺序，这些函数返回新建的元素
+prepend('new')append('new') //将new元素插入到所选元素中，作为第一个或最后一个子元素
+prependTo()appendTo()       //用法与prepend和append相同，但会颠倒新元素和选择器的顺序，这些函数返回新建的元素
+empty()                     //删除所选元素的所有子元素
+remove()                    //删除DOM中的所选元素
+attr('name', 'val')         //将所选元素的name特性设置为val，如果特性不存在，则创建特性
+removeAttr('name')          //从所选元素中删除name特性
+
+//事件处理函数
+click       //单击鼠标时触发
+dblclick    //双击鼠标时触发
+mouseenter  //鼠标进入元素所在的屏幕区域时触发
+mouseleave  //鼠标离开元素所在的屏幕区域时触发
+change      //元素值发生更改时触发
+select      //选择元素值时触发
+submit      //提交表单时触发
+----
