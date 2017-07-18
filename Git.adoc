@@ -65,6 +65,26 @@ cherry-pick
 . 把弄错分支的提交移动到正确的地方
 . 把其他分支的提交添加到现在的分支
 
+- 举例：
++
+当前分支为 `issue1` ，欲将部分提交导入 `master` 分支，处理如下：
++
+----
+// 查看 issue1 分支的log
+git log
+
+// 记住 commit 码前7位
+commit c81dba126bb0416c1b5c1bc9aa2943f28a0d6c82
+Author: yourname <yourname@yourmail.com>
+Date:   Mon Dec 15 15:05:35 2014 +0900
+
+// 切换到 master 分支
+git checkout master
+
+// 导入提交
+git cherry-pick c81dba1
+----
+
 
 commit
 ~~~~~~
@@ -261,6 +281,23 @@ merge
 用这个选项指定分支的合并，就可以把所有汇合的提交添加到分支上。
 主要使用的场合：汇合主题分支的提交，然后合并提交到目标分支。
 
+- 举例：
++
+当前分支为 `issue1` ，欲将所有提交合并为一个提交并导入 `master` 分支，处理如下：
++
+----
+// 切换到 master 分支
+git checkout master
+
+// 导入提交
+git merge --squash issue1
+
+// 若发生冲突，请先修正冲突，然后再提交。
+git add sample.txt
+git commit
+----
+
+
 mv
 ~~
 
@@ -308,6 +345,79 @@ rebase
     * 清楚地汇合内容含义相同的提交。
     * 添加最近提交时漏掉的文件。
 
+- 例1（合并上2次提交）：
++
+----
+git rebase -i HEAD~~
+
+// 弹出提示如下
+// --------------------------------
+pick 9a54fd4 添加commit的说明
+pick 0d4a808 添加pull的说明
+
+# Rebase 326fc9f..0d4a808 onto d286baa
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+// --------------------------------
+
+// 将第二行的“pick”改成“squash”，保存退出
+
+// 弹出新的提交提示，编辑后保存退出
+----
+
+- 例2（修改提交）[yellow]#<此示例未成功完成>#：
++
+----
+git rebase -i HEAD~~
+
+// 弹出提示如下
+// --------------------------------
+pick 9a54fd4 添加commit的说明
+pick 0d4a808 添加pull的说明
+
+# Rebase 326fc9f..0d4a808 onto d286baa
+#
+# Commands:
+#  p, pick = use commit
+#  r, reword = use commit, but edit the commit message
+#  e, edit = use commit, but stop for amending
+#  s, squash = use commit, but meld into previous commit
+#  f, fixup = like "squash", but discard this commit's log message
+#  x, exec = run command (the rest of the line) using shell
+// --------------------------------
+
+// 将第一行的“pick”改成“edit”，保存退出，将显示如下提示
+// --------------------------------
+Stopped at d286baa... 添加commit的说明
+You can amend the commit now, with
+
+        git commit --amend
+
+Once you are satisfied with your changes, run
+
+        git rebase --continue
+// --------------------------------
+
+// 修改 sample.txt
+
+// 用commit --amend保存修改
+git add sample.txt
+git commit --amend
+
+// 完成操作
+git rebase --continue
+
+// 如果在中途要停止 rebase 操作，请在 rebase 指定 --abort 选项执行
+
+// 如果发生问题无法解决，可用如下命令复原到 rebase 之前的状态
+git reset --hard ORIG_HEAD
+----
 
 remote
 ~~~~~~
@@ -350,6 +460,14 @@ reset
     * 复原修改过的索引的状态(mixed)
     * 彻底取消最近的提交(hard)
     * 只取消提交(soft)
++
+----
+// 彻底删除当前分支的上2次提交
+git reset --hard HEAD~~
+
+// 删除错了，恢复到 reset 前的状态
+git reset --hard ORIG_HEAD
+----
 
 revert
 ~~~~~~
@@ -359,7 +477,10 @@ revert
 - 主要使用的场合：
 
     * 安全地取消过去发布的提交
-
++
+----
+git revert HEAD
+----
 
 rm
 ~~
