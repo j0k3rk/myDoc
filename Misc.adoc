@@ -29,6 +29,13 @@ cmder
 +
 If you get a message "Access Denied" ensure you are executing the command in an Administrator prompt.
 
+. git log 中文乱码
+
+- 打开Settings>Startup>Environment，追加一行：
++
+----
+set LANG=zh_CN.UTF8
+----
 
 Shadowsocks
 -----------
