@@ -4,15 +4,20 @@
 :toc:
 :numbered:
 
-JetBrains IDEs
---------------
+cmd
+~~~
 
-. 常用插件
+. DOS路径缩写
 
-- AsciiDoc
-- CodeGlance
-- String Manipulation
-- RegexpTester
+.. 如下命令可以查询缩写名：
++
+----
+dir /x
+----
+
+.. 缩写规则：
+
+- 共8位，前6位字符 + "~" + 序号
 
 cmder
 -----
@@ -37,95 +42,53 @@ If you get a message "Access Denied" ensure you are executing the command in an 
 set LANG=zh_CN.UTF8
 ----
 
-Shadowsocks
------------
+IBM Data Studio v4.1.2
+----------------------
 
-. VPS安装
-+
-选择CentOS 7 x64
-
-. SSH远程登录
-
-. Shadowsocks安装
+. 安装完成后无法启动，错误日志举例如下：
 +
 ----
-yum install m2crypto python-setuptools
-
-easy_install pip
-
-pip install shadowsocks
+!ENTRY org.eclipse.equinox.registry 2 0 2017-02-21 10:31:38.280
+!MESSAGE 忽略了捆绑软件“com.ibm.datatools.attributesexplorer.nl1”中的扩展和扩展点。捆绑软件未被标记为单一捆绑软件。
 ----
++
+https://www.ibm.com/developerworks/community/forums/html/topic?id=a29fda4a-5ec8-4380-9400-b03c385a0f70[解决方法参考]
 
-. Shadowsocks设置
-.. 用vi打开配置文件
+.. 第一回处理
+... Entry command line (cmd)
+... input Data Studio installation path,for example:
 +
 ----
-vi  /etc/shadowsocks.json
+cd C:\Program Files\IBM\DS4.1.2
 ----
-
-.. 编辑内容
+... input command: 'eclipse.exe -data workspace path',for example:
 +
 ----
-{
-    "server":"Your_VPS_IP",
-    "server_port":Your_VPS_Port,
-    "local_address": "127.0.0.1",
-    "local_port":1080,
-    "password":"Your_Shadowsocks_Password",
-    "timeout":300,
-    "method":"aes-256-cfb",
-    "fast_open": false
-}
+eclipse.exe -data C:\yangchaorui_work\Data Studio\workspace_test
 ----
-【Insert】插入编辑，【Esc】退出编辑，“:wq”保存退出
 
-. 防火墙安装
+.. 第二回处理
+... cmd
+... entry your Data Studio installation path, for example:
 +
 ----
-yum install firewalld
-
-systemctl start firewalld
+cd C:\Program Files\IBM\DS4.1.2
 ----
-
-. 防火墙设置
+... input 'eclipse -configuration validpath'. For example:
 +
 ----
-firewall-cmd --permanent --zone=public --add-port=Your_VPS_Port/tcp
-
-firewall-cmd --reload
+eclipse -configuration C:\Program Files\IBM\DS4.1.2
 ----
 
-. Shadowsocks启动
+.. [yellow]*第三回处理*
+... Add one line
 +
 ----
-# 前台运行
-ssserver -c /etc/shadowsocks.json
-
-# 或 后台运行
-nohup ssserver -c /etc/shadowsocks.json &
+-Dequinox.ds.block_timeout=60000
 ----
-
-编程字体
-----
-
-- *新宋体*
-    * 优点
-        ** Visual Studio 2013 默认字体，对中文、全角符号的支持较好，字体放大或缩小后仍然等宽。
-    * 缺点
-        ** 数字0和大写字母O，数字1和小写字母l  的辨识度稍差。
-
-- *MS Gothic*
-    * 优缺点参考新宋体。
-
-- *Inziu Iosevka SC / Inziu IosevkaCC SC / ...*
-    * 优点
-        ** 对中文支持较好，其中后者支持全角符号等宽。数字0和大写字母O，数字1和小写字母l  的辨识度较高。
-    * 缺点
-        ** 默认的12号字效果较好，但在个别编辑器中（NotePad++），字体放大或缩小后不再等宽。
-
-- *其他字体（包括但不限于：Consolas，Courier，Source Code Pro）*
-    * 缺点
-        ** 对中文支持不够。
+at bottom of the file 'eclipse.ini' that located in the 'C:\Program Files\IBM\DS4.1.2'.
+... Specify the workspace path without special sign like '#'
+... Delete all files(.fileTable.*) which located in the 'C:\Program Files\IBM\DS4.1.2\configuration\org.eclipse.osgi\.manager'.
 
 IBM i Access Client Solutions 客户端设置
 -----------------------------------
@@ -276,54 +239,83 @@ B8=[backspace]
 C112=[dspsosi]
 ----
 
-IBM Data Studio v4.1.2
-----------------------
+JetBrains IDEs
+--------------
 
-. 安装完成后无法启动，错误日志举例如下：
-+
-----
-!ENTRY org.eclipse.equinox.registry 2 0 2017-02-21 10:31:38.280
-!MESSAGE 忽略了捆绑软件“com.ibm.datatools.attributesexplorer.nl1”中的扩展和扩展点。捆绑软件未被标记为单一捆绑软件。
-----
-+
-https://www.ibm.com/developerworks/community/forums/html/topic?id=a29fda4a-5ec8-4380-9400-b03c385a0f70[解决方法参考]
+. 常用插件
 
-.. 第一回处理
-... Entry command line (cmd)
-... input Data Studio installation path,for example:
-+
-----
-cd C:\Program Files\IBM\DS4.1.2
-----
-... input command: 'eclipse.exe -data workspace path',for example:
-+
-----
-eclipse.exe -data C:\yangchaorui_work\Data Studio\workspace_test
-----
+- AsciiDoc
+- CodeGlance
+- String Manipulation
+- RegexpTester
 
-.. 第二回处理
-... cmd
-... entry your Data Studio installation path, for example:
+Shadowsocks
+-----------
+
+. VPS安装
++
+选择CentOS 7 x64
+
+. SSH远程登录
+
+. Shadowsocks安装
 +
 ----
-cd C:\Program Files\IBM\DS4.1.2
-----
-... input 'eclipse -configuration validpath'. For example:
-+
-----
-eclipse -configuration C:\Program Files\IBM\DS4.1.2
+yum install m2crypto python-setuptools
+
+easy_install pip
+
+pip install shadowsocks
 ----
 
-.. [yellow]*第三回处理*
-... Add one line
+. Shadowsocks设置
+.. 用vi打开配置文件
 +
 ----
--Dequinox.ds.block_timeout=60000
+vi  /etc/shadowsocks.json
 ----
-at bottom of the file 'eclipse.ini' that located in the 'C:\Program Files\IBM\DS4.1.2'.
-... Specify the workspace path without special sign like '#'
-... Delete all files(.fileTable.*) which located in the 'C:\Program Files\IBM\DS4.1.2\configuration\org.eclipse.osgi\.manager'.
 
+.. 编辑内容
++
+----
+{
+    "server":"Your_VPS_IP",
+    "server_port":Your_VPS_Port,
+    "local_address": "127.0.0.1",
+    "local_port":1080,
+    "password":"Your_Shadowsocks_Password",
+    "timeout":300,
+    "method":"aes-256-cfb",
+    "fast_open": false
+}
+----
+【Insert】插入编辑，【Esc】退出编辑，“:wq”保存退出
+
+. 防火墙安装
++
+----
+yum install firewalld
+
+systemctl start firewalld
+----
+
+. 防火墙设置
++
+----
+firewall-cmd --permanent --zone=public --add-port=Your_VPS_Port/tcp
+
+firewall-cmd --reload
+----
+
+. Shadowsocks启动
++
+----
+# 前台运行
+ssserver -c /etc/shadowsocks.json
+
+# 或 后台运行
+nohup ssserver -c /etc/shadowsocks.json &
+----
 
 Talend Open Studio for Data Integration 测试记录
 --------------------------------------------
@@ -383,3 +375,25 @@ Talend Open Studio for Data Integration 测试记录
 |===
 
 . 待续...
+
+编程字体
+----
+
+- *新宋体*
+    * 优点
+        ** Visual Studio 2013 默认字体，对中文、全角符号的支持较好，字体放大或缩小后仍然等宽。
+    * 缺点
+        ** 数字0和大写字母O，数字1和小写字母l  的辨识度稍差。
+
+- *MS Gothic*
+    * 优缺点参考新宋体。
+
+- *Inziu Iosevka SC / Inziu IosevkaCC SC / ...*
+    * 优点
+        ** 对中文支持较好，其中后者支持全角符号等宽。数字0和大写字母O，数字1和小写字母l  的辨识度较高。
+    * 缺点
+        ** 默认的12号字效果较好，但在个别编辑器中（NotePad++），字体放大或缩小后不再等宽。
+
+- *其他字体（包括但不限于：Consolas，Courier，Source Code Pro）*
+    * 缺点
+        ** 对中文支持不够。
