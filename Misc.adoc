@@ -22,7 +22,7 @@ dir /x
 cmder
 -----
 
-. Shortcut to open Cmder in a chosen folder
+. 在右键菜单中添加快捷方式
 
 .. Open a terminal as an Administrator
 .. Navigate to the directory you have placed Cmder
@@ -36,10 +36,21 @@ If you get a message "Access Denied" ensure you are executing the command in an 
 
 . git log 中文乱码
 
-- 打开Settings>Startup>Environment，追加一行：
+- 打开 Settings > Startup > Environment，追加一行：
 +
 ----
 set LANG=zh_CN.UTF8
+----
+
+. 自定义快捷键
+
+- 打开 Settings > Keys&Macro，追加设定：
+----
+// Split: Duplicate active 'shell' split to right ...
+Ctrl + Shift + Right
+
+// Split: Duplicate active 'shell' split to bottom ...
+Ctrl + Shift + Down
 ----
 
 IBM Data Studio v4.1.2
