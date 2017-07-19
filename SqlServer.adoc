@@ -89,6 +89,27 @@ http://server:port/ReportServer （端口为80时可省略）
 +
 注意：此方法对通过向导创建的报表似乎无效。
 
+原订阅开发者离职，导致订阅日志报错，应如何修改？
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+----
+DECLARE @OldUserID uniqueidentifier
+
+DECLARE @NewUserID uniqueidentifier
+
+SELECT @OldUserID = UserID FROM dbo.Users WHERE UserName = 'YourDomain\OldUser'
+
+SELECT @NewUserID = UserID FROM dbo.Users WHERE UserName = 'YourDomain\NewUser'
+
+-- UPDATE dbo.Subscriptions SET OwnerID = @NewUserID WHERE OwnerID = @OldUserID
+
+-- select * from dbo.Subscriptions where OwnerID = @OldUserID
+
+SELECT UserName,UserID FROM dbo.Users
+
+select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on ss.OwnerID = users.UserID
+  ORDER BY ss.OwnerID
+----
 
 [[X2]]
 SQL Server 运维
