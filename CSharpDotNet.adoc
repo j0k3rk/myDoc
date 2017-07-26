@@ -98,6 +98,75 @@ c#基础
 |string |System.String |Unicode character string
 |===
 
+- 字符串格式化
++
+[options="autowidth"]
+|===
+|代码 |说明
+|C |本地货币格式
+|D |十进制格式，把整数转为以10为基数的数，如给定精度说明符，则加上前导0
+|E |科学记数法（指数）格式，精度说明符设置小数位数（默认为6），格式字符的大小写（e或E）确定指数符号的大小写
+|F |固定点格式，精度说明符设置小数位数，可为0
+|G |普通格式，使用E或F格式取决于哪种格式较简单
+|N |数字格式，加逗号表示千分符
+|P |百分数格式
+|X |十六进制格式，精度说明符用于加上前导0
+|===
+
+可访问性
+~~~~
+
+- public
+- protected
+- internal protected
+- private
+- internal
+
+XML 文档
+~~~~~~
+使用3斜杠（///）注释的内容可以被自动提取创建为 XML 格式的文档说明。
+
+- 特殊标记
++
+[options="autowidth"]
+|===
+|标记 |说明
+|<c> |把行中的文本标记为代码
+|<code> |把多行标记为代码
+|<example> |标记为一个代码示例
+|<exception> |说明一个异常类（编译器要验证其语法）
+|<include> |包含其他文档说明文件的注释（编译器要验证其语法）
+|<list> |把列表插入文档中
+|<para> |Gives structure to text
+|<param> |标记方法的参数（编译器要验证其语法）
+|<paramref> |表示一个单词是方法的参数（编译器要验证其语法）
+|<permission> |说明对成员的访问（编译器要验证其语法）
+|<remarks> |给成员添加描述
+|<returns> |说明方法的返回值
+|<see> |提供对另一个参数的交叉引用（编译器要验证其语法）
+|<seealso> |提供描述中的“参见”部分（编译器要验证其语法）
+|<summary> |提供类型或成员的简短小结
+|<typeparam> |用在泛型类型的注释中以说明一个类型参数
+|<typepararef> |类型参数的名称
+|<value> |描述属性
+|===
+
+预处理器指令
+~~~~~~
+
+- #define 和 #undef
+- #if 、 #elif 、 #else 和 #endif
+- #warning 和 #error
+- #region 和 #endregion
+- #line
+- #pragma
+
+编程规则
+~~~~
+
+. 命名规则
+
+
 使用 `csc.exe` 编译：
 ~~~~~~~~~~~~~~~~
 
@@ -127,13 +196,43 @@ csc MathClient.cs /r:MathLibrary.dll
 MathClient.exe
 ----
 
-运算符计算顺序举例
-~~~~~~~~~~
+知识点
+~~~
 
+. 运算符计算顺序举例：
++
 ----
 int a = 5;
 int b = a++ + (++a) * 2 + ++a;  // b = 5 + 7 * 2 + 8 = 27
 ----
+
+. 除非特别指定，C#的所有引用类型都通过引用来传递，所有值类型都通过值来传递。
+
+    - 强制值参数通过引用传递给方法，可以使用 `ref` 关键字，例如：
++
+----
+static void SomeFunction(int[] ints, ref int i)
+{
+ints[0] = 100;
+i = 100; // The change to i will persist after SomeFunction() exits.
+}
+
+SomeFunction(ints, ref i);
+----
+
+FAQ
+~~~
+
+[qanda]
+
+`class` 和 `struct` 的区别？::
+    * `class` 是存储在堆（heap）上的引用类型，而 `struct` 是存储在栈（stack）上的值类型。
+    * `struct` 不支持继承。
+    * 较小的数据类型使用 `struct` 可以提高性能。
+
+xxxxx::
+xxx
+
 
 ASP.NET基础
 ---------
