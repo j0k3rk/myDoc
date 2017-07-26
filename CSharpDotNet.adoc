@@ -7,6 +7,126 @@ C# & .NET
 c#基础
 -----
 
+类型
+~~
+
+值类型
+^^^
+
+. 整型（8种）：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description |Range (min:max)
+|sbyte |System.SByte |8-bit signed integer |-128:127 (-2^7^:2^7^–1)
+|short |System.Int16 |16-bit signed integer |-32,768:32,767 (-2^15^:2^15^–1)
+|int |System.Int32 |32-bit signed integer |-2,147,483,648:2,147,483,647 (-2^31^:2^31^–1)
+|long |System.Int64 |64-bit signed integer |-9,223,372,036,854,775,808:9,223,372,036,854,775,807 (-2^63^:2^63^–1)
+|byte |System.Byte |8-bit unsigned integer |0:255 (0:2^8^–1)
+|ushort |System.UInt16 |16-bit unsigned integer |0:65,535 (0:2^16^–1)
+|uint |System.UInt32 |32-bit unsigned integer |0:4,294,967,295 (0:2^32^–1)
+|ulong |System.UInt64 |64-bit unsigned integer |0:18,446,744,073,709,551,615 (0:2^64^–1)
+|===
+
+. 浮点类型（2种）：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description |Significant Figures |Range (Approximate)
+|float |System.Single |32-bit, single-precision floating point |7 |±1.5 × 10^245^ to ±3.4 × 10^38^
+|double |System.Double |64-bit, double-precision floating point |15/16 |±5.0 × 10^2324^ to ±1.7 × 10^308^
+|===
+
+. decimal 类型：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description |Significant Figures |Range (Approximate)
+|decimal |System.Decimal |128-bit, high-precision decimal notation |28 |±1.0 × 10^228^ to ± 7.9 × 10^28^
+|===
+
+. bool 类型：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description |Significant Figures |Range (Approximate)
+|bool |System.Boolean |Represents true or false |NA |true or false
+|===
+
+. 字符类型：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Values
+|char |System.Char |Represents a single 16-bit (Unicode) character
+|===
+
+- 特殊符号：
++
+[options="autowidth"]
+|===
+|Escape Sequence |Character
+|\' |Single quotation mark
+|\" |Double quotation mark
+|\\ |Backslash
+|\0 |Null
+|\a |Alert
+|\b |Backspace
+|\f |Form feed
+|\n |Newline
+|\r |Carriage return
+|\t |Tab character
+|\v |Vertical tab
+|===
+
+引用类型
+^^^^
+
+. object 类型：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description
+|object |System.Object |The root type. All other types (including value types) in the CTS are derived from object.
+|===
+
+. string 类型：
++
+[options="autowidth"]
+|===
+|Name |CTS Type |Description
+|string |System.String |Unicode character string
+|===
+
+使用 `csc.exe` 编译：
+~~~~~~~~~~~~~~~~
+
+- 选项
++
+[options="autowidth"]
+|===
+|选项 |输出
+|/t:exe   |控制台应用程序（默认）
+|/t:library  |带有清单的类库
+|/t:module  |没有清单的组件
+|/t:winexe  |Windows应用程序（无控制台窗口）
+|/out |指定编译后生成的输出文件名
+|/r (/reference) |指定引用库
+|===
++
+举例：
++
+----
+// 生成dll
+csc /t:library MathLibrary.cs
+
+// 生成exe
+csc MathClient.cs /r:MathLibrary.dll
+
+// 执行exe
+MathClient.exe
+----
+
 运算符计算顺序举例
 ~~~~~~~~~~
 
