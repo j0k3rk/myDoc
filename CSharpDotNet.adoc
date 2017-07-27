@@ -113,14 +113,34 @@ c#基础
 |X |十六进制格式，精度说明符用于加上前导0
 |===
 
-可访问性
-~~~~
+修饰符
+~~~
 
-- public
-- protected
-- internal protected
-- private
-- internal
+. 可见性修饰符
++
+[options="autowidth"]
+|===
+|修饰符 |应用于 |说明
+|public |所有类型或成员 |任何代码均可以访问
+|protected |类型和内嵌类型的所有成员 |只有派生的类型能访问
+|internal |所有类型或成员 |只能在包含它的程序集中访问
+|private |类型和内嵌类型的所有成员 |只能在它所属的类型中访问
+|protected internal |类型和内嵌类型的所有成员 |只能在派生类型和包含它的程序集中访问
+|===
+
+. 其他修饰符
++
+[options="autowidth"]
+|===
+|修饰符 |应用于 |说明
+|new |函数成员 |成员用相同的签名隐藏继承的成员
+|static |所有成员 |成员不作用于类的具体实例
+|virtual |仅函数成员 |成员可以由派生类重写
+|abstract |仅函数成员 |虚拟成员定义了成员的签名，但不提供实现
+|override |仅函数成员 |成员重写了继承的虚拟或抽象成员
+|sealed |类、方法和属性 |对于类，不能被继承。对于方法和属性，成员可重写继承的虚拟成员，但不能被任何派生类的任何成员所重写。必须和 override 一起使用。
+|extern |仅静态[dll import]方法 |成员在外部用不同的语言实现。
+|===
 
 XML 文档
 ~~~~~~
@@ -166,6 +186,9 @@ XML 文档
 
 . 命名规则
 
+.. 公有属性采用 Pascal 大小写形式命名，如果存在一个等价的私有字段，则采用 camel 大小写形式命名。把下划线(_)作为前缀，会为识别字段提供极大便利。
+.. 接口名称通常以字母 I 开头。
+
 
 使用 `csc.exe` 编译：
 ~~~~~~~~~~~~~~~~
@@ -196,8 +219,8 @@ csc MathClient.cs /r:MathLibrary.dll
 MathClient.exe
 ----
 
-知识点
-~~~
+其他知识点
+~~~~~
 
 . 运算符计算顺序举例：
 +
@@ -211,14 +234,95 @@ int b = a++ + (++a) * 2 + ++a;  // b = 5 + 7 * 2 + 8 = 27
     - 强制值参数通过引用传递给方法，可以使用 `ref` 关键字，例如：
 +
 ----
-static void SomeFunction(int[] ints, ref int i)
-{
-ints[0] = 100;
-i = 100; // The change to i will persist after SomeFunction() exits.
+static void SomeFunction(int[] ints, ref int i) {
+    ints[0] = 100;
+    i = 100; // The change to i will persist after SomeFunction() exits.
 }
 
 SomeFunction(ints, ref i);
 ----
+
+    - 在方法的输入参数前加上 out 前缀，传递给该方法的变量可以不初始化。
++
+----
+static void SomeFunction(out int i) {
+    i = 100;
+}
+
+public static int Main() {
+    int i; // note how i is declared but not initialized.
+    SomeFunction(out i);
+    Console.WriteLine(i);
+    return 0;
+}
+----
+
+. 如果提供了带参数的 `构造函数` ，编译器就不再自动提供默认的构造函数。
+
+.. 类有一些静态字段或属性，需要在第一次使用类之前从外部源中初始化，可以使用 `静态构造函数` 。
+
+... 静态构造函数总是由.NET运行库调用，所以没有访问修饰符（无意义）
+... 不能带任何参数
+... 一个类只有一个静态构造函数
+... 只能访问类的静态成员，不能访问实例成员
+... 静态构造函数和无参数的实例构造函数可以在同一个类中定义，加载类时执行前者，创建实例时执行后者。
+... 若多个类中都有静态构造函数，先执行哪个无法确定。一个静态构造函数中的代码不应依赖于其他静态构造函数。
+
+. 只读字段
+
+.. readonly 关键字比 const 更灵活，可以在构造函数中赋值，但不能在其他地方赋值。
+.. 可以是实例字段，而不是静态字段，类的每个实例可以有不同的值。
+.. 如果要把只读字段设置为静态，必须显式声明。
+
+. 弱引用
+
+- 实例化一个类或结构时，只要有代码引用它，就会形成强引用，垃圾回收器不会清理 MyClass 对象使用的内存。
++
+----
+MyClass myClassVariable = new MyClass();
+----
+
+- 如果类对象很大又不经常访问，（特殊情况下）可以创建对象的弱引用（WeakReference）。
+
+. System.Object()方法
+- ToString()
+- GetHashCode()
+- Equals() 和 ReferenceEquals()
+- Finalize()
+- GetType()
+- MemberwiseClone()
+
+. 继承
+
+.. 继承的类型
+... 实现继承
+... 接口继承
+
+.. 不支持多重实现继承，允许多重接口继承。
+
+.. 不支持私有继承。
+
+.. 虚方法
++
+把基类函数声明为 virtual，就可以在任何派生类中重写该函数。（override）
+
+.. 隐藏方法
++
+如果签名相同的方法在基类和派生类中都进行了声明，但没有分别使用 virtual 和 override，派生类方法就会隐藏基类方法。
+
+.. 调用函数的基类版本：base.Function()
+
+.. 抽象类和抽象函数（abstract）
++
+- 抽象类不能实例化。
+- 抽象函数不能直接实现，必须在非抽象的派生类中实现。
+- 抽象函数本身也是虚拟的（不需要提供 virtual 关键字）。
+- 如果类包含抽象函数，则该类也是抽象的，必须相应声明。
+
+.. 密封类和密封方法（sealed）
+- 对于类，表示不能继承该类。
+- 对于方法，表示不能重写该方法。
+- 要在方法或属性上使用 sealed 关键字，必须先重写于一个基类。如果基类上不希望有重写的方法或属性，就不要声明为 virtual。
 
 FAQ
 ~~~
@@ -227,8 +331,10 @@ FAQ
 
 `class` 和 `struct` 的区别？::
     * `class` 是存储在堆（heap）上的引用类型，而 `struct` 是存储在栈（stack）上的值类型。
-    * `struct` 不支持继承。
+    * `struct` 不支持继承。（唯一例外是最终派生于 System.Object，继承链为：* <- System.ValueType <- System.Object）
+    * `struct` 不允许定义无参数的构造函数。（编译器总是提供一个无参数的默认构造函数，不允许替换。）
     * 较小的数据类型使用 `struct` 可以提高性能。
+    * `struct` 可以指定字段如何在内存中布局。
 
 xxxxx::
 xxx
