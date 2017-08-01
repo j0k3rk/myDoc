@@ -181,6 +181,56 @@ XML 文档
 - #line
 - #pragma
 
+LINQ
+~~~~
+
+- 一些有用的 LINQ 扩展方法
++
+[options="autowidth"]
+|===
+|扩展方法 |描述 |延迟
+|All |如果源数据中的所有条目都与谓词匹配，则返回 true |否
+|Any |如果源数据中至少有一个条目与谓词匹配，则返回 true |否
+|Contains |如果数据源含有指定的条目或值，则返回 true |否
+|Count |返回数据源中的条目数 |否
+|First |返回数据源的第一个条目 |否
+|FirstOrDefault |返回数据源的第一个条目，或无条目时，返回默认值 |否
+|Last |返回数据源的最后一个条目 |否
+|LastOrDefault |返回数据源的最后条目，或无条目时，返回默认值 |否
+|Max / Min |返回由 lambda 表达式表示的最大值或最小值 |否
+|OrderBy / OrderByDescending |基于 lambda 表达式返回的值对数据源进行排序 |是
+|Reverse |反转数据源中数据项的顺序 |是
+|Select |设计一个查询结果 |是
+|SelectMany |把每个数据项投射到一个条目序列之中，然后把所有这些结果序列连接成一个序列 |是
+|Single |返回数据源的第一个条目，或者有多个匹配时抛出一个异常 |否
+|SingleOrDefault |返回数据源的第一个条目，或者无条目时，返回默认值；有多个匹配条目时，抛出一个异常 |否
+|Skip / SkipWhile |跳过指定数目的元素，或者当谓词匹配时跳过 |是
+|Sum |对谓词选定的值求和 |否
+|Take / TakeWhile |从数据源的开始处选择指定数目的元素，或当谓词匹配时选择条目 |是
+|ToArray / ToDictionary / ToList |把数据源转换成数组或其他集合类型 |否
+|Where |过滤掉数据源中与谓词不匹配的条目 |是
+|===
+
+ASP.NET MVC 5
+~~~~~~~~~~~~~
+
+. Razor 视图引擎
+
+.. 声明视图模型对象的类型使用了 @model （首字母小写），而访问 Name 属性使用了 @Model （首字母大写）。
++
+----
+@model Razor.Models.Product
+...
+<div>
+    @Model.Name
+</div>
+...
+----
+
+.. Views 文件夹中以下划线（_）开头的文件不会返回给用户，可以通过文件名来区分要进行渲染的视图和对视图进行支持的文件（例如视图布局文件）。
+
+
+
 编程规则
 ~~~~
 
