@@ -229,7 +229,35 @@ ASP.NET MVC 5
 
 .. Views 文件夹中以下划线（_）开头的文件不会返回给用户，可以通过文件名来区分要进行渲染的视图和对视图进行支持的文件（例如视图布局文件）。
 
+.. 如果视图是自包含的，且不想使用布局，应将 Layout 属性设置为 null 。如果忽略 Layout 属性，MVC 框架将使用视图起始文件（_ViewStart.cshtml）。
 
+依赖注入
+~~~~
+
+Ninject
+^^^^^^^
+
+. 常用条件绑定
++
+[options="autowidth"]
+|===
+|方法 |效果
+|When(谓词) | 当谓词（一个 lambda 表达式）的结果为 true 时，实施绑定
+|WhenClassHas<T>() |当被注入的类以注解属性进行注释，而其类型为 T 时，实施绑定
+|WhenInjectedInto<T>() |当要被注入的类是类型 T 时，实施绑定
+|===
+
+. 常用作用域方法
++
+[options="autowidth"]
+|===
+|名称 |效果
+|InTransientScope() |与未指定作用域效果相同，为每一个被解析的依赖项创建一个新的对象（每依赖项一实例）
+|InSingletonScope() +
+ToConstant(object) |创建一个单一实例，使其共享于整个应用程序。如果使用 InSingletonScope ，或者为 Ninject 提供 ToConstant 方法，Ninject 便会创建这种实例（每应用一实例）
+|InThreadScope() |创建一个单一实例，将其用于解析一个线程中各个对象的依赖项（每线程一实例）
+|InRequestScope() |创建一个单一实例，用于解析一个 HTTP 请求中各个对象的依赖项（每请求一实例）
+|===
 
 编程规则
 ~~~~
