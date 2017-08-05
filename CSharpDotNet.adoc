@@ -231,6 +231,10 @@ ASP.NET MVC 5
 
 .. 如果视图是自包含的，且不想使用布局，应将 Layout 属性设置为 null 。如果忽略 Layout 属性，MVC 框架将使用视图起始文件（_ViewStart.cshtml）。
 
+. 控制器类总是以 Controller 结尾，而在对类进行引用时，要忽略类名的 Controller 部分。
++
+例如：ProductController 在路由配置文件 RouteConfig.cs 中引用时，应使用 Product。
+
 依赖注入
 ~~~~
 
