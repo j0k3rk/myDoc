@@ -28,3 +28,165 @@ HTML 颜色
 |Purple |#800080 |[Purple-background]#abcdefg#
 |===
 
+Emmet(Zen Coding) HTML基本语法
+--------------------------
+
+https://www.oschina.net/code/snippet_66036_18625[来源参考]
+
+. 嵌套操作
+
+.. 子操作：>
++
+----
+div>ul>li
+
+<div>
+    <ul>
+        <li></li>
+    </ul>
+</div>
+----
+
+.. 并列：+
++
+----
+div+ul>li
+
+<div></div>
+<ul>
+    <li></li>
+</ul>
+----
+
+.. 上级：^
++
+----
+ul>li^div
+
+<ul>
+    <li></li>
+</ul>
+<div></div>
+----
+
+.. 上级多层：^^
++
+----
+ul>li>a^^div
+
+<ul>
+    <li><a href=""></a></li>
+</ul>
+<div></div>
+----
+
+.. 重复：*
++
+----
+ul>li*3
+
+<ul>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+----
+
+.. 分组： ()
++
+----
+div>(p>span)*2
+
+<div>
+    <p><span></span></p>
+    <p><span></span></p>
+</div>
+----
+
+. 属性操作
+
+.. id和类
++
+----
+div#header+div.main+div#footer
+
+<div id="header"></div>
+<div class="main"></div>
+<div id="footer"></div>
+----
+
+.. 属性值
++
+----
+a[title=test target=_self]
+
+<a title="test" target="_self" href=""></a>
+----
+
+.. 数列值：$
++
+----
+p.item$*3
+
+<p class="item1"></p>
+<p class="item2"></p>
+<p class="item3"></p>
+
+p.item$$*3
+
+<p class="item01"></p>
+<p class="item02"></p>
+<p class="item03"></p>
+----
+
+.. 数列操作符：@
++
+----
+p.item$@-*3   @- = -1
+
+<p class="item3"></p>
+<p class="item2"></p>
+<p class="item1"></p>
+
+p.item$@3*3  @3 = 从3开始3次
+
+<p class="item3"></p>
+<p class="item4"></p>
+<p class="item5"></p>
+
+p.item$@-3*3 @-3 = 3次后到3结束
+
+<p class="item5"></p>
+<p class="item4"></p>
+<p class="item3"></p>
+----
+
+. 字符操作
+
+.. 字符操作：{}
++
+----
+a{click}
+
+<a href="">click</a>
+
+a>{click}+span{me}
+
+<a href="">click<span>me</span></a>
+----
+
+. 缺省元素
++
+----
+.header+.footer  ---------------  div.header+div.footer
+
+ul>.item*3 -------------- ul>li.item*3
+
+table>.row*4>.cell*3 -------------- table>tr.row*4>td.cell*3
+----
+
+[NOTE]
+====
+如果搞不清楚顺序，多用()。就像1+2×3，实际上是(1+2)×3
+====
+
