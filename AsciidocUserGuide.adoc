@@ -3197,11 +3197,13 @@ hard + 1min really hard taking the HR up to 160).
 ---------------------------------------------------------------------
 
 .A table with externally sourced CSV data
+--------------
 [format="csv",cols="^1,4*2",options="header"]
 |===================================================
 ID,Customer Name,Contact Name,Customer Address,Phone
-include::customers.csv[]
+\include::customers.csv[]
 |===================================================
+--------------
 
 .AsciiDoc source
 ---------------------------------------------------------------------
