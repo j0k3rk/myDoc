@@ -420,3 +420,9 @@ Talend Open Studio for Data Integration 测试记录
 
 . 待续...
 
+VLC Media Player
+----------------
+
+. Win10 中文字幕乱码的解决方法：
+.. “偏好设置”-“字幕/OSD”里“默认编码”改为“通用，中文（GB18030）”
+.. 字体改为Microsoft YaHei UI 或者Microsoft YaHei Light
