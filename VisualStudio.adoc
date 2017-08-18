@@ -4,7 +4,6 @@ Visual Studio
 :toc:
 :numbered:
 
-[[X1]]
 Visual Studio 2013
 ------------------
 
@@ -131,6 +130,14 @@ vs_ultimate.exe /uninstall /force
 3、保存修改后，在“程序包管理控制台"中输入”update-database"，回车，再次运行即可。
 ----
 
+Visual Studio 2015
+------------------
 
+常用扩展及插件
+~~~~~~~
 
+. Resharper（收费）
 
+. Productivity Power Tools
+
+. GitHub Extension for Visual Studio
