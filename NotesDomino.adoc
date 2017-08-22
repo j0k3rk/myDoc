@@ -89,7 +89,7 @@ propertyName="#{<language>:<expression>}"
 
 .. MaskConverter
 +
-[cols="^.^,^.^", options="autowidth"]
+[options="autowidth"]
 |===
 |掩码字符 |描述
 |# |任何有效小数（使用Character.isDigit）
@@ -100,6 +100,97 @@ propertyName="#{<language>:<expression>}"
 |? |任何一个字母
 |* |任何字符
 |H |任何有效的十六进制字符（0~9、a~f或A~F）
+|===
+
+Predefined fields with built-in functionality
+---------------------------------------------
+
+. Reserved names for embedded elements
++
+[options="autowidth"]
+|===
+|Reserved field name |Contains
+|$GroupScheduleRefreshMode |A value for refreshing an embedded group scheduling control.
+|$GroupScheduleShowLegend |A value of 0 or 1. If the value is 0, the color legend does not display. If the value is 1, the color legend does display. The default is 1.
+|$$NavigatorBody |An embedded navigator.
+|$$ViewBody |An embedded view.
+|$$ViewList |An embedded folder pane.
+|===
+
+. Reserved fields for use in billing applications
++
+[options="autowidth"]
+|===
+|Reserved field name |Creates a billing record when a user
+|$ChargeRead |Opens a document that contains this field.
+|$ChargeWrite |Creates, copies, edits, or saves a document that contains this field.
+|===
+
+. Reserved fields for general use
++
+[options="autowidth"]
+|===
+|Reserved field name |Use
+|Categories |Categorizes documents.
+|FolderOptions |Puts new documents in folders.
+|HTML |Passes HTML directly to the server.
+|SecretEncryptionKeys |Encrypts documents with secret, rather than public, encryption keys.
+|$VersionOpt |Controls version tracking for documents.
+|$$HTMLHead |Passes HTML information to be hosted within the <HEAD> tag for a document. The passed information might be meta data (using a <META ...> tag) or JavaScript code (using a <SCRIPT ...> tag) or CSS information (using a <STYLE ...> tag).
+|$$Return |After Web users submit a document, Domino responds with the default confirmation "Form processed." To override the default response, add a computed text field to the form, name it $$Return, and use HTML as the computed value to create a customized confirmation.
+|===
+
+. Reserved names for embedded elements
++
+[options="autowidth"]
+|===
+|Reserved field name |Use
+|$Title |When a form is stored in a document, the form name is stored in the internal field named $Title.To use a different form to display the document, create an agent that deletes this stored form information and designates another form to display the document.
+|===
+
+. A form as a view or navigator template
++
+[options="autowidth"]
+|===
+|Form name |Design element required and description
+|$$ViewTemplate for viewname |Embedded view or $$ViewBody field. Associates the form with a specific view. The form name includes viewname, which is the alias for the view or when no alias exists, the name of the view.
+|$$NavigatorTemplate for navigatorname |Embedded navigator or $$NavigatorBody field.
+
+Associates the form with a specific navigator. The form name includes navigatorname, which is the navigator name. For example, the form named "$$NavigatorTemplate for World Map" associates the form with the World Map navigator.
+
+Domino ignores create and read access lists on the form.
+|$$ViewTemplateDefault |Embedded view or $$ViewBody field.
+
+Makes this form the template for all Web views that aren't associated with another form.
+|$$NavigatorTemplateDefault |Embedded navigator or $$NavigatorBody field.
+
+Makes this form the template for all Web navigators that aren't associated with another form.
+|===
+
+. Reserved fields that control mailing options
++
+[options="autowidth"]
+|===
+|Reserved Field name |Values |Comments
+|BlindCopyTo |The name(s) of a person, group, or mail-in database. |
+|CopyTo |The name(s) of a person, group, or mail-in database. |
+|DeliveryPriority |L, N, H |Values correspond to: Low, normal, or high-priority.
+|DeliveryReport |N, B, C, T |Values correspond to: None, Only on failure, Confirm delivery, Trace entire path
+|Encrypt |1, 0 |Use 1 to encrypt mailed documents.
+|MailFormat |B, E, M, T |Enables cc:Mail users to view Notes® documents in a variety of predefined formats:
+
+B = both text and encapsulated.
+
+E = encapsulated in a Notes database, which is attached to the cc:Mail memo.
+
+M = mail. Body field of document is text and pasted into cc:Mail memo.
+
+T = text. Contents of the document are rendered as text and pasted into the body of the cc:Mail memo.
+|MailOptions |1, 0 |Use 1 for automatic mailing.
+|ReturnReceipt |1, 0 |Use 1 to send a receipt when document is opened by the recipient.
+|SaveOptions |1, 0 |Use 1 to save mailed documents. Use 0so that the document is not saved when mailed. prevent the document from being saved.
+|SendTo |The name(s) of a person, group, or mail-in database. |Required for all forms that mail documents.
+|Sign |1, 0 |Use 1 to an add electronic signature to fields. (Only applicable if a form also contains sign-enabled fields.)
 |===
 
 LC LSX(Lotus Connection LotusScript Extension)
