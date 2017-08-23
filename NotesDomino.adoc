@@ -75,6 +75,586 @@ ACL
 |===
 
 
+URL commands for Web applications (v8.5)
+----------------------------------------
+
+https://www.ibm.com/support/knowledgecenter/zh/SSVRGU_8.5.3/com.ibm.designer.domino.main.doc/H_ABOUT_DOMINO_URL_COMMANDS_4332.html[参考]
+
+The Domino URL command syntax
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+----
+http://Host/DominoObject?Action&Arguments
+----
+
+URL commands for opening servers, databases, and views
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. Redirect
++
+----
+http://Server/Dummy.nsf?Redirect&Name=notesserver&Id=To=encodedurl
+
+// examples
+http://mercury.com/dummy.nsf?Redirect&Name=Mister%2FHankey&Id=0525666D0060ABBF&To=%FAView%3FOpenView
+----
++
+[NOTE]
+If you force a logout using the ?Logout command, you can redirect to another Web site using the &RedirectTo parameter.
+
+. OpenDatabase
++
+----
+http://Host/__DatabaseReplicaID.nsf?OpenDatabase
+
+// examples
+http://www.mercury.com/leads.nsf?OpenDatabase
+http://www.mercury.com/sales/discussion.nsf?OpenDatabase
+http://www.mercury.com/__852562F3007ABFD6.nsf?OpenDatabase
+----
+
+. OpenView
++
+----
+http://Host/Database/ViewName?OpenView
+http://Host/Database/ViewUniversalID?OpenView
+http://Host/Database/$defaultview?OpenView
+
+// examples
+http://www.mercury.com/leads.nsf/By+Salesperson?OpenView
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F300702264?OpenView
+http://www.mercury.com/leads.nsf/$defaultview?OpenView
+
+// Optional arguments for OpenView
+Collapse=n
+CollapseView
+Count=n
+Expand=n
+ExpandView
+RestrictToCategory=category
+Start=n
+StartKey=string
+
+// examples
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?OpenView&CollapseView
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?OpenView&ExpandView
+http://www.mercury.com/leads.nsf/By+Category?OpenView&RestrictToCategory=pricing
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?OpenView&Start=3&Count=15
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?OpenView&StartKey=F
+----
+
+. ReadViewEntries
++
+[NOTE]
+This command only returns the documents a user is allowed to access.
++
+----
+http://Host/Database/ViewName?ReadViewEntries
+http://Host/Database/ViewUniversalID?ReadViewEntries
+http://Host/Database/$defaultview?ReadViewEntries
+
+// examples
+http://www.mercury.com/leads.nsf/By+Salesperson?ReadViewEntries
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F300702264?ReadViewEntries
+http://www.mercury.com/leads.nsf/$defaultview?ReadViewEntries
+
+// Optional arguments for ReadViewEntries
+Collapse=n
+CollapseView
+Count=n
+Endview=1
+Expand=n
+ExpandView
+KeyType=text|time|number
+NavigateReverse=1
+Outputformat=JSON
+PreFormat
+ResortAscending=column number
+ResortDecending=column number
+RestrictToCategory=category
+Start=n
+StartKey=string
+UntilKey=string
+
+// examples
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?ReadViewEntries&CollapseView
+http://www.mercury.com/leads.nsf/By+Category?ReadViewEntries&Endview=1&Count=3
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?ReadViewEntries&ExpandView
+http://www.mercury.com/leads.nsf/By+Category?ReadViewEntries&NavigateReverse=1&Start=50
+http://www.mercury.com/leads.nsf/By+Category?ReadViewEntries&outputformat=JSON
+http://www.mercury.com/leads.nsf/By+Category?ReadViewEntries&PreFormat
+http://www.mercury.com/leads.nsf/By+Category?ReadViewEntries&RestrictToCategory=pricing
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?ReadViewEntries&Start=3&Count=15
+http://www.mercury.com/leads.nsf/DDC087A8ACE170F8852562F30070226400000196?ReadViewEntries&StartKey=F
+http://www.mercury.com/leads.nsf/By+Department?ReadViewEntries&StartKey=312&KeyType=number
+----
+
+. OpenAbout
++
+----
+http://Host/Database/$about?OpenAbout
+
+// example
+http://www.mercury.com/leads.nsf/$about?OpenAbout
+----
+
+. OpenHelp
++
+----
+http://Host/Database/$help?OpenHelp
+
+// example
+http://www.mercury.com/leads.nsf/$help?OpenHelp
+----
+
+. OpenIcon
++
+----
+http://Host/Database/$icon?OpenIcon
+
+// example
+http://www.mercury.com/leads.nsf/$icon?OpenIcon
+----
+
+URL commands for opening framesets
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenFrameset
++
+----
+http://Host/Database/FramesetName?OpenFrameset
+http://Host/Database/FramesetUNID?OpenFrameset
+
+// examples
+http://www.mercury.com/discussion.nsf/main?OpenFrameset
+http://www.mercury.com/discussion.nsf/35AE8FBFA573336A852563D100741784?OpenFrameset
+----
+
+URL commands for opening agents, forms, and navigators
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenAgent
++
+----
+http://Host/Database/AgentName?OpenAgent
+
+// example
+http://www.mercury.com/sales/leads.nsf/Process+New+Leads?OpenAgent
+----
++
+[NOTE]
+Agents may only be referred to by name. The use of UNID is not supported when referring to an agent.
+
+. OpenForm
++
+----
+http://Host/Database/FormName?OpenForm
+http://Host/Database/FormUniversalID?OpenForm
+http://Host/Database/$defaultform?OpenForm
+
+// examples
+http://www.mercury.com/products.nsf/Product?OpenForm
+http://www.mercury.com/products.nsf/625E6111C597A11B852563DD00724CC2?OpenForm
+http://www.mercury.com/products.nsf/$defaultform?OpenForm
+
+// Optional argument for OpenForm
+ParentUNID = UniqueIDNumber
+http://Host/Database/FormUniversalID?OpenForm&ParentUNID
+
+// example
+http://www.mercury.com/products.nsf/40aa91d55cle4c8285256363004dc9e0?OpenForm&ParentUNID=6bc72a92613fd6bf852563de001f1a25
+----
+
+. OpenNavigator
++
+----
+http://Host/Database/NavigatorName?OpenNavigator
+http://Host/Database/NavigatorUniversalID?OpenNavigator
+
+// examples
+http://www.mercury.com/products.nsf/Main+Navigator?OpenNavigator
+http://www.mercury.com/products.nsf/7B5BC17C7DC9EB7E85256207004F8862?OpenNavigator
+----
+
+. ReadForm
++
+----
+http://Host/Database/FormName?ReadForm
+http://Host/Database/FormUniversalID?ReadForm
+http://Host/Database/$defaultform?ReadForm
+
+// examples
+http://www.mercury.com/home.nsf/Welcome?ReadForm
+http://www.mercury.com/products.nsf/625E6111C597A11B852563DD00724CC2?ReadForm
+http://www.mercury.com/products.nsf/$defaultform?ReadForm
+----
+
+URL commands for opening resources
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenImageResource
++
+----
+http://Host/Database/ImageResourceName?OpenImageResource
+
+// example
+http://www.mercury.com/leads.nsf/TopHeader.gif?OpenImageResource
+----
+
+. OpenFileResource
++
+----
+http://Host/Database/FileResourceName?OpenFileResource
+
+// example
+http://www.mercury.com/leads.nsf/JSLibrary.js?OpenFileResource
+----
+
+URL commands for creating, deleting, editing, opening, and saving documents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. CreateDocument
++
+----
+http://Host/Database/Form?CreateDocument
+http://Host/Database/FormName?CreateDocument
+
+// examples
+http://www.mercury.com/products.nsf/b9815a87b36a85d9852563df004a9533?CreateDocument
+http://www.mercury.com/products.nsf/basketballs?CreateDocument
+----
+
+. DeleteDocument
++
+----
+http://Host/Database/View/Document?DeleteDocument
+
+// example
+http://www.mercury.com/products.nsf/By+Part+Number/PC156?DeleteDocument
+----
+
+. EditDocument
++
+----
+http://Host/Database/View/Document?EditDocument
+
+// example
+http://www.acme.com/products.nsf/By+Part+Number/PC156?EditDocument
+----
++
+[NOTE]
+Rich text fields containing hidden text will be visible to Web users with Editor access to documents.
++
+[NOTE]
+=====
+The following items may be lost or corrupted if they are in a rich text field which is edited with a Web browser using Domino Web Server:
+
+- embedded images -- may be visible when editing, but will be lost when the document is saved;
+
+- tab tables -- only the visible row will be saved;
+
+- "hide when" paragraphs which are hidden from the Web -- the entire paragraph will be lost when the document is saved.
+=====
+
+. OpenDocument
++
+----
+http://Host/Database/View/Document?OpenDocument
+
+// $first : The first document in the view.
+
+// examples
+http://www.mercury.com/products.nsf/By+Part+Number/PC156?OpenDocument
+http://www.mercury.com/leads.nsf/By+Rep/35AE8FBFA573336A852563D100741784?OpenDocument
+----
+
+. SaveDocument
++
+----
+http://Host/Database/View/Document?SaveDocument
+
+// example
+http://www.mercury.com/products.nsf/a0cefa69d38ad9ed8525631b006582d0/4c95c7c6700160e2852563df0078cfeb?SaveDocument
+----
+
+URL commands for opening documents by key
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. Using Domino URLs to access a document
++
+----
+http://Host/Database/View/DocumentName?OpenDocument
+
+// example
+http://www.mercury.com/register.nsf/Registered+Users/Jay+Street?OpenDocument
+http://www.mercury.com/register.nsf/0/466c5172561e1c5c852566c2005f6bbb?OpenDocument
+----
+
+. Using @commands to link to a document
+
+. Using Domino URLs to access attachments
++
+----
+// example
+http://domino.lotus.com/domdown.nsf/ViewUNID/DocumentUNID/$File/DOMINO.EXE
+----
+
+URL commands for opening pages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenPage
++
+----
+http://Host/Database/PageName?OpenPage
+http://Host/Database/PageUNID?OpenPage
+
+// examples
+http://www.mercury.com/discussion.nsf/products?OpenPage
+http://www.mercury.com/discussion.nsf/35AE8FBFA573336A852563D100741784?OpenPage
+
+// Optional arguments for OpenPage and OpenDocument
+CollapseOutline=[n]
+ExpandOutline=[n]
+StartOutline=[n]
+
+http://Host/Database/PageName?OpenPage&CollapseOutline=n
+http://Host/Database/PageUNID?OpenPage&CollapseOutline=n
+
+http://Host/Database/PageName?OpenPage&ExpandOutline=n
+http://Host/Database/PageUNID?OpenPage&ExpandOutline=n
+
+http://Host/Database/PageName?OpenPage&StartOutline=n
+http://Host/Database/PageUNID?OpenPage&StartOutline=n
+
+// examples
+http://www.mercury.com/sales.nsf/products?OpenPage&CollapseOutline=1
+http://www.mercury.com/sales.nsf/products?OpenDocument&CollapseOutline=1
+http://www.mercury.com/sales.nsf/products?OpenPage&CollapseOutline=1.2.3
+http://www.mercury.com/sales.nsf/products?OpenDocument&CollapseOutline=1.2.3
+
+http://www.mercury.com/sales.nsf/products?OpenPage&ExpandOutline=5
+http://www.mercury.com/sales.nsf/products?OpenDocument&ExpandOutline=5
+http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenPage&ExpandOutline=5.1.2
+http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenDocument&ExpandOutline=5.1.2
+
+http://www.mercury.com/sales.nsf/products?OpenPage&StartOutline=1
+http://www.mercury.com/sales.nsf/products?OpenDocument&StartOutline=1
+http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenPage&StartOutline=5.1.2
+http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenDocument&StartOutline=5.1.2
+----
+
+URL commands for opening attachments, image files, and OLE objects
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenElement
+
+.. Using OpenElement with attachments
++
+----
+http://Host/Database/View/Document/$File/Filename?OpenElement
+
+// example
+http://www.mercury.com/lproducts.nsf/By+Part+Number/SN156/$File/spec.txt?OpenElement
+----
++
+[NOTE]
+If more than one attached file has the same name, the URL includes both the "internal" file name as well as the external name. Since the internal file name is not easily determined, make sure all attached files have unique names.
+
+.. Using OpenElement with image files
++
+----
+http://Host/Database/View/Document/FieldName/FieldOffset?OpenElement
+http://Host/Database/View/Document/FieldName/FieldOffset?OpenElement&FieldElemFormat=ImageFormat
+
+// Optional argument for OpenElement
+FieldElemFormat = ImageFormat
+// Where ImageFormat is either .GIF or .JPEG. If you do not specify FieldElemFormat, Domino assumes the image file format is .gif.
+----
+
+.. Using OpenElement with OLE Objects
++
+----
+http://Host/Database/View/Document/FieldName/FieldOffset/$OLEOBJINFO/FieldOffset/obj.ods?OpenElement
+----
++
+[NOTE]
+The current URL syntax for referencing images and objects in Notes documents -- specifically the FieldOffset -- makes it impractical to create these URLs manually. As an alternative, you may paste the actual bitmap or object in place of the reference, create URL references to files stored in the file system, or attach the files to the documents.
+
+
+URL commands for searching for text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. SearchDomain
++
+----
+http://Host/Database/[templateForm]?SearchDomain[ArgumentList]
+
+// example
+http://www.mercury.com/mersrch.nsf/MercuryResults?SearchDomain
+----
+
+. SearchSite
++
+----
+http://Host/Database/[$SearchForm]?SearchSite[ArgumentList]
+
+// example
+http://www.mercury.com/mercsrch.nsf/$SearchForm?SearchSite
+----
+
+. SearchView
++
+----
+http://Host/Database/View/[$SearchForm]?SearchView[ArgumentList]
+
+// example
+http://www.mercury.com/products.nsf/By+Product+Number/$SearchForm?SearchView
+
+// Optional arguments for SearchSite, SearchView, and SearchDomain
+$SearchForm
+ArgumentList
+Query=string
+Count=[n]
+Scope=[1,2,3]
+SearchEntry=formName
+SearchFuzzy=[TRUE,FALSE]
+
+SearchOrder=[1,2,3,4]
+// Indicate 1 to "Sort by relevance," 2 to "Sort by date ascending," 3 to "Sort by date descending." The default is 1. SearchView also supports a SearchOrder value of 4 to "Keep current order," which sorts the resulting set of documents in the order in which they appear in the view.
+// Specifying SearchOrder=4 will produce unexpected results if:
+//  - The Count=n argument is used with a value less than the number of documents found
+//  - The Start=n argument is used with a value other than 1
+//  - The Default Search Limit is less than the number of documents found
+//  - The Max Search Limit is less than the number of documents found
+// If you need to specify SearchOrder=4, observe these recommendations:
+//  - Never specify Count=n or Start=n
+//  - Always specify SearchMax=0
+//  - Set the Web site's Max Search Limit to a large value
+
+SearchMax=[n]
+SearchWV=[TRUE, FALSE]
+Start=[n]
+
+// examples
+http://www.mercury.com/mercsrch.nsf/?SearchSite&Query=product+info+requests&SearchOrder=2&SearchMax=30&SearchWV=TRUE&SearchEntry="myResultsForm"
+http://www.mercury.com/products.nsf/By+Product+Number/?SearchView&Query=PC156&SearchOrder=3&SearchMax=1&SearchFuzzy=TRUE&SearchWV=FALSE
+----
+
+Using Next and Previous buttons or hotspots with Start and Count parameters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+URL commands for required authentication
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. Login
++
+----
+http://Host/DatabaseDirectory/DatabaseFileName?OpenDatabase&login
+
+// example
+http://www.mercury.com/sales/leads.nsf?OpenDatabase&login
+----
+
+. Logout
++
+----
+http://Host/DatabaseDirectory/DatabaseFileName?Logout
+http://Host/DatabaseDirectory/DatabaseFileName?Logout&RedirectTo
+
+// examples
+Http://acmeserver/sessions.nsf?logout&redirectto=http://www.sales.com
+----
+
+URL commands for processing SSL certificates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenForm with SpecialAction argument
++
+----
+http://Host/Database/FormName?OpenForm&SpecialAction=specialActionField
+
+// specialActionField is the name of an editable text field on the form whose value contains a predefined command. To use the field with SSL certificates, use one of the following certificate request commands:
+//  - "SubmitCert"
+//  - "ServerRequest"
+//  - "ServerPickup"
+
+// examples
+http://www.mercury.com/certs.nsf/UserCertificateRequest?OpenForm&SpecialAction=SubmitCert
+http://www.mercury.com/certs.nsf/ServerCertificateRequest?OpenForm&SpecialAction=ServerRequest
+http://www.mercury.com/certs.nsf/Certificate?OpenForm&SpecialAction=ServerPickup
+----
+
+. Creating an SSL User Certificate
++
+----
+http://Host/Database/ResultForm?RequestCert&Command=SubmitCert&TranslateForm=TranslationFormName
+
+// example
+http://www.mercury.com/certs.nsf/CertificateProcessed?RequestCert&Command=SubmitCert&TranslateForm=Certificate
+
+// Optional and required fields
+CommonName
+Org
+OrgUnit
+Locality
+State
+Country
+IssuerCommonName
+IssuerOrg
+IssuerOrgUnit
+IssuerLocality
+IssuerState
+IssuerCountry
+----
+
+. Creating an SSL Server Certificate Request
++
+----
+http://Host/Database/MessageForm?RequestCert&Command=ServerRequest&TranslateForm=TranslationFormName
+
+// example
+http://www.mercury.com/certs.nsf/CertificateProcessed?RequestCert&Command=ServerRequest&TranslateForm=Certificate
+
+// Optional and required fields
+CommonName
+Org
+OrgUnit
+Locality
+State
+Country
+----
+
+URL commands for setting user preferences in Web applications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+. OpenPreferences
++
+----
+http://Host/$Preferences.nsf?OpenPreferences[&Arguments]
+
+// example
+http://www.mercury.com/$Preferences.nsf?OpenPreferences
+
+// Optional argument for OpenPreferences
+&PreferenceType=Menu
+&PreferenceType=Time Zone
+&PreferenceType=Regional
+----
++
+[NOTE]
+Settings a user specifies for OpenPreferences will not override custom settings you specify for a field or view column.
+
+Managing multilingual input in a single database
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+----
+http://Host/Database/FormName?OpenForm&charset=[MIME charset name]
+
+// example
+http://www.mercury.com/sales.nsf/Summary?OpenForm&charset=Shift_JIS
+----
+
+
 XPages
 ------
 
