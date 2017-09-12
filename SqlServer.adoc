@@ -4,11 +4,12 @@ Microsoft SQL Server 相关
 :toc:
 :numbered:
 
-[[X1]]
 报表服务
 -----
 
-    开发工具：VS2013
+----
+开发工具：VS2013
+----
 
 日期和时间的处理
 ~~~~~~~~
@@ -111,7 +112,23 @@ select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on s
   ORDER BY ss.OwnerID
 ----
 
-[[X2]]
+关于配置无人参与的执行帐户
+~~~~~~~~~~~~~
+
+. https://docs.microsoft.com/zh-cn/sql/reporting-services/install-windows/configure-the-unattended-execution-account-ssrs-configuration-manager[参考]
++
+[IMPORTANT]
+========
+配置该帐户的过程为可选操作。 但是，如果不配置该帐户，用于连接到某些数据源的选项会受到限制，并且可能无法从远程计算机检索图像文件。
+如果配置了该帐户，则必须对其进行不断更新。 具体来说，如果允许密码过期或在 Active Directory 中更改了帐户信息，则在下次处理报表时
+将遇到以下错误：“登录失败 (rsLogonFailed) 登录失败: 未知的用户名或密码不正确。” 即使您从不检索外部图像也不向外部计算机发送连接
+请求，正确维护无人参与的报表处理帐户也是必要的。 如果配置了该帐户但后来发现不需要使用它，则可以将其删除以避免日常的帐户维护任务。
+========
+
+. 异常举例：
++
+执行帐户的密码发生变更，由于反复重试旧密码，导致该帐户被锁定，进而导致报表订阅的邮件无法正常发送。
+
 SQL Server 运维
 -------------
 
@@ -261,7 +278,6 @@ DEALLOCATE PlansToFix;
 [NOTE]
 脚本成功执行后，subplan有可能仍然执行失败，可编辑subplan中的connection，先选中一个临时新建的connection，再选回原来的，保存退出即可。
 
-[[X3]]
 SQL Server Express
 ------------------
 
