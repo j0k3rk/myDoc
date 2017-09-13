@@ -95,21 +95,16 @@ http://server:port/ReportServer （端口为80时可省略）
 
 ----
 DECLARE @OldUserID uniqueidentifier
-
 DECLARE @NewUserID uniqueidentifier
-
 SELECT @OldUserID = UserID FROM dbo.Users WHERE UserName = 'YourDomain\OldUser'
-
 SELECT @NewUserID = UserID FROM dbo.Users WHERE UserName = 'YourDomain\NewUser'
-
 -- UPDATE dbo.Subscriptions SET OwnerID = @NewUserID WHERE OwnerID = @OldUserID
 
 -- select * from dbo.Subscriptions where OwnerID = @OldUserID
 
 SELECT UserName,UserID FROM dbo.Users
 
-select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on ss.OwnerID = users.UserID
-  ORDER BY ss.OwnerID
+select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on ss.OwnerID = users.UserID ORDER BY ss.OwnerID
 ----
 
 关于配置无人参与的执行帐户
