@@ -43,7 +43,7 @@ Keras
 ----
 If you have run Keras at least once, you will find the Keras configuration file at:
 
-~/.keras/keras.json
+~/.keras/keras.jsonF
 
 If it isn't there, you can create it.
 

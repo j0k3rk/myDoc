@@ -679,7 +679,7 @@ propertyName="#{<language>:<expression>}"
 |A |任何有效的十进制数或字母（使用Character.isDigit和Character.isLetter）
 |? |任何一个字母
 |* |任何字符
-|H |任何有效的十六进制字符（0~9、a~f或A~F）
+|H |任何有效的十六进制字符（0 ~ 9、a ~ f 或 A ~ F）
 |===
 
 Predefined fields with built-in functionality

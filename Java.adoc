@@ -1748,7 +1748,7 @@ Please login ...
 
 ... 必须有<url-pattern>或<servlet-name>其中之一。
 
-... 可以有0~4个<dispatcher>。
+... 可以有 0 ~ 4 个<dispatcher>。
 .... REQUEST值表示对客户的请求启用过滤器。如果没有<dispatcher>元素，则默认为REQUEST。
 .... INCLUDE值表示对一个include()调用分派来的请求启用过滤器。
 .... FORWARD值表示对一个forward()调用分派来的请求启用过滤器。
