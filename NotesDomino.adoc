@@ -658,16 +658,14 @@ http://www.mercury.com/sales.nsf/Summary?OpenForm&charset=Shift_JIS
 XPages
 ------
 
-. 源代码
-
-.. ${ 开头，表示只在页面载入时计算一次。#{ 开头，表示每次访问时都会被计算。
+. ${ 开头，表示只在页面载入时计算一次。#{ 开头，表示每次访问时都会被计算。
 +
 ----
 propertyName="${<language>:<expression>}"
 propertyName="#{<language>:<expression>}"
 ----
 
-.. MaskConverter
+. MaskConverter
 +
 [options="autowidth"]
 |===
@@ -681,6 +679,138 @@ propertyName="#{<language>:<expression>}"
 |* |任何字符
 |H |任何有效的十六进制字符（0 ~ 9、a ~ f 或 A ~ F）
 |===
+
+. Event Handler 属性
+
+.. event
++
+事件的名字，它触发了相关联的服务器操作或客户机脚本。
+
+.. execId
++
+控件的ID，它是JSF生命周期的部分执行里用到的根分支。
+
+.. execMode
++
+事件处理器的执行模式，可设为以下值。
+
+... complete
++
+生命周期在完整的控件层次结构里执行（默认）。
+
+... partial
++
+生命周期在控件层次的某个分支里执行，该分支由 execId 指定。
+
+.. handlers
++
+客户机事件处理器的集合，每个处理器具有以下属性。
+
+... type
++
+目前只支持 text/JavaScript
+
+... script
++
+执行的客户机脚本
+
+... renderkit
++
+如果脚本运行在 Web 里，使用 HTML_BASIC ；如果脚本运行在 Notes Client 里，则使用 HTML_RCP 。
+
+.. loaded
++
+布尔值，它表示页面加载时事件处理器是否包含在控件层次结构中。如果希望页面加载时忽略事件处理器，则设置为 false 。默认是 true ，一个使用
+该值的场景是：基于应用程序的角色，某个业务逻辑没有应用于特定的用户。
+
+.. navigate
++
+布尔值，它表示与事件处理器相关联的事件处理器在处理时是否进行跳转。
+
+.. refreshId
++
+控件的ID，当分支需要部分刷新时，它是分支的根节点。
+
+.. refreshMode
++
+事件处理器的刷新模式，可取以下值。
+
+... complete
++
+刷新整个页面（默认）。
+
+... partial
++
+刷新由 refreshId 指定的部分页面。
+
+... norefresh
++
+不刷新页面的任何部分。
+
+.. rendered
++
+布尔值，它表示事件处理器是否应该呈现为页面的一部分。如果希望页面呈现时忽略事件处理器，设置其值为 false 。
+
+.. save
++
+布尔值，它表示当事件处理器执行时是否执行保存操作。设置为 true 可以自动保存页面中的数据源。
+
+.. submit
++
+布尔值，它表示当事件和与之关联的事件处理器被触发时，是否提交页面。设置为 true 来提交页面。
+
+.. parameters
++
+参数和 名/值 对的集合，它们在执行与之关联的事件处理器时变为可用。
+
+.. action
++
+当触发事件处理器时执行的服务器操作。它可以是简单操作、Javascript或Java方法。
+
+.. immediate
++
+布尔值，它表示与事件处理器关联的服务器操作应该在 JSF 生命周期的应用请求值阶段之后和输入值被验证之前执行。如果操作引起 XPages 页面跳转
+或页面重绘，则剩下的生命周期阶段将不会再执行。
+
+.. onComplete
++
+事件处理器触发 AJAX 请求时使用。该属性是在 AJAX 请求执行之后再执行的客户机脚本。
+
+.. onError
++
+事件处理器即将触发 AJAX 请求时使用。该属性是在 AJAX 请求执行失败后再执行的客户机脚本。
+
+.. onStart
++
+事件处理器即将触发 AJAX 请求时使用。该属性是在 AJAX 请求执行之前而执行的客户机脚本。
+
+.. script
++
+与事件处理器相关联的事件触发时执行的客户机脚本。
+
+. 简单操作
++
+[options="autowidth"]
+|===
+|操作 |标签
+|更改文档访问方式 |xp:changeDocumentMode
+|确认操作 |xp:confirm
+|创建响应文档 |xp:createResponse
+|删除文档 |xp:deleteDocument
+|删除所选文档 |xp:deleteSelectedDocuments
+|执行客户机脚本 |xp:executeClientScript
+|执行脚本 |xp:executeScript
+|修改字段 |xp:modifyField
+|打开页面 |xp:openPage
+|发布组件属性 |xp:publishValue
+|发布视图列 |xp:publishViewColumn
+|保存数据源 |xp:save
+|保存文档 |xp:saveDocument
+|设置组件模式 |xp:setComponentMode
+|设置值 |xp:setValue
+|操作组 |xp:actionGroup
+|===
+
 
 Predefined fields with built-in functionality
 ---------------------------------------------
