@@ -811,6 +811,21 @@ propertyName="#{<language>:<expression>}"
 |操作组 |xp:actionGroup
 |===
 
+. XSP 客户机脚本库
+
+.. XSP 属性
+... validateAllFields
+... lastSubmit
+... submitLatency
+
+.. XSP 函数
+... alert, error, confirm, prompt
+... partialRefreshGet, partialRefreshPost
+... publishEvent
+... showSection
+... findForm, findParentByTag, getElementById
+... trim, startsWith, endsWith
+... log
 
 Predefined fields with built-in functionality
 ---------------------------------------------
