@@ -4,36 +4,68 @@ Visual Studio
 :toc:
 :numbered:
 
-Visual Studio 2013
-------------------
+快捷键
+---
 
-常用快捷键
-~~~~~~
-
-[options="autowidth"]
+常用
+~~
+[frame="topbot", cols="<20,<15,<15", options="header"]
 |====
-|F4	|属性窗口
-|F5	|编译及运行
-|F7	|代码窗口
-|F12 |查看定义
-|Ctrl + F5	|编译及运行（不调试）
-|Ctrl + F6	|切换到下一个Tab
-|Ctrl + Tab |Tab切换
-|Ctrl + L | 删除当前行
-|Ctrl + Enter | 在当前行前插入一行
-|Ctrl + Shift + Enter | 当前行后插入一行
-|Ctrl + comma(,)	|导航到
-|Ctrl + M & M	|折叠/展开代码块
-|Ctrl + Alt + P	|运行中开始调试
-|Ctrl + Shift + B |生成解决方案
-|Alt + W_L	|关闭所有Tab
-|Shift + Alt + Enter | 全屏显示/退出全屏显示
-|Shift + F7	|对象窗口
+|功能 |VS默认 |ReSharper默认
+|代码补全 |[Green-background]#Alt + →# |Ctrl + Space
+|缩进 |[Green-background]#Ctrl + K, Ctrl + F# |-
+|格式化 |[Green-background]#Ctrl + K, Ctrl + D# |[Green-background]#Ctrl + Alt + L#
+|上/下移一行 |Alt + ↑/↓ |Ctrl + Shift + Alt + ↑/↓
+|向上插入一行 |Ctrl + Enter |Ctrl + Alt + Enter
+|向下插入一行 |Ctrl + Shift + Enter |Shift + Enter
+|向下复制一行 |- |Ctrl + D
+|剪切行 |Ctrl + L |Ctrl + X
+|删除行 |Ctrl + Shift + L |Ctrl + Y
+|行注释 |Ctrl + K, Ctrl + C |Ctrl + /
+|行注释取消 |Ctrl + K, Ctrl + U |Ctrl + /
+|块注释 |Ctrl + K, Ctrl + C |Ctrl + Shift + /
+|块注释取消 |Ctrl + K, Ctrl + U |Ctrl + Shift + /
+|切换大小写 |Ctrl + U 或 Ctrl + Shift + U |Ctrl + Shift + U
+|列选择模式 |Alt + Shift + 方向键 |Alt + 鼠标左键 或 Alt + Shift + Insert
+|折叠/展开 |Ctrl + M & M |-
+|查找引用 |- |[Green-background]#Alt + F7#
+|GoTo Everything |- |[Green-background]#Ctrl + N#
+|Tab切换 |Ctrl + Tab |-
+|全屏显示/退出 |Alt + Shift + Enter |-
+|====
+
+导航
+~~
+[frame="topbot", cols="<40,<30,<30", options="header"]
+|====
+|功能 |VS默认 |ReSharper默认
+|属性窗口 |F4 |-
+|代码窗口 |F7 |-
+|对象窗口 |Shift + F7 |-
+|导航到 |Ctrl + Comma(,) |-
+|导航到成员？ |Alt + Up/Down |Ctrl + Up/Down
+|选择所属的方法和类 |Ctrl + [ |-
+|在解决方案管理器中定位正在编辑的文件？ |- |Shift + Alt + L
+|导航到解决方案中的下一个错误处？ |Shift + Alt + PageDown/PageUp |Ctrl + Shift + Down/Up
+|====
+
+编译/调试/运行
+~~~~~~~~
+[frame="topbot", cols="<40,<30,<30", options="header"]
+|====
+|功能 |VS默认 |ReSharper默认
+|生成解决方案 |Ctrl + Shift + B |-
+|调试 |Ctrl + F5 |Shift + F9 或 Alt + Shift + F9
+|运行 |F5 |Shift + F10 或 Alt + Shift + F10
+|设置断点 |F9 |Ctrl + F8
+|单步执行 |F11 |F7
+|单步跳出 |F10 |F8
+|单步跳过 |Shift + F11 |Shift + F8
 |====
 
 
 提高生产力的小技巧
-~~~~~~~~
+---------
 
 . 使用书签
 
@@ -55,9 +87,9 @@ Visual Studio 2013
 
 
 常用扩展及插件
-~~~~~~~
+-------
 
-. Resharper（收费）
+. ReSharper（收费）
 
 . Productivity Power Tools
 
@@ -65,8 +97,10 @@ Visual Studio 2013
 
 . Web Essentials （待验证）
 
+. GitHub Extension for Visual Studio
+
 Web Deploy 测试记录
-~~~~~~~~~~~~~~~
+---------------
 
 . 环境
 .. 服务器：Windows Server 2008 R2 （64bit）
@@ -102,7 +136,7 @@ Web Deploy 测试记录
 
 
 其他
-~~
+--
 
 . LocalDB
 +
@@ -129,15 +163,3 @@ vs_ultimate.exe /uninstall /force
 
 3、保存修改后，在“程序包管理控制台"中输入”update-database"，回车，再次运行即可。
 ----
-
-Visual Studio 2015
-------------------
-
-常用扩展及插件
-~~~~~~~
-
-. Resharper（收费）
-
-. Productivity Power Tools
-
-. GitHub Extension for Visual Studio
