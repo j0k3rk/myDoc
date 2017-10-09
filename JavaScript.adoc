@@ -4,6 +4,178 @@ JavaScript
 :toc:
 :numbered:
 
+基础
+--
+
+<Script>元素
+~~~~~~~~~~
+
+. 属性
+.. async 可选
+.. charset 可选
+
+.. defer 可选
++
+立即下载、延迟执行，此属性的用途是表明脚本在执行时不会影响页面的构造。
+
+.. language 已废弃
+.. src 可选
+
+.. type 可选
++
+已不推荐使用，但考虑到约定俗成和最大限度的浏览器兼容性，可以设为 text/javascript（默认值）。
+
+. 在使用 <script> 嵌入 JavaScript 代码时，不要在代码中的任何地方出现"</script>"字符串。
++
+----
+<script type="text/javascript">
+    function sayScript(){
+        alert("</script>");     //错误
+        alert("<\/script>");    //正确
+    }
+</script>
+----
+
+. 如果是在 XHTML 文档中，可以省略 </script> 标签，例如：
++
+----
+<script type="text/javascript" src="example.js" />
+----
++
+但是，不能在 HTML 文档使用这种语法。原因是这种语法不符合 HTML 规范，而且也得不到某些浏览器（尤其是IE）的正确解析。
++
+[NOTE]
+======
+- 按惯例，外部 JavaScript 文件带有 .js 扩展名，但这个扩展名不是必需的。
+- 如果不使用 .js 扩展名，请确保服务器能返回正确的 MIME 类型。
+======
+
+. 带有 src 属性的 <script> 元素不应再包含额外代码。如果包含了，嵌入代码会被忽略，只有外部脚本文件会被下载并执行。
+
+. 只要不存在 defer 和 async 属性，浏览器都会按照<script>元素在页面中出现的先后顺序对它们依次进行解析。换句话说，
+在第一个 <script> 元素包含的代码解析完成后，第二个 <script> 包含的代码才会被解析，然后才是第三个、第四个……
+
+. 按照传统做法，所有 <script> 元素都应该放在页面的 <head> 元素中。
+这种做法的目的就是把所有外部文件（包括 CSS 文件和 JavaScript 文件）的引用都放在相同的地方。
+对于那些需要很多 JavaScript 代码的页面来说，这会导致浏览器在呈现页面时出现明显的延迟（浏览器在遇到 <body> 标签时才开始呈现内容）。
+为了避免这个问题，现代 Web 应用程序一般都把全部 JavaScript 引用放在 <body> 元素中页面内容的后面：
++
+----
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example HTML Page</title>
+</head>
+<body>
+<!-- 这里放内容 -->
+<script type="text/javascript" src="example1.js"></script>
+<script type="text/javascript" src="example2.js"></script>
+</body>
+</html>
+----
+
+. 延迟脚本
++
+----
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example HTML Page</title>
+    <script type="text/javascript" defer="defer" src="example1.js"></script>
+    <script type="text/javascript" defer="defer" src="example2.js"></script>
+</head>
+<body>
+<!-- 这里放内容 -->
+</body>
+</html>
+----
+.. HTML5 规范要求脚本按照它们出现的先后顺序执行，因此第一个延迟脚本会先于第二个执行，而这两个脚本会先于 DOMContentLoaded 事件执行。
+.. 在现实当中，延迟脚本并不一定会按照顺序执行，也不一定会在 DOMContentLoaded 事件触发前执行，因此最好只包含一个延迟脚本。
+.. defer 属性只适用于外部脚本文件。这一点在 HTML5 中已经明确规定，因此支持 HTML5 的实现会忽略给嵌入脚本设置的 defer 属性。
+IE4～IE7 还支持对嵌入脚本的 defer 属性，但 IE8 及之后版本则完全支持 HTML5 规定的行为。
+
+. 异步脚本
++
+----
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Example HTML Page</title>
+    <script type="text/javascript" async src="example1.js"></script>
+    <script type="text/javascript" async src="example2.js"></script>
+</head>
+<body>
+<!-- 这里放内容 -->
+</body>
+</html>
+----
+.. 与defer 类似，async 只适用于外部脚本文件，并立即下载文件。但与defer不同，标记为 async 的脚本并不保证按照指定它们的先后顺序执行。
+.. 确保两脚本之间互不依赖非常重要。
+.. 指定 async 属性的目的是不让页面等待脚本下载和执行，从而异步加载页面其他内容。为此，建议异步脚本不要在加载期间修改DOM。
+.. 异步脚本一定会在页面的 load 事件前执行，但可能会在DOMContentLoaded 事件触发之前或之后执行。
+
+. 文档模式
+.. 混杂模式（quirks mode）
+
+.. 标准模式（standards mode）
++
+----
+<!-- HTML 4.01 严格型 -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+        "http://www.w3.org/TR/html4/strict.dtd">
+
+<!-- XHTML 1.0 严格型 -->
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- HTML 5 -->
+<!DOCTYPE html>
+----
+
+.. 准标准模式（almost standards mode）
++
+准标准模式与标准模式非常接近，它们的差异几乎可以忽略不计。
++
+----
+<!-- HTML 4.01 过渡型 -->
+<!DOCTYPE HTML PUBLIC
+        "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- HTML 4.01 框架集型 -->
+<!DOCTYPE HTML PUBLIC
+        "-//W3C//DTD HTML 4.01 Frameset//EN"
+        "http://www.w3.org/TR/html4/frameset.dtd">
+
+<!-- XHTML 1.0 过渡型 -->
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!-- XHTML 1.0 框架集型 -->
+<!DOCTYPE html PUBLIC
+        "-//W3C//DTD XHTML 1.0 Frameset//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+----
+
+<NoScript>元素
+~~~~~~~~~~~~
+
+----
+<html>
+<head>
+    <title>Example HTML Page</title>
+    <script type="text/javascript" defer="defer" src="example1.js"></script>
+    <script type="text/javascript" defer="defer" src="example2.js"></script>
+</head>
+<body>
+<noscript>
+    <p>本页面需要浏览器支持（启用）JavaScript。
+</noscript>
+</body>
+</html>
+----
 
 jQuery
 ------
