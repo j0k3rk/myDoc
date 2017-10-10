@@ -1,11 +1,9 @@
-IBM Notes & Domino
-==================
+= IBM Notes & Domino
 :icons:
 :toc:
 :numbered:
 
-NotesSQL
---------
+== NotesSQL
 
 . 32位/64位选择
 +
@@ -29,8 +27,7 @@ FROM "f_ReportD" rd
 WHERE "Date" >= 20170101
 ----
 
-ACL
----
+== ACL
 
 [cols="^.^, ^.^, ^.^, ^.^, ^.^", options="autowidth"]
 |===
@@ -75,20 +72,17 @@ ACL
 |===
 
 
-URL commands for Web applications (v8.5)
-----------------------------------------
+== URL commands for Web applications (v8.5)
 
 https://www.ibm.com/support/knowledgecenter/zh/SSVRGU_8.5.3/com.ibm.designer.domino.main.doc/H_ABOUT_DOMINO_URL_COMMANDS_4332.html[参考]
 
-The Domino URL command syntax
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+== The Domino URL command syntax
 
 ----
 http://Host/DominoObject?Action&Arguments
 ----
 
-URL commands for opening servers, databases, and views
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening servers, databases, and views
 
 . Redirect
 +
@@ -216,8 +210,7 @@ http://Host/Database/$icon?OpenIcon
 http://www.mercury.com/leads.nsf/$icon?OpenIcon
 ----
 
-URL commands for opening framesets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening framesets
 
 . OpenFrameset
 +
@@ -230,8 +223,7 @@ http://www.mercury.com/discussion.nsf/main?OpenFrameset
 http://www.mercury.com/discussion.nsf/35AE8FBFA573336A852563D100741784?OpenFrameset
 ----
 
-URL commands for opening agents, forms, and navigators
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening agents, forms, and navigators
 
 . OpenAgent
 +
@@ -289,8 +281,7 @@ http://www.mercury.com/products.nsf/625E6111C597A11B852563DD00724CC2?ReadForm
 http://www.mercury.com/products.nsf/$defaultform?ReadForm
 ----
 
-URL commands for opening resources
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening resources
 
 . OpenImageResource
 +
@@ -310,8 +301,7 @@ http://Host/Database/FileResourceName?OpenFileResource
 http://www.mercury.com/leads.nsf/JSLibrary.js?OpenFileResource
 ----
 
-URL commands for creating, deleting, editing, opening, and saving documents
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for creating, deleting, editing, opening, and saving documents
 
 . CreateDocument
 +
@@ -377,8 +367,7 @@ http://Host/Database/View/Document?SaveDocument
 http://www.mercury.com/products.nsf/a0cefa69d38ad9ed8525631b006582d0/4c95c7c6700160e2852563df0078cfeb?SaveDocument
 ----
 
-URL commands for opening documents by key
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening documents by key
 
 . Using Domino URLs to access a document
 +
@@ -399,8 +388,7 @@ http://www.mercury.com/register.nsf/0/466c5172561e1c5c852566c2005f6bbb?OpenDocum
 http://domino.lotus.com/domdown.nsf/ViewUNID/DocumentUNID/$File/DOMINO.EXE
 ----
 
-URL commands for opening pages
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening pages
 
 . OpenPage
 +
@@ -443,8 +431,7 @@ http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenPage&Start
 http://www.mercury.com/sales.nsf/35AE8FBFA573336A852563D100741784?OpenDocument&StartOutline=5.1.2
 ----
 
-URL commands for opening attachments, image files, and OLE objects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for opening attachments, image files, and OLE objects
 
 . OpenElement
 
@@ -480,9 +467,7 @@ http://Host/Database/View/Document/FieldName/FieldOffset/$OLEOBJINFO/FieldOffset
 [NOTE]
 The current URL syntax for referencing images and objects in Notes documents -- specifically the FieldOffset -- makes it impractical to create these URLs manually. As an alternative, you may paste the actual bitmap or object in place of the reference, create URL references to files stored in the file system, or attach the files to the documents.
 
-
-URL commands for searching for text
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for searching for text
 
 . SearchDomain
 +
@@ -540,11 +525,9 @@ http://www.mercury.com/mercsrch.nsf/?SearchSite&Query=product+info+requests&Sear
 http://www.mercury.com/products.nsf/By+Product+Number/?SearchView&Query=PC156&SearchOrder=3&SearchMax=1&SearchFuzzy=TRUE&SearchWV=FALSE
 ----
 
-Using Next and Previous buttons or hotspots with Start and Count parameters
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Using Next and Previous buttons or hotspots with Start and Count parameters
 
-URL commands for required authentication
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for required authentication
 
 . Login
 +
@@ -565,8 +548,7 @@ http://Host/DatabaseDirectory/DatabaseFileName?Logout&RedirectTo
 Http://acmeserver/sessions.nsf?logout&redirectto=http://www.sales.com
 ----
 
-URL commands for processing SSL certificates
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for processing SSL certificates
 
 . OpenForm with SpecialAction argument
 +
@@ -624,8 +606,7 @@ State
 Country
 ----
 
-URL commands for setting user preferences in Web applications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== URL commands for setting user preferences in Web applications
 
 . OpenPreferences
 +
@@ -644,8 +625,7 @@ http://www.mercury.com/$Preferences.nsf?OpenPreferences
 [NOTE]
 Settings a user specifies for OpenPreferences will not override custom settings you specify for a field or view column.
 
-Managing multilingual input in a single database
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+=== Managing multilingual input in a single database
 
 ----
 http://Host/Database/FormName?OpenForm&charset=[MIME charset name]
@@ -654,9 +634,7 @@ http://Host/Database/FormName?OpenForm&charset=[MIME charset name]
 http://www.mercury.com/sales.nsf/Summary?OpenForm&charset=Shift_JIS
 ----
 
-
-XPages
-------
+== XPages
 
 . ${ 开头，表示只在页面载入时计算一次。#{ 开头，表示每次访问时都会被计算。
 +
@@ -827,8 +805,7 @@ propertyName="#{<language>:<expression>}"
 ... trim, startsWith, endsWith
 ... log
 
-Predefined fields with built-in functionality
----------------------------------------------
+== Predefined fields with built-in functionality
 
 . Reserved names for embedded elements
 +
@@ -918,8 +895,7 @@ T = text. Contents of the document are rendered as text and pasted into the body
 |Sign |1, 0 |Use 1 to an add electronic signature to fields. (Only applicable if a form also contains sign-enabled fields.)
 |===
 
-LC LSX(Lotus Connection LotusScript Extension)
-----------------------------------------------
+== LC LSX(Lotus Connection LotusScript Extension)
 
 . 示例代码
 +
@@ -951,8 +927,7 @@ LC LSX(Lotus Connection LotusScript Extension)
 %END REM
 ----
 
-Tips & Tricks (R7)
-------------------
+== Tips & Tricks (R7)
 
 . notesItem.Contains(value)，当value为全角字符时，检查失败。
 +
@@ -1019,8 +994,7 @@ Else
 End If
 ----
 
-LEI (Lotus Enterprise Integrator for Domino) 7.0.4 升级 8.5.3 记录
---------------------------------------------------------------
+== LEI (Lotus Enterprise Integrator for Domino) 7.0.4 升级 8.5.3 记录
 
 - 系统环境：
 

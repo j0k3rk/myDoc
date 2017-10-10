@@ -1,18 +1,15 @@
-Microsoft SQL Server 相关
-=======================
+= Microsoft SQL Server 相关
 :icons:
 :toc:
 :numbered:
 
-报表服务
------
+== 报表服务
 
 ----
 开发工具：VS2013
 ----
 
-日期和时间的处理
-~~~~~~~~
+=== 日期和时间的处理
 
 ----
 -- 本月第1天
@@ -28,8 +25,7 @@ Today.AddMonths(1-Today.month).AddDays(1-Today.day)
 Today.AddDays(1-Today.Day).AddMonths(13-today.month).AddDays(-1)
 ----
 
-外部引用
-~~~~
+=== 外部引用
 
 . 在设计窗口点击报表，顶部菜单会多出2项：【格式】和【报表】。点击【报表】-【报表属性】，可在其中设置外部程序集和类的引用，
 或者编写自定义的代码。
@@ -40,16 +36,14 @@ C:\Program Files\Microsoft Visual Studio 11.0\Common7\IDE\PrivateAssemblies
 . 为了正常部署到服务器，自定义的程序集可放在本地SQL Server安装目录下的【ReportServer】-【bin】文件夹中，例如：
 C:\Program Files\Microsoft SQL Server\MSRS12.SSLK01\Reporting Services\ReportServer\bin
 
-报表部署
-~~~~
+=== 报表部署
 
 . 在【解决方案资源管理器】视图中，右击报表项目，选择【属性】，可以设置目标服务器的URL和文件夹等。
 
 . 如果不清楚目标服务器的URL，可打开【报表服务配置管理器】，连接到服务器后，在【Web服务URL】中查询确认，一般默认的值为：
 http://server:port/ReportServer （端口为80时可省略）
 
-长宽由英寸(inch)转换为厘米(cm)
-~~~~~~~~~~~~~~~~~~~~
+=== 长宽由英寸(inch)转换为厘米(cm)
 
 . 针对手动创建的报表，可在以下路径查找 Report.rdl 模板：
 +
@@ -90,8 +84,7 @@ http://server:port/ReportServer （端口为80时可省略）
 +
 注意：此方法对通过向导创建的报表似乎无效。
 
-原订阅开发者离职，导致订阅日志报错，应如何修改？
-~~~~~~~~~~~~~~~~~~~~~~~~
+=== 原订阅开发者离职，导致订阅日志报错，应如何修改？
 
 ----
 DECLARE @OldUserID uniqueidentifier
@@ -107,8 +100,7 @@ SELECT UserName,UserID FROM dbo.Users
 select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on ss.OwnerID = users.UserID ORDER BY ss.OwnerID
 ----
 
-关于配置无人参与的执行帐户
-~~~~~~~~~~~~~
+=== 关于配置无人参与的执行帐户
 
 . https://docs.microsoft.com/zh-cn/sql/reporting-services/install-windows/configure-the-unattended-execution-account-ssrs-configuration-manager[参考]
 +
@@ -124,11 +116,9 @@ select ss.OwnerID,users.UserName,* from Subscriptions as ss LEFT JOIN Users on s
 +
 执行帐户的密码发生变更，由于反复重试旧密码，导致该帐户被锁定，进而导致报表订阅的邮件无法正常发送。
 
-SQL Server 运维
--------------
+== SQL Server 运维
 
-主机名或IP地址变更
-~~~~~~~~~~
+=== 主机名或IP地址变更
 
 . 变更方法参考 https://msdn.microsoft.com/en-us/library/ms143799%28SQL.100%29.aspx[How to: Rename a Computer that Hosts a Stand-Alone Instance of SQL Server]
 +
@@ -273,11 +263,9 @@ DEALLOCATE PlansToFix;
 [NOTE]
 脚本成功执行后，subplan有可能仍然执行失败，可编辑subplan中的connection，先选中一个临时新建的connection，再选回原来的，保存退出即可。
 
-SQL Server Express
-------------------
+== SQL Server Express
 
-允许远程管理
-~~~~~~
+=== 允许远程管理
 
 . Express版本默认无法远程连接，需按如下方法配置防火墙规则，重启后即可访问。
 https://msdn.microsoft.com/zh-cn/library/ms175043%28v=sql.120%29.aspx[参考]

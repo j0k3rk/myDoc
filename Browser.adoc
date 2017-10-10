@@ -1,20 +1,15 @@
-浏览器配置
-=====
+= 浏览器配置
 :icons:
 :toc:
 :numbered:
 
-[[X1]]
-Firefox
--------
+== Firefox
 
-Ajax监听
-~~~~~~
+=== Ajax监听
 
-网络 - XHR，注意参数【wd】的值。
+. 网络 - XHR，注意参数【wd】的值。
 
-Console
-~~~~~~~
+=== Console
 
 ----
 //基本
@@ -41,15 +36,8 @@ console.timeEnd("test");
 console.dir(console);
 ----
 
-[[X2]]
-Chrome
-------
+== Chrome
 
 
-
-
-
-[[X3]]
-IE
---
+== IE
 

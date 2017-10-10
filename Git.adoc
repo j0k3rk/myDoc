@@ -1,22 +1,18 @@
-Git
-===
+= Git
 :icons:
 :toc:
 :numbered:
 
-git命令
-------
+== git命令
 
-add
-~~~
+=== add
 
 ----
 // 指定参数“.”，可以把所有的文件加入到索引。
 git add .
 ----
 
-amend
-~~~~~
+=== amend
 
 修改同一个分支最近的提交内容和注解。主要使用的场合：
 
@@ -24,8 +20,7 @@ amend
 . 修改最近提交的注解
 
 
-branch
-~~~~~~
+=== branch
 
 ----
 // 列出当前所有分支的清单
@@ -44,8 +39,7 @@ git branch -D branch-testing
 ----
 
 
-checkout
-~~~~~~~~
+=== checkout
 
 ----
 // 要切换到其他分支，可以执行 git checkout 命令
@@ -57,8 +51,7 @@ git checkout -b serverfix origin/serverfix
 git checkout --track origin/serverfix
 ----
 
-cherry-pick
-~~~~~~~~~~~
+=== cherry-pick
 
 从其他分支复制指定的提交，然后导入到现在的分支。主要使用的场合：
 
@@ -85,9 +78,7 @@ git checkout master
 git cherry-pick c81dba1
 ----
 
-
-commit
-~~~~~~
+=== commit
 
 ----
 // -a:跳过使用暂存区域, -m:message
@@ -107,9 +98,7 @@ git commit --amend
 git reset HEAD file.txt
 ----
 
-
-config
-~~~~~~
+=== config
 
 . alias
 +
@@ -188,8 +177,7 @@ git config --unset user.name "YourName"
 ----
 
 
-fetch
-~~~~~
+=== fetch
 
 ----
 // fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
@@ -197,21 +185,18 @@ fetch
 git fetch [remote-name]
 ----
 
-gitk
-~~~~
+=== gitk
 
 启动图形界面，基本上相当于 git log 命令的可视化版本。
 
-init
-~~~~
+=== init
 
 ----
 // 初始化
 git init
 ----
 
-log
-~~~
+=== log
 
 ----
 // log很长时，bash画面下方的冒号(:)表示还有内容未显示。
@@ -273,8 +258,7 @@ git log --pretty=format:"%h - %an, %ar : %s"
 |--all-match | 要得到同时满足两个选项搜索条件的提交，必须用此选项。否则，满足任意一个条件的提交都会被匹配出来。
 |===
 
-merge
-~~~~~
+=== merge
 
 - 特殊选项：squash
 +
@@ -297,9 +281,7 @@ git add sample.txt
 git commit
 ----
 
-
-mv
-~~
+=== mv
 
 ----
 // 移动文件（重命名）
@@ -311,8 +293,7 @@ git add README
 ----
 
 
-push
-~~~~
+=== push
 
 ----
 // 推送本地分支到远程同名分支
@@ -333,9 +314,7 @@ git push -u origin master
 git push origin :serverfix
 ----
 
-
-rebase
-~~~~~~
+=== rebase
 
 准则：[yellow]*一旦分支中的提交对象发布到公共仓库，就不要对该分支进行衍合操作。*
 
@@ -419,8 +398,7 @@ git rebase --continue
 git reset --hard ORIG_HEAD
 ----
 
-remote
-~~~~~~
+=== remote
 
 ----
 // 查询远程地址（v:verbose）
@@ -442,8 +420,7 @@ git remote rename [name-from] [name-to]
 git remote rm [remote-name]
 ----
 
-reset
-~~~~~
+=== reset
 
 - 遗弃不再使用的提交。执行遗弃时，需要根据影响范围指定不同的模式：
 +
@@ -469,8 +446,7 @@ git reset --hard HEAD~~
 git reset --hard ORIG_HEAD
 ----
 
-revert
-~~~~~~
+=== revert
 
 取消指定的提交内容。使用 rebase -i 或 reset 也可以删除提交。但是，不能随便删除已发布的提交，这时需要通过revert创建要否定的提交。
 
@@ -482,8 +458,7 @@ revert
 git revert HEAD
 ----
 
-rm
-~~
+=== rm
 
 ----
 // 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项：-f
@@ -495,8 +470,7 @@ git rm -f file.txt
 git rm --cached file.txt
 ----
 
-tag
-~~~
+=== tag
 
 ----
 // 列出 1.4.2 系列的标签
@@ -529,11 +503,9 @@ git push origin --tags
 ----
 
 
-常见问题（FAQ）
----------
+== 常见问题（FAQ）
 
-如何修改 commit 的作者名称和邮箱？
-~~~~~~~~~~~~~~~~~~~~~
+=== 如何修改 commit 的作者名称和邮箱？
 
 . 方法一 https://help.github.com/articles/changing-author-info/[参考]
 
@@ -614,8 +586,7 @@ For example, if your commit history is A-B-C-D-E-F with F as HEAD, and you want 
 .. + (git push -f)?
 
 
-分支的切换（checkout操作）
-~~~~~~~~~~~~~~~~~
+=== 分支的切换（checkout操作）
 
 . HEAD
 +
@@ -658,8 +629,7 @@ image:images/git_tilder_and_caret.png[git tilder and caret]
 
 .. 但若在checkout的目标分支中相同的文件也有修改，checkout会失败的。此时要么先提交修改内容，要么用stash暂时保存修改内容后再checkout。
 
-分支的合并（merge 或 rebase）
-~~~~~~~~~~~~~~~~~~~~~
+=== 分支的合并（merge 或 rebase）
 
 . merge
 +
@@ -674,24 +644,22 @@ image:images/git_tilder_and_caret.png[git tilder and caret]
 .. 向merge分支导入topic分支，先用rebase，再用merge。
 
 
-git流程
-------
+== git流程
+
 - 流程图
 +
 image:images/git_process.png[git process]
 +
 http://www.ruanyifeng.com/blog/2015/08/git-use-process.html[参考]
 
+== 文件状态变化周期
 
-文件状态变化周期
---------
 - 周期图
 +
 image:images/git_file_status_lifecycle.png[file status lifecycle]
 
 
-vi/vim使用
---------
+== vi/vim使用
 
 . 基本上 vi/vim 共分为三种模式，分别是：命令模式、插入模式和底线命令模式。
 

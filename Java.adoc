@@ -1,14 +1,11 @@
-Java
-====
+= Java
 :icons:
 :toc:
 :numbered:
 
-Servlet & JSP 基础
-----------------
+== Servlet & JSP 基础
 
-请求、响应、会话等
-~~~~~~~~~
+=== 请求、响应、会话等
 
 . 只有 请求属性 和 局部变量 是线程安全的。
 
@@ -156,8 +153,7 @@ response.addCookie(cookie);
 |HttpSessionBindingEvent(注意:没有特定的HttpSessionAttributeEvent)
 |===
 
-JSP基本用法
-~~~~~~~
+=== JSP基本用法
 
 . JSP隐式对象
 +
@@ -317,8 +313,7 @@ JspWriter与从HttpServletResponse得到的PrintWriter类似，增加了一些�
 注意：如果以上两者冲突，page指令优先于DD设置。
 
 
-无脚本的JSP
-~~~~~~~
+=== 无脚本的JSP
 
 . JavaBean标准动作
 +
@@ -587,8 +582,7 @@ Hello ${param.userName}
 </body></html>
 ----
 
-JSTL
-~~~~
+=== JSTL
 
 . JSTL 1.1版有5个库，其中4个是定制标记库，列出标记如下：
 
@@ -1027,13 +1021,11 @@ We survived.
 .... sun:
 .... sunw:
 
-定制标记开发
-~~~~~~
+=== 定制标记开发
 
 - (待补充)
 
-Web应用部署
-~~~~~~~
+=== Web应用部署
 
 . 把文件放在 WEB-INF 下可以避免直接访问，或者如果应用部署为一个WAR文件，
 可以把不允许直接访问的文件放在 META-INF 下。
@@ -1312,8 +1304,7 @@ TLD文件必须放在META-INF下，或者META-INF的子目录下。
 |JAR文件必须放在WEB-INF/lib目录中。
 |===
 
-Web应用安全
-~~~~~~~
+=== Web应用安全
 
 . 安全的四大要素
 
@@ -1640,8 +1631,7 @@ Please login ...
 |浏览器再做请求，这一次会在首部中提供用户登录信息，而且请求使用安全连接传送。
 |===
 
-过滤器和包装器
-~~~~~~~
+=== 过滤器和包装器
 
 . 只有一个过滤器接口：Filter
 +
@@ -1761,8 +1751,7 @@ Please login ...
 .. ServletResponseWrapper
 .. HttpServletResponseWrapper
 
-模式和struts
-~~~~~~~~~
+=== 模式和struts
 
 . 3个最主要的非功能性需求：
 
@@ -1781,8 +1770,7 @@ Please login ...
 
 . 支持远程模型组件的模式
 
-环境变量设置
-~~~~~~
+=== 环境变量设置
 
 . Java
 
@@ -1828,8 +1816,7 @@ Please login ...
 ;%ANT_HOME%\bin;
 ----
 
-其他
-~~
+=== 其他
 
 . JavaBean
 

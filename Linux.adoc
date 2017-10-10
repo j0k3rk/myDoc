@@ -1,14 +1,12 @@
-Linux
-=====
+= Linux
 :icons:
 :toc:
 :numbered:
 
-CentOS 7 常用命令
--------------
+== CentOS 7 常用命令
 
-目录类
-~~~
+=== 目录类
+
 . mkdir
 +
 创建目录
@@ -31,8 +29,7 @@ rm -rf
 +
 强制删除目录下所有的东西，-r 表示递归，-f 表示强制。
 
-文件类
-~~~
+=== 文件类
 
 . touch
 +
@@ -54,8 +51,7 @@ cp myFile myFile.bk
 mv myFile myDir
 ----
 
-其他
-~~
+=== 其他
 
 . CentOS 7 初始化搭建
 +

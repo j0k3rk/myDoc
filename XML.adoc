@@ -1,11 +1,9 @@
-XML
-===
+= XML
 :icons:
 :toc:
 :numbered:
 
-XML 语法
-------
+== XML 语法
 
 . XML 标签对大小写敏感
 
@@ -46,8 +44,7 @@ HTML:	Hello           my name is David.
 在 Unix 应用程序中，新行以 LF 字符存储。
 而 Macintosh 应用程序使用 CR 来存储新行。
 
-XML 元素
-------
+== XML 元素
 
 . XML 命名规则
 .. 名称可以含字母、数字以及其他的字符
@@ -81,8 +78,7 @@ XML 元素
 
 .. 非英语的字母比如 éòá 也是合法的 XML 元素名，不过需要留意当软件开发商不支持这些字符时可能出现的问题。
 
-XML 属性
-------
+== XML 属性
 
 . XML 元素 vs. 属性，对比以下3例：
 
@@ -165,8 +161,7 @@ XML 属性
 元数据（有关数据的数据）应当存储为属性，而数据本身应当存储为元素。
 ====
 
-XML 验证
-------
+== XML 验证
 
 . 验证 XML 文档
 +
@@ -216,8 +211,7 @@ W3C 支持一种基于 XML 的 DTD 代替者，它名为 XML Schema：
 </xs:element>
 ----
 
-XML CSS
--------
+== XML CSS
 
 . 举例：
 +
@@ -253,8 +247,7 @@ XML CSS
 使用 CSS 格式化 XML 不是常用的方法，W3C 推荐使用 XSLT。
 ======
 
-XML XSLT
---------
+== XML XSLT
 
 . XSLT (eXtensible Stylesheet Language Transformations) 是首选的 XML 样式表语言。
 +
@@ -273,8 +266,7 @@ XML XSLT
 </breakfast_menu>
 ----
 
-XMLHttpRequest 对象
------------------
+== XMLHttpRequest 对象
 
 ----
 // 创建 XMLHttpRequest 对象的语法：
@@ -284,8 +276,7 @@ xmlhttp=new XMLHttpRequest();
 xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 ----
 
-XML DOM
--------
+== XML DOM
 
 . 获取元素的值
 +
@@ -360,8 +351,7 @@ x.removeChild(x.childNodes[0]);
 注：上例的结果可能会根据所用的浏览器而不同。Firefox 把新行字符当作空的文本节点，而 Internet Explorer 不是这样。
 
 
-XML 命名空间
---------
+== XML 命名空间
 
 . XML 命名空间属性被放置于元素的开始标签之中，并使用以下的语法：
 +
@@ -380,8 +370,7 @@ xmlns:namespace-prefix="namespaceURI"
 xmlns="namespaceURI"
 ----
 
-XML CDATA
----------
+== XML CDATA
 
 . 所有 XML 文档中的文本均会被解析器解析。只有 CDATA 段中的文本会被解析器忽略。
 
@@ -411,13 +400,11 @@ else
 
 . 标记 CDATA 部分结尾的 "]]>" 不能包含空格或折行。
 
-XML 编码
-------
+== XML 编码
 
 . XML 文档可以包含非 ASCII 字符，比如法语。为了避免错误，需要规定 XML 编码，或者将 XML 文档存为 Unicode。
 
-XML 注意事项
---------
+== XML 注意事项
 
 . 使用 XML 时应该尽量避免使用：
 
@@ -431,8 +418,7 @@ XML 注意事项
 ... 只有 Internet Explorer 支持 behavior 属性。
 ... 使用 JavaScript 和 XML DOM （或 HTML DOM）来代替它。
 
-XPath
------
+== XPath
 
 . XPath 节点
 +

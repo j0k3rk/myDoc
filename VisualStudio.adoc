@@ -1,14 +1,12 @@
-Visual Studio
-=============
+= Visual Studio
 :icons:
 :toc:
 :numbered:
 
-快捷键
----
+== 快捷键
 
-常用
-~~
+=== 常用
+
 [frame="topbot", cols="<20,<15,<15", options="header"]
 |====
 |功能 |VS默认 |ReSharper默认
@@ -34,8 +32,8 @@ Visual Studio
 |全屏显示/退出 |Alt + Shift + Enter |-
 |====
 
-导航
-~~
+=== 导航
+
 [frame="topbot", cols="<40,<30,<30", options="header"]
 |====
 |功能 |VS默认 |ReSharper默认
@@ -49,8 +47,8 @@ Visual Studio
 |导航到解决方案中的下一个错误处？ |Shift + Alt + PageDown/PageUp |Ctrl + Shift + Down/Up
 |====
 
-编译/调试/运行
-~~~~~~~~
+=== 编译/调试/运行
+
 [frame="topbot", cols="<40,<30,<30", options="header"]
 |====
 |功能 |VS默认 |ReSharper默认
@@ -64,8 +62,7 @@ Visual Studio
 |====
 
 
-提高生产力的小技巧
----------
+== 提高生产力的小技巧
 
 . 使用书签
 
@@ -86,8 +83,7 @@ Visual Studio
 |====
 
 
-常用扩展及插件
--------
+== 常用扩展及插件
 
 . ReSharper（收费）
 
@@ -99,8 +95,7 @@ Visual Studio
 
 . GitHub Extension for Visual Studio
 
-Web Deploy 测试记录
----------------
+== Web Deploy 测试记录
 
 . 环境
 .. 服务器：Windows Server 2008 R2 （64bit）
@@ -134,9 +129,7 @@ Web Deploy 测试记录
 
 ... http://blog.scnetstudio.com/post/2011/01/08/How-to-Configure-Windows-Server-2008-R2-to-support-Web-Deploy-%28for-Web-Matrix%29.aspx[How to Configure Windows Server 2008 R2 to support Web Deploy (for Web Matrix)]
 
-
-其他
---
+== 其他
 
 . LocalDB
 +

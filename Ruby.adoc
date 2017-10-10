@@ -1,11 +1,9 @@
-Ruby
-====
+= Ruby
 :icons:
 :toc:
 :numbered:
 
-Jekyll 3 on Windows 安装配置
-------------------------
+== Jekyll 3 on Windows 安装配置
 
 https://labs.sverrirs.com/jekyll/[参考]
 

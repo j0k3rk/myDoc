@@ -1,11 +1,9 @@
-HTML
-====
+= HTML
 :icons:
 :toc:
 :numbered:
 
-HTML 颜色
--------
+== HTML 颜色
 
 [options="autowidth"]
 |===
@@ -28,8 +26,7 @@ HTML 颜色
 |Purple |#800080 |[Purple-background]#abcdefg#
 |===
 
-Emmet(Zen Coding) HTML基本语法
---------------------------
+== Emmet(Zen Coding) HTML基本语法
 
 https://www.oschina.net/code/snippet_66036_18625[来源参考]
 

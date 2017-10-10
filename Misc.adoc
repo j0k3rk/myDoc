@@ -1,11 +1,9 @@
-杂七杂八
-====
+= 杂七杂八
 :icons:
 :toc:
 :numbered:
 
-cmd
----
+== cmd
 
 . DOS路径缩写
 
@@ -19,8 +17,7 @@ dir /x
 +
 共8位，前6位字符 + "~" + 序号
 
-cmder
------
+== cmder
 
 . 在右键菜单中添加快捷方式
 
@@ -53,8 +50,7 @@ Ctrl + Shift + Right
 Ctrl + Shift + Down
 ----
 
-Fonts for Developers （编程字体）
----------------------------
+== Fonts for Developers （编程字体）
 
 - *新宋体*
     * 优点
@@ -86,8 +82,7 @@ Fonts for Developers （编程字体）
 // ABCDEFGHIJKLMNOPQRSTUVWXYZ
 ----
 
-IBM Data Studio v4.1.2
-----------------------
+== IBM Data Studio v4.1.2
 
 . 安装完成后无法启动，错误日志举例如下：
 +
@@ -135,8 +130,7 @@ at bottom of the file 'eclipse.ini' that located in the 'C:\Program Files\IBM\DS
 ... Delete all files(.fileTable.*) which located in the 'C:\Program Files\IBM\DS4.1.2\configuration\org.eclipse.osgi\.manager'.
 
 
-IBM i Access Client Solutions 客户端设置
------------------------------------
+== IBM i Access Client Solutions 客户端设置
 
 . 键盘映射
 
@@ -285,8 +279,7 @@ C112=[dspsosi]
 ----
 
 
-JetBrains IDEs
---------------
+== JetBrains IDEs
 
 . 常用插件
 
@@ -296,8 +289,7 @@ JetBrains IDEs
 .. RegexpTester
 
 
-Shadowsocks
------------
+== Shadowsocks
 
 . VPS安装
 +
@@ -431,9 +423,7 @@ Port Your_New_SSH_Port
 #ListenAddress ::
 ----
 
-
-Talend Open Studio for Data Integration 测试记录
---------------------------------------------
+== Talend Open Studio for Data Integration 测试记录
 
 . 测试环境
 
@@ -491,8 +481,7 @@ Talend Open Studio for Data Integration 测试记录
 
 . 待续...
 
-VLC Media Player
-----------------
+== VLC Media Player
 
 . Win10 中文字幕乱码的解决方法：
 .. “偏好设置”-“字幕/OSD”里“默认编码”改为“通用，中文（GB18030）”

@@ -1,11 +1,9 @@
-Python
-======
+= Python
 :icons:
 :toc:
 :numbered:
 
-Anaconda
---------
+== Anaconda
 
 . 配置文件所在目录如下，如不存在可手动创建：
 +
@@ -35,8 +33,7 @@ conda install basemap
 conda install -c conda-forge scrapy
 ----
 
-Keras
------
+== Keras
 
 . backend 切换
 +
@@ -59,8 +56,7 @@ The default configuration file looks like this:
 Simply change the field backend to either "theano" or "tensorflow", and Keras will use the new configuration next time you run any Keras code.
 ----
 
-Pandas
-------
+== Pandas
 
 . 常用统计函数
 +
@@ -89,15 +85,13 @@ Pandas
 |pct_change | 计算百分数变化
 |===
 
-PyWin32
--------
+== PyWin32
 
 . 版本、32/64位选择
 +
 以Python的版本为准，例如64位Windows安装了32位的Python，PyWin32应安装32位的版本。
 
-Scrapy
-------
+== Scrapy
 
 . https://doc.scrapy.org/en/latest/faq.html[常见问题参考]
 
@@ -107,8 +101,7 @@ Scrapy
 scrapy startproject myproject
 ----
 
-备忘知识点
------
+== 备忘知识点
 
 . 运算符按优先级顺序列出如下：
     - 函数调用，寻址，下标
@@ -123,8 +116,7 @@ scrapy startproject myproject
     - 逻辑 not and or
     - lambda表达式
 
-LXF教程学习笔记
----------
+== LXF教程学习笔记
 
 http://www.liaoxuefeng.com[教程链接]
 

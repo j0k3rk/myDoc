@@ -1,5 +1,4 @@
-AutoIt
-======
+= AutoIt
 :icons:
 :toc:
 :numbered:
@@ -7,8 +6,7 @@ AutoIt
 软件版本v3.3.14.0，参考 autoitx.com 中文文档 v3.3.5.5 beta
 
 [[X1]]
-FAQ
----
+== FAQ
 
 . 变量输出
 +
