@@ -5,7 +5,9 @@
 
 == 基础
 
-=== <Script>元素
+=== <Script>和<NoScript>元素
+
+==== <Script>
 
 . 属性
 .. async 可选
@@ -156,8 +158,10 @@ IE4～IE7 还支持对嵌入脚本的 defer 属性，但 IE8 及之后版本则�
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 ----
 
-=== <NoScript>元素
+==== <NoScript>
 
+. 举例
++
 ----
 <html>
 <head>
@@ -173,23 +177,125 @@ IE4～IE7 还支持对嵌入脚本的 defer 属性，但 IE8 及之后版本则�
 </html>
 ----
 
+=== 关键字和保留字
+
+. ECMA-262 全部关键字（第5版新增的以*号标出）
++
+----
+break     do       instanceof typeof
+case      else     new        var
+catch     finally  return     void
+continue  for      switch     while
+debugger* function this       with
+default   if       throw
+delete    in       try
+----
+
+. ECMA-262 第3版全部保留字
++
+----
+abstract enum       int       short
+boolean  export     interface static
+byte     extends    long      super
+char     final      native    synchronized
+class    float      package   throws
+const    goto       private   transient
+debugger implements protected volatile
+double   import     public
+----
+
+. ECMA-262 第5版，【非】严格模式保留字
++
+----
+class enum   extends super
+const export import
+----
++
+严格模式还有以下保留字
++
+----
+implements package   public
+interface  private   static
+let*       protected yield*
+----
++
+另外还有以下受到限制，严格模式下，不能作为标识符或属性名
++
+----
+arguments eval
+----
+
+=== 变量
+
+. 用 var 操作符定义的变量将成为定义该变量的作用域中的局部变量。
+. 省略 var 操作符的，就成了全局变量。（但不推荐，严格模式下将报错。）
+
+=== 数据类型
+
+. ECMAScript 中有5种简单（/基本）数据类型：Undefined、Null、Boolean、Number和String，1种复杂数据类型：Object。
+
+.. undefined
++
+----
+var message;
+alert(message == undefined);    //true
+----
+
+.. null
++
+----
+alert(null == null);    //true
+
+// undefined 值派生自 null 值，因此 ECMA-262 规定对它们的相等性测试要返回true
+alert(null == undefined);   //true
+----
+
+.. boolean
+
+... Boolean 类型的字面值 true 和 false 区分大小写，True 和 False 都不是 Boolean 值，只是标识符。
+
+... Boolean()转型函数
+
+
+
+
+
+. typeof 是一个操作符而不是函数，返回值：undefined, boolean, string, number, object, function
++
+----
+alert(typeof(null)); //object
+----
++
+----
+var message;    //变量声明后默认取得 undefined 值
+alert(message); //undefined
+alert(age);     //产生错误
+----
+
 == jQuery
 
+. 根据类型、类或id选择元素
++
 ----
-//根据类型、类或id选择元素
 $('*')         //选择文档中的所有元素
 $('.myclass')  //选择所有已向其分配CSS类myclass的元素
 $('element')   //选择所有类型为element的元素
 $('#myid')     //选择id为myid的元素
+----
 
-// 根据关系和联合选择元素
+. 根据关系和联合选择元素
++
+----
 $('tr td')         //匹配所有作为tr元素的后代的td元素
 $('tr > td')       //匹配所有作为tr元素的直接后代的td元素
 $('h2 + table')    //匹配紧接在h2元素后面的table元素
 $('h2 ~ table')   //匹配h2元素后面的table元素（不一定紧邻h2元素）
 $('tr, td')        //匹配tr和td元素
+----
 
-//特性选择器
+. 特性选择器
++
+----
 $('[attr]')        //选择具有attr特性的元素，不论其特性值如何
 $('[attr]="val"')  //选择具有attr特性且其值为val的元素
 $('[attr]!="val"') //选择具有attr特性且其值不为val的元素
@@ -197,16 +303,22 @@ $('[attr]^="val"') //选择具有attr特性且其值以val开头的元素
 $('[attr]~="val"')    //选择具有attr特性且其值包含val的元素
 $('[attr]$="val"')   //选择具有attr特性且其值以val结尾的元素
 $('[attr]|="val"') //选择具有attr特性且其值为val或以val后连接字符（val-）开头的元素
+----
 
-//基本过滤器
+. 基本过滤器
++
+----
 :eq(n)          //使用以零为基准的索引选择第n个元素
 :even:odd       //选择编号为偶数或奇数的元素
 :first:last     //选择第一个或最后一个元素
 :gt(n):lt(n)    //选择其索引相对于其同级大于或小于n的所有元素
 :header         //选择所有属于标题（h1、h2等）的元素
 :not(selector)  //选择所有与选择器不匹配的元素
+----
 
-//内容过滤器
+. 内容过滤器
++
+----
 :contains('text')   //选择包含text或其子元素包含text的元素
 :has('selector')    //选择至少有一个子元素与selector匹配的元素
 :empty              //选择没有子元素的元素
@@ -215,8 +327,11 @@ $('[attr]|="val"') //选择具有attr特性且其值为val或以val后连接字�
 :last-child         //选择作为其父元素的最后一个子元素的元素
 :nth-child(n)       //使用以1为起始的索引，选择作为其父元素的第n个子元素的元素
 :only-child         //选择作为其父元素的唯一子元素的元素
+----
 
-//表单过滤器
+. 表单过滤器
++
+----
 :button             //选择类型为button的button元素和input元素
 :checkbox           //选择复选框
 :checked            //选择处于选中状态的复选框和单选按钮
@@ -228,16 +343,22 @@ $('[attr]|="val"') //选择具有attr特性且其值为val或以val后连接字�
 :selected           //选择处于选中状态的option元素
 :submit             //选择类型为submit的input元素
 :text               //选择类型为text的input元素
+----
 
-//CSS函数
+. CSS函数
++
+----
 addClass('myClass')     //将指定的类名添加到所选元素的class特性中
 hasClass('myClass')     //如果已将指定类分配给所选的元素，则返回true
 removeClass('myClass')  //从所选元素的class特性中删除指定的类名
 toggleClass('myClass')  //如果指定的类不存在，则添加该类，否则删除该类
 css('property', 'value')    //将指定的属性和值添加到所选元素的样式特性中
 css('property')         //从第一个匹配的元素返回特定属性的值
+----
 
-//DOM导航函数
+. DOM导航函数
++
+----
 children()          //获取所选元素的子元素
 closest('selector') //遍历所选的每个元素的祖先元素，查找与指定选择器匹配的第一个元素实例
 filter('selector')  //将所选元素缩减到那些与指定选择器匹配的元素
@@ -246,8 +367,11 @@ next()              //获取紧接在所选元素之后的同级元素
 prev()              //获取紧靠在所选元素之前的同级元素
 parent()            //返回所选元素的直接父元素
 sibilings()         //返回所选元素的同级元素
+----
 
-//DOM操作函数
+. DOM操作函数
++
+----
 before('new')after('new')   //将new元素插入到所选元素之前或之后
 insertBefore()insertAfter() //用法与before和after相同，但会颠倒新元素和选择器的顺序，这些函数返回新建的元素
 prepend('new')append('new') //将new元素插入到所选元素中，作为第一个或最后一个子元素
@@ -256,8 +380,11 @@ empty()                     //删除所选元素的所有子元素
 remove()                    //删除DOM中的所选元素
 attr('name', 'val')         //将所选元素的name特性设置为val，如果特性不存在，则创建特性
 removeAttr('name')          //从所选元素中删除name特性
+----
 
-//事件处理函数
+. 事件处理函数
++
+----
 click       //单击鼠标时触发
 dblclick    //双击鼠标时触发
 mouseenter  //鼠标进入元素所在的屏幕区域时触发
