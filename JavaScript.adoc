@@ -250,7 +250,7 @@ arguments eval
 
 === 数据类型
 
-ECMAScript 中有5种简单（/基本）数据类型：Undefined、Null、Boolean、Number和String，1种复杂数据类型：Object。
+. ECMAScript 中有5种简单（/基本）数据类型：Undefined、Null、Boolean、Number和String，1种复杂数据类型：Object。
 
 . typeof 是一个操作符而不是函数，返回值：undefined, boolean, string, number, object, function
 +
@@ -259,16 +259,16 @@ ECMAScript 中有5种简单（/基本）数据类型：Undefined、Null、Boolea
 alert(typeof(null));    //object
 ----
 
-. Undefined 类型
-+
+==== Undefined 类型
+
 [source, javascript, numbered]
 ----
 var message;
 alert(message == undefined);    //true
 ----
-+
+
 未初始化的变量（默认值为"undefined"）和初始化为"undefined"的变量还是略有区别：
-+
+
 [source, javascript, numbered]
 ----
 var message;    //变量声明后默认取得 undefined 值
@@ -276,8 +276,8 @@ alert(message); //undefined
 alert(age);     //产生错误
 ----
 
-. Null 类型
-+
+==== Null 类型
+
 [source, javascript, numbered]
 ----
 alert(null == null);    //true
@@ -286,13 +286,13 @@ alert(null == null);    //true
 alert(null == undefined);   //true
 ----
 
-. Boolean 类型
+==== Boolean 类型
 
-.. Boolean 类型的字面值 true 和 false 区分大小写，True 和 False 都不是 Boolean 值，只是标识符。
+. Boolean 类型的字面值 true 和 false 区分大小写，True 和 False 都不是 Boolean 值，只是标识符。
 
-.. Boolean()转型函数：
+. Boolean()转型函数：
 +
-[cols="<10,<20,<20", options="header"]
+[cols="<,<,<", options="header,autowidth"]
 |====
 |数据类型 |转换为true的值 |转换为false的值
 |Boolean |true |false
@@ -302,9 +302,9 @@ alert(null == undefined);   //true
 |Undefined |n/a（not applicable） |undefined
 |====
 
-. Number 类型
+==== Number 类型
 
-.. 八进制数值
+. 八进制数值
 +
 第一位必须是零（0），在严格模式下无效：
 +
@@ -314,20 +314,20 @@ var octalNum1 = 070;    // 八进制的56
 var octalNum2 = 079;    // 无效的八进制数值——解析为79
 ----
 
-.. 十六进制数值
+. 十六进制数值
 +
 前两位必须是0x，字母 A～F 可以大写，也可以小写
 
-.. 进行算术计算时，所有以八进制和十六进制表示的数值最终都将被转换成十进制数值。
+. 进行算术计算时，所有以八进制和十六进制表示的数值最终都将被转换成十进制数值。
 +
 [NOTE]
 ====
 JavaScript 中，可以保存正零（+0）和负零（-0），正零和负零被认为相等。
 ====
 
-.. 浮点数值
+. 浮点数值
 
-... 基本写法：
+.. 基本写法：
 +
 [source, javascript, numbered]
 ----
@@ -335,7 +335,7 @@ var floatNum2 = 0.1;
 var floatNum3 = .1;     //有效，但不推荐
 ----
 
-... ECMAScript 会不失时机地将浮点数值转换为整数值：
+.. ECMAScript 会不失时机地将浮点数值转换为整数值：
 +
 [source, javascript, numbered]
 ----
@@ -343,9 +343,9 @@ var floatNum1 = 1.;     //小数点后面没有数字——解析为1
 var floatNum2 = 10.0;   //整数——解析为10
 ----
 
-... 默认情况下，ECMASctipt 会将小数点后面带有6个零及以上的浮点数值转换为以 e 表示法表示的数值（例如，0.0000003 会被转换成 3e-7）。
+.. 默认情况下，ECMASctipt 会将小数点后面带有6个零及以上的浮点数值转换为以 e 表示法表示的数值（例如，0.0000003 会被转换成 3e-7）。
 
-... 浮点数值的最高精度是17位小数，但在进行算术计算时其精确度远远不如整数。例如，0.1 加 0.2 的结果不是 0.3，而是0.30000000000000004。
+.. 浮点数值的最高精度是17位小数，但在进行算术计算时其精确度远远不如整数。例如，0.1 加 0.2 的结果不是 0.3，而是0.30000000000000004。
     这个小小的舍入误差会导致无法测试特定的浮点数值。
 +
 [source, javascript, numbered]
@@ -363,27 +363,27 @@ if (a + b == 0.3) { //不要做这样的测试！
 其他使用相同数值格式的语言也存在这个问题。
 ====
 
-.. 数值范围
+. 数值范围
 
-... ECMAScript 能够表示的最小数值保存在 Number.MIN_VALUE 中，最大数值保存在 Number.MAX_VALUE 中。
+.. ECMAScript 能够表示的最小数值保存在 Number.MIN_VALUE 中，最大数值保存在 Number.MAX_VALUE 中。
 
-... 如果某次计算的结果得到了一个超出 JavaScript 数值范围的值，那么这个数值将被自动转换成特殊的 Infinity 值。
+.. 如果某次计算的结果得到了一个超出 JavaScript 数值范围的值，那么这个数值将被自动转换成特殊的 Infinity 值。
     负数为 -Infinity（负无穷），正数为 Infinity（正无穷）。该值将无法继续参与下一次的计算。可以使用 isFinite() 函数进行检测。
 
-.. NaN
+. NaN
 
-... NaN，即非数值（Not a Number）是一个特殊的数值，用于表示一个本来要返回数值的操作数未返回数值的情况。例如 0 除以 0 将返回 NaN 。
+.. NaN，即非数值（Not a Number）是一个特殊的数值，用于表示一个本来要返回数值的操作数未返回数值的情况。例如 0 除以 0 将返回 NaN 。
 
-... 任何涉及 NaN 的操作（例如 NaN/10）都会返回NaN。
+.. 任何涉及 NaN 的操作（例如 NaN/10）都会返回NaN。
 
-... NaN 与任何值都不相等，包括 NaN 本身。
+.. NaN 与任何值都不相等，包括 NaN 本身。
 +
 [source, javascript, numbered]
 ----
 alert(NaN == NaN);      //false
 ----
 
-... isNaN()
+.. isNaN()
 +
 [source, javascript, numbered]
 ----
@@ -400,11 +400,11 @@ alert(isNaN(true)); //false（可以被转换成数值1）
 - 如果不能，则基于这个返回值再调用 toString() 方法，再测试返回值。
 ====
 
-.. 数值转换
+. 数值转换
 +
 有3个函数可以把非数值转换为数值：Number()、parseInt() 和 parseFloat()。
 
-... Number()
+.. Number()
 +
 [source, javascript, numbered]
 ----
@@ -414,23 +414,23 @@ var num3 = Number("000011");    //11
 var num4 = Number(true);    //1
 ----
 
-.... true 和 false 将分别被转换为 1 和 0。
+... true 和 false 将分别被转换为 1 和 0。
 
-.... null 值返回 0。
+... null 值返回 0。
 
-.... undefined 值返回 NaN。
+... undefined 值返回 NaN。
 
-.... 字符串遵循以下规则：
-..... 字符串中只包含数字（包括带正号或负号的情况），则将其转换为十进制数值（忽略前导0）。
-..... 字符串中包含有效的浮点格式，则将其转换为对应的浮点数值（忽略前导0）。
-..... 字符串中包含有效的十六进制格式，则将其转换为相同大小的十进制整数值。
-..... 字符串是空的（不包含任何字符），则将其转换为0。
-..... 字符串中包含除上述格式之外的字符，则将其转换为 NaN。
+... 字符串遵循以下规则：
+.... 字符串中只包含数字（包括带正号或负号的情况），则将其转换为十进制数值（忽略前导0）。
+.... 字符串中包含有效的浮点格式，则将其转换为对应的浮点数值（忽略前导0）。
+.... 字符串中包含有效的十六进制格式，则将其转换为相同大小的十进制整数值。
+.... 字符串是空的（不包含任何字符），则将其转换为0。
+.... 字符串中包含除上述格式之外的字符，则将其转换为 NaN。
 
-.... 如果是对象，则调用对象的 valueOf() 方法，然后进行转换。
+... 如果是对象，则调用对象的 valueOf() 方法，然后进行转换。
      如果转换的结果是 NaN ，则调用对象的 toString() 方法，然后再次转换。
 
-... parseInt()
+.. parseInt()
 +
 [source, javascript, numbered]
 ----
@@ -456,7 +456,7 @@ var num6 = parseInt("10", 10);  //10 （按十进制解析）
 var num7 = parseInt("10", 16);  //16 （按十六进制解析）
 ----
 
-... parseFloat()
+.. parseFloat()
 +
 [source, javascript, numbered]
 ----
@@ -468,14 +468,14 @@ var num5 = parseFloat("0908.5");    //908.5
 var num6 = parseFloat("3.125e7");   //31250000
 ----
 
-.... 只解析十进制值，没有用第二个参数指定基数的用法。十六进制格式的字符串始终会被转换成0。
-.... 如果字符串包含的是一个可解析为整数的数（没有小数点，或者小数点后都是零），parseFloat()会返回整数。
+... 只解析十进制值，没有用第二个参数指定基数的用法。十六进制格式的字符串始终会被转换成0。
+... 如果字符串包含的是一个可解析为整数的数（没有小数点，或者小数点后都是零），parseFloat()会返回整数。
 
-. String 类型
+==== String 类型
 
-.. 字符字面量
+. 字符字面量
 +
-[cols="<5,<35", options="header"]
+[cols="<,<", options="header,autowidth"]
 |====
 |字面量 |含义
 |\n |换行
@@ -490,11 +490,11 @@ var num6 = parseFloat("3.125e7");   //31250000
 |\unnnn |以十六进制代码nnnn表示的一个Unicode字符（其中n为0～F）。例如，\u03a3表示希腊字符Σ
 |====
 
-.. 任何字符串的长度都可以通过访问其 length 属性取得，如果字符串中包含双字节字符，那么 length 属性可能不会精确地返回字符串中的字符数目。
+. 任何字符串的长度都可以通过访问其 length 属性取得，如果字符串中包含双字节字符，那么 length 属性可能不会精确地返回字符串中的字符数目。
 
-.. ECMAScript 中的字符串一旦创建，它们的值就不能被改变。
+. ECMAScript 中的字符串一旦创建，它们的值就不能被改变。
 
-.. 除了 null 和 undefined 值外，数值、布尔值、对象和字符串值都有 toString() 方法。
+. 除了 null 和 undefined 值外，数值、布尔值、对象和字符串值都有 toString() 方法。
    多数情况下，调用toString()方法不必传递参数。但是，可以传递一个参数来指定输出数值的基数。
 +
 [source, javascript, numbered]
@@ -507,13 +507,260 @@ alert(num.toString(10));    //"10"
 alert(num.toString(16));    //"a"
 ----
 
-.. String()
+. String()
 
-... 如果值有 toString() 方法，则调用该方法（没有参数）并返回相应的结果；
-... 如果值是 null，则返回"null"；
-... 如果值是 undefined，则返回"undefined"。
+.. 如果值有 toString() 方法，则调用该方法（没有参数）并返回相应的结果；
+.. 如果值是 null，则返回"null"；
+.. 如果值是 undefined，则返回"undefined"。
 
-. Object 类型
+==== Object 类型
+
+Object 的每个实例都具有下列属性和方法：
+
+. constructor
++
+保存着用于创建当前对象的函数。
+
+. hasOwnProperty(propertyName)
++
+用于检查给定的属性在当前对象实例中（而不是在实例的原型中）是否存在。
+其中，作为参数的属性名（propertyName）必须以字符串形式指定。
+
+. isPrototypeOf(object)
++
+用于检查传入的对象是否是传入对象的原型。
+
+. propertyIsEnumerable(propertyName)
++
+用于检查给定的属性是否能够使用 for-in 语句来枚举。与hasOwnProperty()方法一样，作为参数的属性名必须以字符串形式指定。
+
+. toLocaleString()
++
+返回对象的字符串表示，该字符串与执行环境的地区对应。
+
+. toString()
++
+返回对象的字符串表示。
+
+. valueOf()
++
+返回对象的字符串、数值或布尔值表示。通常与toString()方法的返回值相同。
+
+=== 操作符
+
+==== 一元操作符
+
+[source, javascript, numbered]
+----
+ ++
+ --
+ +
+ -
+----
+
+==== 位操作符
+
+. ECMAScript 中的所有数值都以 IEEE-754 64 位格式存储，但位操作符并不直接操作 64 位的值。
+  而是先将 64 位的值转换成 32 位的整数，然后执行操作，最后再将结果转回 64 位。
+
+. 对于有符号整数，32 位中的前 31 位（从右向左）用于表示整数的值。
+  第一位（位0）表示 2^0^，第二位表示 2^1^，以此类推。
+  第32位用于表示数值的符号：0 表示正数，1 表示负数。这个表示符号的位叫做符号位，符号位的值决定了其他位数值的格式。
+  其中，正数以纯二进制格式存储，31 位中的每一位都表示 2 的幂。负数同样以二进制码存储，但使用的格式是二进制补码。
++
+[NOTE]
+.求二进制补码的三个步骤：
+=====
+. 求绝对值的二进制码；
+. 求二进制反码，即将0替换为1，将1替换为0；
+. 反码加1。
+=====
+
+. 对特殊的 NaN 和 Infinity 值应用位操作时，这两个值都会被当成 0 来处理。
+
+. 按位非（NOT）
++
+由一个波浪线（~）表示，返回数值的反码。（按位非操作的本质：操作数的负值减1。）
+
+. 按位与（AND）
++
+由一个和号字符（&）表示。
+
+. 按位或（OR）
++
+由一个竖线符号（|）表示。
+
+. 按位异或（XOR）
++
+由一个插入符号（^）表示，按位相同得0、不同得1。
+
+. 左移
++
+由两个小于号（<<）表示，左移不会影响操作数的符号位。
+
+. 有符号的右移
++
+由两个大于号（>>）表示，保留符号位，有符号的右移操作与左移操作恰好相反。
+
+. 无符号的右移
++
+由3个大于号（>>>）表示，会将数值的所有 32 位都向右移动。
+
+==== 布尔操作符
+
+. 逻辑非（NOT）
++
+由一个叹号（!）表示：
++
+[cols="<,<", options="header,autowidth"]
+|====
+|操作数 |返回
+|对象（=> true） |false
+|空字符串（=> false) |true
+|非空字符串（=> true） |false
+|数值0 |true
+|非0数值（包括 Infinity） |false
+|null, NaN, undefined |true
+|====
+
+. 逻辑与（AND）
++
+由两个和号（&&）表示。
+
+.. 可以应用于任何类型，在有一个操作数不是布尔值的情况下，遵循下列规则：
+... 第1个操作数是对象，返回第2个操作数；
+... 第2个操作数是对象，仅在第1个操作数的求值结果为true时才会返回该对象；
+... 如果两个操作数都是对象，返回第2个操作数；
+... 如果有一个操作数是null，返回null；
+... 如果有一个操作数是NaN，返回NaN；
+... 如果有一个操作数是undefined，返回undefined。
+
+.. 属于短路操作，即如果第一个操作数能够决定结果，就不会再对第二个操作数求值。
++
+[source, javascript, numbered]
+----
+var found = true;
+var result = (found && someUndefinedVariable);  //发生错误
+alert(result);  //不会执行
+----
++
+[source, javascript, numbered]
+----
+var found = false;
+var result = (found && someUndefinedVariable); //不发生错误
+alert(result);  //false
+----
+
+. 逻辑或（OR）
++
+由两个竖线符号（||）表示。
+
+.. 在有一个操作数不是布尔值的情况下，遵循下列规则：
+... 如果第1个操作数是对象，返回第1个操作数；
+... 如果第1个操作数的求值结果为false，返回第2个操作数；
+... 如果两个操作数都是对象，返回第1个操作数；
+... 如果两个操作数都是null，返回null；
+... 如果两个操作数都是NaN，返回NaN；
+... 如果两个操作数都是undefined，返回undefined。
+
+.. 也属于短路操作，可以利用它来避免为变量赋 null 或 undefined 值。例如：
++
+[source, javascript, numbered]
+----
+var myObject = preferredObject || backupObject;
+----
+
+==== 乘性操作符
+
+. 乘法
+
+.. 处理特殊值的规则如下：
+... 如果有一个操作数是 NaN，结果是 NaN；
+... Infinity * 0，结果是 NaN；
+... Infinity * 非0数值，结果是 Infinity 或 -Infinity，取决于有符号操作数的符号；
+... Infinity * Infinity 相乘，结果是 Infinity；
+... 如果有一个操作数不是数值，则在后台调用Number()将其转换为数值，然后再应用上面的规则。
+
+. 除法
+
+.. 处理特殊值的规则如下：
+... 如果有一个操作数是 NaN，结果是 NaN；
+... Infinity / Infinity，结果是 NaN；
+... 0 / 0，结果是 NaN；
+... 非0的有限数 / 0，结果是 Infinity 或 -Infinity，取决于有符号操作数的符号；
+... Infinity / 非0数值，则结果是 Infinity 或 -Infinity，取决于有符号操作数的符号；
+... 如果有一个操作数不是数值，则在后台调用Number()将其转换为数值，然后再应用上面的规则。
+
+. 求模（余数）
++
+由一个百分号（%）表示。
+
+.. 处理特殊值的规则如下：
+... 有限大的数值 % 0，结果是 NaN；
+... Infinity % Infinity，结果是 NaN；
+... Infinity % 有限大的数值，结果是 NaN；
+... 有限大的数值 % Infinity，结果是被除数；
+... 如果被除数是0，则结果是0；
+... 如果有一个操作数不是数值，则在后台调用Number()将其转换为数值，然后再应用上面的规则。
+
+==== 加性操作符
+
+. 加法
+
+.. 处理特殊值的规则如下：
+... 如果有一个操作数是 NaN，结果是 NaN；
+... Infinity + Infinity，结果是 Infinity；
+... (-Infinity) + (-Infinity)，结果是 -Infinity；
+... Infinity + (-Infinity)，结果是 NaN；
+... (+0) + (+0)，结果是 +0；
+... (-0) + (-0)，结果是 -0；
+... (+0) + (-0)，结果是 +0。
+
+.. 如果有一个操作数是字符串，则进行字符串拼接。
+... 如果另一个操作数是对象、数值或布尔值，则调用toString()取得相应字符串值，再进行拼接。
+... 对于 undefined 和 null，则分别调用String()函数取得字符串 "undefined" 和 "null" ，再进行拼接。
+
+.. 举例
++
+[source, javascript, numbered]
+----
+var num1 = 5;
+var num2 = 10;
+
+var message1 = "The sum of 5 and 10 is " + num1 + num2;
+alert(message1); // "The sum of 5 and 10 is 510"
+
+var message2 = "The sum of 5 and 10 is " + (num1 + num2);
+alert(message2); //"The sum of 5 and 10 is 15"
+----
+
+. 减法
+
+.. 处理特殊值的规则如下：
+... 如果有一个操作数是 NaN，结果是 NaN；
+... Infinity - Infinity，结果是 NaN；
+... (-Infinity) - (-Infinity)，结果是 NaN；
+... Infinity - (-Infinity)，结果是 Infinity；
+... (-Infinity) - Infinity，结果是 -Infinity；
+... (+0) - (+0)，结果是 +0；
+... (+0) - (-0)，结果是 -0；
+... (-0) - (-0)，结果是 +0；
+
+.. 如果有一个操作数是字符串、布尔值、null 或 undefined，则调用Number()函数将其转换为数值，然后再计算。
+   如果转换的结果是 NaN，结果就是 NaN；
+
+.. 如果有一个操作数是对象，则调用valueOf()方法以取得表示该对象的数值。
+   如果得到的值是 NaN，结果就是NaN。
+   如果对象没有valueOf()方法，则调用toString()方法并将得到的字符串转换为数值。
+
+.. 举例
++
+----
+var result1 = 5 - true; //4
+var result2 = 5 - "";   //5
+var result3 = 5 - null; //5
+----
+
 
 == jQuery
 
