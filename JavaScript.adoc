@@ -755,12 +755,224 @@ alert(message2); //"The sum of 5 and 10 is 15"
 
 .. 举例
 +
+[source, javascript, numbered]
 ----
-var result1 = 5 - true; //4
-var result2 = 5 - "";   //5
-var result3 = 5 - null; //5
+var result1 = 5 - true; //5 - 1 = 4
+var result2 = 5 - "";   //5 - 0 = 5
+var result3 = 5 - null; //5 - 0 = 5
 ----
 
+==== 关系操作符
+
+. 当关系操作符的操作数使用了非数值时，处理规则如下：
+
+.. 如果两个操作数都是字符串，则比较两个字符串对应的字符编码值。
+
+.. 如果一个操作数是数值，则将另一个操作数转换为一个数值，然后执行数值比较。
++
+[source, javascript, numbered]
+----
+var result = "23" < 3;  //false
+
+var result = "a" < 3;   //false，因为"a"被转换成了NaN
+
+var result1 = NaN < 3;  //false
+var result2 = NaN >= 3; //false
+----
+
+.. 如果一个操作数是对象，则调用这个对象的valueOf()方法，用得到的结果按照前面的规则执行比较。
+   如果对象没有valueOf()方法，则调用toString()方法，并用得到的结果根据前面的规则执行比较。
+
+.. 如果一个操作数是布尔值，则先将其转换为数值，然后再执行比较。
+
+==== 相等操作符
+
+. 相等（==）和不相等（!=）
+
+.. 先转换再比较
+
+.. 转换规则如下：
+... 如果有一个操作数是布尔值，比较相等性之前先将其转换为数值——false 转换为0，true 转换为1；
+... 如果一个操作数是字符串，另一个操作数是数值，在比较相等性之前先将字符串转换为数值；
+... 如果一个操作数是对象，另一个操作数不是，则调用对象的valueOf()方法，用得到的基本类型值按照前面的规则进行比较.
+
+.. 比较规则如下：
+... null 和 undefined 是相等的。
+... 要比较相等性之前，不能将 null 和 undefined 转换成其他任何值。
+... 如果有一个操作数是 NaN，则相等操作符返回 false，而不相等操作符返回 true。
++
+[NOTE]
+=====
+即使两个操作数都是NaN，相等操作符也返回false；因为按照规则，NaN 不等于 NaN。
+=====
+... 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回 true；否则，返回 false。
+
++
+[options="header"]
+|=====
+|表达式 |值
+|null == undefined |true
+|"NaN" == NaN |false
+|5 == NaN |false
+|NaN == NaN |false
+|NaN != NaN |true
+|false == 0 |true
+|true == 1 |true
+|true == 2 |false
+|undefined == 0 |false
+|null == 0 |false
+|"5" == 5 |true
+|=====
+
+. 全等（===）和不全等（!==）
+
+.. 仅比较而不转换
++
+[source, javascript, numbered]
+----
+var result1 = ("55" == 55);     //true
+var result2 = ("55" === 55);    //false，数据类型不同
+var result3 = (null === undefined)  //false
+----
+
+==== 条件操作符
+
+----
+variable = boolean_expression ? true_value : false_value;
+----
+
+==== 赋值操作符
+
+. 复合赋值操作符
++
+----
+*=  /=  %=  +=  -=
+<<=     >>=     >>>=
+----
++
+使用它们可以简化操作，但不会带来性能提升。
+
+==== 逗号操作符
+
+. 举例：
++
+[source, javascript, numbered]
+----
+var num = (5, 1, 4, 8, 0);      //num 的值为0
+----
+
+=== 语句
+
+==== if 语句
+
+==== do-while 语句
+
+==== while 语句
+
+==== for 语句
+
+==== for-in 语句
+
+. 举例：
++
+[source, javascript, numbered]
+----
+for (var propertyName in window) {
+  document.write(propertyName);
+}
+----
++
+.. var 操作符不是必需的，但为了保证使用局部变量，推荐上例中的做法。
+.. ECMAScript 对象的属性没有顺序。因此，通过 for-in 循环输出的属性名的顺序是不可预测的。
+.. 如果迭代变量值为 null 或 undefined ：
+... ECMAScript 3 会抛出错误。
+... ECMAScript 5 作了更正，对这种情况不再抛出错误，而只是不执行循环体。
+... 为了保证最大限度的兼容性，使用 for-in 循环之前，应先检测该对象的值不是 null 或 undefined。
+
+==== label 语句
+
+==== break 和 continue 语句
+
+==== with 语句
+
+. 举例：
++
+[source, javascript, numbered]
+----
+var qs = location.search.substring(1);
+var hostName = location.hostname;
+var url = location.href;
+
+// 使用 with 进行简化
+with (location) {
+  var qs = search.substring(1);
+  var hostName = hostname;
+  var url = href;
+}
+----
++
+[WARNING]
+=====
+大量使用 with 语句会导致性能下降，同时给调试代码造成困难，因此在开发大型应用程序时，不建议使用 with 语句。
+=====
+
+==== switch 语句
+
+. 通常每个 case 最后会有一个 break 语句。如果需要混合几种情形，应在代码中添加注释，说明是有意省略了 break 关键字。
++
+[source, javascript, numbered]
+----
+switch (i) {
+  case 25:
+    /* 合并两种情形 */
+  case 35:
+    alert('25 or 35');
+    break;
+  case 45:
+    alert('45');
+    break;
+  default:
+    alert('Other');
+}
+----
+
+. switch 语句可以使用任何数据类型，字符串或对象都没有问题。
+
+. 每个 case 的值不一定是常量，可以是变量，甚至是表达式。
+
+[NOTE]
+=====
+switch 语句在比较值时使用的是全等操作符，因此不会发生类型转换。
+=====
+
+=== 函数
+
+. return 语句可以不带任何返回值，函数在停止执行后将返回 undefined 值。
++
+[NOTE]
+=====
+推荐做法是：要么让函数始终都返回一个值，要么永远都不要返回值。
+=====
+
+. 严格模式对函数有一些限制：
+.. 不能把函数命名为 eval 或 arguments ；
+.. 不能把参数命名为 eval 或 arguments ；
+.. 不能出现两个命名参数同名的情况。
+
+. 参数
++
+[source, javascript, numbered]
+----
+function howManyArgs() {
+  alert(arguments.length);
+}
+howManyArgs('string', 45);  //2
+howManyArgs();              //0
+howManyArgs(12);            //1
+----
+.. ECMAScript 中，解析器不会验证参数个数以及函数签名等。
+.. 在函数体内可以通过 arguments 对象来访问参数数组。（该对象与数组类似，但并不是 Array 的实例。）
+.. 通过访问 arguments 对象的length 属性可以获知有多少个参数传递给了函数。
 
 == jQuery
 
@@ -895,3 +1107,4 @@ change      //元素值发生更改时触发
 select      //选择元素值时触发
 submit      //提交表单时触发
 ----
+
