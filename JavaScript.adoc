@@ -4,7 +4,7 @@
 :toclevels: 4
 :numbered:
 
-== 基础
+== 基础（JavaScript高级程序设计 第3版）
 
 === JavaScript 元素
 
@@ -960,6 +960,12 @@ switch 语句在比较值时使用的是全等操作符，因此不会发生类�
 .. 不能出现两个命名参数同名的情况。
 
 . 参数
+
+.. ECMAScript 中，解析器不会验证参数个数以及函数签名等。
+
+.. 在函数体内可以通过 arguments 对象来访问参数数组。（该对象与数组类似，但并不是 Array 的实例。）
+
+.. 通过访问 arguments 对象的length 属性可以获知有多少个参数传递给了函数。
 +
 [source, javascript, numbered]
 ----
@@ -970,9 +976,95 @@ howManyArgs('string', 45);  //2
 howManyArgs();              //0
 howManyArgs(12);            //1
 ----
-.. ECMAScript 中，解析器不会验证参数个数以及函数签名等。
-.. 在函数体内可以通过 arguments 对象来访问参数数组。（该对象与数组类似，但并不是 Array 的实例。）
-.. 通过访问 arguments 对象的length 属性可以获知有多少个参数传递给了函数。
+
+.. arguments 的值与对应命名参数的值保持同步。
++
+[source, javascript, numbered]
+----
+function doAdd(num1, num2) {
+  arguments[1] = 10;    //num2变为10
+  alert(arguments[0] + num2);
+}
+----
++
+如果只传入了一个参数，则 num2 中就会保存 undefined 值，为 arguments[1] 设置的值不会反应到 num2 中。
+严格模式下，缺少参数并重写 arguments 的值会导致语法错误。
+
++
+[NOTE]
+=====
+ECMAScript 中的所有参数传递的都是值，不可能通过引用传递参数。
+=====
+
+. 没有重载
+
+.. ECMAScirpt 没有函数签名，真正的重载不可能做到。（通过检查传入函数中参数的类型和数量并作出不同的处理，可以模仿方法的重载。）
+
+.. 如果定义了两个名字相同的函数，则该名字只属于后定义的函数。
++
+[source, javascript, numbered]
+----
+function addSomeNumber(num) {
+  return num + 100;
+}
+function addSomeNumber(num) {
+  return num + 200;
+}
+var result = addSomeNumber(100); //300
+----
+
+=== 变量、作用域和内存问题
+
+==== 基本类型和引用类型的值
+
+. JavaScript 不能直接操作对象的内存空间：
+.. 当复制保存着对象的某个变量时，操作的是对象的引用；
+.. 在为对象添加属性时，操作的是实际对象。
+
+. 复制变量值
+.. 复制基本类型的值，会在变量对象上创建一个新值，复制后不会相互影响。
+.. 复制引用类型的值，复制的是一个指针，复制后改变其中一个变量，就会影响另一个变量。
+
+. 传递参数
++
+参数都是按值传递。（即使在函数内部修改了参数的值，但原始的引用仍然保持未变。）
++
+[source, javascript, numbered]
+----
+function setName(obj) {
+  obj.name = 'Nicholas';
+  obj = new Object();
+  obj.name = 'Greg';
+}
+var person = new Object();
+setName(person);
+alert(person.name);     //"Nicholas"
+----
++
+[NOTE]
+=====
+可以把 ECMAScript 函数的参数想象成局部变量。
+=====
+
+. 检测类型
+
+. 检测基本类型，使用 typeof 。
++
+[source, javascript, numbered]
+----
+var u;
+var n = null;
+var o = new Object();
+alert(typeof u); //undefined
+alert(typeof n); //object
+alert(typeof o); //object
+----
+
+. 检测引用类型，使用 instanceof 。
+
+==== 执行环境及作用域
+
+==== 垃圾收集
 
 == jQuery
 
