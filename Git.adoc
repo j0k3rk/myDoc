@@ -12,14 +12,6 @@
 git add .
 ----
 
-=== amend
-
-修改同一个分支最近的提交内容和注解。主要使用的场合：
-
-. 添加最近提交时漏掉的文件
-. 修改最近提交的注解
-
-
 === branch
 
 ----
@@ -37,7 +29,6 @@ git branch -d branch-testing
 // 如果确实想要删除，可以用大写的删除选项 -D 强制执行
 git branch -D branch-testing
 ----
-
 
 === checkout
 
@@ -80,22 +71,26 @@ git cherry-pick c81dba1
 
 === commit
 
-----
-// -a:跳过使用暂存区域, -m:message
-git commit -a -m 'added new file'
+. --amend
++
+修改同一个分支最近的提交内容和注解。主要使用的场合：
 
+.. 添加最近提交时漏掉的文件
+.. 修改最近提交的注解
+
++
+----
 // 撤消刚才的提交操作，可以使用 --amend 选项重新提交：
 git commit --amend
+
+// 修改最近一次提交的message（还没有push到远程分支）
+git commit --amend -m "your new message"
 
 // 如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行 amend 提交：
 git commit -m 'initial commit'
 git add forgotten_file
 git commit --amend
 // 上面的三条命令最终只是产生一个提交，第二个提交命令修正了第一个的提交内容。
-
-// 有两个修改过的文件，想要分开提交，但不小心用 git add 全加到了暂存区域，
-// 可以使用 git reset HEAD <file>... 的方式取消暂存
-git reset HEAD file.txt
 ----
 
 === config
@@ -286,12 +281,12 @@ git commit
 ----
 // 移动文件（重命名）
 git mv file_from file_to
+
 // 等效于以下三行命令
 mv README.txt README
 git rm README.txt
 git add README
 ----
-
 
 === push
 
@@ -444,6 +439,10 @@ git reset --hard HEAD~~
 
 // 删除错了，恢复到 reset 前的状态
 git reset --hard ORIG_HEAD
+
+// 有两个修改过的文件，想要分开提交，但不小心用 git add 全加到了暂存区域，
+// 可以使用 git reset HEAD <file>... 的方式取消暂存
+git reset HEAD file.txt
 ----
 
 === revert
