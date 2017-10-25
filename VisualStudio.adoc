@@ -5,60 +5,51 @@
 
 == 快捷键
 
+. 设置方法：
+.. 重置 Visual Studio 的键盘映射；
+.. ReSharper的快捷键方案选择“Visual Studio”。
+
 === 常用
+
+* 存在冲突的标为黄色
 
 [frame="topbot", cols="<20,<15,<15", options="header"]
 |====
-|功能 |VS默认 |ReSharper默认
-|代码补全 |[Green-background]#Alt + →# |Ctrl + Space
-|缩进 |[Green-background]#Ctrl + K, Ctrl + F# |-
-|格式化 |[Green-background]#Ctrl + K, Ctrl + D# |[Green-background]#Ctrl + Alt + L#
-|上/下移一行 |Alt + ↑/↓ |Ctrl + Shift + Alt + ↑/↓
-|向上插入一行 |Ctrl + Enter |Ctrl + Alt + Enter
-|向下插入一行 |Ctrl + Shift + Enter |Shift + Enter
-|向下复制一行 |- |Ctrl + D
-|剪切行 |Ctrl + L |Ctrl + X
-|删除行 |Ctrl + Shift + L |Ctrl + Y
-|行注释 |Ctrl + K, Ctrl + C |Ctrl + /
-|行注释取消 |Ctrl + K, Ctrl + U |Ctrl + /
-|块注释 |Ctrl + K, Ctrl + C |Ctrl + Shift + /
-|块注释取消 |Ctrl + K, Ctrl + U |Ctrl + Shift + /
-|切换大小写 |Ctrl + U 或 Ctrl + Shift + U |Ctrl + Shift + U
-|列选择模式 |Alt + Shift + 方向键 |Alt + 鼠标左键 或 Alt + Shift + Insert
-|折叠/展开 |Ctrl + M & M |-
-|查找引用 |- |[Green-background]#Alt + F7#
-|GoTo Everything |- |[Green-background]#Ctrl + N#
-|Tab切换 |Ctrl + Tab |-
-|全屏显示/退出 |Alt + Shift + Enter |-
+|功能 |VS默认 |ReSharper补充
+|代码补全 |[Lime-background]#Alt + →# |Ctrl + Space
+|代码辅助 |- |[Yellow-background]#Alt + Enter#
+|缩进 |[Lime-background]#Ctrl + K, Ctrl + F# |-
+|格式化 |[Lime-background]#Ctrl + K, Ctrl + D# |[Yellow-background]#Ctrl + Alt + Enter#
+|上/下移动一行 |[Yellow-background]#Alt + ↑/↓# |Ctrl + Shift + Alt + ↑/↓
+|向上插入一行 |[Yellow-background]#Ctrl + Enter# |-
+|向下插入一行 |[Lime-background]#Ctrl + Shift + Enter# |-
+|向下复制一行 |- |[Lime-background]#Ctrl + D#
+|剪切行 |Ctrl + L |[Lime-background]#Ctrl + X#
+|删除行 |Ctrl + Shift + L |-
+|行注释 |[Lime-background]#Ctrl + K, Ctrl + C# |-
+|行注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |-
+|块注释 |[Lime-background]#Ctrl + K, Ctrl + C# |Ctrl + Shift + /
+|块注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |Ctrl + Shift + /
+|列选择模式 |Alt + Shift + 方向键 |[Lime-background]#Alt + 鼠标选择#
+|折叠/展开 |[Lime-background]#Ctrl + M, Ctrl + M# |-
+|导航到 |[Yellow-background]#Ctrl + 逗号(,)# |-
+|Tab切换 |[Lime-background]#Ctrl + Tab# |-
+|全屏显示/退出 |[Lime-background]#Alt + Shift + Enter# |-
 |====
 
-=== 导航
-
-[frame="topbot", cols="<40,<30,<30", options="header"]
-|====
-|功能 |VS默认 |ReSharper默认
-|属性窗口 |F4 |-
-|代码窗口 |F7 |-
-|对象窗口 |Shift + F7 |-
-|导航到 |Ctrl + Comma(,) |-
-|导航到成员？ |Alt + Up/Down |Ctrl + Up/Down
-|选择所属的方法和类 |Ctrl + [ |-
-|在解决方案管理器中定位正在编辑的文件？ |- |Shift + Alt + L
-|导航到解决方案中的下一个错误处？ |Shift + Alt + PageDown/PageUp |Ctrl + Shift + Down/Up
-|====
 
 === 编译/调试/运行
 
 [frame="topbot", cols="<40,<30,<30", options="header"]
 |====
-|功能 |VS默认 |ReSharper默认
-|生成解决方案 |Ctrl + Shift + B |-
-|调试 |Ctrl + F5 |Shift + F9 或 Alt + Shift + F9
-|运行 |F5 |Shift + F10 或 Alt + Shift + F10
-|设置断点 |F9 |Ctrl + F8
-|单步执行 |F11 |F7
-|单步跳出 |F10 |F8
-|单步跳过 |Shift + F11 |Shift + F8
+|功能 |VS默认 |ReSharper补充
+|生成解决方案 |[Lime-background]#Ctrl + Shift + B# |-
+|调试 |[Lime-background]#F5# |-
+|运行 |[Lime-background]#Ctrl + F5# |-
+|设置断点 |[Lime-background]#F9# |
+|单步执行 |[Lime-background]#F11# |-
+|单步跳出 |[Lime-background]#F10# |-
+|单步跳过 |[Lime-background]#Shift + F11# |-
 |====
 
 
