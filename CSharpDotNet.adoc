@@ -392,6 +392,8 @@ MyClass myClassVariable = new MyClass();
 - 对于方法，表示不能重写该方法。
 - 要在方法或属性上使用 sealed 关键字，必须先重写于一个基类。如果基类上不希望有重写的方法或属性，就不要声明为 virtual。
 
+. 扩展方法必须为静态，且必须在静态类中定义。
+
 === FAQ
 
 [qanda]
