@@ -32,7 +32,11 @@
 |块注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |Ctrl + Shift + /
 |列选择模式 |Alt + Shift + 方向键 |[Lime-background]#Alt + 鼠标选择#
 |折叠/展开 |[Lime-background]#Ctrl + M, Ctrl + M# |-
-|导航到 |[Yellow-background]#Ctrl + 逗号(,)# |-
+|导航到（ReSharper） |- |[Yellow-background]#Alt + `#
+|导航到（VisualStudio） |[Yellow-background]#Ctrl + 逗号(,)# |-
+|GotoType（SearchEverywhere） |- |[Yellow-background]#Ctrl + T#
+|Refactor |- |[Yellow-background]#Ctrl + Shift + R#
+|Generate |- |[Yellow-background]#Alt + Insert#
 |Tab切换 |[Lime-background]#Ctrl + Tab# |-
 |全屏显示/退出 |[Lime-background]#Alt + Shift + Enter# |-
 |====
