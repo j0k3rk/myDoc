@@ -11,13 +11,16 @@
 
 === 常用
 
-* 存在冲突的标为黄色
+- 采用的则涂色：
+    * 有冲突的涂 [Yellow-background]#黄色#；
+    * 无冲突的涂 [Lime-background]#莱姆绿色#。
 
++
 [frame="topbot", cols="<20,<15,<15", options="header"]
 |====
 |功能 |VS默认 |ReSharper补充
 |代码补全 |[Lime-background]#Alt + →# |Ctrl + Space
-|代码辅助 |- |[Yellow-background]#Alt + Enter#
+|智能辅助 |- |[Yellow-background]#Alt + Enter#
 |缩进 |[Lime-background]#Ctrl + K, Ctrl + F# |-
 |格式化 |[Lime-background]#Ctrl + K, Ctrl + D# |[Yellow-background]#Ctrl + Alt + Enter#
 |上/下移动一行 |[Yellow-background]#Alt + ↑/↓# |Ctrl + Shift + Alt + ↑/↓
@@ -31,12 +34,16 @@
 |块注释 |[Lime-background]#Ctrl + K, Ctrl + C# |Ctrl + Shift + /
 |块注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |Ctrl + Shift + /
 |列选择模式 |Alt + Shift + 方向键 |[Lime-background]#Alt + 鼠标选择#
+|使用模板环绕 |- |[Lime-background]#Ctrl + E, U# 或 Ctrl + E, Ctrl + U
 |折叠/展开 |[Lime-background]#Ctrl + M, Ctrl + M# |-
-|导航到（ReSharper） |- |[Yellow-background]#Alt + `#
-|导航到（VisualStudio） |[Yellow-background]#Ctrl + 逗号(,)# |-
-|GotoType（SearchEverywhere） |- |[Yellow-background]#Ctrl + T#
-|Refactor |- |[Yellow-background]#Ctrl + Shift + R#
-|Generate |- |[Yellow-background]#Alt + Insert#
+|查看定义（当前窗口） |[Lime-background]#Alt + F12# |-
+|转到声明（到新窗口） |[Lime-background]#Ctrl + F12# |-
+|导航到（ReSharper机能） |- |[Yellow-background]#Alt + `#
+|导航到（VisualStudio机能） |[Yellow-background]#Ctrl + 逗号(,)# |-
+|SearchEverywhere |- |[Yellow-background]#Ctrl + T#
+|显示代码结构 |- |[Yellow-background]#Ctrl + Alt + F#
+|重构代码 |- |[Yellow-background]#Ctrl + Shift + R#
+|生成代码 |- |[Yellow-background]#Alt + Insert#
 |Tab切换 |[Lime-background]#Ctrl + Tab# |-
 |全屏显示/退出 |[Lime-background]#Alt + Shift + Enter# |-
 |====
