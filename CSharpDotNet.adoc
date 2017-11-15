@@ -2,6 +2,7 @@
 :icons:
 :toc:
 :numbered:
+:toclevels: 4
 
 == c#基础
 
@@ -808,30 +809,100 @@ xxx
 |===
 
 
-== ADO.NET 连接 AS/400 测试记录
+== Entity Framework
 
-- 环境需求：
-    * Entity Framework 6 Tools
-    * DB2 Connect 10.5 FP6（最新版为11.1）
-    * NuGet包：
+=== 连接AS400（通过 DB2 Data Server Client）
+
+==== AS400命令
+
+----
+// 获取服务器的Entry名，填入连接配置字符串中。
+// Work with Relational Database Directory Entries
+WRKRDBDIRE
+----
+
+==== 客户端安装与配置
+
+===== 开发环境
+
+. 环境：
+
+.. Windows：10（64位），7（32位）
+.. DB2 Data Server Client：当前最新版为 v11.1 FixPack 2
+.. Visual Studio：2013
+
+. 安装前注意：
+
+.. 电脑名不能超过15个英文字符。
+.. 安装路径中不能有空格，路径不宜过长。
+.. 建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。
+.. VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。
+
+. 安装时注意：
+
+.. 使用管理员权限运行安装程序。
+.. 一般选择【典型安装】即可。
+.. 为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。
+
+
+. 安装后配置：
+
+.. 打开命令行窗口
++
+----
+db2cmd
+----
+
+.. 将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。
+
+.. 追加授权
++
+----
+db2licm -a db2consv_ee.lic
+----
+
+.. （可选）显示授权
++
+----
+db2licm -l
+----
+
+.. 连接测试
++
+----
+testconn40 "Database=EntryXXX;User ID=UserXXX;Server=YourIP:446;Persist Security Info=True;password=PwdXXX"
+----
+
+. 开发前准备：
+
+.. Entity Framework Tools（已安装）
+
+.. 下载Nuget包：
 +
 ----
 Install-Package EntityFramework.IBM.DB2
 ----
 
-- 安装 DB2 Connect 10.5 FP6 时遇到的问题：
+===== 服务器环境
 
-    * 收费产品需购买版权
+xxx
 
-    * 先安装驱动包（若直接安装 vs add-ins 会提示缺少驱动。
+==== DB2命令
 
-    * 安装驱动包后，可以在cmd窗口中使用如下命令检测：
+. 验证安装文件、实例和数据库功能
 +
 ----
-db2cli validate
+db2val
 ----
 
-    * 安装 vs add-ins 时会自动注册（或事后手动注册），出现提示 vs 2010 shell 授权数据无效。
+. 命令帮助
++
+----
+db2 ?
+----
 
-    ** 卸载 vs2010 shell isolated 后重新注册成功。
-    ** 此shell是安装 SQL Server 2014 时产生的，卸载后 SSMS 无法正常启动，可下载独立安装包重装解决。
+. SQL 错误代码详情
++
+----
+db2 ? sqlnnnn
+----

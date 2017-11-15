@@ -37,6 +37,7 @@
 |使用模板环绕 |- |[Lime-background]#Ctrl + E, U# 或 Ctrl + E, Ctrl + U
 |折叠/展开 |[Lime-background]#Ctrl + M, Ctrl + M# |-
 |查看定义（当前窗口） |[Lime-background]#Alt + F12# |-
+|转到定义（到新窗口） |[Lime-background]#F12# |-
 |转到声明（到新窗口） |[Lime-background]#Ctrl + F12# |-
 |导航到（ReSharper机能） |- |[Yellow-background]#Alt + `#
 |导航到（VisualStudio机能） |[Yellow-background]#Ctrl + 逗号(,)# |-
