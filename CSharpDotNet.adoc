@@ -204,92 +204,14 @@
 |Where |过滤掉数据源中与谓词不匹配的条目 |是
 |===
 
-=== ASP.NET MVC 5
-
-. Razor 视图引擎
-
-.. 声明视图模型对象的类型使用了 @model （首字母小写），而访问 Name 属性使用了 @Model （首字母大写）。
-+
-----
-@model Razor.Models.Product
-...
-<div>
-    @Model.Name
-</div>
-...
-----
-
-.. Views 文件夹中以下划线（_）开头的文件不会返回给用户，可以通过文件名来区分要进行渲染的视图和对视图进行支持的文件（例如视图布局文件）。
-
-.. 如果视图是自包含的，且不想使用布局，应将 Layout 属性设置为 null 。如果忽略 Layout 属性，MVC 框架将使用视图起始文件（_ViewStart.cshtml）。
-
-. 控制器类总是以 Controller 结尾，而在对类进行引用时，要忽略类名的 Controller 部分。
-+
-例如：ProductController 在路由配置文件 RouteConfig.cs 中引用时，应使用 Product。
-
-=== 依赖注入
-
-==== Ninject
-
-. 常用条件绑定
-+
-[options="autowidth"]
-|===
-|方法 |效果
-|When(谓词) | 当谓词（一个 lambda 表达式）的结果为 true 时，实施绑定
-|WhenClassHas<T>() |当被注入的类以注解属性进行注释，而其类型为 T 时，实施绑定
-|WhenInjectedInto<T>() |当要被注入的类是类型 T 时，实施绑定
-|===
-
-. 常用作用域方法
-+
-[options="autowidth"]
-|===
-|名称 |效果
-|InTransientScope() |与未指定作用域效果相同，为每一个被解析的依赖项创建一个新的对象（每依赖项一实例）
-|InSingletonScope() +
-ToConstant(object) |创建一个单一实例，使其共享于整个应用程序。如果使用 InSingletonScope ，或者为 Ninject 提供 ToConstant 方法，Ninject 便会创建这种实例（每应用一实例）
-|InThreadScope() |创建一个单一实例，将其用于解析一个线程中各个对象的依赖项（每线程一实例）
-|InRequestScope() |创建一个单一实例，用于解析一个 HTTP 请求中各个对象的依赖项（每请求一实例）
-|===
-
-=== 编程规则
+=== 规则和习惯做法
 
 . 命名规则
 
 .. 公有属性采用 Pascal 大小写形式命名，如果存在一个等价的私有字段，则采用 camel 大小写形式命名。把下划线(_)作为前缀，会为识别字段提供极大便利。
 .. 接口名称通常以字母 I 开头。
 
-
-=== 使用 `csc.exe` 编译：
-
-- 选项
-+
-[options="autowidth"]
-|===
-|选项 |输出
-|/t:exe   |控制台应用程序（默认）
-|/t:library  |带有清单的类库
-|/t:module  |没有清单的组件
-|/t:winexe  |Windows应用程序（无控制台窗口）
-|/out |指定编译后生成的输出文件名
-|/r (/reference) |指定引用库
-|===
-+
-举例：
-+
-----
-// 生成dll
-csc /t:library MathLibrary.cs
-
-// 生成exe
-csc MathClient.cs /r:MathLibrary.dll
-
-// 执行exe
-MathClient.exe
-----
-
-=== 其他知识点
+=== 其他
 
 . 运算符计算顺序举例：
 +
@@ -395,6 +317,34 @@ MyClass myClassVariable = new MyClass();
 
 . 扩展方法必须为静态，且必须在静态类中定义。
 
+. 使用 `csc.exe` 编译：
+
+- 选项
++
+[options="autowidth"]
+|===
+|选项 |输出
+|/t:exe   |控制台应用程序（默认）
+|/t:library  |带有清单的类库
+|/t:module  |没有清单的组件
+|/t:winexe  |Windows应用程序（无控制台窗口）
+|/out |指定编译后生成的输出文件名
+|/r (/reference) |指定引用库
+|===
++
+举例：
++
+----
+// 生成dll
+csc /t:library MathLibrary.cs
+
+// 生成exe
+csc MathClient.cs /r:MathLibrary.dll
+
+// 执行exe
+MathClient.exe
+----
+
 === FAQ
 
 [qanda]
@@ -410,7 +360,11 @@ xxxxx::
 xxx
 
 
-== ASP.NET基础
+== ASP.NET
+
+=== ASP.NET 基础
+
+==== Web窗体
 
 . Web窗体代码片段类型
 +
@@ -425,6 +379,8 @@ xxx
 |<%$  |属性代码片段。用于引用配置值（如那些在Web.config中定义的值）。
 |<%@  |表示指令，用于配置Web窗体（或控件和母版页，具体因指令的类型而异）。
 |===
+
+==== 生命周期和上下文
 
 . HttpApplication类定义的请求生命周期事件
 
@@ -727,6 +683,8 @@ xxx
 |将指定文件的内容写入到输出流中
 |===
 
+==== 模块（Modules）和处理程序（Handlers）
+
 . HttpModulesCollection 属性
 
 +
@@ -746,6 +704,8 @@ xxx
     - 定制现有应用处理响应的方式，使用模块。
     - 创建新的Web应用，使用处理程序。
     - 模块为处理程序准备请求，处理程序为客户端生成响应。不要在模块中生成响应，也不要在处理程序中实现请求功能（如状态管理和安全性）。
+
+==== 页面和控件的事件
 
 . System.Web.UI.Page类事件
 
@@ -808,101 +768,150 @@ xxx
 |在呈现过程之后调用。处理此事件可释放一直使用的任何资源，如数据库连接
 |===
 
+=== ASP.NET MVC 5
+
+. Razor 视图引擎
+
+.. 声明视图模型对象的类型使用了 @model （首字母小写），而访问 Name 属性使用了 @Model （首字母大写）。
++
+----
+@model Razor.Models.Product
+...
+<div>
+    @Model.Name
+</div>
+...
+----
+
+.. Views 文件夹中以下划线（_）开头的文件不会返回给用户，可以通过文件名来区分要进行渲染的视图和对视图进行支持的文件（例如视图布局文件）。
+
+.. 如果视图是自包含的，且不想使用布局，应将 Layout 属性设置为 null 。如果忽略 Layout 属性，MVC 框架将使用视图起始文件（_ViewStart.cshtml）。
+
+. 控制器类总是以 Controller 结尾，而在对类进行引用时，要忽略类名的 Controller 部分。
++
+例如：ProductController 在路由配置文件 RouteConfig.cs 中引用时，应使用 Product。
+
 
 == Entity Framework
 
 === 连接AS400（通过 DB2 Data Server Client）
 
-==== AS400命令
-
+. AS400命令
++
 ----
 // 获取服务器的Entry名，填入连接配置字符串中。
 // Work with Relational Database Directory Entries
 WRKRDBDIRE
 ----
 
-==== 客户端安装与配置
+. 客户端安装
 
-===== 开发环境
+.. 开发机安装
 
-. 环境：
+... 环境：
 
-.. Windows：10（64位），7（32位）
-.. DB2 Data Server Client：当前最新版为 v11.1 FixPack 2
-.. Visual Studio：2013
+.... Windows：10（64位），7（32位）
+.... DB2 Data Server Client：当前最新版为 v11.1 FixPack 2
+.... Visual Studio：2013
 
-. 安装前注意：
+... 安装前：
 
-.. 电脑名不能超过15个英文字符。
-.. 安装路径中不能有空格，路径不宜过长。
-.. 建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。
-.. VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。
+.... 电脑名不能超过15个英文字符。
+.... 安装路径中不能有空格，路径不宜过长。
+.... 建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。
+.... VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。
 
-. 安装时注意：
+... 安装时：
 
-.. 使用管理员权限运行安装程序。
-.. 一般选择【典型安装】即可。
-.. 为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。
+.... 使用管理员权限运行安装程序。
+.... 一般选择【典型安装】即可。
+.... 为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。
 
 
-. 安装后配置：
+... 安装后：
 
-.. 打开命令行窗口
+.... 打开命令行窗口
 +
 ----
 db2cmd
 ----
 
-.. 将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。
+.... 将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。
 
-.. 追加授权
+.... 追加授权
 +
 ----
 db2licm -a db2consv_ee.lic
 ----
 
-.. （可选）显示授权
+.... （可选）显示授权
 +
 ----
 db2licm -l
 ----
 
-.. 连接测试
+.... 连接测试
 +
 ----
 testconn40 "Database=EntryXXX;User ID=UserXXX;Server=YourIP:446;Persist Security Info=True;password=PwdXXX"
 ----
 
-. 开发前准备：
+... 开发前：
 
-.. Entity Framework Tools（已安装）
+.... Entity Framework Tools（已安装）
 
-.. 下载Nuget包：
+.... 下载Nuget包：
 +
 ----
 Install-Package EntityFramework.IBM.DB2
 ----
 
-===== 服务器环境
-
+.. 服务器安装
++
 xxx
 
-==== DB2命令
+. DB2命令
 
-. 验证安装文件、实例和数据库功能
+.. 验证安装文件、实例和数据库功能
 +
 ----
 db2val
 ----
 
-. 命令帮助
+.. 命令帮助
 +
 ----
 db2 ?
 ----
 
-. SQL 错误代码详情
+.. SQL 错误代码详情
 +
 ----
 db2 ? sqlnnnn
 ----
+
+== 依赖注入
+
+=== Ninject
+
+. 常用条件绑定
++
+[options="autowidth"]
+|===
+|方法 |效果
+|When(谓词) | 当谓词（一个 lambda 表达式）的结果为 true 时，实施绑定
+|WhenClassHas<T>() |当被注入的类以注解属性进行注释，而其类型为 T 时，实施绑定
+|WhenInjectedInto<T>() |当要被注入的类是类型 T 时，实施绑定
+|===
+
+. 常用作用域方法
++
+[options="autowidth"]
+|===
+|名称 |效果
+|InTransientScope() |与未指定作用域效果相同，为每一个被解析的依赖项创建一个新的对象（每依赖项一实例）
+|InSingletonScope() +
+ToConstant(object) |创建一个单一实例，使其共享于整个应用程序。如果使用 InSingletonScope ，或者为 Ninject 提供 ToConstant 方法，Ninject 便会创建这种实例（每应用一实例）
+|InThreadScope() |创建一个单一实例，将其用于解析一个线程中各个对象的依赖项（每线程一实例）
+|InRequestScope() |创建一个单一实例，用于解析一个 HTTP 请求中各个对象的依赖项（每请求一实例）
+|===
