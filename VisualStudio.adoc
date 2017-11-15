@@ -44,7 +44,7 @@
 |SearchEverywhere |- |[Yellow-background]#Ctrl + T#
 |显示代码结构 |- |[Yellow-background]#Ctrl + Alt + F#
 |重构代码 |- |[Yellow-background]#Ctrl + Shift + R#
-|生成代码 |- |[Yellow-background]#Alt + Insert#
+|生成代码 |- |[Lime-background]#Alt + Insert#
 |Tab切换 |[Lime-background]#Ctrl + Tab# |-
 |全屏显示/退出 |[Lime-background]#Alt + Shift + Enter# |-
 |====
