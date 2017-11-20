@@ -768,6 +768,128 @@ xxx
 |在呈现过程之后调用。处理此事件可释放一直使用的任何资源，如数据库连接
 |===
 
+==== 身份验证
+
+. Authentication/Forms元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|cookieless |定义是使用cookie来标识用户，还是将用户信息编码到URL中。支持的值包括 UseCookies（始终使用cookie）、
+UseUri（从不使用cookie）、AutoDetect（如果设备支持，则使用cookie）和 UseDeviceProfile（如果浏览器支持，则使用
+cookie）。默认值为 UseDeviceProfile。
+|defaultUrl |指定在身份验证之后将浏览器定向到的URL。
+|Domain |为身份验证cookie指定域。默认值为空字符串（""）。设置此特性可以在子域之间共享cookie。
+|enableCrossAppRedirects |如果设置为true，则可以将通过身份验证的用户重定向到其他适当配置的应用程序。
+|loginUrl |指定当请求中不包含身份验证令牌时，对于指向需要身份验证的URL的请求，要将浏览器定向到的URL。
+|Name |设置用于将用户身份与浏览器提出的请求关联的cookie的名称。
+|Path |指定cookie的路径。默认值为/，表示将cookie应用于整个站点。
+|Protection |指定如何保护身份验证cookie。支持的值包括Encryption（加密cookie）、Validation（验证cookie的内容，
+以确保未对它们做出修改）、All（加密并且验证cookie）和None（完全不保护cookie）。默认值为All。
+|requireSSL |如果设置为true，此特性将配置身份验证cookie，以便浏览器仅为通过SSL提出的请求提交cookie。默认值为False
+。建议启用此特性，有助于防止身份验证cookie被捕获并被添加到用于假冒用户的恶意请求中。
+|slidingExpiration |如果设置为true，将在每次收到请求时更新身份验证cookie，以便相对于用户最新提出的请求应用timeout
+特性的值。如果设置为false，将相对于身份验证的时间应用timeout特性的值。默认值为true。
+|ticketCompatibilityMode |指定如何表示身份验证过期日期。如果值为Framework20，将使用本地时间；如果值为Framework40
+，将使用UTC。默认值为Framework20，但如果应用程序是通过单一URL部署的，但受不同时区的数据中心支持，则应使用Framework40。
+|Timeout |指定cookie过期前的分钟数。如果将slidingExpiration特性设置为true，则会更新cookie，以相对于最新提出的请求
+设置过期。否则，将相对于身份验证的时间设置过期。默认值为30，表示30分钟。
+|====
+
+. FormsAuthentication 类定义的方法和属性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|IsEnabled |如果应用程序已配置为使用窗体身份验证，则返回true。
+|GetAuthCookie(user, persist) |为指定用户创建身份验证cookie。第2个参数是bool值，如果为true，将创建在当前会话过期
+后仍然有效的cookie。使用SetAuthCookie方法的情况更加常见，该方法可以在一个步骤中创建上述cookie并将其添加到响应中。
+|GetRedirectUrl(user, persist) |返回在查询字符串中指定的重定向URL，在用户完成身份验证后，应将其返回到该URL。
+|RedirectFromLoginPage(user, persist) |设置身份验证cookie，并重定向浏览器以返回在查询字符串中指定的用于请求身份
+验证的URL。
+|RedirectToLoginPage() |将浏览器重定向到loginUrl配置特性指定的URL。
+|SetAuthCookie(user, persist) |为指定用户创建身份验证cookie并将其添加到结果中。第2个参数指定cookie是否能够在会话
+期间持续有效。
+|SignOut() |从响应中删除身份验证cookie，意味着浏览器随后提出的请求将不能通过身份验证（严格来讲，此方法并不会删除cookie
+——它以1999年为过期日期新建身份验证cookie，这样，浏览器就不会在随后的请求中包括该cookie）。
+|====
+
+. IPrinciple 接口定义的成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|Identity |返回已通过身份验证的用户的身份，用实现 IIdentity 接口的对象表示
+|IsInRole(string) |检查是否已为用户分配指定的角色。
+|====
++
+[NOTE]
+====
+？
+HttpApplication.User 属性还返回一个 IPrinciple 对象，但如果没有与请求关联的对象，它将抛出异常。
+一些HttpContext属性会抛出异常，此时应使用与HttpContext对应的属性，后者返回null，而不是抛出异常。
+====
+
+. IIdentity 接口定义的属性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|AuthenticationType |返回一个字符串，表示对用户进行身份验证的机制，对于窗体身份验证，此字符串为Forms。
+|IsAuthenticated |如果用户已通过身份验证，则返回true。（如果从除HttpContext对象以外的来源收到IIdentity实现对象——
+在多数应用程序中都不会出现这种情况——此属性有很大用处。）
+|Name |返回当前用户的名称，如果请求未通过身份验证，则返回空字符串（""）。
+|====
+
+. roleManager 配置定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|cacheRolesInCookie |如果为true，此特性指定将已分配给用户的角色存储在用作缓存的cookie中，以避免调用角色提供程序。
+默认值为false。
+|cookieName cookiePath cookieProtection cookieRequireSSL cookieSlidingExpiration cookieTimeout
+cookiePersistentCookie domain |这些特性控制用于缓存角色信息的cookie，并与forms元素定义的类似特性对应。
+|defaultProvider |指定默认情况下用于执行授权的角色提供程序类的名称
+|enabled |指定是否启用角色管理。默认值为false。
+|maxCachedResults |指定在角色cookie中缓存的角色名称的最大数目。默认值为25。
+|====
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|users |指定一个或多个将对其应用add或deny元素的用户。可以使用逗号分隔的名称指定多个用户，使用星号（*）指定所有用户，
+或使用问号（?）指定所有未通过身份验证的用户。
+|roles |指定一个或多个将对其应用add或deny元素的角色。以逗号分隔多个角色。
+|verbs |将add或deny元素的范围缩小至一个或多个HTTP动词。如果省略，上述元素将适用于所有动词。
+|====
++
+[WARNING]
+====
+如果未匹配任何deny元素，将授权请求。应始终定义一个适用于所有用户或所有未通过身份验证用户的回退deny元素。
+====
++
+[TIP]
+====
+不必显式授予由forms.loginUrl特性指定的Web窗体的访问权限。未通过身份验证的请求将自动获得授权。
+====
++
+[WARNING]
+====
+如果没有任何特定于位置的add和deny元素与请求匹配，则应用基准策略。因此，应始终在特定于位置的策略中放置一个回退deny元素，
+以避免访问范围超出预期。
+====
++
+[TIP]
+====
+如果存在多个location元素，将首先评估最具体的path值。
+====
++
+[NOTE]
+====
+项目中只有一个Web.config文件，并且在一个位置定义授权策略，这样理解策略的用途更加容易，也更便于了解某个更改可能造成的影响。
+====
+
 === ASP.NET MVC 5
 
 . Razor 视图引擎
