@@ -768,7 +768,95 @@ xxx
 |在呈现过程之后调用。处理此事件可释放一直使用的任何资源，如数据库连接
 |===
 
-==== 身份验证
+==== 管理请求执行过程
+
+==== 管理状态数据
+
+. HttpApplication类定义的部分成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|成员 |说明
+|AllKeys |返回包含所有键值的字符串数组
+|Count |返回应用程序数据项的数量
+|Clear() |删除应用程序状态中的所有数据项
+|Lock() |序列化对应用程序数据的访问
+|Remove(key) |从应用程序状态中删除包含指定键的项
+|Unlock() |解锁应用程序数据，以便执行并发更新
+|====
++
+[WARNING]
+====
+不要尝试将实例变量设置为 static 来避免状态丢失问题。这基本上等同于使用应用程序数据，但这会强制使 ASP.NET Framework
+序列化对变量的访问，因而降低应用程序的性能。如果确实应用了static关键字，则需要确保安全更新数据（需要用到并行编程技术）。
+====
++
+[WARNING]
+====
+Application属性存储的数据保存在内存中，在停止或重启应用程序时，数据将丢失。
+====
+
+. 配置文件 Web.config
+
+.. add元素创建连接字符串时定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|特性 |说明
+|name |指定此连接的名称。该名称用于引用连接（多数情况位于Web.config文件的其他位置）。
+|connectionString |连接的详细信息
+|providerName |将用于连接到数据库类的类型。默认值为System.Data.SqlClient。
+|====
+
+.. profile元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|特性 |说明
+|enabled |（可选）指定是否启用配置文件功能。默认值为true。
+|defaultProvider |指定provider元素的name特性值，用于获取配置文件值。可使用properties/add元素中的提供程序特性在
+各种属性中改写此值。
+|====
+
+.. profile/providers/add元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|特性 |说明
+|name |指定此提供程序的名称。该名称通常与profile元素中defaultProvider特性的值相同。
+|type |指定将实例化以提供配置文件值的类。
+|connectionStringName |将用于连接到数据库的连接字符串的名称。此值与Web.config文件connectionStrings部分中的元素
+对应。
+|applicationName |（可选）为应用程序指定名称。此特性有利于两个不同的ASP.NET Framework应用程序共享相同的配置文件
+数据。如果省略此特性，将自动生成唯一的名称。
+|commandTimeout |（可选）指定SQL命令超时的秒数。默认值为30，表示30秒。
+|description |（可选）为提供程序指定说明。极少用。
+|====
+
+.. profile/properties/add元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|特性 |说明
+|name |所定义的配置文件属性的名称。
+|type |（可选）属性的类型。如果省略该属性，则取默认值String。正确设置此值可以更轻松的解析或转换值。
+|provider |（可选）为此值指定提供程序。可以通过不同的provider获取每个属性。如果省略此特性，则使用profile元素中的
+defaultProvider特性值。
+|allowAnonymous |（可选）如果为true，则匿名请求可以访问配置文件的属性。默认值为false。
+|defaultValue |（可选）如果数据库中没有用户的已存储值，则设置为分配给该属性的默认值。如果省略此值，则使用属性类型的
+默认值：string类型为空字符串，int类型为零，等等。还可以将此特性设置为String null，意味着将使用null值。
+|readOnly |（可选）如果为true，将无法更改。默认值为false。
+|====
+
+==== 缓存
+
+==== 错误处理
+
+==== 管理路径
+
+==== URL路由
+
+==== 身份验证和授权
 
 . Authentication/Forms元素定义的特性
 +
@@ -889,6 +977,10 @@ cookiePersistentCookie domain |这些特性控制用于缓存角色信息的cook
 ====
 项目中只有一个Web.config文件，并且在一个位置定义授权策略，这样理解策略的用途更加容易，也更便于了解某个更改可能造成的影响。
 ====
+
+==== ASP.NET配置
+
+==== 异步请求处理
 
 === ASP.NET MVC 5
 
