@@ -848,6 +848,140 @@ defaultProvider特性值。
 |readOnly |（可选）如果为true，将无法更改。默认值为false。
 |====
 
+.. sessionState元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|allowCustomSqlDatabase |使用非默认的会话数据库时，需要指定为true。
+|cookieless |指定如何使用cookie将请求与会话关联。默认值为为AutoDetect，此时ASP.NET Framework将确定浏览器是否支持
+cookie，如果不支持，则将会话信息嵌入在URL中。其他值包括UseCookies和UseUri，分别用于强制使用cookie和URL。
+|cookieName |指定用于存储会话ID的cookie名称。默认值为 ASP.NET_SessionId 。
+|mode |指定如何存储会话数据。默认值为InProc，指将会话数据存储在ASP.NET Framework应用程序中。其他值包括：Off（对整个
+应用程序禁用会话状态）、SQLServer以及StateServer。
+|sqlConnectionString |用于在SQL数据库中存储会话数据时指定数据库服务器连接的详细信息。
+|stateConnectionString |用于在状态服务器中存储会话数据时指定服务器进程连接的详细信息。
+|====
++
+[TIP]
+====
+[qanda]
+如何启用ASP.NET状态服务器？::
+    .. 如果是本地计算机，打开【服务】，启动 ASP.NET State Service 。
+    .. 如果是在另一台计算机上运行状态服务器，需要将注册表属性
+    HKLM\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection
+    改为1，然后添加一条防火墙规则，允许在端口42424上传入请求。
+    .. 在应用程序中将stateConnectionString特性指定为 tcpip=<servername>:42424
+    .. 42424 是状态服务器的默认端口，可以在
+    HKLM\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\Port
+    中修改端口。
+====
+
+. ProfileBase类定义的成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|IsAnonymous |如果配置文件用于匿名用户，则返回true。
+|IsDirty |如果配置文件中的一个或多个属性已发生更改，则返回true。可以使用此属性避免不必要的调用Save方法。
+|LastActivityDate |返回DateTime，表示上次读取或修改配置文件的时间。
+|LastUpdatedDate |返回DateTime，表示上次修改配置文件的时间。
+|Properties |（静态）返回配置文件属性的集合。
+|UserName |返回配置文件所代表用户的名称。
+|Create(name)、Create(name, auth) |加载指定用户的配置文件。auth参数是一个bool值，如果为true，则表示用户已通过
+身份验证，如果为false，则为匿名用户。
+|Save() |保存已更改的配置文件属性值。
+|====
+
+. HttpSessionState类定义的成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|Count |返回会话数据项的数量。
+|IsCookieLess |在请求中添加cookie或在请求URL中添加相关信息，将请求与会话关联。如果使用请求URL选项，此属性返回true。
+|IsNewSession |如果这是第一个会话请求，则返回true。
+|IsReadOnly |如果会话数据是只读数据（需将Web窗体Page指令中的EnableSessionState特性设置为ReadOnly），则返回true。
+|Keys |返回所有会话状态数据项的键的集合。
+|Mode |返回如何使用System.Web.SessionState.SessionStateMode枚举中的值存储会话数据的详细信息。
+|SessionID |返回当前会话的唯一ID
+|Abandon() |结束当前会话。随后提出任何其他请求都会创建一个新会话。
+|Clear() |从当前会话的会话状态中删除所有数据项。
+|====
+
+. 会话数据库
+
+.. 创建会话数据库
++
+打开命令行，导航到 C:\Windows\Microsoft.NET\Framework\v4.0.30319 （.NET Framework版本不同，路径可能不同），
+运行以下命令：
++
+----
+.\aspnet_regsql.exe -S "(localdb)\v11.0" -E -ssadd -sstype p
+
+// -S: 指定数据库服务器
+// -E: 指定应使用Windows凭据对数据库连接进行身份验证。
+// -ssadd: 用于创建会话数据库。
+// -sstype: 指定应如何存储数据。
+----
++
+.会话状态数据库的数据存储选项
+[frame="topbot", options="header, autowidth"]
+|====
+|选项 |说明
+|t |在数据库ASPState中创建用于管理会话数据的存储过程，但数据本身不是持久的，如果重启数据库，数据将丢失。
+|p |存储过程和数据在数据库ASPState中持久存在。即使重启数据库，数据不会丢失。
+|c |在 -d 选项指定名称的数据库中创建存储过程和数据。即使重启数据库，数据不会丢失。
+|====
+
+.. 使用会话数据库
++
+----
+// 按默认数据库使用，NG，应去除Initial Catalog 特性。
+<sessionState timeout="60" mode="SQLServer"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Initial Catalog=ASPState;Integrated Security=True" />
+
+// 按默认数据库使用，OK，ASP.NET Framework将自动查找数据库ASPState。
+<sessionState timeout="60" mode="SQLServer"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Integrated Security=True" />
+
+// 按自定义数据库使用，需增加 allowCustomSqlDatabase 特性
+<sessionState timeout="60" mode="SQLServer" allowCustomSqlDatabase="true"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Initial Catalog=ASPState;Integrated Security=True" />
+----
+
+. HttpCookieCollection类定义的成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|Add(cookie) |在集合中添加一个新cookie
+|Clear() |删除所有cookie
+|CopyTo(array) |将cookie复制到HttpCookie数组
+|Count |返回集合中cookie的数量
+|Keys |返回cookie名称的集合
+|Remove(name) |从集合中删除指定名称的cookie
+|====
+
+. HttpCookie类定义的成员
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|Domain |获取并设置与cookie关联的域
+|Expires |获取或设置cookie的到期时间
+|HttpOnly |获取或设置是否可以通过Ajax Javascript调用访问cookie
+|Name |获取或设置cookie的名称
+|Secure |获取或设置是否仅通过SSL连接传送cookie
+|Shareable |获取或设置是否应缓存和共享cookie值
+|Value |获取或设置cookie的值
+|====
++
+[NOTE]
+====
+建议避免在ASP.NET Framework应用程序中直接使用cookie，而应采用会话数据或配置文件数据。
+====
+
 ==== 缓存
 
 ==== 错误处理
@@ -976,6 +1110,97 @@ cookiePersistentCookie domain |这些特性控制用于缓存角色信息的cook
 [NOTE]
 ====
 项目中只有一个Web.config文件，并且在一个位置定义授权策略，这样理解策略的用途更加容易，也更便于了解某个更改可能造成的影响。
+====
+
+. 成员资格
+
+.. 通用提供程序
+
+... 名称不准确，其实支持的产品全部来自Microsoft，其他厂商的提供程序可以另外搜索。
+
+... Nuget程序包：
+.... Microsoft.AspNet.Providers.Core
+.... Microsoft.AspNet.Providers.LocalDb
+
+... 通用与内置SQL提供程序之间的映射
++
+[frame="topbot", options="header, autowidth"]
+|====
+|通用提供程序类 |内置SQL提供程序类
+|System.Web.Providers.DefaultMembershipProvider |System.Web.Security.SqlMembershipProvider
+|System.Web.Providers.DefaultProfileProvider |System.Web.Profile.SqlProfileProvider
+|System.Web.Providers.DefaultRoleProvider |System.Web.Security.SqlRoleProvider
+|System.Web.Providers.DefaultSessionStateProvider |不需要
+|====
+
+.. Membership 配置元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|defaultProvider |默认将用于获取成员资格数据的存储提供程序的名称。
+|hashAlgorithmType |指定用于在成员资格数据库中存储密码的散列算法。默认值为SHA1，通用提供程序会将此值应用1000次。
+内置提供程序不会重复应用散列算法，因而破解密码会较为简单。除非熟悉散列加密，否则不要更改此值。
+|userIsOnlineTimeWindow |指定在收到请求后仍然视用户在使用应用程序的分钟数。默认值为15。
+|====
+
+.. membership/providers/add 配置元素定义的特性
++
+[frame="topbot", options="header, autowidth"]
+|====
+|名称 |说明
+|applicationName |单个成员资格数据库可以存储多个应用程序的数据，但可以通过重用相同的applicationName值，在应用程序
+之间共享成员资格数据。默认值为 / 。
+|commandTimeout |设置成员资格提供程序等待SQL数据库响应查询的秒数。默认值为30。
+|connectionStringName |设置用于连接到数据库的连接字符串的名称。
+|enablePasswordRetrieval |指定提供程序是否支持密码检索，以便使用 MembershipUser.GetPassword 方法从数据库中读取
+密码值。如果密码经过散列处理或加密（参见passwordFormat特性），应将此值设为false（默认值）。
+|enablePasswordReset |指定是否可以使用 Membership.ResetPassword 方法重置密码。默认值为true。
+|maxInvalidPasswordAttempts |指定在锁定账户之前允许的最大的身份验证失败数。默认值为5，但通用提供程序会将此值改为10。
+|minRequiredNonalphanumericCharacters |指定新密码需要的最小非字母数字字符数。默认值为1，但通用提供程序会将此值改
+为0。
+|minRequiredPasswordLength |指定新密码的最小长度。默认值为7，但通用提供程序会将此值更改为6。
+|passwordAttemptWindow |指定跟踪失败的身份验证尝试的分钟数。每失败一次，都会重置此时长，直到提供正确的凭据或账户被
+锁定为止。默认值为10。
+|passwordFormat |指定System.Web.Security.MembershipPasswordFormat枚举中的值在数据库中存储密码的方式。支持的值
+包括Clear（明文形式）、Hashed（散列代码）和Encrypted。默认值为Hashed。
+|passwordStrengthRegularExpression |指定用于验证新密码的正则表达式。默认值为空字符串（""），即允许任何密码。
+|requiresQuestionAndAnswer |指定密码重置和恢复是否需要质询问题和答案。默认值为true，但通用提供程序会将此值改为false。
+|requiresUniqueEmail |指定是否需要使用唯一的电子邮件地址创建每个账户。默认值为true，但通用提供程序会将此值改为false。
+|====
+
+. 使用 ASP.NET Web Configuration Tool
++
+从VS2013开始，此工具已被移除，可用如下方法打开该工具：
+
+.. 打开命令行，导航到.NET的安装目录（例如：C:\Windows\Microsoft.NET\Framework\v4.0.30319 ，.NET Framework版本
+不同，路径可能不同），运行以下命令，通过向导创建成员管理数据库。
++
+----
+aspnet_regsql.exe
+----
+
+.. 打开命令行（【非】管理员权限），导航到IIS的安装目录（例如：C:\Program Files (x86)\IIS Express ），使用如下命令
+启动IIS服务。
++
+----
+// 将[port]替换为空闲的端口号
+iisexpress.exe /path:C:\Windows\Microsoft.NET\Framework\v4.0.30319\ASP.NETWebAdminFiles /vpath:/ASP.NETWebAdminFiles /port:[port] /clr:4.0 /ntlm
+----
++
+如果IIS成功启动，命令行会输出一些日志。
+
+.. 打开【IE】浏览器，输入如下地址：
++
+----
+// 将[port]替换为前一步定义的端口号
+// 将[appPath]替换为包含 *.sln 文件的物理项目路径，原始路径需进行URL编码后使用
+http://localhost:[port]/asp.netwebadminfiles/default.aspx?applicationPhysicalPath=[appPath]&applicationUrl=/
+----
++
+[NOTE]
+====
+如果用其他浏览器打开，会弹出对话框，要求输入用户名和密码。
 ====
 
 ==== ASP.NET配置
