@@ -35,7 +35,9 @@
 |块注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |Ctrl + Shift + /
 |列选择模式 |Alt + Shift + 方向键 |[Lime-background]#Alt + 鼠标选择#
 |使用模板环绕 |- |[Lime-background]#Ctrl + E, U# 或 Ctrl + E, Ctrl + U
-|折叠/展开 |[Lime-background]#Ctrl + M, Ctrl + M# |-
+|折叠/展开 当前方法 |[Lime-background]#Ctrl + M, Ctrl + M# |-
+|折叠 所有方法 |[Lime-background]#Ctrl + M, Ctrl + O# |-
+|展开 所有方法 |[Lime-background]#Ctrl + M, Ctrl + L# |-
 |查看定义（当前窗口） |[Lime-background]#Alt + F12# |-
 |转到定义（到新窗口） |[Lime-background]#F12# |-
 |转到声明（到新窗口） |[Lime-background]#Ctrl + F12# |-
