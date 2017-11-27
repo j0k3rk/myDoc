@@ -204,6 +204,75 @@
 |Where |过滤掉数据源中与谓词不匹配的条目 |是
 |===
 
+=== 继承
+
+. 构造函数
++
+构造时的执行顺序是：先基类，后子类。
+
+. 特殊关键字（virtual/override/new/base）的用法
++
+[source, c++, numbered]
+----
+class A {
+    public virtual void Func() // 虚函数，允许覆盖
+    {
+        Console.WriteLine("Func In A");
+    }
+    public void Non_virtual()  // 非虚函数
+    {
+        Console.WriteLine("Non virtual func in A");
+    }
+}
+class B : A {
+    public override void Func() // 覆盖
+    {
+        Console.WriteLine("Func In B");
+    }
+    public void Non_virtual() {
+        Console.WriteLine("Non virtual func in B");
+    }
+}
+class C : B {
+    public void Non_virtual() {
+        Console.WriteLine("Non virtual func in C");
+    }
+}
+class D : A {
+    public new void Func()  // 重写，隐藏基类的方法
+    {
+        Console.WriteLine("Func In D");
+    }
+    public new void Non_virtual()   // 重写，隐藏基类的方法
+    {
+        Console.WriteLine("Non virtual func in D");
+    }
+}
+
+class Program {
+    static void Main(string[] args) {
+        A a = new A();
+        A b = new B();
+        A c = new C();
+        A d = new D();
+        a.Func();  // Func In A
+        b.Func();  // Func In B
+        c.Func();  // Func In B
+        d.Func();  // Func In A
+        D d1 = new D();
+        d1.Func(); // Func In D
+
+        a.Non_virtual();  // Non virtual func in A
+        b.Non_virtual();  // Non virtual func in A
+        c.Non_virtual();  // Non virtual func in A
+        d.Non_virtual();  // Non virtual func in A
+        d1.Non_virtual(); // Non virtual func in D
+
+        Console.ReadLine();
+    }
+}
+----
+
 === 规则和习惯做法
 
 . 命名规则
