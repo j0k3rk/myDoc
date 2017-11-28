@@ -206,16 +206,64 @@
 
 === 继承
 
+. 继承的类型
+.. 实现继承
+.. 接口继承
+
++
+[NOTE]
+====
+. 不支持多重实现继承，允许多重接口继承。
+. 不支持私有继承。
+====
+
 . 构造函数
 +
-构造时的执行顺序是：先基类，后子类。
+构造时的执行顺序是：先基类，后派生类。
 
-. 特殊关键字（virtual/override/new/base）的用法
+. virtual（虚方法）
+.. 函数默认情况下不是虚拟的。
+.. 把基类函数声明为 virtual，就可以在任何派生类中 override（重写）该函数。
++
+[NOTE]
+====
+使用基类声明派生类时，override（重写）会【改变】方法的功能。
+====
++
+[TIP]
+====
+如需调用函数的基类版本，可使用 base.<MethodName> 。
+====
+
+. new（隐藏方法）
+.. 如果签名相同的方法在基类和派生类中都进行了声明，但没有分别使用 virtual 和 override，派生类方法就会隐藏基类方法。
+.. 隐藏基类方法应使用 new 进行显式声明，否则系统会发出警告。
+.. 除非确实必要，一般不推荐使用 new（隐藏方法）。
++
+[NOTE]
+====
+使用基类声明派生类时，new（隐藏方法）【不改变】方法的功能。
+====
+
+. abstract（抽象类和抽象函数）
+- 抽象类不能实例化。
+- 抽象函数不能直接实现，必须在非抽象的派生类中实现。
+- 抽象函数本身也是虚拟的（不需要提供 virtual 关键字）。
+- 如果类包含抽象函数，则该类也是抽象的，必须相应声明。
+
+. sealed（密封类和密封方法）
+- 对于类，表示不能继承该类。
+- 对于方法，表示不能重写该方法。
+- 要在方法或属性上使用 sealed 关键字，必须先重写于一个基类。如果基类上不希望有重写的方法或属性，就不要声明为 virtual。
+
+. 扩展方法必须为静态，且必须在静态类中定义。
+
+. 用法举例（virtual/override/new）：
 +
 [source, c++, numbered]
 ----
 class A {
-    public virtual void Func() // 虚函数，允许覆盖
+    public virtual void Func() // 虚函数，允许override
     {
         Console.WriteLine("Func In A");
     }
@@ -225,25 +273,27 @@ class A {
     }
 }
 class B : A {
-    public override void Func() // 覆盖
+    public override void Func() // 虚函数，override
     {
         Console.WriteLine("Func In B");
     }
-    public void Non_virtual() {
+    public void Non_virtual() // 非虚函数，不能override，隐式隐藏
+    {
         Console.WriteLine("Non virtual func in B");
     }
 }
 class C : B {
-    public void Non_virtual() {
+    public void Non_virtual() // 非虚函数，不能override，隐式隐藏
+    {
         Console.WriteLine("Non virtual func in C");
     }
 }
 class D : A {
-    public new void Func()  // 重写，隐藏基类的方法
+    public new void Func() // 基类是虚函数，显式new
     {
         Console.WriteLine("Func In D");
     }
-    public new void Non_virtual()   // 重写，隐藏基类的方法
+    public new void Non_virtual() // 基类是非虚函数，显式new
     {
         Console.WriteLine("Non virtual func in D");
     }
@@ -256,11 +306,11 @@ class Program {
         A c = new C();
         A d = new D();
         a.Func();  // Func In A
-        b.Func();  // Func In B
+        b.Func();  // Func In B，基类声明，override 会【改变】方法的功能。
         c.Func();  // Func In B
-        d.Func();  // Func In A
+        d.Func();  // Func In A，基类声明，new 【不改变】方法的功能。
         D d1 = new D();
-        d1.Func(); // Func In D
+        d1.Func(); // Func In D，非基类声明，执行派生类的方法。
 
         a.Non_virtual();  // Non virtual func in A
         b.Non_virtual();  // Non virtual func in A
@@ -351,40 +401,6 @@ MyClass myClassVariable = new MyClass();
 - Finalize()
 - GetType()
 - MemberwiseClone()
-
-. 继承
-
-.. 继承的类型
-... 实现继承
-... 接口继承
-
-.. 不支持多重实现继承，允许多重接口继承。
-
-.. 不支持私有继承。
-
-.. 虚方法
-+
-把基类函数声明为 virtual，就可以在任何派生类中重写该函数。（override）
-
-.. 隐藏方法
-+
-如果签名相同的方法在基类和派生类中都进行了声明，但没有分别使用 virtual 和 override，派生类方法就会隐藏基类方法。
-
-.. 调用函数的基类版本：base.Function()
-
-.. 抽象类和抽象函数（abstract）
-+
-- 抽象类不能实例化。
-- 抽象函数不能直接实现，必须在非抽象的派生类中实现。
-- 抽象函数本身也是虚拟的（不需要提供 virtual 关键字）。
-- 如果类包含抽象函数，则该类也是抽象的，必须相应声明。
-
-.. 密封类和密封方法（sealed）
-- 对于类，表示不能继承该类。
-- 对于方法，表示不能重写该方法。
-- 要在方法或属性上使用 sealed 关键字，必须先重写于一个基类。如果基类上不希望有重写的方法或属性，就不要声明为 virtual。
-
-. 扩展方法必须为静态，且必须在静态类中定义。
 
 . 使用 `csc.exe` 编译：
 
