@@ -1266,20 +1266,18 @@ aspnet_regsql.exe
 ----
 
 .. 打开命令行（【非】管理员权限），导航到IIS的安装目录（例如：C:\Program Files (x86)\IIS Express ），使用如下命令
-启动IIS服务。
+启动IIS服务，注意将[port]替换为空闲的端口号。
 +
 ----
-// 将[port]替换为空闲的端口号
 iisexpress.exe /path:C:\Windows\Microsoft.NET\Framework\v4.0.30319\ASP.NETWebAdminFiles /vpath:/ASP.NETWebAdminFiles /port:[port] /clr:4.0 /ntlm
 ----
 +
 如果IIS成功启动，命令行会输出一些日志。
 
-.. 打开【IE】浏览器，输入如下地址：
+.. 打开【IE】浏览器，输入如下地址，注意将[port]替换为前一步定义的端口号，将[appPath]替换为包含
+[line-through]#*.sln# Web.config 文件的物理项目路径（原始路径需进行URL编码后使用）。
 +
 ----
-// 将[port]替换为前一步定义的端口号
-// 将[appPath]替换为包含 *.sln 文件的物理项目路径，原始路径需进行URL编码后使用
 http://localhost:[port]/asp.netwebadminfiles/default.aspx?applicationPhysicalPath=[appPath]&applicationUrl=/
 ----
 +
