@@ -20,7 +20,7 @@
 |====
 |功能 |VS默认 |ReSharper补充
 |代码补全 |[Lime-background]#Alt + →# |Ctrl + Space
-|智能辅助 |- |[Yellow-background]#Alt + Enter#
+|智能辅助 [[X1R]] |- |[Yellow-background]#Alt + Enter#(<<X1,注1>>)
 |缩进 |[Lime-background]#Ctrl + K, Ctrl + F# |-
 |格式化 |[Lime-background]#Ctrl + K, Ctrl + D# |[Yellow-background]#Ctrl + Alt + Enter#
 |上/下移动一行 |[Yellow-background]#Alt + ↑/↓# |Ctrl + Shift + Alt + ↑/↓
@@ -33,6 +33,10 @@
 |行注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |-
 |块注释 |[Lime-background]#Ctrl + K, Ctrl + C# |Ctrl + Shift + /
 |块注释取消 |[Lime-background]#Ctrl + K, Ctrl + U# |Ctrl + Shift + /
+|转到括号 | [Lime-background]#Ctrl + ]#
+
+    (括号中无内容按1次，有内容连按2次) | -
+|扩展转到括号 | [Lime-background]#Ctrl + Shift + ]# | -
 |列选择模式 |Alt + Shift + 方向键 |[Lime-background]#Alt + 鼠标选择#
 |使用模板环绕 |- |[Lime-background]#Ctrl + E, U# 或 Ctrl + E, Ctrl + U
 |折叠/展开 当前方法 |[Lime-background]#Ctrl + M, Ctrl + M# |-
@@ -51,6 +55,12 @@
 |全屏显示/退出 |[Lime-background]#Alt + Shift + Enter# |-
 |====
 
++
+[[X1]]
+* 注1：如需单独设置某个快捷键，可按如下步骤处理（以智能辅助为例）：
+ . 在VS的键盘设置中搜索“ReSharper_AltEnter”项，设定快捷键为“Alt+Enter”。
+ . 将“Alt+Enter”快捷键对应的干扰项删除：编辑器上下文菜单.代码窗口.交互执行（EditorContextMenus.CodeWindow.ExecuteInInteractive）
+<<X1R,返回>>
 
 === 编译/调试/运行
 

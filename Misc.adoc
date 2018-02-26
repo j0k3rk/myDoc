@@ -3,7 +3,7 @@
 :toc:
 :numbered:
 
-== cmd
+== Windows CMD命令
 
 . DOS路径缩写
 
@@ -16,6 +16,14 @@ dir /x
 .. 缩写规则：
 +
 共8位，前6位字符 + "~" + 序号
+
+. 计算HASH值
++
+----
+certutil -hashfile D:\1.exe MD5
+certutil -hashfile D:\1.exe SHA1
+certutil -hashfile D:\1.exe SHA256
+----
 
 == cmder
 
