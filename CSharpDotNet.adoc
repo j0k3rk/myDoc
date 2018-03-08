@@ -1412,6 +1412,18 @@ db2 ?
 db2 ? sqlnnnn
 ----
 
+=== AS400端数据准备
+
+. AS400中的对象文件（例如PF）必须是 [yellow-background]#Unique# 的，且开启 Journal。
+
+.. 增加journal可参考如下语句：
++
+----
+CRTJRNRCV JRNRCV(YOURLIB/JRNRCV01) TEXT('JOURNAL RECEIVER 01')
+CRTJRN JRN(YOURLIB/JRN01) JRNRCV(YOURLIB/JRNRCV01)
+STRJRNPF FILE(YOURLIB/YOURFILE) JRN(YOURLIB/JRN01)
+----
+
 == 依赖注入
 
 === Ninject
