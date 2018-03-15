@@ -148,17 +148,23 @@
 
 === LocalDB
 
-. VS2013
+. 默认服务器名
 +
 ----
+// VS2013
 (LocalDB)\v11.0
-----
 
-. VS2015
-+
-----
+// VS2015
 (LocalDb)\MSSQLLocalDB
 ----
++
+* 使用（VS2013+EF6）创建的数据库，添加数据库连接时，可能出现异常提示：
++
+----
+The database cannot be opened because it is version 782. This server supports version 706 and earlier. A downgrade path is not supported.
+----
+此时，使用VS2015默认的服务器名即可。
+
 
 === 卸载 Visual Studio
 
