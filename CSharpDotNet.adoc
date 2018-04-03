@@ -1416,12 +1416,23 @@ db2 ? sqlnnnn
 
 . AS400中的对象文件（例如PF）必须是 [yellow-background]#Unique# 的，且开启 Journal。
 
-.. 增加journal可参考如下语句：
+.. 增加journal：
 +
 ----
 CRTJRNRCV JRNRCV(YOURLIB/JRNRCV01) TEXT('JOURNAL RECEIVER 01')
 CRTJRN JRN(YOURLIB/JRN01) JRNRCV(YOURLIB/JRNRCV01)
 STRJRNPF FILE(YOURLIB/YOURFILE) JRN(YOURLIB/JRN01)
+----
+
+.. 生成自增列：
++
+----
+ ** CREATED BY DDS FIRST, THEN ALTER BY SQL STATEMENT
+ **   ALTER TABLE #YourLib/#YourPF ALTER COLUMN
+ **   OPUNID SET GENERATED ALWAYS AS IDENTITY
+ **   ( START WITH 1, INCREMENT BY 1, CYCLE,
+ **     MINVALUE 1 )
+A            OPUNID         9S 0       COLHDG('UNIQUE IDENTITY')
 ----
 
 == 依赖注入
