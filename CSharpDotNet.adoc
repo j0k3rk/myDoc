@@ -1435,6 +1435,15 @@ STRJRNPF FILE(YOURLIB/YOURFILE) JRN(YOURLIB/JRN01)
 A            OPUNID         9S 0       COLHDG('UNIQUE IDENTITY')
 ----
 
+=== 技巧和知识点
+
+. debug时，将EF（6.0+）生成的SQL语句打印到输出窗口中可使用如下代码：
++
+[source, c++, numbered]
+----
+db.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+----
+
 == 依赖注入
 
 === Ninject
