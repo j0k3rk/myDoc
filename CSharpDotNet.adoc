@@ -6,9 +6,36 @@
 
 == c#基础
 
-=== 类型
+=== 变量
 
-==== 值类型
+. 变量的初始化
+.. 变量是类或结构中的字段，如果没有显式初始化，创建后默认值为0。
+.. 方法的局部变量必须显式初始化，否则会产生错误。
+.. 使用 var 关键字声明的变量必须初始化，否则编译器没有进行类型推断的依据。
+
+. 变量的作用域
+.. 在 for、while 或类似语句中声明的局部变量存在于该循环体中。
+.. 字段和局部变量的作用域冲突，参考下例：
++
+[source, c++, numbered]
+----
+    public class ScopeTest2 {
+        static int j = 20;
+        public static void Main() {
+            int j = 30;
+            Console.WriteLine(j);     //30
+            Console.WriteLine(ScopeTest2.j);   //20
+            return;
+        }
+    }
+----
+.. 如果要访问一个实例字段，需要使用 this 关键字。
+
+=== 类型（15种）
+
+==== 值类型（13种）
+
+. 内置的CTS值类型表示基本类型，如整型、浮点类型、字符类型和布尔类型。
 
 . 整型（8种）：
 +
@@ -41,6 +68,15 @@
 |Name |CTS Type |Description |Significant Figures |Range (Approximate)
 |decimal |System.Decimal |128-bit, high-precision decimal notation |28 |±1.0 × 10^228^ to ± 7.9 × 10^28^
 |===
++
+[NOTE]
+decimal类型不是基本类型，所以计算时会有性能损失。
++
+使用时，在数字后加上字符M（或m）：
++
+----
+decimal d = 12.30M;
+----
 
 . bool 类型：
 +
@@ -49,6 +85,9 @@
 |Name |CTS Type |Description |Significant Figures |Range (Approximate)
 |bool |System.Boolean |Represents true or false |NA |true or false
 |===
++
+[NOTE]
+bool值和整数值不能相互隐式转换。例如试图用0表示false、非0值表示true，就会出错。
 
 . 字符类型：
 +
@@ -57,8 +96,12 @@
 |Name |CTS Type |Values
 |char |System.Char |Represents a single 16-bit (Unicode) character
 |===
++
+[NOTE]
+char类型的字面量是用单引号括起来的，如果把字符放在双引号中，编译器会把它看作字符串而产生错误。
 
-- 特殊符号：
+.. 除了把char表示为字符字面量，还可以用4位十六进制的Unicode值（如'\u0041'）、带有数据类型转换的整数值（如(char)65）或十六进制数（如'\x0041'）表示。
+.. 转义特殊符号：
 +
 [options="autowidth"]
 |===
@@ -76,7 +119,7 @@
 |\v |Vertical tab
 |===
 
-==== 引用类型
+==== 引用类型（2种）
 
 . object 类型：
 +
@@ -94,7 +137,10 @@
 |string |System.String |Unicode character string
 |===
 
-- 字符串格式化
+.. string是一个引用类型，但与引用类型的常见行为有一些区别。例如，字符串不可改变。
+.. String对象被分配在堆上，而不是栈上。
+
+.. 字符串格式化
 +
 [options="autowidth"]
 |===
@@ -108,6 +154,15 @@
 |P |百分数格式
 |X |十六进制格式，精度说明符用于加上前导0
 |===
+
+.. 以下2行代码等效：
++
+----
+string filepath = "C\\Programs\\Test.cs";
+string filepath = @"C\Programs\Test.cs";
+----
+
+==== 自定义类是引用类型。自定义的值类型，需要声明为结构。
 
 === 修饰符
 
