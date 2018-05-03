@@ -431,6 +431,54 @@ Port Your_New_SSH_Port
 #ListenAddress ::
 ----
 
+== Sublime Text 3
+
+. 配置
+.. 首先需要安装 Package Control（ https://packagecontrol.io/installation[链接]），安装后重启。
+
+.. 公司环境中，需要在【Preferences】-【Package Settings】-【Package Control】-【Settings - User】中添加代理设定：
++
+----
+"http_proxy": "YourProxy.com:Port",
+"https_proxy": "YourProxy.com:Port",
+"proxy_username": "YourUsername"
+"proxy_password": "YourPassword",
+----
++
+配置完成后重启。
+
+.. 使用快捷键【ctrl+shift+p】，输入【install package】后执行，再在Packages列表中选择安装。常用的有：
++
+----
+Alignment
+BracketHighlighter
+Emmet（注1）
+FileDiffs
+JsFormat
+SideBarEnhancements
+----
++
+[NOTE]
+====
+注1：Emmet需要pyv8，代理环境下如果自动安装失败，可以去github下载压缩包，并解压到安装目录。
+例如下载的压缩包是 pyv8-win64-p3.zip，则解压为：
+----
+\Sublime Text 3\Installed Packages\PyV8\pyv8-win64-p3
+----
+====
+
+
+. 使用
+
+.. 快捷键
++
+在【Preferences】-【Key Bindings】中追加：
++
+----
+// 自动缩进
+{ "keys": ["ctrl+k", "ctrl+d"], "command": "reindent", "args": {"single_line": false} }
+----
+
 == Talend Open Studio for Data Integration 测试记录
 
 . 测试环境
