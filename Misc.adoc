@@ -479,6 +479,15 @@ SideBarEnhancements
 { "keys": ["ctrl+k", "ctrl+d"], "command": "reindent", "args": {"single_line": false} }
 ----
 
+.. 在右键菜单“Open with Sublime Text”前追加图标
++
+安装时如果勾选了“Add to explorer context menu”，安装后在鼠标右键菜单中就会出现“Open with Sublime Text”，但只有文字没有图标。
+手动增加图标的方法如下：
+
+... regedit 打开注册表编辑器
+... 找到 \HKEY_CLASSES_ROOT\*\shell\Open with Sublime Text\ ，新建一个字符串值，名称为“Icon”，值为主程序的路径（例如：
+C:\Program Files\Sublime Text 3\sublime_text.exe）。
+
 == Talend Open Studio for Data Integration 测试记录
 
 . 测试环境
