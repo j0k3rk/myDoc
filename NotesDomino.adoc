@@ -161,12 +161,14 @@ http://www-10.lotus.com/ldd/nd85forum.nsf/5f27803bba85d8e285256bf10054620d/ce0a1
 
 .. SQL关键字统一用大写，表名、字段名等大小写敏感。
 +
+[source, sql, numbered]
 ----
-SELECT * FROM MainqViewqAll MainqViewqAll
+SELECT * FROM MainqViewqAll
 ----
 
 .. 使用表的别名、字段名为特殊保留字时，应使用双引号包裹。
 +
+[source, sql, numbered]
 ----
 SELECT "Date", "Week", DateType, Category, Total
 FROM "f_ReportD" rd
@@ -296,14 +298,16 @@ T = text. Contents of the document are rendered as text and pasted into the body
 
 . Round() 和 @Round
 +
+[source, vbs, numbered]
 ----
-'原版函数采用“银行家舍入”，重写如下：
+' 原版函数采用“银行家舍入”，重写如下：
 Function RoundX(number As Double, places As Integer) As Double
 
     Dim factor As Double
 
     factor = 10 ^ places
-    RoundX = Sgn(number) * Fix( Abs(number) * factor + 0.5) / factor
+    'RoundX = Sgn(number) * Fix( Abs(number) * factor + 0.5) / factor
+    RoundX = Sgn(number) * Fix( CDbl(CStr(Abs(number) * factor + 0.5)) ) / factor
 
 End Function
 ----
@@ -316,6 +320,7 @@ Notes error: This server is not permitted to passthru to the specified server
 +
 解决方法：创建代理，删除"archive profile"
 +
+[source, vbs, numbered]
 ----
 Dim se  As New NotesSession
 Dim db  As NotesDatabase
