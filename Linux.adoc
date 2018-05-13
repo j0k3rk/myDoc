@@ -303,6 +303,33 @@ ln -s [原文件] [目标文件]
 ----
 .. -s   创建软链接
 
+. locate [[x_locate]]
++
+在后台数据库中按文件名搜索（比find速度快）
++
+----
+locate [文件名]
+----
+
+.. locate命令所搜索的后台数据库：/var/lib/mlocate （不同的Linux发行版，数据库名称可能有差别）。
+.. 该数据库并非实时更新，刚创建的文件可能搜不到，此时可用命令 updatedb 先更新数据库再搜索。
+
+.. locate的搜索行为由配置文件 /etc/updatedb.conf 定义：
++
+----
+# 开启搜索限制
+PRUNE_BIND_MOUNTS = "yes"
+
+# 搜索时，不搜索的文件系统
+PRUNEFS =
+
+# 搜索时，不搜索的文件类型
+PRUNENAMES =
+
+# 搜索时，不搜索的路径
+PRUNEPATHS =
+----
+
 . ls [[x_ls]]
 +
 列出文件或目录
