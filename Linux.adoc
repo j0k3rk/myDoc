@@ -3,7 +3,7 @@
 :toc:
 :numbered:
 
-== 常用命令
+== 常用命令索引
 
 [options="autowidth"]
 |===
@@ -17,77 +17,6 @@
 |<<x_rm, rm>>   |删除文件或目录
 |<<x_rmdir, rmdir>> |删除空目录
 |===
-
-=== 文件类
-
-. touch
-+
-创建文件或修改文件时间
-
-. cp
-+
-拷贝文件
-+
-----
-cp myFile myFile.bk
-----
-
-. mv
-+
-移动文件
-+
-----
-mv myFile myDir
-----
-
-=== 其他
-
-. CentOS 7 初始化搭建
-+
-http://www.vultr.com/docs/initial-setup-of-a-centos-7-server[参考]
-
-. 时区和 NTP 设置
-+
-http://www.vultr.com/docs/setup-timezone-and-ntp-on-centos-6[参考]
-
-.. 修改时区
-+
-----
-date    # 查看当前时间
-
-rm -rf /etc/localtime   # 删除当前时区
-ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 设置时区为上海
-
-vi /etc/sysconfig/clock # 使用 vi 修改配置
-
-ZONE="Asia/Shanghai"
-UTC=false
-ARC=false
-
-:wq #保存退出
-
-hwclock --systohc --localtime   # 将系统时间写入硬件时钟
-
-hwclock # 查看结果
-----
-
-.. 设置 NTP
-+
-----
-ntpd --version  # 查看 NTP 版本，默认为 4.2.6p5
-
-service ntpd stop   # 停止服务
-
-... （待续）
-
-----
-
-. 显示用法手册
-+
-----
-# 如果还未安装手册，可用如下命令
-yum install man-pages
-----
 
 == 基础知识
 
@@ -262,7 +191,7 @@ halt 关闭系统，等同于shutdown –h now 和 poweroff
 - 简化选项和完整选项
     * -a 等于 --all
 
-==== 详细命令
+==== 常用命令
 
 . cd [[x_cd]]
 +
@@ -271,10 +200,10 @@ halt 关闭系统，等同于shutdown –h now 和 poweroff
 ----
 cd [目录]
 
-cd ~    // 进入当前用户的home目录
-cd -    // 进入上次目录
-cd ..   // 进入上一级目录
-cd .    // 进入当前目录
+cd ~    # 进入当前用户的home目录
+cd -    # 进入上次目录
+cd ..   # 进入上一级目录
+cd .    # 进入当前目录
 ----
 
 . cp [[x_cp]]
@@ -289,6 +218,82 @@ cp [选项] [原文件或目录] [目标目录]
 .. -d   若源文件是链接文件，则复制链接属性
 .. -p   连带文件属性复制
 .. -r   复制目录
+
+. find [[x_find]]
++
+搜索文件
++
+----
+find [搜索范围] [搜索条件]
+----
+
+.. 避免大范围搜索，会非常耗费系统资源
+.. find 是在系统当中搜索符合条件的文件名。如果需要匹配，使用通配符匹配，通配符是完全匹配。
+
+.. 示例
++
+[source, bash, numbered]
+----
+# 使用通配符
+#   *  匹配任意内容
+#   ?  匹配任意一个字符
+#   [] 匹配任意一个中括号内的字符
+find /root -name "install.log*"
+
+# 不区分大小写
+find /root -iname install.log
+
+# 按照所有者搜索
+find /root -user root
+
+# 查找没有所有者的文件
+# 一般情况下，没有所有者的文件即为垃圾文件，但有两个例外：
+# （1）Linux内核直接产生，例如内存交换目录中的文件；
+# （2）外部产生的文件，例如Windows系统中创建的文件，通过U盘拷贝到Linux系统中。
+find /root -nouser
+
+# 查找10天前修改的文件
+find /var/log/ -mtime +10
+
+    #   atime   文件访问时间
+    #   ctime   改变文件属性
+    #   mtime   修改文件内容
+
+    #   -10 10天内修改的文件
+    #    10 10天当天修改的文件
+    #   +10 10天前修改的文件
+
+# 查找文件大小是25KB的文件
+find . -size 25k
+
+    #   -25k    小于25KB的文件
+    #    25k    等于25KB的文件
+    #   +25k    大于25KB的文件
+    #   注意：输入单位时，k 必须小写，M 必须大写。
+
+# 查找 i 节点是262422的文件
+find . -inum 262422
+
+# 查找/etc/目录下，大于20KB且小于50KB的文件
+find /etc -size +20k -a -size -50k
+    #   -a  and 逻辑与
+    #   -o  or  逻辑或
+
+# 查找/etc/目录下，大于20KB且小于50KB的文件，并显示详细信息
+# -exec/-ok 命令 {} \;  对搜索结果执行操作
+find /etc -size +20k -a -size -50k -exec ls -lh {} \;
+----
+
+. grep [[x_grep]]
++
+在文件当中匹配符合条件的字符串，使用正则表达式进行匹配，匹配方式为包含匹配。
++
+----
+grep [选项] 字符串 文件名
+----
+
+.. -i   忽略大小写
+.. -v   排除指定字符串
 
 . ll [[x_ll]]
 +
@@ -389,12 +394,88 @@ mv [原文件或目录] [目标目录]
 .. -f 表示强制
 +
 ----
-rm -rf  // 强制删除目录下所有的东西
+rm -rf  # 强制删除目录下所有的东西
 ----
 
 . rmdir [[x_rmdir]]
 +
 删除空目录
+
+. touch [[x_touch]]
++
+创建文件或修改文件时间
+
+. whereis [[x_whereis]]
++
+搜索命令所在路径及帮助文档所在位置
++
+----
+whereis [命令名]
+----
+
+.. -b   只查找可执行文件
+.. -m   只查找帮助文件
+
+. which [[x_which]]
++
+搜索命令所在路径及别名
+
+. $PATH [[x_PATH]]
++
+环境变量，定义的是系统搜索命令的路径。
++
+----
+echo $PATH
+----
+
+=== 其他
+
+. CentOS 7 初始化搭建
++
+http://www.vultr.com/docs/initial-setup-of-a-centos-7-server[参考]
+
+. 时区和 NTP 设置
++
+http://www.vultr.com/docs/setup-timezone-and-ntp-on-centos-6[参考]
+
+.. 修改时区
++
+----
+date    # 查看当前时间
+
+rm -rf /etc/localtime   # 删除当前时区
+ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 设置时区为上海
+
+vi /etc/sysconfig/clock # 使用 vi 修改配置
+
+ZONE="Asia/Shanghai"
+UTC=false
+ARC=false
+
+:wq #保存退出
+
+hwclock --systohc --localtime   # 将系统时间写入硬件时钟
+
+hwclock # 查看结果
+----
+
+.. 设置 NTP
++
+----
+ntpd --version  # 查看 NTP 版本，默认为 4.2.6p5
+
+service ntpd stop   # 停止服务
+
+... （待续）
+
+----
+
+. 显示用法手册
++
+----
+# 如果还未安装手册，可用如下命令
+yum install man-pages
+----
 
 == 常见问题
 
@@ -420,8 +501,8 @@ ifup eth0
 ----
 vi /etc/sysconfig/network-scripts/ifcfg-eth0
 
-:q      // 不保存退出vi
-:wq     // 保存退出
+:q      # 不保存退出vi
+:wq     # 保存退出
 ----
 ... 重启网络服务
 
@@ -452,20 +533,20 @@ vi /etc/sysconfig/network-scripts/ifcfg-ens33
 .. SSH 远程登录
 +
 ----
-// 默认端口
+# 默认端口
 ssh name@remoteserver
 
-// 非默认端口
+# 非默认端口
 ssh name@remoteserver -p Your_Port_Number
 ----
 
 .. 修改ssh配置文件，增加新的端口：
 +
 ----
-// CentOS
+# CentOS
 vi /etc/ssh/sshd_config
 
-// Ubuntu
+# Ubuntu
 sudo vim /etc/ssh/sshd_config
 ----
 +
@@ -481,29 +562,29 @@ Port Your_New_SSH_Port
 .. 重启 SSH 服务
 +
 ----
-// CentOS
+# CentOS
 service sshd restart
 
-// Ubuntu
+# Ubuntu
 sudo service ssh restart
 ----
 
 .. 如果启用了防火墙，需要添加新开的端口：
 +
 ----
-// centos 7 默认使用 firewalld ，查看是否运行
+# centos 7 默认使用 firewalld ，查看是否运行
 firewall-cmd --state
 
-// 查看端口
+# 查看端口
 firewall-cmd --permanent --list-port
 
-// 添加端口
+# 添加端口
 firewall-cmd --permanent --zone=public --add-port=Your_New_SSH_Port/tcp
 
-// 删除端口
+# 删除端口
 firewall-cmd --permanent --remove-port=Your_Old_Port/tcp
 
-// 重启防火墙
+# 重启防火墙
 firewall-cmd --reload
 ----
 
