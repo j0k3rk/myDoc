@@ -1,0 +1,42 @@
+= AI & Machine Learning
+:icons:
+:toc:
+:numbered:
+
+== 机器学习基础
+
+=== 有监督学习
+
+==== 回归
+
+==== 分类
+
+===== 二分类
+
+. 术语
+.. TP: True Positive
+.. FP: False Positive
+.. TN: True Negative
+.. FN: False Negative
+
+. 评价指标
+.. 正确性/准确性
++
+Accuracy = (TP + TN) / (TP + FP + TN + FN)
+
+.. 精确度
++
+Precision = TP / (TP + FP)
+
+.. 召回/查全
++
+Recall = TP / (TP + FN)
+
+... True_Positive_Rate = Recall
+... False_Positive_Rate = FP / (FP + TN)
+
+=== 无监督学习
+
+==== K均值聚类
+
+==== 主成分分析（PCA）
