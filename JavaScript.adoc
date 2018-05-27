@@ -1,8 +1,8 @@
 = JavaScript
 :icons:
 :toc:
-:toclevels: 4
 :numbered:
+:toclevels: 4
 
 == 基础（JavaScript高级程序设计 第3版）
 
