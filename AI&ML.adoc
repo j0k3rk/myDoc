@@ -41,3 +41,25 @@ Recall = TP / (TP + FN)
 ==== K均值聚类
 
 ==== 主成分分析（PCA）
+
+== 语言与沟通
+
+=== 文本处理
+
+==== 词频
+
+. 术语频率/Term Frequency
++
+----
+TF = term_instances / total_terms
+----
+
+. 逆文件频率/Inverse Document Frequency
++
+----
+IDF = log(docs / docs_with_term)
+----
+
+=== 自然语言处理
+
+=== 语言理解
