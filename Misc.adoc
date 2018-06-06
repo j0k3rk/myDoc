@@ -335,6 +335,7 @@ C112=[dspsosi]
 ----
 Alignment
 BracketHighlighter
+ConvertToUTF8
 Emmet（注1）
 FileDiffs
 JsFormat
