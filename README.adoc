@@ -1,0 +1,15 @@
+= README
+:icons:
+:toc:
+:numbered:
+:toclevels: 4
+
+:link-github-project-ghpages: https://j0k3rk.github.io/myDoc
+:link-demo-html: {link-github-project-ghpages}/demo.html
+:link-demo-pdf: {link-github-project-ghpages}/demo.pdf
+
+convert *AsciiDoc* to *HTML/PDF*
+
+* Asciidoctor Demo file:
+** {link-demo-html}[HTML output file]
+** {link-demo-pdf}[PDF output file]
