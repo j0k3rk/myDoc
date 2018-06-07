@@ -5,11 +5,27 @@
 :toclevels: 4
 
 :link-github-project-ghpages: https://j0k3rk.github.io/myDoc
-:link-demo-html: {link-github-project-ghpages}/demo.html
-:link-demo-pdf: {link-github-project-ghpages}/demo.pdf
 
-convert *AsciiDoc* to *HTML/PDF*
+学习点滴记录
 
-* Asciidoctor Demo file:
-** {link-demo-html}[HTML output file]
-** {link-demo-pdf}[PDF output file]
+* {link-github-project-ghpages}/AI&ML.html[AI & ML]
+* {link-github-project-ghpages}/AutoIt.html[AutoIt]
+* {link-github-project-ghpages}/Batch.html[Batch]
+* {link-github-project-ghpages}/Browser.html[Browser]
+* {link-github-project-ghpages}/CSharpDotNet.html[CSharpDotNet]
+* {link-github-project-ghpages}/Git.html[Git]
+* {link-github-project-ghpages}/HTML.html[HTML]
+* {link-github-project-ghpages}/Java.html[Java]
+* {link-github-project-ghpages}/JavaScript.html[JavaScript]
+* {link-github-project-ghpages}/Linux.html[Linux]
+* {link-github-project-ghpages}/Misc.html[Misc]
+* {link-github-project-ghpages}/NodeJs.html[NodeJs]
+* {link-github-project-ghpages}/NotesDomino.html[NotesDomino]
+* {link-github-project-ghpages}/Oracle.html[Oracle]
+* {link-github-project-ghpages}/Python.html[Python]
+* {link-github-project-ghpages}/RegExp.html[RegExp]
+* {link-github-project-ghpages}/Ruby.html[Ruby]
+* {link-github-project-ghpages}/SQL.html[SQL]
+* {link-github-project-ghpages}/SqlServer.html[SqlServer]
+* {link-github-project-ghpages}/VisualStudio.html[VisualStudio]
+* {link-github-project-ghpages}/XML.html[XML]
