@@ -4,3 +4,30 @@
 :numbered:
 :toclevels: 4
 
+== 特殊符号
+
+=== ~
+
+[options="autowidth"]
+|====
+|代码 |含义
+|~d |drive
+|~n |file name
+|~p |path(without drive)
+|~t |timestamp
+|~z |size
+|====
+
+=== %
+
+. %0
++
+bat文件自身所在的路径
+
+. %1
++
+第1个参数
+
+. %2
++
+第2个参数
