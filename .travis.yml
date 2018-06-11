@@ -21,6 +21,7 @@ after_failure:
 
 after_success:
   - cd output ; mv README.html index.html ; cp -R ../images images
+  - echo xroot.win > CNAME
   - git init
   - git config user.name "${GH_USER_NAME}"
   - git config user.email "{GH_USER_EMAIL}"
