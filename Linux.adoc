@@ -7,6 +7,8 @@
 :highlightjsdir: highlight
 :highlightjs-theme: monokai
 
+:source-language: bash
+
 == 命令
 
 命令格式
@@ -258,6 +260,7 @@ ls 选项 文件或目录
 
 . -l  显示详细信息
 +
+[source, shell]
 ----
 [root@localhost ~]# ls
 anaconda-ks.cfg
@@ -974,6 +977,18 @@ firewall-cmd --query-panic
 ----
 # Port 22
 Port Your_New_SSH_Port
+----
+
+=== 如何安装JDK？
+
+. 事前准备：
+.. FTP软件（例如 FileZilla）
+.. JDK包（*.tar.gz）
+
+. JDK一般安装到/usr目录下，创建java文件夹
++
+----
+
 ----
 
 == Shadowsocks
