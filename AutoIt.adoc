@@ -3,6 +3,9 @@
 :toc:
 :numbered:
 :toclevels: 4
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:highlightjs-theme: monokai
 
 软件版本v3.3.14.0，参考 autoitx.com 中文文档 v3.3.5.5 beta
 

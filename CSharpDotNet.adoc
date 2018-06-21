@@ -5,7 +5,7 @@
 :toclevels: 4
 :source-highlighter: highlightjs
 :highlightjsdir: highlight
-:highlightjs-theme: monokai-sublime
+:highlightjs-theme: monokai
 
 == c#基础
 

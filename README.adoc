@@ -3,6 +3,9 @@
 :toc:
 :numbered:
 :toclevels: 4
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:highlightjs-theme: monokai
 
 :link-github-project-ghpages: https://j0k3rk.github.io/myDoc
 
