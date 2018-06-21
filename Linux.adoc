@@ -1037,8 +1037,52 @@ Port Your_New_SSH_Port
 +
 [source]
 ----
-
+cd /usr/
+mkdir java
 ----
+
+. 使用FTP软件将JDK包上传到服务器的指定目录（FileZilla注意选择SFTP协议）
+
+. 进入java目录，解压缩文件包（以版本8u171为例）：
++
+[source]
+----
+tar -zxvf jdk-8u171-linux-x64.tar.gz
+----
+
+. 编辑配置文件：
++
+[source]
+----
+vim /etc/profile
+----
++
+在文件末尾添加：
++
+[source]
+----
+export JAVA_HOME=/usr/java/jdk1.8.0_171
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+----
++
+保存退出。
+
+. 生效配置，输入：
++
+[source]
+----
+source /etc/profile
+----
+
+. 确认结果，输入：
++
+[source]
+----
+java -version
+----
++
+如果出现相应的java版本信息，说明JDK安装成功。
 
 == Shadowsocks
 
