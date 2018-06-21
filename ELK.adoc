@@ -1,0 +1,134 @@
+= ELK
+:icons:
+:toc:
+:numbered:
+:toclevels: 4
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:highlightjs-theme: monokai
+
+:source-language: bash
+
+（下文未特别说明的，运行环境为64位Linux）
+
+== Elastic Search
+
+=== ES安装、配置和运行
+
+. 上传包文件(*.tar.gz)到服务器指定目录，然后解压缩文件包（以版本6.3.0为例）：
++
+[source]
+----
+cd /usr/elastic
+tar -zxvf elasticsearch-6.3.0.tar.gz
+----
+
+. 修改elasticsearch.yml配置文件
+
+.. 打开yml文件：
++
+[source]
+----
+cd /usr/elastic/elasticsearch-6.3.0/config
+vi elasticsearch.yml
+----
+
+.. 取消如下注释，并修改为当前主机地址：
++
+[source]
+----
+network.host: 192.168.40.128    # 改为0.0.0.0也可以
+discovery.zen.ping.unicast.hosts: ["192.168.40.128"]
+----
+
+. 修改sysctl.conf配置文件
+
+.. 打开conf文件：
++
+[source]
+----
+vi /etc/sysctl.conf
+----
+
+.. 添加一行代码：
++
+[source]
+----
+vm.max_map_count=262144
+----
+
+.. 保存退出后重新加载：
++
+[source]
+----
+sysctl -p
+----
+
+. 修改limits.conf配置文件
+
+.. 打开conf文件：
++
+[source]
+----
+vi /etc/security/limits.conf
+----
+
+.. 添加如下代码：
++
+[source]
+----
+# esuser01为登录服务器的用户名
+esuser01 soft nofile 65536
+esuser01 hard nofile 65536
+esuser01 soft nproc 4096
+esuser01 hard nproc 4096
+----
++
+注意esuser01用户需要退出重新登录，所做的修改才能生效。
+
+. 确认防火墙规则
++
+如果防火墙关闭了相应端口，则ES只能在本机访问。临时测试时，（CentOS 7）可使用如下命令暂停防火墙服务：
++
+[source]
+----
+systemctl stop firewalld.service
+----
++
+防火墙的进一步配置可参照命令：firewall-cmd
+
+
+. 进入es目录，运行程序：
++
+[source]
+----
+cd /usr/elastic/elasticsearch-6.3.0/
+bin/elasticsearch   <1>
+----
++
+[NOTE]
+====
+<1> 为了安全考虑，ES不允许以root用户运行，可以添加其他用户来运行。
++
+[source]
+----
+# 添加用户
+adduser esuser01
+# 修改密码
+passwd esuser01
+
+# 赋权限
+chown -R esuser01 elastic
+
+# 切换用户，然后运行es
+su esuser01
+cd elastic/elasticsearch-6.3.0/bin
+./elasticsearch
+----
+====
+
+. 验证结果
++
+用浏览器访问服务器的9200端口（本机可以访问 127.0.0.1:9200），如果正常返回一段JSON数据，说明安装成功。
+
+
