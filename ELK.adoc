@@ -30,7 +30,7 @@ tar -zxvf elasticsearch-6.3.0.tar.gz
 [source]
 ----
 cd /usr/elastic/elasticsearch-6.3.0/config
-vi elasticsearch.yml
+vim elasticsearch.yml
 ----
 
 .. 取消如下注释，并修改为当前主机地址：
@@ -41,13 +41,55 @@ network.host: 192.168.40.128    # 改为0.0.0.0也可以
 discovery.zen.ping.unicast.hosts: ["192.168.40.128"]
 ----
 
++
+[NOTE]
+.elasticsearch.yml 关键配置说明：
+====
+. cluster.name
++
+集群名称，以此作为是否同一集群的判断条件。
+
+. node.name
++
+节点名称，以此作为集群中不同节点的区分条件。
+
+. network.host/http.port
++
+网络地址和端口，用于http和transport服务使用。
+
+. path.data
++
+数据存储地址。
+
+. path.log
++
+日志存储地址。
+====
+
++
+[TIP]
+.参数修改的第二种方式：
+====
+bin/elasticsearch -Ehttp.port=19200
+====
+
++
+[NOTE]
+.ES Development 与 Production 模式说明：
+====
+- 以transport（network.host）的地址是否绑定在localhost（或127.0.0.1）为判断标准，local的即为Development模式。
+- Development模式下在启动时会以warning的方式提示配置检查异常。
+- Production模式下在启动时会以error的方式提示配置检查异常并退出。
+====
+
+
 . 修改sysctl.conf配置文件
 
 .. 打开conf文件：
 +
 [source]
 ----
-vi /etc/sysctl.conf
+vim /etc/sysctl.conf
 ----
 
 .. 添加一行代码：
@@ -70,7 +112,7 @@ sysctl -p
 +
 [source]
 ----
-vi /etc/security/limits.conf
+vim /etc/security/limits.conf
 ----
 
 .. 添加如下代码：
@@ -92,11 +134,19 @@ esuser01 hard nproc 4096
 +
 [source]
 ----
-systemctl stop firewalld.service
+systemctl stop firewalld
 ----
 +
 防火墙的进一步配置可参照命令：firewall-cmd
++
+[source]
+----
+# 添加9200端口
+firewall-cmd --permanent --zone=public --add-port=9200/tcp
 
+# 重载防火墙
+firewall-cmd --reload
+----
 
 . 进入es目录，运行程序：
 +
@@ -131,4 +181,77 @@ cd elastic/elasticsearch-6.3.0/bin
 +
 用浏览器访问服务器的9200端口（本机可以访问 127.0.0.1:9200），如果正常返回一段JSON数据，说明安装成功。
 
+=== ES集群
 
+. 本地启动集群的方式：
++
+[source]
+----
+bin/elasticsearch
+bin/elasticsearch -Ehttp.port=8200 -Epath.data=node2
+bin/elasticsearch -Ehttp.port=7200 -Epath.data=node3
+----
+
+. 通过http查看ES相关信息的方法：
++
+[source]
+----
+# 查看集群节点（标*号的是主节点）
+127.0.0.1:8200/_cat/nodes?v
+
+# 查看集群信息
+127.0.0.1:8200/_cluster/stats
+----
+
+== Kibana
+
+=== Kibana安装、配置和运行
+
+. 上传包文件(*.tar.gz)到服务器指定目录，然后解压缩文件包（以版本6.3.0为例）：
++
+[source]
+----
+cd /usr/elastic
+tar -zxvf kibana-6.3.0-linux-x86_64.tar.gz
+----
+
+. 修改kibana.yml配置文件
+
+.. 打开yml文件：
++
+[source]
+----
+cd /usr/elastic/kibana-6.3.0-linux-x86_64/config
+vim kibana.yml
+----
+
+.. 取消如下注释，并修改为当前主机地址：
++
+[source]
+----
+server.host: "192.168.40.128"
+elasticsearch.url: "http://192.168.40.128:9200"
+----
+
+. 确认防火墙规则
++
+[source]
+----
+# 添加默认的5601端口
+firewall-cmd --permanent --zone=public --add-port=5601/tcp
+
+# 重载防火墙
+firewall-cmd --reload
+----
+
+. 进入kibana目录，运行程序：
++
+[source]
+----
+cd /usr/elastic/kibana-6.3.0-linux-x86_64/
+bin/kibana
+----
+
+. 验证结果
++
+用浏览器访问服务器的5601端口。
