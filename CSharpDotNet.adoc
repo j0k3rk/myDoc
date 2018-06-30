@@ -1386,69 +1386,74 @@ WRKRDBDIRE
 
 . 客户端安装
 
-.. 开发机安装
+.. 准备：
 
-... 环境：
+... Windows：10（64位），7（32位）
+... DB2 Data Server Client（当前最新版为 v11.1 FixPack 2）
+... Visual Studio：2013
 
-.... Windows：10（64位），7（32位）
-.... DB2 Data Server Client：当前最新版为 v11.1 FixPack 2
-.... Visual Studio：2013
+.. 安装前：
 
-... 安装前：
+... 电脑名不能超过15个英文字符。
+... 安装路径中不能有空格，路径不宜过长。
+... 建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。
+... VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。
 
-.... 电脑名不能超过15个英文字符。
-.... 安装路径中不能有空格，路径不宜过长。
-.... 建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。
-.... VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。
+.. 安装时：
 
-... 安装时：
+... 使用管理员权限运行安装程序。
+... 一般选择【典型安装】即可。
+... 为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。
 
-.... 使用管理员权限运行安装程序。
-.... 一般选择【典型安装】即可。
-.... 为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。
+.. 安装后：
 
-
-... 安装后：
-
-.... 打开命令行窗口
+... 打开命令行窗口
 +
 ----
 db2cmd
 ----
 
-.... 将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。
+... 将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。
 
-.... 追加授权
+... 追加授权
 +
 ----
 db2licm -a db2consv_ee.lic
 ----
 
-.... （可选）显示授权
+... （可选）显示授权
 +
 ----
 db2licm -l
 ----
 
-.... 连接测试
+... 连接测试
 +
 ----
 testconn40 "Database=EntryXXX;User ID=UserXXX;Server=YourIP:446;Persist Security Info=True;password=PwdXXX"
 ----
 
-... 开发前：
+.. 开发前：
 
-.... Entity Framework Tools（已安装）
+... Entity Framework Tools（已安装）
 
-.... 下载Nuget包：
+... 下载Nuget包：
 +
 ----
 Install-Package EntityFramework.IBM.DB2
 ----
 
-.. 服务器安装
-+
-xxx
+. 服务器端安装（参照客户端的安装方法）
+
+.. 准备：
+
+... DB2 Data Server Runtime Client
+
+[IMPORTANT]
+====
+如果在64位操作系统上安装了32位的 DB2 Data Server Runtime Client，需要将IIS应用程序池对应项目的“高级设置-启用32位应用程序”设为True，
+否则会报错：“未能加载文件或程序集“IBM.Data.DB2”或它的某一个依赖项。试图加载格式不正确的程序。”
+====
 
 . DB2命令
 
