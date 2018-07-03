@@ -910,6 +910,40 @@ vi /etc/sysconfig/network-scripts/ifcfg-ens33
 
 .. 重启网络服务
 
+=== VMWare本地多开虚拟机，网络适配器如何设置？
+
+（如下方法适用于对IP无严格管理要求的环境）
+
+. 虚拟机使用桥接模式
++
+“复制物理网络连接状态”可以不勾选。
+
+. 修改虚拟机的网络设置，使虚拟机和物理机在同一子网中：
++
+[source]
+----
+vim /etc/sysconfig/network-scripts/ifcfg-ens33
+----
++
+----
+...
+BOOTPROTO=static    #由dhcp改为static
+...
+ONBOOT=yes
+...
+IPADDR=192.168.1.201
+GATEWAY=192.168.1.1
+NETMASK=255.255.255.0
+DNS1=192.168.1.1
+----
+
+. 重启网络服务
++
+[source]
+----
+service network restart
+----
+
 === 命令行窗口的命令提示符有什么含义？
 
 [source,shell]
