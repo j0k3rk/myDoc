@@ -433,6 +433,18 @@ C:\Program Files\Sublime Text 3\sublime_text.exe）。
 
 . 待续...
 
+== Visual Studio Code
+
+. 如何在VSCode中使用bash终端？
+.. 安装git
+.. 打开用户设置，追加bash所在的路径：
++
+[source, json]
+----
+"terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe"
+----
+.. Ctrl+` 即可打开bash。
+
 == VLC Media Player
 
 . Win10 中文字幕乱码的解决方法：
