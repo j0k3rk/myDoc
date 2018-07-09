@@ -7,6 +7,20 @@
 :highlightjsdir: highlight
 :highlightjs-theme: monokai
 
+== Node基础命令
+
+. 查看安装目录
++
+----
+where node
+----
+
+. 查看版本
++
+----
+node -v
+----
+
 == NPM使用
 
 . 查看帮助
