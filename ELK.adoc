@@ -13,6 +13,8 @@
 
 == Elastic Search
 
+Elastic Search 需要JDK，安装方法此处略去。
+
 === ES安装、配置和运行
 
 . 上传包文件(*.tar.gz)到服务器指定目录，然后解压缩文件包（以版本6.3.0为例）：

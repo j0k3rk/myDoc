@@ -1002,8 +1002,7 @@ service sshd restart
 sudo service ssh restart
 ----
 
-[[x_firewall]]
-. 如果启用了防火墙，需要添加新开的端口：
+. 如果启用了防火墙，需要添加新开的端口：[[x_firewall]]
 +
 [source,bash,numbered]
 ----
@@ -1064,7 +1063,7 @@ Port Your_New_SSH_Port
 === 如何安装JDK？
 
 . 事前准备：
-.. FTP软件（例如 FileZilla）
+.. FTP软件（例如 WinSCP、FileZilla）
 .. JDK包（*.tar.gz）
 
 . JDK一般安装到/usr目录下，创建java文件夹
@@ -1075,7 +1074,7 @@ cd /usr/
 mkdir java
 ----
 
-. 使用FTP软件将JDK包上传到服务器的指定目录（FileZilla注意选择SFTP协议）
+. 使用FTP软件将JDK包上传到服务器的指定目录（WinSCP、FileZilla注意选择SFTP协议）
 
 . 进入java目录，解压缩文件包（以版本8u171为例）：
 +
