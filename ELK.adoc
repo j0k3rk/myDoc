@@ -13,9 +13,30 @@
 
 == Elastic Search
 
-Elastic Search 需要JDK，安装方法此处略去。
-
 === ES安装、配置和运行
+
+. Elastic Search 需要JDK（安装方法略）。
+
+.. 如果虚拟机内存小于2G，JVM可能报错“内存不足”，提示如下：
++
+----
+... error='Cannot allocate memory' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+----
++
+使用以下命令修改默认配置（1G → 512M）：
++
+----
+vi /usr/elastic/elasticsearch-6.3.0/config/jvm.options
+----
++
+----
+# -Xms1g
+-Xms512m
+# -Xmx1g
+-Xmx512m
+----
 
 . 上传包文件(*.tar.gz)到服务器指定目录，然后解压缩文件包（以版本6.3.0为例）：
 +
@@ -25,6 +46,29 @@ cd /usr/elastic
 tar -zxvf elasticsearch-6.3.0.tar.gz
 ----
 
+. 创建ES用户和组
++
+为安全考虑，ES（v5.0+）不允许以root用户运行，需添加其他用户：
++
+[source]
+----
+# 添加用户组
+groupadd elsearch
+# 在用户组中添加用户
+useradd elsearch -g elsearch
+# 修改密码
+passwd elsearch
+# 赋权限
+chown -R elsearch:elsearch elasticsearch-6.3.0
+
+# 添加单用户
+adduser elsearch
+# 修改密码
+passwd elsearch
+# 赋权限
+chown -R elsearch elastic
+----
+
 . 修改elasticsearch.yml配置文件
 
 .. 打开yml文件：
@@ -32,7 +76,7 @@ tar -zxvf elasticsearch-6.3.0.tar.gz
 [source]
 ----
 cd /usr/elastic/elasticsearch-6.3.0/config
-vim elasticsearch.yml
+vi elasticsearch.yml
 ----
 
 .. 取消如下注释，并修改为当前主机地址：
@@ -91,14 +135,21 @@ bin/elasticsearch -Ehttp.port=19200
 +
 [source]
 ----
-vim /etc/sysctl.conf
+vi /etc/sysctl.conf
 ----
 
-.. 添加一行代码：
+.. 添加一行代码，防止报错：
 +
 [source]
 ----
 vm.max_map_count=262144
+----
++
+附错误信息如下：
++
+----
+max virtual memory areas vm.max_map_count [65530] is too low,
+increase to at least [262144]
 ----
 
 .. 保存退出后重新加载：
@@ -114,21 +165,27 @@ sysctl -p
 +
 [source]
 ----
-vim /etc/security/limits.conf
+vi /etc/security/limits.conf
 ----
 
 .. 添加如下代码：
 +
 [source]
 ----
-# esuser01为登录服务器的用户名
-esuser01 soft nofile 65536
-esuser01 hard nofile 65536
-esuser01 soft nproc 4096
-esuser01 hard nproc 4096
+# 格式为：username|@groupname type resource limit
+# type: soft 是当前生效的设置值，hard 是所能设定的最大值，soft 值不能比 hard 大，
+#       用 - 表明同时设置 soft 和 hard 的值。
+
+# elsearch soft nofile 65536
+# elsearch hard nofile 65536
+elsearch - nofile 65536
+
+# elsearch soft nproc 4096
+# elsearch hard nproc 4096
+elsearch - nproc 4096
 ----
 +
-注意esuser01用户需要退出重新登录，所做的修改才能生效。
+注意elsearch用户需要退出重新登录，所做的修改才能生效。
 
 . 确认防火墙规则
 +
@@ -150,34 +207,16 @@ firewall-cmd --permanent --zone=public --add-port=9200/tcp
 firewall-cmd --reload
 ----
 
-. 进入es目录，运行程序：
+. 进入es目录，以之前创建的ES用户运行程序（不能用root）：
 +
 [source]
 ----
-cd /usr/elastic/elasticsearch-6.3.0/
-bin/elasticsearch   <1>
-----
-+
-[NOTE]
-====
-<1> 为了安全考虑，ES不允许以root用户运行，可以添加其他用户来运行。
-+
-[source]
-----
-# 添加用户
-adduser esuser01
-# 修改密码
-passwd esuser01
-
-# 赋权限
-chown -R esuser01 elastic
-
-# 切换用户，然后运行es
-su esuser01
-cd elastic/elasticsearch-6.3.0/bin
+# 切换用户
+su elsearch
+# 运行ES
+cd /usr/elastic/elasticsearch-6.3.0/bin
 ./elasticsearch
 ----
-====
 
 . 验证结果
 +
@@ -224,7 +263,7 @@ tar -zxvf kibana-6.3.0-linux-x86_64.tar.gz
 [source]
 ----
 cd /usr/elastic/kibana-6.3.0-linux-x86_64/config
-vim kibana.yml
+vi kibana.yml
 ----
 
 .. 取消如下注释，并修改为当前主机地址：
