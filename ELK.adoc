@@ -213,9 +213,12 @@ firewall-cmd --reload
 ----
 # 切换用户
 su elsearch
-# 运行ES
+# 切换目录
 cd /usr/elastic/elasticsearch-6.3.0/bin
+# 前台运行ES
 ./elasticsearch
+# 后台运行ES
+./elasticsearch -d
 ----
 
 . 验证结果
@@ -270,7 +273,9 @@ vi kibana.yml
 +
 [source]
 ----
+# ES也在本机且仅本地测试时可以使用localhost不改，需要外网访问时改为0.0.0.0
 server.host: "192.168.40.128"
+
 elasticsearch.url: "http://192.168.40.128:9200"
 ----
 
