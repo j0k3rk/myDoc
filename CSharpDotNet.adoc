@@ -1448,7 +1448,7 @@ Install-Package EntityFramework.IBM.DB2
 .. 准备：
 
 ... DB2 Data Server Runtime Client
-
++
 [IMPORTANT]
 ====
 如果在64位操作系统上安装了32位的 DB2 Data Server Runtime Client，需要将IIS应用程序池对应项目的“高级设置-启用32位应用程序”设为True，
@@ -1474,6 +1474,33 @@ db2 ?
 ----
 db2 ? sqlnnnn
 ----
+
+. 异常处理
+
+.. 安装 .NET Framework 安全补丁后，应用加载时报错：
++
+----
+ERROR - DB2.NET Factory lookup failed ...
+DbProviderFactories section can only appear once per config file ...
+----
++
+解决方法如下：
+
+... 打开“C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\Machine.Config”文件，搜索“DbProviderFactories”：
++
+----
+<system.data>
+    <DbProviderFactories>
+        <add name=... />
+        <add name=... />
+    </DbProviderFactories>
+    <DbProviderFactories/>
+</system.data>
+----
++
+将“<DbProviderFactories/>”这一行删除，保存、退出。
+
+... 确认“C:\Windows\Microsoft.NET\Framework\v2.0.50727\Config\Machine.Config”文件中是否也有多余的行，如有则删除。
 
 === AS400端数据准备
 
