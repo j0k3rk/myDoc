@@ -557,6 +557,7 @@ tar -jcvf 压缩包名.tar.bz2 源文件
 # 解压缩且解包
 tar -zxvf 压缩包名.tar.gz
 tar -jxvf 压缩包名.tar.bz2
+tar -xvJf 压缩包名.tar.xz   # 注意J大写
 
 # 测试
 tar -ztvf 压缩包名.tar.gz
@@ -568,6 +569,7 @@ tar -ztvf 压缩包名.tar.gz
 . -x ：解包
 . -z ：压缩为.tar.gz格式
 . -j ：压缩为.tar.bz2格式
+. -J ：压缩为.tar.xz格式
 . -t ：测试（查看压缩包中的内容，不实际解压）
 
 === touch
