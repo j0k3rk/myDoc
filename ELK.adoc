@@ -321,3 +321,61 @@ bin/kibana
 . 验证结果
 +
 用浏览器访问服务器的5601端口。
+
+=== Kibana使用入门
+
+. CRUD
++
+打开【Dev Tools】，使用如下脚本进行简单的CRUD测试：
++
+[source]
+----
+POST /accounts/person/1
+{
+  "name": "John",
+  "lastname": "Doe",
+  "job_description": "Systems administrator and Linux specialist"
+}
+
+GET accounts/person/1
+
+POST /accounts/person/1/_update
+{
+  "doc":{
+    "job_description": "Systems administrator and Linux specialist * "
+  }
+}
+
+DELETE accounts/person/1
+----
+
+. 两种查询方法
++
+[source]
+----
+// Query String
+GET /accounts/person/_search?q=john
+
+// Query DSL 1
+GET accounts/person/_search
+{
+  "query": {
+    "match": {
+      "name": "john"
+    }
+  }
+}
+
+// Query DSL 2
+GET accounts/person/_search
+{
+  "query": {
+    "term": {
+      "name": {
+        "value": "john"
+      }
+    }
+  }
+}
+----
+
