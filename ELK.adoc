@@ -17,27 +17,6 @@
 
 . Elastic Search 需要JDK（安装方法略）。
 
-.. 如果虚拟机内存小于2G，JVM可能报错“内存不足”，提示如下：
-+
-----
-... error='Cannot allocate memory' (errno=12)
-#
-# There is insufficient memory for the Java Runtime Environment to continue.
-----
-+
-使用以下命令修改默认配置（1G → 512M）：
-+
-----
-vi /usr/elastic/elasticsearch-6.3.0/config/jvm.options
-----
-+
-----
-# -Xms1g
--Xms512m
-# -Xmx1g
--Xmx512m
-----
-
 . 上传包文件(*.tar.gz)到服务器指定目录，然后解压缩文件包（以版本6.3.0为例）：
 +
 [source]
@@ -67,6 +46,27 @@ adduser elsearch
 passwd elsearch
 # 赋权限
 chown -R elsearch elastic
+----
+
+. （可选）如果虚拟机内存小于2G，JVM可能报错“内存不足”，提示如下：
++
+----
+... error='Cannot allocate memory' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+----
++
+使用以下命令修改默认配置（1G → 512M）：
++
+----
+vi /usr/elastic/elasticsearch-6.3.0/config/jvm.options
+----
++
+----
+# -Xms1g
+-Xms512m
+# -Xmx1g
+-Xmx512m
 ----
 
 . 修改elasticsearch.yml配置文件
@@ -224,6 +224,26 @@ cd /usr/elastic/elasticsearch-6.3.0/bin
 . 验证结果
 +
 用浏览器访问服务器的9200端口（本机可以访问 127.0.0.1:9200），如果正常返回一段JSON数据，说明安装成功。
+
+=== （后台）ES作业的查看和停止
+
+. 查找进程，获取进程号
++
+[source]
+----
+# 方法1
+ps -ef | grep elastic
+
+# 方法2
+jps
+----
+
+. 终止进程
++
+[source]
+----
+kill -9 nnnn    #nnnn为进程号
+----
 
 === ES集群
 
