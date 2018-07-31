@@ -7,6 +7,35 @@
 :highlightjsdir: highlight
 :highlightjs-theme: monokai
 
+== Node安装
+
+. Linux (CentOS 7 64bit) 安装
+
+.. 下载 tar 包，并放入相应目录。
+
+.. 解压，例如：
++
+[source]
+----
+tar -xvJf node-v8.11.3-linux-x64.tar.xz
+----
+
+.. 生成链接，供全局使用：
++
+[source]
+----
+ln -s /usr/nodejs/node-v8.11.3-linux-x64/bin/node /usr/local/bin/node
+ln -s /usr/nodejs/node-v8.11.3-linux-x64/bin/npm /usr/local/bin/npm
+----
+
+.. 在任意路径输入如下命令，验证效果：
++
+[source]
+----
+node -v
+npm -v
+----
+
 == Node基础命令
 
 . 查看安装目录
