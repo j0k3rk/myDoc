@@ -267,6 +267,64 @@ bin/elasticsearch -Ehttp.port=7200 -Epath.data=node3
 127.0.0.1:8200/_cluster/stats
 ----
 
+=== elasticsearch-sql 的安装和使用
+
+项目地址： https://github.com/NLPchina/elasticsearch-sql
+
+. 插件安装（针对 Elasticsearch 5.x/6.x）
+
+.. 根据ElasticSearch的版本下载对应版本的zip包 ，上传到服务器，unzip。
+
+.. 安装插件：
++
+[source]
+----
+./bin/elasticsearch-plugin install file:///home/yourFolder/elasticsearch-sql-x.x.x.x.zip
+----
+
+.. 修改ES配置文件：
++
+[source]
+----
+vi ./config/elasticsearch.yml
+----
++
+追加如下设定：
++
+[source]
+----
+http.cors.enabled: true
+# http.cors.allow-origin: "*"
+http.cors.allow-origin: /https?:\/\/yourHost(:[0-9]+)?/
+http.cors.allow-headers: "X-Requested-With, Content-Type, Content-Length, Authorization"
+----
+
+.. 重启ES，使新增设定生效。
+
+. es-sql-site 的安装和运行（需要Node.js）
+
+.. 下载 es-sql-site-standalone.zip ，unzip。
++
+（注意该包并未和每个版本的 elasticsearch-sql 一同更新，在es-sql的发布中找最新的即可。）
+
+.. 修改站点访问端口：
++
+[source]
+----
+vim ./site-server/site_configuration.json
+----
+
+.. 安装web框架模块并运行站点：
++
+[source]
+----
+cd site-server
+npm install express --save
+node node-server.js
+----
+
+.. 打开 http://yourHost:yourPort ，页面右上角的地址栏中填写 ES 的地址和端口。
+
 == Kibana
 
 === Kibana安装、配置和运行
