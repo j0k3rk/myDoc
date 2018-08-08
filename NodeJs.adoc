@@ -192,3 +192,23 @@ firewall-cmd --reload
 . 使用浏览器验证（默认URL为 http://127.0.0.1:1880/ ）
 
 
+=== 树莓派温湿度模拟器安装
+
+. 如果没有gcc，需要先安装：
++
+[source]
+----
+yum install gcc-c++
+----
+
+. 安装模拟器
++
+按官方文档的指引，先进入 Node-RED 的用户目录（一般是 ~/.node-red ）。 +
+再执行如下命令：
++
+[source]
+----
+npm install -g --unsafe-perm node-red-node-pi-sense-hat-simulator
+----
+
+. 成功安装后，左侧控件栏会出现【Raspberry Pi】。拖放控件到工作区，在信息栏中有模拟器的UI地址（默认为 http://yourHost:1880/sensehat-simulator）
