@@ -198,6 +198,7 @@ firewall-cmd --reload
 +
 [source]
 ----
+# g++ 依赖 gcc
 yum install gcc-c++
 ----
 
