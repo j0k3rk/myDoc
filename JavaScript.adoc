@@ -1203,3 +1203,15 @@ select      //选择元素值时触发
 submit      //提交表单时触发
 ----
 
+== 知识点
+
+=== 数组的操作
+
+==== push()、pop()、shift() 和 unshift()
+
+[options="autowidth", cols="^,^,^"]
+|====
+|位置 |入 |出
+|后端 |push() |pop()
+|前端 |unshift() |shift()
+|====
