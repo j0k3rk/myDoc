@@ -12,37 +12,46 @@
 === add
 
 ----
-// 指定参数“.”，可以把所有的文件加入到索引。
+# 指定参数“.”，可以把所有的文件加入到索引。
 git add .
 ----
 
 === branch
 
 ----
-// 列出当前所有分支的清单
+# 列出所有分支（本地）
 git branch
 
-// 查看各个分支最后一个提交对象的信息
+# 列出所有分支（远程）
+git branch -r
+
+# 列出所有分支（本地+远程）
+git branch -a
+
+# 设置push和pull的默认远程分支
+git branch --set-upstream-to=origin/master master
+
+# 查看各个分支最后一个提交对象的信息
 git branch -v
 
-// 筛选出已经（或尚未）与当前分支合并的分支，可以用 --merged 和 --no-merged 选项
+# 筛选出已经（或尚未）与当前分支合并的分支，可以用 --merged 和 --no-merged 选项
 git branch --merged
 
-// 简单地用 git branch -d 删除未合并进来的分支会提示错误
+# 简单地用 git branch -d 删除未合并进来的分支会提示错误
 git branch -d branch-testing
-// 如果确实想要删除，可以用大写的删除选项 -D 强制执行
+# 如果确实想要删除，可以用大写的删除选项 -D 强制执行
 git branch -D branch-testing
 ----
 
 === checkout
 
 ----
-// 要切换到其他分支，可以执行 git checkout 命令
+# 要切换到其他分支，可以执行 git checkout 命令
 git checkout branch-testing
 
-// 在远程分支的基础上分化出一个新的分支来
+# 在远程分支的基础上分化出一个新的分支来
 git checkout -b serverfix origin/serverfix
-// 还可以用 --track 选项简化
+# 还可以用 --track 选项简化
 git checkout --track origin/serverfix
 ----
 
@@ -58,18 +67,18 @@ git checkout --track origin/serverfix
 当前分支为 `issue1` ，欲将部分提交导入 `master` 分支，处理如下：
 +
 ----
-// 查看 issue1 分支的log
+# 查看 issue1 分支的log
 git log
 
-// 记住 commit 码前7位
+# 记住 commit 码前7位
 commit c81dba126bb0416c1b5c1bc9aa2943f28a0d6c82
 Author: yourname <yourname@yourmail.com>
 Date:   Mon Dec 15 15:05:35 2014 +0900
 
-// 切换到 master 分支
+# 切换到 master 分支
 git checkout master
 
-// 导入提交
+# 导入提交
 git cherry-pick c81dba1
 ----
 
@@ -84,17 +93,17 @@ git cherry-pick c81dba1
 
 +
 ----
-// 撤消刚才的提交操作，可以使用 --amend 选项重新提交：
+# 撤消刚才的提交操作，可以使用 --amend 选项重新提交：
 git commit --amend
 
-// 修改最近一次提交的message（还没有push到远程分支）
+# 修改最近一次提交的message（还没有push到远程分支）
 git commit --amend -m "your new message"
 
-// 如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行 amend 提交：
+# 如果刚才提交时忘了暂存某些修改，可以先补上暂存操作，然后再运行 amend 提交：
 git commit -m 'initial commit'
 git add forgotten_file
 git commit --amend
-// 上面的三条命令最终只是产生一个提交，第二个提交命令修正了第一个的提交内容。
+# 上面的三条命令最终只是产生一个提交，第二个提交命令修正了第一个的提交内容。
 ----
 
 === config
@@ -102,76 +111,76 @@ git commit --amend
 . alias
 +
 ----
-// 使用别名后，如果要输入 git commit 只需键入 git ci 即可
+# 使用别名后，如果要输入 git commit 只需键入 git ci 即可
 git config --global alias.ci commit
 
-// 取消暂存文件
+# 取消暂存文件
 git config --global alias.unstage 'reset HEAD --'
-// 以下两条命令等效
+# 以下两条命令等效
 git unstage fileA
 git reset HEAD fileA
 
-// 查看最后一次的提交信息
+# 查看最后一次的提交信息
 git config --global alias.last 'log -1 HEAD'
 git last
 
-// 运行某个外部命令，而非 Git 的子命令，只需要在命令前加上 ! 就行
+# 运行某个外部命令，而非 Git 的子命令，只需要在命令前加上 ! 就行
 git config --global alias.visual '!gitk'
 ----
 
 . color
 +
 ----
-// 让Git以彩色显示
+# 让Git以彩色显示
 git config --global color.ui auto
 ----
 
 . core
 +
 ----
-// 如果提交信息包含非ASCII字符，不要使用 -m 选项，而要用外部编辑器输入。
-// 外部编辑器必须能与字符编码 UTF-8 和换行码 LF 兼容。
+# 如果提交信息包含非ASCII字符，不要使用 -m 选项，而要用外部编辑器输入。
+# 外部编辑器必须能与字符编码 UTF-8 和换行码 LF 兼容。
 git config --global core.editor "\"[编辑器的路径]\""
 
-// 让含非ASCII字符的文件名正确显示
+# 让含非ASCII字符的文件名正确显示
 git config --global core.quotepath off
 ----
 
 . gui
 +
 ----
-// utf-8
+# utf-8
 git config --global gui.encoding "utf-8"
 ----
 
 . http.proxy
 +
 ----
-// 查询
+# 查询
 git config --global --get http.proxy
 
-// 设置网址、用户、密码
+# 设置网址、用户、密码
 git config --global http.proxy http://YOUR_PROXY_USERNAME:YOUR_PROXY_PASSWORD@YOUR.PROXY.SERVER:8080
 
-// 重置
+# 重置
 git config --global --unset http.proxy
 ----
 
 . user
 +
 ----
-// 查询
+# 查询
 git config --list
 
-// 全局设定
+# 全局设定
 git config --global user.email "YourName@gmail.com"
 git config --global user.name "YourName"
 
-// 单项目设定（优先于全局设定）
+# 单项目设定（优先于全局设定）
 git config user.email "YourName@gmail.com"
 git config user.name "YourName"
 
-// 重置
+# 重置
 git config --unset user.name "YourName"
 ----
 
@@ -179,8 +188,8 @@ git config --unset user.name "YourName"
 === fetch
 
 ----
-// fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
-// pull 会将远端分支自动合并到本地仓库中的当前分支。
+# fetch 命令只将远端数据拉到本地仓库，并不自动合并到当前工作分支。
+# pull 会将远端分支自动合并到本地仓库中的当前分支。
 git fetch [remote-name]
 ----
 
@@ -191,24 +200,24 @@ git fetch [remote-name]
 === init
 
 ----
-// 初始化
+# 初始化
 git init
 ----
 
 === log
 
 ----
-// log很长时，bash画面下方的冒号(:)表示还有内容未显示。
-// 【J】：向下一行，【K】：向上一行，【Q】：退出
+# log很长时，bash画面下方的冒号(:)表示还有内容未显示。
+# 【J】：向下一行，【K】：向上一行，【Q】：退出
 git log
 
-// -p:显示内容差异，-2:仅显示最近的两次更新
+# -p:显示内容差异，-2:仅显示最近的两次更新
 git log -p -2
 
-// 仅显示简要的增改行数统计
+# 仅显示简要的增改行数统计
 git log --stat
 
-// format 可以定制要显示的记录格式，这样的输出便于后期编程提取分析
+# format 可以定制要显示的记录格式，这样的输出便于后期编程提取分析
 git log --pretty=format:"%h - %an, %ar : %s"
 ----
 
@@ -269,13 +278,13 @@ git log --pretty=format:"%h - %an, %ar : %s"
 当前分支为 `issue1` ，欲将所有提交合并为一个提交并导入 `master` 分支，处理如下：
 +
 ----
-// 切换到 master 分支
+# 切换到 master 分支
 git checkout master
 
-// 导入提交
+# 导入提交
 git merge --squash issue1
 
-// 若发生冲突，请先修正冲突，然后再提交。
+# 若发生冲突，请先修正冲突，然后再提交。
 git add sample.txt
 git commit
 ----
@@ -283,10 +292,10 @@ git commit
 === mv
 
 ----
-// 移动文件（重命名）
+# 移动文件（重命名）
 git mv file_from file_to
 
-// 等效于以下三行命令
+# 等效于以下三行命令
 mv README.txt README
 git rm README.txt
 git add README
@@ -295,12 +304,12 @@ git add README
 === push
 
 ----
-// 推送本地分支到远程同名分支
+# 推送本地分支到远程同名分支
 git push origin serverfix
-// 推送本地分支到远程不同名分支
+# 推送本地分支到远程不同名分支
 git push origin serverfix:awesomebranch
 
-// 创建远程空白仓库后，可用如下命令推送本地项目到远程。
+# 创建远程空白仓库后，可用如下命令推送本地项目到远程。
 git remote add origin url
 git push -u origin master
 ----
@@ -308,8 +317,8 @@ git push -u origin master
 - [yellow]*删除远程分支：*
 +
 ----
-// 参照 git push [远程名] [本地分支]:[远程分支] 语法，如果省略 [本地分支]，
-// 那就等于“在这里提取空白然后把它变成[远程分支]”
+# 参照 git push [远程名] [本地分支]:[远程分支] 语法，如果省略 [本地分支]，
+# 那就等于“在这里提取空白然后把它变成[远程分支]”
 git push origin :serverfix
 ----
 
@@ -328,8 +337,8 @@ git push origin :serverfix
 ----
 git rebase -i HEAD~~
 
-// 弹出提示如下
-// --------------------------------
+# 弹出提示如下
+# --------------------------------
 pick 9a54fd4 添加commit的说明
 pick 0d4a808 添加pull的说明
 
@@ -342,11 +351,11 @@ pick 0d4a808 添加pull的说明
 #  s, squash = use commit, but meld into previous commit
 #  f, fixup = like "squash", but discard this commit's log message
 #  x, exec = run command (the rest of the line) using shell
-// --------------------------------
+# --------------------------------
 
-// 将第二行的“pick”改成“squash”，保存退出
+# 将第二行的“pick”改成“squash”，保存退出
 
-// 弹出新的提交提示，编辑后保存退出
+# 弹出新的提交提示，编辑后保存退出
 ----
 
 - 例2（修改提交）[yellow]#<此示例未成功完成>#：
@@ -354,8 +363,8 @@ pick 0d4a808 添加pull的说明
 ----
 git rebase -i HEAD~~
 
-// 弹出提示如下
-// --------------------------------
+# 弹出提示如下
+# --------------------------------
 pick 9a54fd4 添加commit的说明
 pick 0d4a808 添加pull的说明
 
@@ -368,10 +377,10 @@ pick 0d4a808 添加pull的说明
 #  s, squash = use commit, but meld into previous commit
 #  f, fixup = like "squash", but discard this commit's log message
 #  x, exec = run command (the rest of the line) using shell
-// --------------------------------
+# --------------------------------
 
-// 将第一行的“pick”改成“edit”，保存退出，将显示如下提示
-// --------------------------------
+# 将第一行的“pick”改成“edit”，保存退出，将显示如下提示
+# --------------------------------
 Stopped at d286baa... 添加commit的说明
 You can amend the commit now, with
 
@@ -380,42 +389,42 @@ You can amend the commit now, with
 Once you are satisfied with your changes, run
 
         git rebase --continue
-// --------------------------------
+# --------------------------------
 
-// 修改 sample.txt
+# 修改 sample.txt
 
-// 用commit --amend保存修改
+# 用commit --amend保存修改
 git add sample.txt
 git commit --amend
 
-// 完成操作
+# 完成操作
 git rebase --continue
 
-// 如果在中途要停止 rebase 操作，请在 rebase 指定 --abort 选项执行
+# 如果在中途要停止 rebase 操作，请在 rebase 指定 --abort 选项执行
 
-// 如果发生问题无法解决，可用如下命令复原到 rebase 之前的状态
+# 如果发生问题无法解决，可用如下命令复原到 rebase 之前的状态
 git reset --hard ORIG_HEAD
 ----
 
 === remote
 
 ----
-// 查询远程地址（v:verbose）
+# 查询远程地址（v:verbose）
 git remote -v
 
-// 增加远程仓库(以TFS为例)
+# 增加远程仓库(以TFS为例)
 git remote add origin http://REMOTE_SERVER:PORT/tfs/YOUR_Collection/_git/YOUR_PROJECT
 
-// 移除远程仓库
+# 移除远程仓库
 git remote remove origin
 
-// 查看远程仓库信息
+# 查看远程仓库信息
 git remote show [remote-name]
 
-// 远程仓库的重命名
+# 远程仓库的重命名
 git remote rename [name-from] [name-to]
 
-// 远程仓库的删除
+# 远程仓库的删除
 git remote rm [remote-name]
 ----
 
@@ -438,14 +447,14 @@ git remote rm [remote-name]
     * 只取消提交(soft)
 +
 ----
-// 彻底删除当前分支的上2次提交
+# 彻底删除当前分支的上2次提交
 git reset --hard HEAD~~
 
-// 删除错了，恢复到 reset 前的状态
+# 删除错了，恢复到 reset 前的状态
 git reset --hard ORIG_HEAD
 
-// 有两个修改过的文件，想要分开提交，但不小心用 git add 全加到了暂存区域，
-// 可以使用 git reset HEAD <file>... 的方式取消暂存
+# 有两个修改过的文件，想要分开提交，但不小心用 git add 全加到了暂存区域，
+# 可以使用 git reset HEAD <file>... 的方式取消暂存
 git reset HEAD file.txt
 ----
 
@@ -464,44 +473,44 @@ git revert HEAD
 === rm
 
 ----
-// 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项：-f
+# 如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项：-f
 git rm -f file.txt
 
 
-// 想把文件从Git仓库中删除（亦即从暂存区域移除），但仍希望保留在当前工作目录中。
-// 换句话说，仅是从跟踪清单中删除。
+# 想把文件从Git仓库中删除（亦即从暂存区域移除），但仍希望保留在当前工作目录中。
+# 换句话说，仅是从跟踪清单中删除。
 git rm --cached file.txt
 ----
 
 === tag
 
 ----
-// 列出 1.4.2 系列的标签
+# 列出 1.4.2 系列的标签
 git tag -l 'v1.4.2.*'
 
-// 创建轻量级标签
+# 创建轻量级标签
 git tag v1.4-lw
 
-// 创建一个含附注类型的标签，a:annotated
+# 创建一个含附注类型的标签，a:annotated
 git tag -a v1.4 -m 'my version 1.4'
 
-// 签署标签，s:signed
+# 签署标签，s:signed
 git tag -s v1.5 -m 'my signed 1.5 tag'
 
-// 验证标签，v:verify
-// 此命令会调用 GPG 来验证签名，需要有签署者的公钥（存放在 keyring 中）
+# 验证标签，v:verify
+# 此命令会调用 GPG 来验证签名，需要有签署者的公钥（存放在 keyring 中）
 git tag -v [tag-name]
 
-// 后期加注标签，在打标签的时候跟上对应提交对象的校验和（或前几位字符）即可
-// git log --pretty=oneline
-// 15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch 'experiment'
-// 9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
-// 8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme
+# 后期加注标签，在打标签的时候跟上对应提交对象的校验和（或前几位字符）即可
+# git log --pretty=oneline
+# 15027957951b64cf874c3557a0f3547bd83b3ff6 Merge branch 'experiment'
+# 9fceb02d0ae598e95dc970b74767f19372d61af8 updated rakefile
+# 8a5cbc430f1a9c3d00faaeffd07798508422908a updated readme
 git tag -a v1.2 9fceb02
 
-// 分享标签，默认情况下，git push 并不会把标签传送到远端服务器上，需使用显式命令
+# 分享标签，默认情况下，git push 并不会把标签传送到远端服务器上，需使用显式命令
 git push origin [tagname]
-// 一次推送所有本地新增的标签上去，可以使用 --tags 选项
+# 一次推送所有本地新增的标签上去，可以使用 --tags 选项
 git push origin --tags
 ----
 
@@ -598,8 +607,8 @@ HEAD指向现在使用中的分支的最后一次更新。通过移动HEAD，就
     ** 波浪符（tilder ~）和脱字符（caret ^）的用法区别是什么？
 +
 ----
-//【ref~】是【ref~1】的简写，【ref~1】是第1个亲，【ref~2】是第1个亲的第1个亲。
-//【ref^】是【ref^1】的简写，【ref^1】是第1个亲，【ref~2】是第2个亲。
+# 【ref~】是【ref~1】的简写，【ref~1】是第1个亲，【ref~2】是第1个亲的第1个亲。
+# 【ref^】是【ref^1】的简写，【ref^1】是第1个亲，【ref~2】是第2个亲。
 
 G   H   I   J
  \ /     \ /
