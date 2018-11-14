@@ -1,4 +1,4 @@
-= 学习点滴记录
+= 学习笔记
 :icons:
 :toc:
 :numbered:
