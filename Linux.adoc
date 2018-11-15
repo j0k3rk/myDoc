@@ -680,7 +680,7 @@ echo $PATH
 
 === 账号管理与 ACL 权限设置
 
-==== 重要文件
+==== 账号与用户组的几个重要文件
 
 ----
 /etc/passwd
@@ -761,6 +761,55 @@ date -u -d "1970-01-01 UTC $((16559 * 86400 )) seconds"
 3用户组管理员的账号:
 4加入该用户组的账号
 ----
+
+==== 账号管理
+
+===== useradd
+
+. 默认创建 Home 目录，且权限为700（仅自己可进入目录）。
+. 使用 -r 参数创建系统账号（UID小于1000），默认不会创建 Home 目录。
+
+. 默认值（来自 /etc/default/useradd）：
++
+[source]
+----
+useradd -D
+
+GROUP=100
+HOME=/home
+INACTIVE=-1         # 密码过期后是否会失效
+EXPIRE=         # 账号失效日期
+SHELL=/bin/sh       # 系统默认 shell
+SKEL=/etc/skel      # 用户 Home 目录参考的基准目录
+CREATE_MAIL_SPOOL=no    # 建立用户的 mailbox
+----
+
+.. 公共/私有 用户组机制：
++
+... 公共：参考值“GROUP=100”有效（即 users 用户组），组内用户可共享目录中的数据，代表发行版 SUSE 。
+... 私有：参考值“GROUP=100”无效（创建账号同名用户组），代表发行版 RHEL、Fedora、CentOS。
+
+.. UID/GID 参考的文件为 /etc/login.defs
+
+===== passwd / (chage)
+
+[IMPORTANT]
+====
+[source]
+----
+# 使用 root 修改其他账号的密码时，一定要加参数，以防丢失 root 的密码。
+
+# 修改其他账号的密码
+passwd 【账号名】
+
+# 修改当前账号的密码
+passwd
+----
+====
+
+===== usermod
+
+===== userdel
 
 == 基础知识
 
