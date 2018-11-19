@@ -811,7 +811,130 @@ passwd
 
 ===== userdel
 
-== 基础知识
+== 基础设置和备份
+
+=== 基础设置
+
+==== 网络设置
+
+===== ifconfig
+
+CentOS 7 网卡编号规则：
+
+. eno1：主板内置网卡
+. ens1：主板内置 PCI-E 网卡
+. enp2s0：PCI-E 独立网卡
+. eth0：以上不适用时的默认网卡编号
+
+===== nmcli
+
+[source]
+----
+nmcli connection show [网卡名称]
+
+nmcli connection modify [网卡名称] \
+> ..... \
+> .....
+
+nmcli connection up [网卡名称]
+----
+
+===== hostnamectl
+
+==== 日期和时间设置
+
+===== timedatectl
+
+调整时间：set-time
+
+----
+timedatectl set-time "2018-11-19 19:03"
+----
+
+通过此命令修改，不再需要使用 hwclock 去修正 BIOS 时间。
+
+===== ntpdate
+
+手动网络校时
+
+[source]
+----
+ntpdate s2m.time.edu.cn
+hwclock -w
+----
+
+==== 语言设置
+
+===== localectl
+
+系统语言
+
+===== locale
+
+当前 bash 的语言设置
+
+==== 防火墙设置
+
+===== firewall-cmd
+
+. 运行时/永久
+
+. 区域：public/..
+
+=== 硬件数据收集
+
+==== 使用 dmidecode 查看硬件
+
+[source]
+----
+dmidecode -t [type]
+# type=1, SYSTEM
+# type=4, Processor
+# type=17, Memory Device
+# ...
+----
+
+==== 硬件资源收集与分析
+
+===== gdisk
+
+[source]
+----
+# 列出分区信息
+gdisk -l
+----
+
+===== dmesg
+
+查看内核运行过程中所显示的信息记录
+
+===== vmstat
+
+可分析系统（CPU/RAM/IO）目前的状态
+
+===== lspci
+
+列出所有 PCI 接口设备
+
+===== lsusb
+
+列出所有 USB 端口的状态和 USB 设备
+
+===== iostat
+
+列出 CPU 与接口设备的 输入/输出 状态
+
+==== 了解磁盘的健康状态
+
+===== smartctl
+
+[source]
+----
+# 因为会进行磁盘自检，注意系统忙碌时不要使用
+smartctl -a /dev/sda
+----
+
+== 其他知识
 
 === 系统启动和关闭
 
