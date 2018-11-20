@@ -934,6 +934,68 @@ gdisk -l
 smartctl -a /dev/sda
 ----
 
+=== 备份
+
+==== 哪些数据需要备份？
+
+===== 操作系统相关的：
+
+. /etc/
+. /home/
+. /var/spool/mail/
+. /var/spool/{at|cron}/
+. /boot/
+. /root/
+. 如果自行安装过其他软件， /usr/local/ 或 /opt/ 最好也备份一下。
+
+===== 网络服务相关的：
+
+. 软件本身的配置文件，例如 /etc/ 、 /usr/local/ 。
+. 软件服务提供的数据，例如：
+.. WWW： /var/www/ 或 /srv/www/
+.. MariaDB： /var/lib/mysql/
+. 其他提供服务的数据文件
+
+===== 以上如果无法全部备份，推荐备份以下：
+
+. /etc/
+. /home/
+. /root/
+. /var/spool/mail/ 、 /var/spool/cron/ 、 /var/spool/at/
+. /var/lib/
+
+===== 不需要备份的：
+
+. /dev/
+. /proc/ 、 /sys/ 、 /run/
+. /mnt/ 、 /media/
+. /tmp/
+
+==== 备份的种类、频率和工具
+
+===== 累积备份
+
+. 常用工具有：
+.. dd
+.. cpio
+.. xfsdump/xfsrestore
+.. tar
+
+===== 差异备份
+
+. 常用工具有：
+.. tar -N
+.. rsync
+
+===== 关键数据备份
+
+利用 tar 备份的例子：
+
+[source]
+----
+tar -jpcvf mysql.`date +%Y-%m-%d`.tar.bz2 /var/lib/mysql
+----
+
 == 其他知识
 
 === 系统启动和关闭
