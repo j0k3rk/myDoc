@@ -998,6 +998,30 @@ tar -jpcvf mysql.`date +%Y-%m-%d`.tar.bz2 /var/lib/mysql
 
 == 其他知识
 
+=== net-tools VS iproute2
+
+[options="header,autowidth"]
+|===
+|net-tools |iproute2
+|arp -na            |ip neigh
+|ifconfig           |ip link
+|ifconfig -a        |ip addr show
+|ifconfig --help    |ip help
+|ifconfig -s        |ip -s link
+|ifconfig eth0 up   |ip link set eth0 up
+|ipmaddr            |ip maddr
+|iptunnel           |ip tunnel
+|netstat            |ss
+|netstat -i         |ip -s link
+|netstat -g         |ip maddr
+|netstat -l         |ss -l
+|netstat -r         |ip route
+|route add          |ip route add
+|route del          |ip route del
+|route -n           |ip route show
+|vconfig            |ip link
+|===
+
 === 系统启动和关闭
 
 . 系统启动过程
