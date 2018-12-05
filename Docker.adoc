@@ -1,0 +1,234 @@
+= Docker
+:icons:
+:toc:
+:numbered:
+:toclevels: 4
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:highlightjs-theme: monokai
+
+:source-language: bash
+
+== 常用命令
+
+=== 安装 docker
+
+[source]
+----
+# （CentOS 7）安装 docker
+yum update
+yum install -y docker
+
+# 启动服务
+service docker start
+----
+
+=== 容器生命周期管理
+
+==== create
+
+==== exec
+
+[source]
+----
+# 在容器中开启一个交互模式的终端
+docker exec -it  [container_id/container_name] /bin/bash
+
+# 在容器中以交互模式执行容器内脚本
+docker exec -it [container_id/container_name] /bin/sh /root/test.sh
+----
+
+==== kill
+
+==== pause/unpause
+
+==== rm
+
+[source]
+----
+# 删除指定容器
+docker rm [container_id/container_name]
+----
+
+==== run
+
+[source]
+----
+# 网络端口映射
+#   -P ：是容器内部端口随机映射到主机的高端口。
+#   -p ：是容器内部端口绑定到指定的主机端口。
+docker run -d -P training/webapp python app.py
+docker run -d -p 5000:5000 training/webapp python app.py
+# 指定容器绑定的网络地址
+docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
+# 绑定 UDP 端口
+docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
+----
+
+==== start/stop/restart
+
+[source]
+----
+# 停止运行指定容器
+docker stop [container_id/container_name]
+
+# 启动运行指定容器
+docker start [container_id/container_name]
+----
+
+=== 容器操作
+
+==== attach
+
+==== events
+
+==== export
+
+==== inspect
+
+[source]
+----
+# 查看指定容器内部的底层信息
+docker inspect [container_id/container_name]
+----
+
+==== logs
+
+[source]
+----
+# 查看指定容器内部的标准输出
+docker logs [container_id/container_name]
+----
+
+==== port
+
+[source]
+----
+# 查看指定容器的端口
+docker port [container_id/container_name]
+----
+
+==== ps
+
+[source]
+----
+# 查看容器
+docker ps
+----
+
+==== top
+
+[source]
+----
+# 查看指定容器内部的进程
+docker top [container_id/container_name]
+----
+
+==== wait
+
+=== 容器rootfs命令
+
+==== commit
+
+[source]
+----
+# 提交容器副本
+docker commit -m="message" -a="author" [container_id] author/xxxxx:[tag]
+----
+
+==== cp
+
+==== diff
+
+=== 镜像仓库
+
+==== login
+
+==== pull
+
+[source]
+----
+# 获取镜像
+docker pull xxxxx:[tag]
+----
+
+==== push
+
+==== search
+
+[source]
+----
+# 查找镜像
+docker search xxxxx
+----
+
+=== 本地镜像管理
+
+==== build
+
+[source]
+----
+# 构建镜像
+#（1）先创建 Dockerfile 文件，其中包含一组指令，每个指令都会在元镜像上创建一个新的层，每个指令前缀必须大写。
+#   FROM xxxx
+#   MAINTAINER xxxx
+#   RUN xxx
+#   RUN xxx
+#   EXPOSE xxx
+#   CMD
+#（2）执行 build 命令进行构建
+docker build xxxxx:[tag]
+----
+
+==== history
+
+==== images
+
+[source]
+----
+# 查看镜像模板
+docker images
+----
+
+==== import
+
+==== rmi
+
+==== save
+
+==== tag
+
+[source]
+----
+# 设置镜像标签
+docker tag [image_id] [image_tag]
+----
+
+=== 其他
+
+==== info
+
+==== version
+
+
+== 常见问题
+
+=== 虚拟机（Vultr/CentOS_7）安装 docker 后 SSH 无法登录。
+
+解决方法如下：
+
+[source]
+----
+# getenforce 获取 SELinux 状态
+getenforce
+
+# 用于关闭 SELinux ，重启后无效
+setenforce 0
+
+# 修改配置文件
+# 将 SELINUX=enforcing 改为 SELINUX=disabled，保存后退出
+vi /etc/selinux/config
+
+# 重启
+reboot
+----
