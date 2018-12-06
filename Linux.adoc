@@ -574,6 +574,22 @@ tar -ztvf 压缩包名.tar.gz
 . -J ：压缩为.tar.xz格式
 . -t ：测试（查看压缩包中的内容，不实际解压）
 
+=== timedatectl
+
+日期/时间/时区 设置
+
+[source]
+----
+# 查看当前设定
+timedatectl
+
+# 列出时区
+timedatectl list-timezones
+
+# 变更时区
+timedatectl set-timezone Asia/Shanghai
+----
+
 === touch
 
 创建文件或修改文件时间
@@ -1184,48 +1200,6 @@ halt 关闭系统，等同于shutdown –h now 和 poweroff
 |===
 
 === 其他
-
-. CentOS 7 初始化搭建
-+
-http://www.vultr.com/docs/initial-setup-of-a-centos-7-server[参考]
-
-. 时区和 NTP 设置
-+
-http://www.vultr.com/docs/setup-timezone-and-ntp-on-centos-6[参考]
-
-.. 修改时区
-+
-[source]
-----
-date    # 查看当前时间
-
-rm -rf /etc/localtime   # 删除当前时区
-ln -s /usr/share/zoneinfo/Asia/Shanghai /etc/localtime  # 设置时区为上海
-
-vi /etc/sysconfig/clock # 使用 vi 修改配置
-
-ZONE="Asia/Shanghai"
-UTC=false
-ARC=false
-
-:wq #保存退出
-
-hwclock --systohc --localtime   # 将系统时间写入硬件时钟
-
-hwclock # 查看结果
-----
-
-.. 设置 NTP
-+
-[source]
-----
-ntpd --version  # 查看 NTP 版本，默认为 4.2.6p5
-
-service ntpd stop   # 停止服务
-
-... （待续）
-
-----
 
 . 显示用法手册
 +
