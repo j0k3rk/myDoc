@@ -15,9 +15,15 @@
 
 [source]
 ----
-# （CentOS 7）安装 docker
+# CentOS 7
 yum update
-yum install -y docker
+yum install docker
+
+# Ubuntu 16.04
+sudo apt update
+sudo apt upgrade
+sudo apt autoremove
+sudo apt install docker.io
 
 # 启动服务
 service docker start
@@ -59,8 +65,10 @@ docker rm [container_id/container_name]
 #   -p ：是容器内部端口绑定到指定的主机端口。
 docker run -d -P training/webapp python app.py
 docker run -d -p 5000:5000 training/webapp python app.py
+
 # 指定容器绑定的网络地址
 docker run -d -p 127.0.0.1:5001:5000 training/webapp python app.py
+
 # 绑定 UDP 端口
 docker run -d -p 127.0.0.1:5000:5000/udp training/webapp python app.py
 ----
