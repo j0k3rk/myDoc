@@ -184,6 +184,20 @@ info 命令
 . -p  ：进入上一个帮助小节
 . -q  ：退出
 
+=== kill
+
+杀死进程
+
+[NOTE]
+.参照 ps 命令，进程主要有5种状态:
+====
+. D：不可被唤醒的睡眠状态，uninterruptible sleep (usually IO)
+. R（Running）：运行中，running or runnable (on run queue)
+. S（Sleep）：正在睡眠但可以被唤醒，interruptible sleep (waiting for an event to complete)
+. T（sTop）：停止状态，stopped by job control signal
+. Z（Zombie）：僵尸状态，进程已经终止，defunct ("zombie") process, terminated but not reaped by its parent
+====
+
 === last
 
 查询当前登录和过去登录的用户信息。
@@ -1053,10 +1067,13 @@ tar -jpcvf mysql.`date +%Y-%m-%d`.tar.bz2 /var/lib/mysql
 运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动
 运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登陆
 运行级别2：多用户状态(没有NFS)
-运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令运行级别4：系统未使用，保留
+运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令
+运行级别4：系统未使用，保留
 运行级别5：X11控制台，登陆后进入图形GUI模式
 运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动
 ----
++
+注意：不同发行版中运行级别的含义可能有区别。
 
 .. 系统初始化（/etc/rc.d/init.d/） →
 
@@ -1460,6 +1477,183 @@ java -version
 ----
 +
 如果出现相应的java版本信息，说明JDK安装成功。
+
+=== 如何追加开机启动脚本或服务？
+
+==== Ubuntu 16.04
+
+===== 修改 /etc/rc.local （待确认）
+
+
+===== update-rc.d 追加开机服务 （待确认）
+
+. 新建自定义脚本 myScript.sh
++
+注意脚本中应追加：
++
+[source]
+----
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          myScript.sh
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+----
+否则后续追加服务时会报错：
++
+----
+insserv: warning: script 'myScript.sh' missing LSB tags and overrides
+----
++
+参考：
+https://wiki.debian.org/LSBInitScripts[LSBInitScripts]
+
+. 设置权限：
++
+[source]
+----
+sudo chmod 755 myScript.sh
+----
+
+. 将脚本放到启动目录下：
++
+[source]
+----
+mv myScript.sh /etc/init.d/
+----
+
+. 进入启动目录，追加脚本：
++
+[source]
+----
+cd /etc/init.d/
+sudo update-rc.d myScript.sh defaults 50    # 数字50表示优先级，越大运行的越晚
+----
++
+也可以安装 sysv-rc-conf 来管理启动服务的启动级别。
+
+. 移除脚本：
++
+[source]
+----
+sudo update-rc.d -f myScript.sh remove
+----
+
+===== 直接追加服务
+
+. 创建打算要执行的脚本，例如 new-test.sh：
++
+[source]
+----
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          new-test.sh
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     5
+# Default-Stop:      0 1 6
+# Short-Description: auto-start test
+# Description:       auto-start test
+### END INIT INFO
+
+echo "hello new test!"
+date
+date >> /home/userXXX/new-test.log
+----
+
+. 在 /etc/systemd/system/ 中创建文件 new-test.service
++
+[source]
+----
+sudo nano /etc/systemd/system/new-test.service
+----
+
+. 在文件中增加如下内容：
++
+----
+[Unit]
+# Description
+# Documentation
+# Requires：当前 Unit 依赖的其他 Unit，如果它们没有运行，当前 Unit 会启动失败
+# Wants：与当前 Unit 配合的其他 Unit，如果它们没有运行，当前 Unit 不会启动失败
+# BindsTo：与Requires类似，它指定的 Unit 如果退出，会导致当前 Unit 停止运行
+# Before：如果该字段指定的 Unit 也要启动，那么当前 Unit 在指定 Unit 之前启动
+# After：如果该字段指定的 Unit 也要启动，那么当前 Unit 在指定 Unit 之后启动
+# Conflicts：这里指定的 Unit 不能与当前 Unit 同时运行
+# Condition...：当前 Unit 运行必须满足的条件，否则不会运行
+# Assert...：当前 Unit 运行必须满足的条件，否则会报启动失败
+# ...
+Description=new-test
+
+[Service]
+# Type：定义启动时的进程行为。它有以下几种值。
+# - Type=simple：默认值，执行ExecStart指定的命令，启动主进程
+# - Type=forking：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
+# - Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行
+# - Type=dbus：当前服务通过D-Bus启动
+# - Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行
+# - Type=idle：若有其他任务执行完毕，当前服务才会运行
+# ExecStart：启动当前服务的命令
+# ExecStartPre：启动当前服务之前执行的命令
+# ExecStartPost：启动当前服务之后执行的命令
+# ExecReload：重启当前服务时执行的命令
+# ExecStop：停止当前服务时执行的命令
+# ExecStopPost：停止当其服务之后执行的命令
+# RestartSec：自动重启当前服务间隔的秒数
+# Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值包括always（总是重启）、
+#   on-success、on-failure、on-abnormal、on-abort、on-watchdog
+# TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数
+# Environment：指定环境变量
+Type=forking
+ExecStart=/home/userXXX/new-test.sh
+
+[Install]
+# WantedBy：它的值是一个或多个 Target，当前 Unit 激活时，符号链接会放入 /etc/systemd/system 目录下
+#   以 Target 名 + .wants 后缀构成的子目录中
+# RequiredBy：它的值是一个或多个 Target，当前 Unit 激活时，符号链接会放入 /etc/systemd/system 目录下
+#   以 Target 名 + .required 后缀构成的子目录中
+# Alias：当前 Unit 可用于启动的别名
+# Also：当前 Unit 激活时，会被同时激活的其他 Unit
+WantedBy=graphical.target
+----
++
+[NOTE]
+.内容注意事项：
+====
+. 字母区分大小写
+. 等号（=）两侧不要有空格
+====
++
+[NOTE]
+.nano的用法：
+====
+. 保存：先 Ctrl+O ，再回车
+. 退出：Ctrl+X
+====
+
+. 激活新服务
++
+[source]
+----
+sudo systemctl enable new-test.service
+----
+
+. 手动启动服务并查看状态
++
+[source]
+----
+sudo systemctl start new-test.service
+sudo systemctl status new-test
+----
+
+. 如果手动运行没问题，就可以重启电脑，进行自动化测试。
 
 == Shadowsocks
 
