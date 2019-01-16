@@ -712,11 +712,9 @@ echo $PATH
 
 == 磁盘、目录和文件的管理
 
-=== 磁盘分区
+=== 磁盘分区格式：MBR 和 GPT
 
-==== 分区格式：MBR 和 GPT
-
-===== MBR（Master Boot Record）
+==== （MS-DOS）MBR（Master Boot Record）主引导记录
 
 . 分区类型
 
@@ -770,7 +768,14 @@ echo $PATH
 .. 推荐分区
 ... /boot （启动分区，200MB）
 
-===== GPT（GUID Partition Table）
+==== GPT（GUID Partition Table）分区表
+
+=== 文件系统格式
+
+[source]
+----
+parted -l
+----
 
 === 系统目录结构
 
@@ -815,8 +820,6 @@ echo $PATH
 |/usr/src   |内核源代码默认的放置目录。
 |/var   |这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。
 |===
-. 主分区和扩展分区最多只能有4个
-. 扩展分区最多只能有1个
 
 == Shell 和 Shell 脚本
 
@@ -1040,11 +1043,12 @@ dmidecode -t [type]
 
 ==== 硬件资源收集与分析
 
-===== gdisk
+===== fdisk/gdisk
 
 [source]
 ----
 # 列出分区信息
+fdisk -l
 gdisk -l
 ----
 
@@ -1165,6 +1169,17 @@ $ systemd-analyze critical-chain atd.service
 
 时区信息。
 
+
+=== 查询系统版本
+
+[source]
+----
+# CentOS
+cat /etc/redhat-release
+
+# Ubuntu
+hostnamectl
+----
 
 === 备份
 
