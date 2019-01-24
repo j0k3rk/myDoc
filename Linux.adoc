@@ -1006,7 +1006,14 @@ timedatectl set-time "2018-11-19 19:03"
 
 [source]
 ----
-ntpdate s2m.time.edu.cn
+# 常用校时服务器
+#   time.pool.aliyun.com
+#     - time[1-7].aliyun.com
+#   time[1-7].apple.com
+#   time[1-4].google.com
+#   3.cn.pool.ntp.org
+ntpdate time.pool.aliyun.com
+
 hwclock -w
 ----
 
