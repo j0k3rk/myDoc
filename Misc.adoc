@@ -445,6 +445,14 @@ C:\Program Files\Sublime Text 3\sublime_text.exe）。
 ----
 .. Ctrl+` 即可打开bash。
 
+. 通过扩展（Settings Sync）同步设置
+
+.. Windows，配置文件的存储路径：
++
+----
+%APPDATA%\Code\User\syncLocalSettings.json
+----
+
 == VLC Media Player
 
 . Win10 中文字幕乱码的解决方法：
