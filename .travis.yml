@@ -23,6 +23,7 @@ after_success:
   - cd output ; mv README.html index.html
   - cp -R ../images images
   - cp -R ../highlight highlight
+  - cp ../etc/baidu-verify-B5A9FD873D.txt baidu-verify-B5A9FD873D.txt
   - echo xroot.win > CNAME
   - git init
   - git config user.name "${GH_USER_NAME}"
