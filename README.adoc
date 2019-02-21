@@ -18,6 +18,7 @@
 * {link-github-project-ghpages}/ELK.html[ELK]
 * {link-github-project-ghpages}/Git.html[Git]
 * {link-github-project-ghpages}/HTML.html[HTML]
+* {link-github-project-ghpages}/HTTP.html[HTTP]
 * {link-github-project-ghpages}/Java.html[Java]
 * {link-github-project-ghpages}/JavaScript.html[JavaScript]
 * {link-github-project-ghpages}/Linux.html[Linux]

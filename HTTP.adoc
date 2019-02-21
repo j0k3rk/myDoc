@@ -1,0 +1,54 @@
+= HTTP
+:icons:
+:toc:
+:numbered:
+:toclevels: 4
+:source-highlighter: highlightjs
+:highlightjsdir: highlight
+:highlightjs-theme: monokai
+
+== HTTP状态码
+
+=== 1XX Informational（信息性状态码）
+
+=== 2XX Success（成功状态码）
+==== 200 OK
+==== 204 No Content
+==== 206 Partial Content
+
+=== 3XX Redirection（重定向状态码）
+
+==== 301 Moved Permanently
+永久重定向。
+
+==== 302 Found
+临时重定向。（标准禁止自动将 POST 变换为 GET，但实际使用时可能未被遵守。）
+
+==== 303 See Other
+应使用 GET 方法定向获取请求的资源。
+
+==== 304 Not Modified
+. 304状态码返回时，不包含任何响应的主体部分。
+. 304虽然被划在3XX类别中，但和重定向没有关系。
+
+==== 307 Temporary Redirect
+临时重定向。（遵守标准，【不会】自动将 POST 变换为 GET。对于具体浏览器还需要再确认。）
+
+=== 4XX Client Error（客户端错误状态码）
+
+==== 400 Bad Request
+
+==== 401 Unauthorized
+. 浏览器第一次收到，会弹出用户认证窗口。
+. 浏览器第二次收到，表示用户认证失败。
+
+==== 403 Forbidden
+
+==== 404 Not Found
+
+=== 5XX Server Error（服务器错误状态码）
+
+==== 500 Internal Server Error
+
+==== 503 Service Unavailable
+
