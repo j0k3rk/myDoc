@@ -1346,6 +1346,176 @@ alert( alert(1) && alert(2) );  // 1，然后 undefined。
 alert( null || 2 && 3 || 4 );   // 3
 ----
 
+. 循环：while 和 for
+
+.. break/continue 标签
++
+[source, js, numbered]
+----
+labelName: for (...) {
+  ...
+  for (...) {
+    ...
+    break labelName;
+  }
+}
+
+----
+
+. "switch" 语句
++
+case的相等比较是严格相等。被比较的值必须是相同类型的才能匹配。
+
+. 函数
+
+.. 变量
+... 在函数中声明的局部变量只在该函数内部可见。
+... 函数可以访问外部变量，也可以修改它。
+... 只有在没有本地变量的情况下才会使用外部变量，如果在函数中声明了同名变量，那么它遮蔽外部变量。
+
+.. 参数
+
+... 函数会修改 from，但在外部看不到更改，因为函数修改的是变量的副本：
++
+[source, javascript, numbered]
+----
+function showMessage(from, text) {
+
+  from = '*' + from + '*'; // 让 "from" 看起来更优雅
+
+  alert( from + ': ' + text );
+}
+
+let from = "Ann";
+
+showMessage(from, "Hello"); // *Ann*: Hello
+
+// "from" 值相同，函数修改了本地副本。
+alert( from ); // Ann
+----
+
+... 如果未提供参数，则默认值是 undefined。
+
+.... 新版本提供默认值的方法：
++
+[source, javascript, numbered]
+----
+function showMessage(from, text = "no text given") {
+  alert( from + ": " + text );
+}
+
+showMessage("Ann"); // Ann: 无文本
+----
+
+.... 旧版本提供默认值的方法：
++
+[source, javascript, numbered]
+----
+function showMessage(from, text) {
+  if (text === undefined) {
+    text = 'no text given';
+  }
+
+  alert( from + ": " + text );
+}
+
+// 或者
+
+function showMessage(from, text) {
+  // if text is falsy then text gets the "default" value
+  text = text || 'no text given';
+  ...
+}
+----
+
+.. 返回值
++
+如果函数有一个空（empty）的返回或者没有返回，则返回 undefined。
++
+[source, javascript, numbered]
+----
+function doNothing() { /* empty */ }
+
+alert( doNothing() === undefined ); // true
+----
++
+[source, javascript, numbered]
+----
+function doNothing() {
+  return;
+}
+
+alert( doNothing() === undefined ); // true
+----
++
+[NOTE]
+====
+对于 return 的长表达式，应该和 return 放在同一行。 +
+（因为 JavaScript 默认会在 return 之后加分号）
+====
+
+. 函数表达式和箭头函数
+
+.. 函数表达式
++
+[source, javascript, numbered]
+----
+function sayHi() {
+  alert( "Hello" );
+}
+
+alert( sayHi ); // 查看函数代码
+// 注意：函数并没有运行。在其他语言中函数调用就执行，但在 JavaScript 中，sayHi 后没有括号函数不会运行。
+----
+
+.. 函数表达式 vs 函数声明
+
+... 函数声明： 函数在主代码流中单独声明。
++
+[source, javascript, numbered]
+----
+// Function Declaration
+function sum(a, b) {
+  return a + b;
+}
+----
+
+... 函数表达式： 一个函数，在一个表达式中或另一个语法结构中创建。
++
+[source, javascript, numbered]
+----
+// Function Expression
+let sum = function(a, b) {
+  return a + b;
+};
+----
+
+... 细微差别是在 JavaScript 引擎中【什么时候】创建函数：
+.... 函数声明，在代码块执行之前创建。它们在代码块中随处调用。
+.... 函数表达式，在执行到达时创建。
+
+.. 箭头函数
+
+... 非常适合单行调用。有2个参数的例子：
++
+[source, javascript, numbered]
+----
+let sum = (a, b) => a + b;
+
+/* 箭头函数更短：
+let sum = function(a, b) {
+  return a + b;
+};
+*/
+
+alert( sum(1, 2) ); // 3
+----
+
+... 如果只有一个参数，那么括号可以省略。
+
+... 如果没有参数，括号应该是空的（不可省略）。
+
+... 如果是多行调用，需要将语句放在大括号 {} 中。
 
 ==== 代码质量
 
