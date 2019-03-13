@@ -148,10 +148,35 @@ find /etc -size +20k -a -size -50k -exec ls -lh {} \;
 [source]
 ----
 grep 选项 字符串 文件名
+# -i   忽略大小写
+# -v   排除指定字符串
 ----
 
-. -i   忽略大小写
-. -v   排除指定字符串
+. 示例
++
+[source, bash, numbered]
+----
+# 通过管道过滤 ls 输出的内容，只显示以 a 开头的行。
+ls|grep '^a'
+
+# 显示所有以 r 开头的文件中包含 DATE_TIME 的行。
+grep 'DATE_TIME' r*
+
+# 显示在 aa、bb、cc 文件中匹配 rules 的行。
+grep 'rules' aa bb cc
+
+# 检索文件 aa，显示包含5个连续小写字母的行。
+grep '[a-z]\{5\}' aa
+
+# 查找指定进程 clustal2 。
+ps -ef|grep clustal2
+
+# 查找指定进程 clustal2 的运行个数。
+ps -ef|grep clustal2|wc -l
+
+# 显示包含 account 或者 auth 字符的内容行。
+cat aa.txt |grep -E "account|auth"
+----
 
 === gzip
 
