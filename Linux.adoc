@@ -1468,6 +1468,26 @@ Port Your_New_SSH_Port
 +
 按【Esc】，输入“:wq”保存退出。
 
+. 如果开启了 SELinux，需要开放新端口：
++
+[source,bash,numbered]
+----
+# 安装 SELinux 管理工具
+yum install semanage  # 提示：No package semanage available.
+
+# 通过命令查找包名
+yum provides semanage
+
+# 填入找到的包名，安装工具
+yun install policycoreutils-python-X.X-...
+
+# 查询 SELinux 与 SSH 相关的端口
+semanage port -l|grep ssh_port_t
+
+# 如果新端口不存在，则增加到 SELinux
+semanage port -a -t ssh_port_t -p tcp Your_New_SSH_Port
+----
+
 . 重启 SSH 服务
 +
 [source]
