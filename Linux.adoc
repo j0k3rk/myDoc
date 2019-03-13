@@ -1479,7 +1479,7 @@ yum install semanage  # 提示：No package semanage available.
 yum provides semanage
 
 # 填入找到的包名，安装工具
-yun install policycoreutils-python-X.X-...
+yum install policycoreutils-python-X.X-...
 
 # 查询 SELinux 与 SSH 相关的端口
 semanage port -l|grep ssh_port_t
