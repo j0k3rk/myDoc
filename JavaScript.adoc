@@ -1756,6 +1756,80 @@ user = {
 
 . 垃圾回收
 
+.. 可达性（Reachability）
+.. 垃圾回收的基本算法被称为 “mark-and-sweep”。
+
+. Symbol 类型
+
+.. Symbol 是唯一的。即使是具有相同描述的 Symbol，它们的值也不同。（这与 Ruby 等其他语言不同）
++
+[source, javascript, numbered]
+----
+let id1 = Symbol("id");
+let id2 = Symbol("id");
+
+alert(id1 == id2); // false
+----
+
+.. Symbol 不会自动转换为 string，需要时可用 .toString() 。
+
+.. Symbol 可用来隐藏属性。
+
+... 字面量中的 Symbol
++
+[source, javascript, numbered]
+----
+let id = Symbol("id");
+
+let user = {
+  name: "John",
+  [id]: 123 // id 的值作为键，而不是 String
+};
+----
+
+... Symbol 在 for…in 中被跳过
+
+... Object.assign 会复制 Symbol 属性
++
+[NOTE]
+====
+. Object 属性键的类型只能为 string 或 symbol，其他类型会强制转换为 string 。
+. 内置方法 Object.getOwnPropertySymbols(obj) 允许我们获取所有的 Symbol。
+. Reflect.ownKeys(obj) 返回所有键，包括 Symbol。
+====
+
+.. 全局 Symbol
++
+存在一个全局 symbol 注册表，使用 Symbol.for(key) 创建或读取。
++
+[source, javascript, numbered]
+----
+// 从全局注册表中读取
+let id = Symbol.for("id"); // 如果该 Symbol 不存在，则创建它
+
+// 再次读取
+let idAgain = Symbol.for("id");
+
+// 相同的 Symbol
+alert( id === idAgain ); // true
+----
++
+[source, javascript, numbered]
+----
+// 反向调用 Symbol.keyFor
+
+let sym = Symbol.for("name");
+let sym2 = Symbol.for("id");
+
+// 从 symbol 中获取 name
+alert( Symbol.keyFor(sym) ); // name
+alert( Symbol.keyFor(sym2) ); // id
+
+// 如果 symbol 不是全局的，将无法找到它并返回 undefined。
+----
+
+.. 系统 Symbol
+
 ==== 数据类型
 
 ==== Advanced working with functions
