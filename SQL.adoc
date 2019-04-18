@@ -107,6 +107,36 @@ GO
 Exec sp_DeleteAllData
 ----
 
+== PostgreSQL
+
+=== 入门使用
+
+. psql连接数据库
++
+----
+psql -h IP地址 -p 端口 -U 数据库名
+----
+
+. 常用命令
+
+.. 列举数据库： \l
+.. 选择数据库： \c 数据库名
+.. 查看某个库中的所有表： \dt
+.. 查看某个库中某个表的结构： \d 表名
+.. 显示字符集： \encoding
+.. 退出psql： \q
+
+. 导出数据为csv
++
+[source,sql,numbered]
+----
+# 导出到服务器本机
+COPY (select * from my_tab) to 'D:/dir/file_name.csv' with csv header;
+
+# 导出到客户端机器
+psql --dbname=my_db_name --host=db_host_ip --username=my_username -c "COPY (select * from my_tab) TO STDOUT with csv header" > D:/dir/file_name.csv
+----
+
 == DB2 SQL优化技巧
 
 ref：《DB2 SQL性能调优秘笈》
