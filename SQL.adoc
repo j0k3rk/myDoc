@@ -107,6 +107,44 @@ GO
 Exec sp_DeleteAllData
 ----
 
+== DB2 for iSeries SQL举例
+
+. 关联更新
++
+更新前：
++
+----
+# 表 TEST1P
+VENDER  TYPE
+01125   A
+01125   B
+01127   D
+
+# 表 TEST2P
+VENDER  TYPE
+01125   X
+01125   Y
+01127   D
+----
++
+执行：
++
+[source,sql]
+----
+UPDATE LIBRARY.TEST2P B
+SET B.TYPE = (SELECT A.TYPE FROM LIBRARY.TEST1P A WHERE A.VENDER = B.VENDER FETCH FIRST 1 ROW ONLY);
+----
++
+更新后：
++
+----
+# 表 TEST2P
+VENDER  TYPE
+01125   A
+01125   A
+01127   D
+----
+
 == DB2 SQL优化技巧
 
 ref：《DB2 SQL性能调优秘笈》
