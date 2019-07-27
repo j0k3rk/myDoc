@@ -597,6 +597,25 @@ For example, if your commit history is A-B-C-D-E-F with F as HEAD, and you want 
 .. The rebase would complete.
 .. + (git push -f)?
 
+=== 如何取消上一次提交？
+
+. 查询提交日志，获取 commit_id
++
+----
+git log -3
+----
+
+. 移动HEAD的位置到指定位置
++
+----
+git reset --hard <commit_id>
+----
+
+. 之前如果已经push，使用如下修改远程：
++
+----
+git push origin HEAD --force
+----
 
 === 分支的切换（checkout操作）
 
@@ -608,7 +627,7 @@ HEAD指向现在使用中的分支的最后一次更新。通过移动HEAD，就
 +
 ----
 # 【ref~】是【ref~1】的简写，【ref~1】是第1个亲，【ref~2】是第1个亲的第1个亲。
-# 【ref^】是【ref^1】的简写，【ref^1】是第1个亲，【ref~2】是第2个亲。
+# 【ref^】是【ref^1】的简写，【ref^1】是第1个亲，【ref^2】是第2个亲。
 
 G   H   I   J
  \ /     \ /
@@ -670,40 +689,3 @@ http://www.ruanyifeng.com/blog/2015/08/git-use-process.html[参考]
 +
 image:images/git_file_status_lifecycle.png[file status lifecycle]
 
-
-== vi/vim使用
-
-. 基本上 vi/vim 共分为三种模式，分别是：命令模式、插入模式和底线命令模式。
-
-.. 命令模式（Command mode）：
-+
-[NOTE]
-=========
-- i 切换到插入模式，以输入字符。
-- x 删除当前光标所在处的字符。
-- : 切换到底线命令模式，以在最底一行输入命令。
-=========
-
-.. 插入模式（Insert mode）
-+
-[NOTE]
-=========
-- 字符按键以及Shift组合，输入字符
-- ENTER，回车键，换行
-- BACK SPACE，退格键，删除光标前一个字符
-- DEL，删除键，删除光标后一个字符
-- 方向键，在文本中移动光标
-- HOME/END，移动光标到行首/行尾
-- Page Up/Page Down，上/下翻页
-- Insert，切换光标为输入/替换模式，光标将变成竖线/下划线
-- ESC，退出输入模式，切换到命令模式
-=========
-
-.. 底线命令模式（Last line mode）
-+
-[NOTE]
-=========
-- q 退出程序
-- w 保存文件
-- ESC 可随时退出底线命令模式
-=========

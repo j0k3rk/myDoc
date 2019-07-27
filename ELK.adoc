@@ -325,6 +325,31 @@ node node-server.js
 
 .. 打开 http://yourHost:yourPort ，页面右上角的地址栏中填写 ES 的地址和端口。
 
+=== es2csv
+
+. 安装
++
+[source]
+----
+yum -y install epel-release
+yum install python-pip
+pip install --upgrade pip
+yum clean all
+pip install es2csv
+
+yum update
+----
+
+. 使用
++
+[source]
+----
+# 测试连通
+curl -XGET http://yourHost:yourPort
+# 导出数据
+es2csv -u http://yourHost:yourPort -i yourIndex -q '*' -o yourFile.csv
+----
+
 == Kibana
 
 === Kibana安装、配置和运行
