@@ -19,6 +19,7 @@ image:images/sql_joins.jpg[SQL Joins]
 
 === 日期时间处理
 
+[source,tsql]
 ----
 -- 本月第1天
 SELECT DATEADD(s,0,DATEADD(mm, DATEDIFF(m,0,getdate()),0))
@@ -62,6 +63,7 @@ order by OrderDate desc
 
 === 数据库日志文件清理
 
+[source,tsql]
 ----
 declare @DB varchar(20),@FLog varchar(20),@SQL varchar(8000)
 Select @DB=Name From Master..SysDataBases Where DbId=(Select Dbid From Master..SysProcesses Where Spid = @@spid)
@@ -93,6 +95,7 @@ EXEC(@SQL)
 
 === 删除数据库所有表中的数据
 
+[source,tsql]
 ----
 CREATE PROCEDURE sp_DeleteAllData
 AS
@@ -129,7 +132,7 @@ VENDER  TYPE
 +
 执行：
 +
-[source,sql]
+[source,db2_is]
 ----
 UPDATE LIBRARY.TEST2P B
 SET B.TYPE = (SELECT A.TYPE FROM LIBRARY.TEST1P A WHERE A.VENDER = B.VENDER FETCH FIRST 1 ROW ONLY);
@@ -151,12 +154,14 @@ ref：《DB2 SQL性能调优秘笈》
 
 === 去除在谓词列上编写的任何标量函数
 
+[source,db2]
 ----
 SELECT EMPNO, LASTNAME
 FROM EMP
 WHERE YEAR(HIREDATE) = 2005
 ----
 
+[source,db2]
 ----
 -- 利用索引
 SELECT EMPNO, LASTNAME
@@ -166,12 +171,14 @@ WHERE HIREDATE BETWEEN '2005-01-01' AND '2005-12-31'
 
 === 去除在谓词列上编写的任何数学运算
 
+[source,db2]
 ----
 SELECT EMPNO, LASTNAME
 FROM EMP
 WHERE SALARY * 1.1 > 50000.00
 ----
 
+[source,db2]
 ----
 -- 利用索引。列本身放在操作符的一边，所有计算放在操作符的另一边。
 SELECT EMPNO, LASTNAME
@@ -188,6 +195,7 @@ WHERE SALARY > 50000.00 / 1.1
 .. 使用 Group By （V9之前），这会利用关联索引来消除为确定唯一性所导致的排序。
 .. 使用一个 In 或 Exists 子查询重写查询。
 +
+[source,db2]
 ----
 SELECT DISTINCT E.EMPNO, E.LASTNAME
 FROM EMP        E,
@@ -195,6 +203,7 @@ FROM EMP        E,
 WHERE E.EMPNO = EP.EMPNO
 ----
 +
+[source,db2]
 ----
 SELECT E.EMPNO, E.LASTNAME
 FROM EMP        E,
@@ -203,6 +212,7 @@ WHERE E.EMPNO = EP.EMPNO
 GROUP BY E.EMPNO, E.LASTNAME
 ----
 +
+[source,db2]
 ----
 SELECT E.EMPNO, E.LASTNAME
 FROM EMP    E
@@ -212,6 +222,7 @@ WHERE EXISTS
          WHERE E.EMPNO = EP.EMPNO)
 ----
 +
+[source,db2]
 ----
 SELECT E.EMPNO, E.LASTNAME
 FROM EMP    E
@@ -224,6 +235,7 @@ WHERE E.EMPNO IN
 
 . In 和 Exists 子查询可以生成同样的结果，但做法截然不同。通常表现各有优劣，取决于实际的数据分布。
 +
+[source,db2]
 ----
 SELECT E.EMPNO, E.LASTNAME
 FROM EMP E
@@ -233,6 +245,7 @@ WHERE E.EMPNO IN
         WHERE D.DEPTNO LIKE 'D%')
 ----
 +
+[source,db2]
 ----
 SELECT E.EMPNO, E.LASTNAME
 FROM EMP E
