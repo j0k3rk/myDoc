@@ -148,6 +148,17 @@ VENDER  TYPE
 01127   D
 ----
 
+. 取出每个Key的第1行记录：
++
+[source,db2_is]
+----
+SELECT VNDCODE, VNDNAME
+FROM (
+         SELECT A.*, ROW_NUMBER() OVER (PARTITION BY VNDCODE ORDER BY VNDCODE) RN FROM LIBRARY.FILE A
+     ) B
+WHERE RN = 1;
+----
+
 == DB2 SQL优化技巧
 
 ref：《DB2 SQL性能调优秘笈》
