@@ -1,0 +1,4039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>C# &amp; .NET</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>C# &amp; .NET</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_c基础">1. c#基础</a>
+<ul class="sectlevel2">
+<li><a href="#_变量">1.1. 变量</a></li>
+<li><a href="#_类型15种">1.2. 类型（15种）</a>
+<ul class="sectlevel3">
+<li><a href="#_值类型13种">1.2.1. 值类型（13种）</a></li>
+<li><a href="#_引用类型2种">1.2.2. 引用类型（2种）</a></li>
+<li><a href="#_自定义类是引用类型自定义的值类型需要声明为结构">1.2.3. 自定义类是引用类型。自定义的值类型，需要声明为结构。</a></li>
+</ul>
+</li>
+<li><a href="#_修饰符">1.3. 修饰符</a></li>
+<li><a href="#_xml_文档">1.4. XML 文档</a></li>
+<li><a href="#_预处理器指令">1.5. 预处理器指令</a></li>
+<li><a href="#_linq">1.6. LINQ</a></li>
+<li><a href="#_继承">1.7. 继承</a></li>
+<li><a href="#_规则和习惯做法">1.8. 规则和习惯做法</a></li>
+<li><a href="#_其他">1.9. 其他</a></li>
+<li><a href="#_faq">1.10. FAQ</a></li>
+</ul>
+</li>
+<li><a href="#_asp_net">2. ASP.NET</a>
+<ul class="sectlevel2">
+<li><a href="#_asp_net_基础">2.1. ASP.NET 基础</a>
+<ul class="sectlevel3">
+<li><a href="#_web窗体">2.1.1. Web窗体</a></li>
+<li><a href="#_生命周期和上下文">2.1.2. 生命周期和上下文</a></li>
+<li><a href="#_模块modules和处理程序handlers">2.1.3. 模块（Modules）和处理程序（Handlers）</a></li>
+<li><a href="#_页面和控件的事件">2.1.4. 页面和控件的事件</a></li>
+<li><a href="#_管理请求执行过程">2.1.5. 管理请求执行过程</a></li>
+<li><a href="#_管理状态数据">2.1.6. 管理状态数据</a></li>
+<li><a href="#_缓存">2.1.7. 缓存</a></li>
+<li><a href="#_错误处理">2.1.8. 错误处理</a></li>
+<li><a href="#_管理路径">2.1.9. 管理路径</a></li>
+<li><a href="#_url路由">2.1.10. URL路由</a></li>
+<li><a href="#_身份验证和授权">2.1.11. 身份验证和授权</a></li>
+<li><a href="#_asp_net配置">2.1.12. ASP.NET配置</a></li>
+<li><a href="#_异步请求处理">2.1.13. 异步请求处理</a></li>
+</ul>
+</li>
+<li><a href="#_asp_net_mvc_5">2.2. ASP.NET MVC 5</a></li>
+</ul>
+</li>
+<li><a href="#_entity_framework">3. Entity Framework</a>
+<ul class="sectlevel2">
+<li><a href="#_连接as400通过_db2_data_server_client">3.1. 连接AS400（通过 DB2 Data Server Client）</a></li>
+<li><a href="#_as400端数据准备">3.2. AS400端数据准备</a></li>
+<li><a href="#_技巧和知识点">3.3. 技巧和知识点</a></li>
+</ul>
+</li>
+<li><a href="#_依赖注入">4. 依赖注入</a>
+<ul class="sectlevel2">
+<li><a href="#_ninject">4.1. Ninject</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_c基础">1. c#基础</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_变量">1.1. 变量</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>变量的初始化</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>变量是类或结构中的字段，如果没有显式初始化，创建后默认值为0。</p>
+</li>
+<li>
+<p>方法的局部变量必须显式初始化，否则会产生错误。</p>
+</li>
+<li>
+<p>使用 var 关键字声明的变量必须初始化，否则编译器没有进行类型推断的依据。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>变量的作用域</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>在 for、while 或类似语句中声明的局部变量存在于该循环体中。</p>
+</li>
+<li>
+<p>字段和局部变量的作用域冲突，参考下例：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="c++" class="language-c++ hljs">    public class ScopeTest2 {
+        static int j = 20;
+        public static void Main() {
+            int j = 30;
+            Console.WriteLine(j);     //30
+            Console.WriteLine(ScopeTest2.j);   //20
+            return;
+        }
+    }</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>如果要访问一个实例字段，需要使用 this 关键字。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_类型15种">1.2. 类型（15种）</h3>
+<div class="sect3">
+<h4 id="_值类型13种">1.2.1. 值类型（13种）</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>内置的CTS值类型表示基本类型，如整型、浮点类型、字符类型和布尔类型。</p>
+</li>
+<li>
+<p>整型（8种）：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Range (min:max)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sbyte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.SByte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-128:127 (-2<sup>7</sup>:2<sup>7</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">short</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Int16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-32,768:32,767 (-2<sup>15</sup>:2<sup>15</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">int</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Int32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-2,147,483,648:2,147,483,647 (-2<sup>31</sup>:2<sup>31</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">long</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Int64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-9,223,372,036,854,775,808:9,223,372,036,854,775,807 (-2<sup>63</sup>:2<sup>63</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Byte</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8-bit unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:255 (0:2<sup>8</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ushort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.UInt16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16-bit unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:65,535 (0:2<sup>16</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">uint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.UInt32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:4,294,967,295 (0:2<sup>32</sup>–1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ulong</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.UInt64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit unsigned integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:18,446,744,073,709,551,615 (0:2<sup>64</sup>–1)</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>浮点类型（2种）：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Significant Figures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Range (Approximate)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">float</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Single</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit, single-precision floating point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">±1.5 × 10<sup>245</sup> to ±3.4 × 10<sup>38</sup></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Double</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit, double-precision floating point</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">15/16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">±5.0 × 10<sup>2324</sup> to ±1.7 × 10<sup>308</sup></p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>decimal 类型：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Significant Figures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Range (Approximate)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Decimal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128-bit, high-precision decimal notation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">28</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">±1.0 × 10<sup>228</sup> to ± 7.9 × 10<sup>28</sup></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+decimal类型不是基本类型，所以计算时会有性能损失。
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>使用时，在数字后加上字符M（或m）：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>decimal d = 12.30M;</pre>
+</div>
+</div>
+</li>
+<li>
+<p>bool 类型：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Significant Figures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Range (Approximate)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents true or false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NA</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">true or false</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+bool值和整数值不能相互隐式转换。例如试图用0表示false、非0值表示true，就会出错。
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>字符类型：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Values</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Char</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Represents a single 16-bit (Unicode) character</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+char类型的字面量是用单引号括起来的，如果把字符放在双引号中，编译器会把它看作字符串而产生错误。
+</td>
+</tr>
+</table>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>除了把char表示为字符字面量，还可以用4位十六进制的Unicode值（如'\u0041'）、带有数据类型转换的整数值（如(char)65）或十六进制数（如'\x0041'）表示。</p>
+</li>
+<li>
+<p>转义特殊符号：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Escape Sequence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Character</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\'</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single quotation mark</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\"</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Double quotation mark</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\\</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backslash</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Null</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Alert</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backspace</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\f</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Form feed</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Newline</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Carriage return</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tab character</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">\v</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Vertical tab</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_引用类型2种">1.2.2. 引用类型（2种）</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>object 类型：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Object</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The root type. All other types (including value types) in the CTS are derived from object.</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>string 类型：</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CTS Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Description</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">string</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.String</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unicode character string</p></td>
+</tr>
+</tbody>
+</table>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>string是一个引用类型，但与引用类型的常见行为有一些区别。例如，字符串不可改变。</p>
+</li>
+<li>
+<p>String对象被分配在堆上，而不是栈上。</p>
+</li>
+<li>
+<p>字符串格式化</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">代码</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">本地货币格式</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">十进制格式，把整数转为以10为基数的数，如给定精度说明符，则加上前导0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">E</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">科学记数法（指数）格式，精度说明符设置小数位数（默认为6），格式字符的大小写（e或E）确定指数符号的大小写</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">F</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">固定点格式，精度说明符设置小数位数，可为0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">普通格式，使用E或F格式取决于哪种格式较简单</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">N</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">数字格式，加逗号表示千分符</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">百分数格式</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">X</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">十六进制格式，精度说明符用于加上前导0</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>以下2行代码等效：</p>
+<div class="listingblock">
+<div class="content">
+<pre>string filepath = "C\\Programs\\Test.cs";
+string filepath = @"C\Programs\Test.cs";</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_自定义类是引用类型自定义的值类型需要声明为结构">1.2.3. 自定义类是引用类型。自定义的值类型，需要声明为结构。</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_修饰符">1.3. 修饰符</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>可见性修饰符</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">修饰符</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">应用于</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">public</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有类型或成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">任何代码均可以访问</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">protected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型和内嵌类型的所有成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">只有派生的类型能访问</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">internal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有类型或成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">只能在包含它的程序集中访问</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">private</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型和内嵌类型的所有成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">只能在它所属的类型中访问</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">protected internal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型和内嵌类型的所有成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">只能在派生类型和包含它的程序集中访问</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>其他修饰符</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">修饰符</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">应用于</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">new</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">函数成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成员用相同的签名隐藏继承的成员</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">static</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所有成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成员不作用于类的具体实例</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">virtual</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">仅函数成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成员可以由派生类重写</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">abstract</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">仅函数成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">虚拟成员定义了成员的签名，但不提供实现</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">override</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">仅函数成员</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成员重写了继承的虚拟或抽象成员</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sealed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类、方法和属性</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对于类，不能被继承。对于方法和属性，成员可重写继承的虚拟成员，但不能被任何派生类的任何成员所重写。必须和 override 一起使用。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extern</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">仅静态[dll import]方法</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">成员在外部用不同的语言实现。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xml_文档">1.4. XML 文档</h3>
+<div class="paragraph">
+<p>使用3斜杠（///）注释的内容可以被自动提取创建为 XML 格式的文档说明。</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>特殊标记</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">标记</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;c&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">把行中的文本标记为代码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;code&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">把多行标记为代码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;example&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">标记为一个代码示例</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;exception&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明一个异常类（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;include&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">包含其他文档说明文件的注释（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;list&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">把列表插入文档中</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;para&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gives structure to text</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;param&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">标记方法的参数（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;paramref&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示一个单词是方法的参数（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;permission&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明对成员的访问（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;remarks&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">给成员添加描述</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;returns&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">说明方法的返回值</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;see&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供对另一个参数的交叉引用（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;seealso&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供描述中的“参见”部分（编译器要验证其语法）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;summary&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">提供类型或成员的简短小结</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;typeparam&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用在泛型类型的注释中以说明一个类型参数</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;typepararef&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">类型参数的名称</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;value&gt;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述属性</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_预处理器指令">1.5. 预处理器指令</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>#define 和 #undef</p>
+</li>
+<li>
+<p>#if 、 #elif 、 #else 和 #endif</p>
+</li>
+<li>
+<p>#warning 和 #error</p>
+</li>
+<li>
+<p>#region 和 #endregion</p>
+</li>
+<li>
+<p>#line</p>
+</li>
+<li>
+<p>#pragma</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_linq">1.6. LINQ</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>一些有用的 LINQ 扩展方法</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">扩展方法</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">描述</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">延迟</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果源数据中的所有条目都与谓词匹配，则返回 true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果源数据中至少有一个条目与谓词匹配，则返回 true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contains</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果数据源含有指定的条目或值，则返回 true</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源中的条目数</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的第一个条目</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">FirstOrDefault</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的第一个条目，或无条目时，返回默认值</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Last</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的最后一个条目</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LastOrDefault</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的最后条目，或无条目时，返回默认值</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Max / Min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回由 lambda 表达式表示的最大值或最小值</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OrderBy / OrderByDescending</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">基于 lambda 表达式返回的值对数据源进行排序</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reverse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">反转数据源中数据项的顺序</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Select</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设计一个查询结果</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SelectMany</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">把每个数据项投射到一个条目序列之中，然后把所有这些结果序列连接成一个序列</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的第一个条目，或者有多个匹配时抛出一个异常</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SingleOrDefault</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回数据源的第一个条目，或者无条目时，返回默认值；有多个匹配条目时，抛出一个异常</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Skip / SkipWhile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">跳过指定数目的元素，或者当谓词匹配时跳过</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sum</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">对谓词选定的值求和</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Take / TakeWhile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从数据源的开始处选择指定数目的元素，或当谓词匹配时选择条目</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ToArray / ToDictionary / ToList</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">把数据源转换成数组或其他集合类型</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">否</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Where</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">过滤掉数据源中与谓词不匹配的条目</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">是</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_继承">1.7. 继承</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>继承的类型</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>实现继承</p>
+</li>
+<li>
+<p>接口继承</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>不支持多重实现继承，允许多重接口继承。</p>
+</li>
+<li>
+<p>不支持私有继承。</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>构造函数</p>
+<div class="paragraph">
+<p>构造时的执行顺序是：先基类，后派生类。</p>
+</div>
+</li>
+<li>
+<p>virtual（虚方法）</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>函数默认情况下不是虚拟的。</p>
+</li>
+<li>
+<p>把基类函数声明为 virtual，就可以在任何派生类中 override（重写）该函数。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>使用基类声明派生类时，override（重写）会【改变】方法的功能。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如需调用函数的基类版本，可使用 base.&lt;MethodName&gt; 。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>new（隐藏方法）</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>如果签名相同的方法在基类和派生类中都进行了声明，但没有分别使用 virtual 和 override，派生类方法就会隐藏基类方法。</p>
+</li>
+<li>
+<p>隐藏基类方法应使用 new 进行显式声明，否则系统会发出警告。</p>
+</li>
+<li>
+<p>除非确实必要，一般不推荐使用 new（隐藏方法）。</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>使用基类声明派生类时，new（隐藏方法）【不改变】方法的功能。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>abstract（抽象类和抽象函数）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>抽象类不能实例化。</p>
+</li>
+<li>
+<p>抽象函数不能直接实现，必须在非抽象的派生类中实现。</p>
+</li>
+<li>
+<p>抽象函数本身也是虚拟的（不需要提供 virtual 关键字）。</p>
+</li>
+<li>
+<p>如果类包含抽象函数，则该类也是抽象的，必须相应声明。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>sealed（密封类和密封方法）</p>
+<div class="ulist">
+<ul>
+<li>
+<p>对于类，表示不能继承该类。</p>
+</li>
+<li>
+<p>对于方法，表示不能重写该方法。</p>
+</li>
+<li>
+<p>要在方法或属性上使用 sealed 关键字，必须先重写于一个基类。如果基类上不希望有重写的方法或属性，就不要声明为 virtual。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>扩展方法必须为静态，且必须在静态类中定义。</p>
+</li>
+<li>
+<p>用法举例（virtual/override/new）：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="c++" class="language-c++ hljs">class A {
+    public virtual void Func() // 虚函数，允许override
+    {
+        Console.WriteLine("Func In A");
+    }
+    public void Non_virtual()  // 非虚函数
+    {
+        Console.WriteLine("Non virtual func in A");
+    }
+}
+class B : A {
+    public override void Func() // 虚函数，override
+    {
+        Console.WriteLine("Func In B");
+    }
+    public void Non_virtual() // 非虚函数，不能override，隐式隐藏
+    {
+        Console.WriteLine("Non virtual func in B");
+    }
+}
+class C : B {
+    public void Non_virtual() // 非虚函数，不能override，隐式隐藏
+    {
+        Console.WriteLine("Non virtual func in C");
+    }
+}
+class D : A {
+    public new void Func() // 基类是虚函数，显式new
+    {
+        Console.WriteLine("Func In D");
+    }
+    public new void Non_virtual() // 基类是非虚函数，显式new
+    {
+        Console.WriteLine("Non virtual func in D");
+    }
+}
+
+class Program {
+    static void Main(string[] args) {
+        A a = new A();
+        A b = new B();
+        A c = new C();
+        A d = new D();
+        a.Func();  // Func In A
+        b.Func();  // Func In B，基类声明，override 会【改变】方法的功能。
+        c.Func();  // Func In B
+        d.Func();  // Func In A，基类声明，new 【不改变】方法的功能。
+        D d1 = new D();
+        d1.Func(); // Func In D，非基类声明，执行派生类的方法。
+
+        a.Non_virtual();  // Non virtual func in A
+        b.Non_virtual();  // Non virtual func in A
+        c.Non_virtual();  // Non virtual func in A
+        d.Non_virtual();  // Non virtual func in A
+        d1.Non_virtual(); // Non virtual func in D
+
+        Console.ReadLine();
+    }
+}</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_规则和习惯做法">1.8. 规则和习惯做法</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>命名规则</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>公有属性采用 Pascal 大小写形式命名，如果存在一个等价的私有字段，则采用 camel 大小写形式命名。把下划线(_)作为前缀，会为识别字段提供极大便利。</p>
+</li>
+<li>
+<p>接口名称通常以字母 I 开头。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_其他">1.9. 其他</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>运算符计算顺序举例：</p>
+<div class="listingblock">
+<div class="content">
+<pre>int a = 5;
+int b = a++ + (++a) * 2 + ++a;  // b = 5 + 7 * 2 + 8 = 27</pre>
+</div>
+</div>
+</li>
+<li>
+<p>除非特别指定，C#的所有引用类型都通过引用来传递，所有值类型都通过值来传递。</p>
+<div class="ulist">
+<ul>
+<li>
+<p>强制值参数通过引用传递给方法，可以使用 <code>ref</code> 关键字，例如：</p>
+<div class="listingblock">
+<div class="content">
+<pre>static void SomeFunction(int[] ints, ref int i) {
+    ints[0] = 100;
+    i = 100; // The change to i will persist after SomeFunction() exits.
+}
+
+SomeFunction(ints, ref i);</pre>
+</div>
+</div>
+</li>
+<li>
+<p>在方法的输入参数前加上 out 前缀，传递给该方法的变量可以不初始化。</p>
+<div class="listingblock">
+<div class="content">
+<pre>static void SomeFunction(out int i) {
+    i = 100;
+}
+
+public static int Main() {
+    int i; // note how i is declared but not initialized.
+    SomeFunction(out i);
+    Console.WriteLine(i);
+    return 0;
+}</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>如果提供了带参数的 <code>构造函数</code> ，编译器就不再自动提供默认的构造函数。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>类有一些静态字段或属性，需要在第一次使用类之前从外部源中初始化，可以使用 <code>静态构造函数</code> 。</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>静态构造函数总是由.NET运行库调用，所以没有访问修饰符（无意义）</p>
+</li>
+<li>
+<p>不能带任何参数</p>
+</li>
+<li>
+<p>一个类只有一个静态构造函数</p>
+</li>
+<li>
+<p>只能访问类的静态成员，不能访问实例成员</p>
+</li>
+<li>
+<p>静态构造函数和无参数的实例构造函数可以在同一个类中定义，加载类时执行前者，创建实例时执行后者。</p>
+</li>
+<li>
+<p>若多个类中都有静态构造函数，先执行哪个无法确定。一个静态构造函数中的代码不应依赖于其他静态构造函数。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>只读字段</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>readonly 关键字比 const 更灵活，可以在构造函数中赋值，但不能在其他地方赋值。</p>
+</li>
+<li>
+<p>可以是实例字段，而不是静态字段，类的每个实例可以有不同的值。</p>
+</li>
+<li>
+<p>如果要把只读字段设置为静态，必须显式声明。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>弱引用</p>
+<div class="ulist">
+<ul>
+<li>
+<p>实例化一个类或结构时，只要有代码引用它，就会形成强引用，垃圾回收器不会清理 MyClass 对象使用的内存。</p>
+<div class="listingblock">
+<div class="content">
+<pre>MyClass myClassVariable = new MyClass();</pre>
+</div>
+</div>
+</li>
+<li>
+<p>如果类对象很大又不经常访问，（特殊情况下）可以创建对象的弱引用（WeakReference）。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>System.Object()方法</p>
+<div class="ulist">
+<ul>
+<li>
+<p>ToString()</p>
+</li>
+<li>
+<p>GetHashCode()</p>
+</li>
+<li>
+<p>Equals() 和 ReferenceEquals()</p>
+</li>
+<li>
+<p>Finalize()</p>
+</li>
+<li>
+<p>GetType()</p>
+</li>
+<li>
+<p>MemberwiseClone()</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>使用 <code>csc.exe</code> 编译：</p>
+<div class="ulist">
+<ul>
+<li>
+<p>选项</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">选项</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">输出</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/t:exe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">控制台应用程序（默认）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/t:library</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">带有清单的类库</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/t:module</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">没有清单的组件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/t:winexe</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows应用程序（无控制台窗口）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/out</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定编译后生成的输出文件名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/r (/reference)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定引用库</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>举例：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>// 生成dll
+csc /t:library MathLibrary.cs
+
+// 生成exe
+csc MathClient.cs /r:MathLibrary.dll
+
+// 执行exe
+MathClient.exe</pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_faq">1.10. FAQ</h3>
+<div class="qlist qanda">
+<ol>
+<li>
+<p><em><code>class</code> 和 <code>struct</code> 的区别？</em></p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>class</code> 是存储在堆（heap）上的引用类型，而 <code>struct</code> 是存储在栈（stack）上的值类型。</p>
+</li>
+<li>
+<p><code>struct</code> 不支持继承。（唯一例外是最终派生于 System.Object，继承链为：* &#8592; System.ValueType &#8592; System.Object）</p>
+</li>
+<li>
+<p><code>struct</code> 不允许定义无参数的构造函数。（编译器总是提供一个无参数的默认构造函数，不允许替换。）</p>
+</li>
+<li>
+<p>较小的数据类型使用 <code>struct</code> 可以提高性能。</p>
+</li>
+<li>
+<p><code>struct</code> 可以指定字段如何在内存中布局。</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><em>xxxxx</em></p>
+<p>xxx</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_asp_net">2. ASP.NET</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_asp_net_基础">2.1. ASP.NET 基础</h3>
+<div class="sect3">
+<h4 id="_web窗体">2.1.1. Web窗体</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Web窗体代码片段类型</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">代码</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">含义</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示标准代码片段，其中包含由ASP.NET Framework计算的代码语句。如果希望发送给浏览器的响应中包含HTML，则必须在代码片段中使用Response.Write方法。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%=</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示内容代码片段。与标准代码片段相似，但其结果将被插入到发送给浏览器的响应中，无需显式调用Response.Write。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示已编码代码片段。类似于&lt;%=，但响应将进行HTML编码。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%#</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示数据绑定代码片段，用于引用当前数据对象。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%#:</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示已编码数据绑定代码片段，期中的数据绑定值已编码。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%$</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">属性代码片段。用于引用配置值（如那些在Web.config中定义的值）。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&lt;%@</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">表示指令，用于配置Web窗体（或控件和母版页，具体因指令的类型而异）。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_生命周期和上下文">2.1.2. 生命周期和上下文</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>HttpApplication类定义的请求生命周期事件</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="aqua">Start</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application_Start</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BeginRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ASP.NET Framework收到新请求时触发的第一个事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AuthenticateRequest PostAuthenticateRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要识别提出请求的用户时，将触发AuthenticateRequest事件。处理完所有事件处理程序后，将触发PostAuthenticateRequest事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AuthorizeRequest PostAuthorizeRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要授权请求时，将触发AuthorizeRequest事件。处理完所有事件处理程序后，将触发PostAuthorizeRequest事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ResolveRequestCache PostResolveRequestCache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要解析缓存数据中的请求时，将触发ResolveRequestCache事件。处理完所有事件处理程序后，将触发PostResolveRequestCache事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MapRequestHandler PostMapRequestHandler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要为请求查找处理程序时，将触发MapRequestHandler事件。选择处理程序后，将触发PostMapRequestHandler事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="aqua">Session_Start</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Session_Start</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AcquireRequestState PostAcquireRequestState</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要与请求关联的状态（会话状态）时，将触发AcquireRequestState事件。处理完所有事件处理程序后，将触发PostAcquireRequestState事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreRequestHandlerExecute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在要求处理程序处理请求之前，会立即触发这些事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="aqua">显示页面</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PostRequestHandlerExecute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在要求处理程序处理请求之后，会立即触发这些事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ReleaseRequestState PostReleaseRequestState</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework不再需要与请求关联的状态时，将触发ReleaseRequestState事件。处理完所有事件处理程序后，将触发PostReleaseRequestState事件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UpdateRequestCache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">触发此事件以便负责缓存的模块更新其状态。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LogRequest PostLogRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework需要记录此请求的详细信息时，将触发LogRequest事件。处理完所有事件处理程序后，将触发PostLogRequest事件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EndRequest</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当ASP.NET Framework处理完请求、准备向浏览器发送响应时，将触发EndRequest事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreSendRequestHeaders</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将在向浏览器发送HTTP标头之前触发PreSendRequestHeaders事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreSendRequestContent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将在发送标头之后、在向浏览器发送内容之前触发PreSendRequestContent事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="aqua">Error</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将在遇到错误时触发Error事件——处理请求的任何阶段都可能发生此事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="aqua">End</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application_End</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpContext 成员</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于管理应用程序状态数据的HttpApplicationState对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ApplicationInstance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回与当前请求关联的HttpApplication对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于缓存响应数据的Cache对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Current</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（静态）返回当前请求的HttpContext对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsDebuggingEnabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果已将调试器附加到Web窗体应用程序，则返回true。可以将此成员用于执行特定于调试的操作，但如果要这样做，部署之前请在不使用调试器的情况下进行全面测试。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Items</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回可用于在参与处理请求的ASP.NET Framework组件之间传递状态数据的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetSection(name)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从Web.config文件中获取指定的配置部分</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Profile</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于访问每个用户配置文件数据的ProfileBase对象。并非所有的安全模块都会设置此值，因此，应该使用ProfileBase.Create方法</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回提供所处理的请求的详细信息的HttpRequest对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个HttpResponse对象，该对象提供正在构建并将发送到浏览器的响应的详细信息</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Session</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于访问会话状态的HttpSession状态对象。此属性将返回null，直到触发PostAcquireRequestState应用程序事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个HttpServerUtility对象，其中可能包含实用功能，最有用的功能包括：用于对字符串进行安全编码已将其作为HTML显示的方法，以及用于控制请求处理程序执行的功能</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">TimeStamp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个DateTime对象，其中包含创建HttpContext对象的时间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于访问有关请求的安全信息的IPrincipal接口实现</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpApplication 成员</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Application</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">与HttpContext.Application属性对应</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CompleteRequest()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">废弃当前请求的生命周期，直接转到EndRequest事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Context</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回当前请求的HttpContext对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Init()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在每个注册的模块上调用Init方法后调用</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modules</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回提供应用程序中模块详细信息的HttpModuleCollection对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RegisterModule(type)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">添加一个新模块</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Request</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回HttpContext.Request的值，但如果该值为null，将抛出HttpException</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Response</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回HttpContext.Response的值，但如果该值为null，将抛出HttpException</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">与HttpContext.Server属性对应</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Session</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回HttpContext.Session的值，但如果该值为null，将抛出HttpException</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回HttpContext.User的值，但如果该值为null，将抛出HttpException</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpRequest 属性</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AcceptTypes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回浏览器接受的MIME类型的字符串数组</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Browser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回描述浏览器功能的HttpBrowserCapabilities对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContentEncoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个System.Text.Encoding对象，该对象表示用于对请求数据进行编码的字符集</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContentLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回请求中内容的字节数</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContentType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回请求中内容的MIME类型</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cookies</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回包含请求中的cookie的HttpCookieCollection对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Files</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回浏览器在窗体中发送的文件的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Form</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于访问窗体数据</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Headers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个包含请求头的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HttpMethod</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回用于提出请求的HTTP方法（GET、POST等）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InputStream</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回可用于读取请求内容的流</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsLocal</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果请求源自本地计算机，则返回true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Params</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">查询字符串、窗体字段和cookie中的组合数据项的集合。也可以直接在HttpRequest对象上使用数组风格的索引器，以使Request[“myname”]与Request.Params[“myname”]相同</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QueryString</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回查询字符串参数的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RawUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回URL中域名之后的部分</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Url</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">以System.Uri对象的形式返回请求URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UrlReferrer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">以System.Uri对象的形式返回引用URL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UserAgent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回浏览器提供的用户代理字符串</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UserHostAddress</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回远程客户端的IP地址（用字符串表示）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UserHostName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回远程客户端的DNS名称</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UserLanguages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回浏览器/用户首选的语言的字符串数组</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpResponse 属性</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AppendCookie(cookie)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于将cookie添加到集合中的便捷方法</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AppendHeader(name, val)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于在响应中添加新头部的便捷方法</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BufferOutput</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置一个值，表明是否应在将请求发送给浏览器之前完全缓冲请求，默认值为true。如果将此值更改为false，随后的模块和处理程序将无法更改响应</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cache</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回为响应指定缓存策略的HttpCachePolicy对象</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CacheControl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置响应的cache-control HTTP标头</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Charset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置为响应指定的字符集</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear() ClearContent()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这些方法是等价的，用于从响应中删除内容</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ClearHeaders()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从响应中删除所有头部</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ContentEncoding</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置响应中内容的编码</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cookies</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取响应的cookie集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Headers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回响应头的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsClientConnected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果客户端仍连接到服务器，则返回true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsRequestBeingDirected</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果将向浏览器发送重定向，则返回true</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回可用于向响应中写入文本的TextWriter</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OutputStream</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回可用于向响应中写入二进制数据的Stream</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RedirectLocation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置HTTP Location头的值</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置响应的状态，默认值为200(OK)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StatusCode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置状态的数字部分，默认值为200</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">StatusDescription</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置状态的文本部分，默认值为(OK)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SuppressContent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果设置为true，会避免将响应内容发送给客户端</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Write(data)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将数据写入到响应输出流中</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WriteFile(path)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将指定文件的内容写入到输出流中</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_模块modules和处理程序handlers">2.1.3. 模块（Modules）和处理程序（Handlers）</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>HttpModulesCollection 属性</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AllKeys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个包含所有已注册模块名称的字符串数组</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回已注册的模块数</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>模块(Module)与处理程序(Handler)的选择</p>
+<div class="ulist">
+<ul>
+<li>
+<p>定制现有应用处理响应的方式，使用模块。</p>
+</li>
+<li>
+<p>创建新的Web应用，使用处理程序。</p>
+</li>
+<li>
+<p>模块为处理程序准备请求，处理程序为客户端生成响应。不要在模块中生成响应，也不要在处理程序中实现请求功能（如状态管理和安全性）。</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_页面和控件的事件">2.1.4. 页面和控件的事件</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>System.Web.UI.Page类事件</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreInit</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在ASP.NET Framework调用由IHttpHandler接口定义的ProcessRequest方法后触发。此事件用于配置页面，通常通过设置与Page指令中的特性对应的属性的值来完成操作</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Init</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在将页面中的所有控件发送给Initial事件后触发</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InitComplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在设置视图状态时触发。在触发此事件之前分配的视图状态数据值将会丢失</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreLoad</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在处理请求中的数据后触发。这些数据包括视图状态和表单数据</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在将Load事件发送给Web窗体中的控件之前触发。此事件有助于设置控件所需的资源（如数据库）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LoadComplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在执行所有控件的事件处理程序后触发。这包括控件Load事件以及控件触发的任何自定义事件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreRender</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在从Web窗体生成HTML响应之前触发。此事件用于对Web窗体内容、可编程HTML元素或它包含的控件做出最终调整</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreRenderComplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在将PreRender事件发送给Web窗体包含的控件后调用</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SaveStateComplete</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在保存状态数据（包括视图和会话状态）后触发。在触发此事件之后对状态所做的更改将会丢失，但它们将会影响HTML响应</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在生成HTML响应以便释放Web窗体使用的所有资源（如数据库连接）后触发</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Error</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在Web窗体或它包含的其中一个控件中出现未经处理的异常时触发。此事件可以在事件序列的任何位置触发</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>发送给控件的事件</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Init</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在首次初始化控件时触发。处理此事件可执行基本的初始化，如设置数据库连接。可以访问有关请求的基本信息，但视图状态和表单数据不可用。不要尝试访问其他控件，因为它们可能尚未初始化</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Load</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在视图状态和表单数据可用时触发。可以定位Web窗体中的其他控件并与其交互</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PreRender</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在调用Render方法来为响应生成HTML片段之前触发。处理此事件可设置要生成的内容，包括管理包含在标记中的嵌套控件</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在呈现过程之后调用。处理此事件可释放一直使用的任何资源，如数据库连接</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_管理请求执行过程">2.1.5. 管理请求执行过程</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_管理状态数据">2.1.6. 管理状态数据</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>HttpApplication类定义的部分成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">成员</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AllKeys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回包含所有键值的字符串数组</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回应用程序数据项的数量</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">删除应用程序状态中的所有数据项</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Lock()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">序列化对应用程序数据的访问</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove(key)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从应用程序状态中删除包含指定键的项</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unlock()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">解锁应用程序数据，以便执行并发更新</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>不要尝试将实例变量设置为 static 来避免状态丢失问题。这基本上等同于使用应用程序数据，但这会强制使 ASP.NET Framework
+序列化对变量的访问，因而降低应用程序的性能。如果确实应用了static关键字，则需要确保安全更新数据（需要用到并行编程技术）。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Application属性存储的数据保存在内存中，在停止或重启应用程序时，数据将丢失。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>配置文件 Web.config</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>add元素创建连接字符串时定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">特性</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定此连接的名称。该名称用于引用连接（多数情况位于Web.config文件的其他位置）。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">connectionString</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">连接的详细信息</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">providerName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将用于连接到数据库类的类型。默认值为System.Data.SqlClient。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>profile元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">特性</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）指定是否启用配置文件功能。默认值为true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定provider元素的name特性值，用于获取配置文件值。可使用properties/add元素中的提供程序特性在
+各种属性中改写此值。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>profile/providers/add元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">特性</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定此提供程序的名称。该名称通常与profile元素中defaultProvider特性的值相同。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定将实例化以提供配置文件值的类。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">connectionStringName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将用于连接到数据库的连接字符串的名称。此值与Web.config文件connectionStrings部分中的元素
+对应。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">applicationName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）为应用程序指定名称。此特性有利于两个不同的ASP.NET Framework应用程序共享相同的配置文件
+数据。如果省略此特性，将自动生成唯一的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">commandTimeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）指定SQL命令超时的秒数。默认值为30，表示30秒。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">description</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）为提供程序指定说明。极少用。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>profile/properties/add元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">特性</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">所定义的配置文件属性的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）属性的类型。如果省略该属性，则取默认值String。正确设置此值可以更轻松的解析或转换值。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">provider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）为此值指定提供程序。可以通过不同的provider获取每个属性。如果省略此特性，则使用profile元素中的
+defaultProvider特性值。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allowAnonymous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）如果为true，则匿名请求可以访问配置文件的属性。默认值为false。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultValue</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）如果数据库中没有用户的已存储值，则设置为分配给该属性的默认值。如果省略此值，则使用属性类型的
+默认值：string类型为空字符串，int类型为零，等等。还可以将此特性设置为String null，意味着将使用null值。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">readOnly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（可选）如果为true，将无法更改。默认值为false。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>sessionState元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">allowCustomSqlDatabase</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">使用非默认的会话数据库时，需要指定为true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cookieless</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定如何使用cookie将请求与会话关联。默认值为为AutoDetect，此时ASP.NET Framework将确定浏览器是否支持
+cookie，如果不支持，则将会话信息嵌入在URL中。其他值包括UseCookies和UseUri，分别用于强制使用cookie和URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cookieName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定用于存储会话ID的cookie名称。默认值为 ASP.NET_SessionId 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定如何存储会话数据。默认值为InProc，指将会话数据存储在ASP.NET Framework应用程序中。其他值包括：Off（对整个
+应用程序禁用会话状态）、SQLServer以及StateServer。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sqlConnectionString</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于在SQL数据库中存储会话数据时指定数据库服务器连接的详细信息。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stateConnectionString</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用于在状态服务器中存储会话数据时指定服务器进程连接的详细信息。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+<div class="qlist qanda">
+<ol>
+<li>
+<p><em>如何启用ASP.NET状态服务器？</em></p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>如果是本地计算机，打开【服务】，启动 ASP.NET State Service 。</p>
+</li>
+<li>
+<p>如果是在另一台计算机上运行状态服务器，需要将注册表属性
+HKLM\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\AllowRemoteConnection
+改为1，然后添加一条防火墙规则，允许在端口42424上传入请求。</p>
+</li>
+<li>
+<p>在应用程序中将stateConnectionString特性指定为 tcpip=&lt;servername&gt;:42424</p>
+</li>
+<li>
+<p>42424 是状态服务器的默认端口，可以在
+HKLM\SYSTEM\CurrentControlSet\Services\aspnet_state\Parameters\Port
+中修改端口。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>ProfileBase类定义的成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsAnonymous</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果配置文件用于匿名用户，则返回true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsDirty</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果配置文件中的一个或多个属性已发生更改，则返回true。可以使用此属性避免不必要的调用Save方法。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LastActivityDate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回DateTime，表示上次读取或修改配置文件的时间。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LastUpdatedDate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回DateTime，表示上次修改配置文件的时间。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Properties</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">（静态）返回配置文件属性的集合。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UserName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回配置文件所代表用户的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create(name)、Create(name, auth)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">加载指定用户的配置文件。auth参数是一个bool值，如果为true，则表示用户已通过
+身份验证，如果为false，则为匿名用户。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Save()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">保存已更改的配置文件属性值。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpSessionState类定义的成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回会话数据项的数量。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsCookieLess</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在请求中添加cookie或在请求URL中添加相关信息，将请求与会话关联。如果使用请求URL选项，此属性返回true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsNewSession</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果这是第一个会话请求，则返回true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsReadOnly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果会话数据是只读数据（需将Web窗体Page指令中的EnableSessionState特性设置为ReadOnly），则返回true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回所有会话状态数据项的键的集合。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Mode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回如何使用System.Web.SessionState.SessionStateMode枚举中的值存储会话数据的详细信息。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SessionID</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回当前会话的唯一ID</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Abandon()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">结束当前会话。随后提出任何其他请求都会创建一个新会话。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从当前会话的会话状态中删除所有数据项。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>会话数据库</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>创建会话数据库</p>
+<div class="paragraph">
+<p>打开命令行，导航到 C:\Windows\Microsoft.NET\Framework\v4.0.30319 （.NET Framework版本不同，路径可能不同），
+运行以下命令：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.\aspnet_regsql.exe -S "(localdb)\v11.0" -E -ssadd -sstype p
+
+// -S: 指定数据库服务器
+// -E: 指定应使用Windows凭据对数据库连接进行身份验证。
+// -ssadd: 用于创建会话数据库。
+// -sstype: 指定应如何存储数据。</pre>
+</div>
+</div>
+<table class="tableblock frame-topbot grid-all fit-content">
+<caption class="title">Table 1. 会话状态数据库的数据存储选项</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">选项</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">t</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在数据库ASPState中创建用于管理会话数据的存储过程，但数据本身不是持久的，如果重启数据库，数据将丢失。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">p</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">存储过程和数据在数据库ASPState中持久存在。即使重启数据库，数据不会丢失。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">c</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在 -d 选项指定名称的数据库中创建存储过程和数据。即使重启数据库，数据不会丢失。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>使用会话数据库</p>
+<div class="listingblock">
+<div class="content">
+<pre>// 按默认数据库使用，NG，应去除Initial Catalog 特性。
+&lt;sessionState timeout="60" mode="SQLServer"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Initial Catalog=ASPState;Integrated Security=True" /&gt;
+
+// 按默认数据库使用，OK，ASP.NET Framework将自动查找数据库ASPState。
+&lt;sessionState timeout="60" mode="SQLServer"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Integrated Security=True" /&gt;
+
+// 按自定义数据库使用，需增加 allowCustomSqlDatabase 特性
+&lt;sessionState timeout="60" mode="SQLServer" allowCustomSqlDatabase="true"
+ sqlConnectionString="Data Source=(localdb)\v11.0;Initial Catalog=ASPState;Integrated Security=True" /&gt;</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>HttpCookieCollection类定义的成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Add(cookie)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">在集合中添加一个新cookie</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clear()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">删除所有cookie</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CopyTo(array)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将cookie复制到HttpCookie数组</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Count</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回集合中cookie的数量</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Keys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回cookie名称的集合</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Remove(name)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从集合中删除指定名称的cookie</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>HttpCookie类定义的成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取并设置与cookie关联的域</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expires</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置cookie的到期时间</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HttpOnly</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置是否可以通过Ajax Javascript调用访问cookie</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置cookie的名称</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置是否仅通过SSL连接传送cookie</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Shareable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置是否应缓存和共享cookie值</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Value</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">获取或设置cookie的值</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>建议避免在ASP.NET Framework应用程序中直接使用cookie，而应采用会话数据或配置文件数据。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_缓存">2.1.7. 缓存</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_错误处理">2.1.8. 错误处理</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_管理路径">2.1.9. 管理路径</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_url路由">2.1.10. URL路由</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_身份验证和授权">2.1.11. 身份验证和授权</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Authentication/Forms元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cookieless</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">定义是使用cookie来标识用户，还是将用户信息编码到URL中。支持的值包括 UseCookies（始终使用cookie）、
+UseUri（从不使用cookie）、AutoDetect（如果设备支持，则使用cookie）和 UseDeviceProfile（如果浏览器支持，则使用
+cookie）。默认值为 UseDeviceProfile。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定在身份验证之后将浏览器定向到的URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">为身份验证cookie指定域。默认值为空字符串（""）。设置此特性可以在子域之间共享cookie。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enableCrossAppRedirects</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果设置为true，则可以将通过身份验证的用户重定向到其他适当配置的应用程序。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">loginUrl</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定当请求中不包含身份验证令牌时，对于指向需要身份验证的URL的请求，要将浏览器定向到的URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设置用于将用户身份与浏览器提出的请求关联的cookie的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定cookie的路径。默认值为/，表示将cookie应用于整个站点。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Protection</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定如何保护身份验证cookie。支持的值包括Encryption（加密cookie）、Validation（验证cookie的内容，
+以确保未对它们做出修改）、All（加密并且验证cookie）和None（完全不保护cookie）。默认值为All。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">requireSSL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果设置为true，此特性将配置身份验证cookie，以便浏览器仅为通过SSL提出的请求提交cookie。默认值为False
+。建议启用此特性，有助于防止身份验证cookie被捕获并被添加到用于假冒用户的恶意请求中。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">slidingExpiration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果设置为true，将在每次收到请求时更新身份验证cookie，以便相对于用户最新提出的请求应用timeout
+特性的值。如果设置为false，将相对于身份验证的时间应用timeout特性的值。默认值为true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ticketCompatibilityMode</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定如何表示身份验证过期日期。如果值为Framework20，将使用本地时间；如果值为Framework40
+，将使用UTC。默认值为Framework20，但如果应用程序是通过单一URL部署的，但受不同时区的数据中心支持，则应使用Framework40。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Timeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定cookie过期前的分钟数。如果将slidingExpiration特性设置为true，则会更新cookie，以相对于最新提出的请求
+设置过期。否则，将相对于身份验证的时间设置过期。默认值为30，表示30分钟。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>FormsAuthentication 类定义的方法和属性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsEnabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果应用程序已配置为使用窗体身份验证，则返回true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetAuthCookie(user, persist)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">为指定用户创建身份验证cookie。第2个参数是bool值，如果为true，将创建在当前会话过期
+后仍然有效的cookie。使用SetAuthCookie方法的情况更加常见，该方法可以在一个步骤中创建上述cookie并将其添加到响应中。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GetRedirectUrl(user, persist)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回在查询字符串中指定的重定向URL，在用户完成身份验证后，应将其返回到该URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RedirectFromLoginPage(user, persist)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设置身份验证cookie，并重定向浏览器以返回在查询字符串中指定的用于请求身份
+验证的URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RedirectToLoginPage()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将浏览器重定向到loginUrl配置特性指定的URL。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SetAuthCookie(user, persist)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">为指定用户创建身份验证cookie并将其添加到结果中。第2个参数指定cookie是否能够在会话
+期间持续有效。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SignOut()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">从响应中删除身份验证cookie，意味着浏览器随后提出的请求将不能通过身份验证（严格来讲，此方法并不会删除cookie
+——它以1999年为过期日期新建身份验证cookie，这样，浏览器就不会在随后的请求中包括该cookie）。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>IPrinciple 接口定义的成员</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回已通过身份验证的用户的身份，用实现 IIdentity 接口的对象表示</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsInRole(string)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">检查是否已为用户分配指定的角色。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>？
+HttpApplication.User 属性还返回一个 IPrinciple 对象，但如果没有与请求关联的对象，它将抛出异常。
+一些HttpContext属性会抛出异常，此时应使用与HttpContext对应的属性，后者返回null，而不是抛出异常。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>IIdentity 接口定义的属性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AuthenticationType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回一个字符串，表示对用户进行身份验证的机制，对于窗体身份验证，此字符串为Forms。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IsAuthenticated</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果用户已通过身份验证，则返回true。（如果从除HttpContext对象以外的来源收到IIdentity实现对象——
+在多数应用程序中都不会出现这种情况——此属性有很大用处。）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">返回当前用户的名称，如果请求未通过身份验证，则返回空字符串（""）。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>roleManager 配置定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cacheRolesInCookie</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">如果为true，此特性指定将已分配给用户的角色存储在用作缓存的cookie中，以避免调用角色提供程序。
+默认值为false。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">cookieName cookiePath cookieProtection cookieRequireSSL cookieSlidingExpiration cookieTimeout
+cookiePersistentCookie domain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这些特性控制用于缓存角色信息的cookie，并与forms元素定义的类似特性对应。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定默认情况下用于执行授权的角色提供程序类的名称</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enabled</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定是否启用角色管理。默认值为false。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxCachedResults</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定在角色cookie中缓存的角色名称的最大数目。默认值为25。</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">users</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定一个或多个将对其应用add或deny元素的用户。可以使用逗号分隔的名称指定多个用户，使用星号（*）指定所有用户，
+或使用问号（?）指定所有未通过身份验证的用户。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">roles</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定一个或多个将对其应用add或deny元素的角色。以逗号分隔多个角色。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">verbs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">将add或deny元素的范围缩小至一个或多个HTTP动词。如果省略，上述元素将适用于所有动词。</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果未匹配任何deny元素，将授权请求。应始终定义一个适用于所有用户或所有未通过身份验证用户的回退deny元素。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>不必显式授予由forms.loginUrl特性指定的Web窗体的访问权限。未通过身份验证的请求将自动获得授权。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/warning.png" alt="Warning">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果没有任何特定于位置的add和deny元素与请求匹配，则应用基准策略。因此，应始终在特定于位置的策略中放置一个回退deny元素，
+以避免访问范围超出预期。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果存在多个location元素，将首先评估最具体的path值。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>项目中只有一个Web.config文件，并且在一个位置定义授权策略，这样理解策略的用途更加容易，也更便于了解某个更改可能造成的影响。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>成员资格</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>通用提供程序</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>名称不准确，其实支持的产品全部来自Microsoft，其他厂商的提供程序可以另外搜索。</p>
+</li>
+<li>
+<p>Nuget程序包：</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Microsoft.AspNet.Providers.Core</p>
+</li>
+<li>
+<p>Microsoft.AspNet.Providers.LocalDb</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>通用与内置SQL提供程序之间的映射</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">通用提供程序类</th>
+<th class="tableblock halign-left valign-top">内置SQL提供程序类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Providers.DefaultMembershipProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Security.SqlMembershipProvider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Providers.DefaultProfileProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Profile.SqlProfileProvider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Providers.DefaultRoleProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Security.SqlRoleProvider</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System.Web.Providers.DefaultSessionStateProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">不需要</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Membership 配置元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">defaultProvider</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">默认将用于获取成员资格数据的存储提供程序的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hashAlgorithmType</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定用于在成员资格数据库中存储密码的散列算法。默认值为SHA1，通用提供程序会将此值应用1000次。
+内置提供程序不会重复应用散列算法，因而破解密码会较为简单。除非熟悉散列加密，否则不要更改此值。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">userIsOnlineTimeWindow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定在收到请求后仍然视用户在使用应用程序的分钟数。默认值为15。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>membership/providers/add 配置元素定义的特性</p>
+<table class="tableblock frame-topbot grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">名称</th>
+<th class="tableblock halign-left valign-top">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">applicationName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">单个成员资格数据库可以存储多个应用程序的数据，但可以通过重用相同的applicationName值，在应用程序
+之间共享成员资格数据。默认值为 / 。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">commandTimeout</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设置成员资格提供程序等待SQL数据库响应查询的秒数。默认值为30。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">connectionStringName</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设置用于连接到数据库的连接字符串的名称。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enablePasswordRetrieval</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定提供程序是否支持密码检索，以便使用 MembershipUser.GetPassword 方法从数据库中读取
+密码值。如果密码经过散列处理或加密（参见passwordFormat特性），应将此值设为false（默认值）。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">enablePasswordReset</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定是否可以使用 Membership.ResetPassword 方法重置密码。默认值为true。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">maxInvalidPasswordAttempts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定在锁定账户之前允许的最大的身份验证失败数。默认值为5，但通用提供程序会将此值改为10。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minRequiredNonalphanumericCharacters</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定新密码需要的最小非字母数字字符数。默认值为1，但通用提供程序会将此值改
+为0。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">minRequiredPasswordLength</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定新密码的最小长度。默认值为7，但通用提供程序会将此值更改为6。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">passwordAttemptWindow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定跟踪失败的身份验证尝试的分钟数。每失败一次，都会重置此时长，直到提供正确的凭据或账户被
+锁定为止。默认值为10。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">passwordFormat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定System.Web.Security.MembershipPasswordFormat枚举中的值在数据库中存储密码的方式。支持的值
+包括Clear（明文形式）、Hashed（散列代码）和Encrypted。默认值为Hashed。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">passwordStrengthRegularExpression</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定用于验证新密码的正则表达式。默认值为空字符串（""），即允许任何密码。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">requiresQuestionAndAnswer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定密码重置和恢复是否需要质询问题和答案。默认值为true，但通用提供程序会将此值改为false。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">requiresUniqueEmail</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">指定是否需要使用唯一的电子邮件地址创建每个账户。默认值为true，但通用提供程序会将此值改为false。</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>使用 ASP.NET Web Configuration Tool</p>
+<div class="paragraph">
+<p>从VS2013开始，此工具已被移除，可用如下方法打开该工具：</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>打开命令行，导航到.NET的安装目录（例如：C:\Windows\Microsoft.NET\Framework\v4.0.30319 ，.NET Framework版本
+不同，路径可能不同），运行以下命令，通过向导创建成员管理数据库。</p>
+<div class="listingblock">
+<div class="content">
+<pre>aspnet_regsql.exe</pre>
+</div>
+</div>
+</li>
+<li>
+<p>打开命令行（【非】管理员权限），导航到IIS的安装目录（例如：C:\Program Files (x86)\IIS Express ），使用如下命令
+启动IIS服务，注意将[port]替换为空闲的端口号。</p>
+<div class="listingblock">
+<div class="content">
+<pre>iisexpress.exe /path:C:\Windows\Microsoft.NET\Framework\v4.0.30319\ASP.NETWebAdminFiles /vpath:/ASP.NETWebAdminFiles /port:[port] /clr:4.0 /ntlm</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果IIS成功启动，命令行会输出一些日志。</p>
+</div>
+</li>
+<li>
+<p>打开【IE】浏览器，输入如下地址，注意将[port]替换为前一步定义的端口号，将[appPath]替换为包含
+<span class="line-through">*.sln</span> Web.config 文件的物理项目路径（原始路径需进行URL编码后使用）。</p>
+<div class="listingblock">
+<div class="content">
+<pre>http://localhost:[port]/asp.netwebadminfiles/default.aspx?applicationPhysicalPath=[appPath]&amp;applicationUrl=/</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果用其他浏览器打开，会弹出对话框，要求输入用户名和密码。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_asp_net配置">2.1.12. ASP.NET配置</h4>
+
+</div>
+<div class="sect3">
+<h4 id="_异步请求处理">2.1.13. 异步请求处理</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_asp_net_mvc_5">2.2. ASP.NET MVC 5</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Razor 视图引擎</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>声明视图模型对象的类型使用了 @model （首字母小写），而访问 Name 属性使用了 @Model （首字母大写）。</p>
+<div class="listingblock">
+<div class="content">
+<pre>@model Razor.Models.Product
+...
+&lt;div&gt;
+    @Model.Name
+&lt;/div&gt;
+...</pre>
+</div>
+</div>
+</li>
+<li>
+<p>Views 文件夹中以下划线（_）开头的文件不会返回给用户，可以通过文件名来区分要进行渲染的视图和对视图进行支持的文件（例如视图布局文件）。</p>
+</li>
+<li>
+<p>如果视图是自包含的，且不想使用布局，应将 Layout 属性设置为 null 。如果忽略 Layout 属性，MVC 框架将使用视图起始文件（_ViewStart.cshtml）。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>控制器类总是以 Controller 结尾，而在对类进行引用时，要忽略类名的 Controller 部分。</p>
+<div class="paragraph">
+<p>例如：ProductController 在路由配置文件 RouteConfig.cs 中引用时，应使用 Product。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_entity_framework">3. Entity Framework</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_连接as400通过_db2_data_server_client">3.1. 连接AS400（通过 DB2 Data Server Client）</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>AS400命令</p>
+<div class="listingblock">
+<div class="content">
+<pre>// 获取服务器的Entry名，填入连接配置字符串中。
+// Work with Relational Database Directory Entries
+WRKRDBDIRE</pre>
+</div>
+</div>
+</li>
+<li>
+<p>客户端安装</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>准备：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Windows：10（64位），7（32位）</p>
+</li>
+<li>
+<p>DB2 Data Server Client（当前最新版为 v11.1 FixPack 2）</p>
+</li>
+<li>
+<p>Visual Studio：2013</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>安装前：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>电脑名不能超过15个英文字符。</p>
+</li>
+<li>
+<p>安装路径中不能有空格，路径不宜过长。</p>
+</li>
+<li>
+<p>建议安装32位版本（因VisualStudio为32位，VSAI只有32位版）。</p>
+</li>
+<li>
+<p>VSAI目前只支持到VS2013，VS2015及之后的版本是否兼容待验证。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>安装时：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>使用管理员权限运行安装程序。</p>
+</li>
+<li>
+<p>一般选择【典型安装】即可。</p>
+</li>
+<li>
+<p>为学习方便，【禁用】操作系统安全性（关联：DB2管理员组DB2ADMNS，DB2用户组DB2USERS）。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>安装后：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>打开命令行窗口</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2cmd</pre>
+</div>
+</div>
+</li>
+<li>
+<p>将授权文件（db2consv_ee.lic）拷贝到命令行的当前路径。</p>
+</li>
+<li>
+<p>追加授权</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2licm -a db2consv_ee.lic</pre>
+</div>
+</div>
+</li>
+<li>
+<p>（可选）显示授权</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2licm -l</pre>
+</div>
+</div>
+</li>
+<li>
+<p>连接测试</p>
+<div class="listingblock">
+<div class="content">
+<pre>testconn40 "Database=EntryXXX;User ID=UserXXX;Server=YourIP:446;Persist Security Info=True;password=PwdXXX"</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>开发前：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Entity Framework Tools（已安装）</p>
+</li>
+<li>
+<p>下载Nuget包：</p>
+<div class="listingblock">
+<div class="content">
+<pre>Install-Package EntityFramework.IBM.DB2</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>服务器端安装（参照客户端的安装方法）</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>准备：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>DB2 Data Server Runtime Client</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>如果在64位操作系统上安装了32位的 DB2 Data Server Runtime Client，需要将IIS应用程序池对应项目的“高级设置-启用32位应用程序”设为True，
+否则会报错：“未能加载文件或程序集“IBM.Data.DB2”或它的某一个依赖项。试图加载格式不正确的程序。”</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>DB2命令</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>验证安装文件、实例和数据库功能</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2val</pre>
+</div>
+</div>
+</li>
+<li>
+<p>命令帮助</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2 ?</pre>
+</div>
+</div>
+</li>
+<li>
+<p>SQL 错误代码详情</p>
+<div class="listingblock">
+<div class="content">
+<pre>db2 ? sqlnnnn</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>异常处理</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>安装 .NET Framework 安全补丁后，应用加载时报错：</p>
+<div class="listingblock">
+<div class="content">
+<pre>ERROR - DB2.NET Factory lookup failed ...
+DbProviderFactories section can only appear once per config file ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>解决方法如下：</p>
+</div>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>打开“C:\Windows\Microsoft.NET\Framework\v4.0.30319\Config\Machine.Config”文件，搜索“DbProviderFactories”：</p>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;system.data&gt;
+    &lt;DbProviderFactories&gt;
+        &lt;add name=... /&gt;
+        &lt;add name=... /&gt;
+    &lt;/DbProviderFactories&gt;
+    &lt;DbProviderFactories/&gt;
+&lt;/system.data&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>将“&lt;DbProviderFactories/&gt;”这一行删除，保存、退出。</p>
+</div>
+</li>
+<li>
+<p>确认“C:\Windows\Microsoft.NET\Framework\v2.0.50727\Config\Machine.Config”文件中是否也有多余的行，如有则删除。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_as400端数据准备">3.2. AS400端数据准备</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>AS400中的对象文件（例如PF）必须是 <span class="yellow-background">Unique</span> 的，且开启 Journal。</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>增加journal：</p>
+<div class="listingblock">
+<div class="content">
+<pre>CRTJRNRCV JRNRCV(YOURLIB/JRNRCV01) TEXT('JOURNAL RECEIVER 01')
+CRTJRN JRN(YOURLIB/JRN01) JRNRCV(YOURLIB/JRNRCV01)
+STRJRNPF FILE(YOURLIB/YOURFILE) JRN(YOURLIB/JRN01)</pre>
+</div>
+</div>
+</li>
+<li>
+<p>生成自增列：</p>
+<div class="listingblock">
+<div class="content">
+<pre> ** CREATED BY DDS FIRST, THEN ALTER BY SQL STATEMENT
+ **   ALTER TABLE #YourLib/#YourPF ALTER COLUMN
+ **   OPUNID SET GENERATED ALWAYS AS IDENTITY
+ **   ( START WITH 1, INCREMENT BY 1, CYCLE,
+ **     MINVALUE 1 )
+A            OPUNID         9S 0       COLHDG('UNIQUE IDENTITY')</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_技巧和知识点">3.3. 技巧和知识点</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>debug时，将EF（6.0+）生成的SQL语句打印到输出窗口中可使用如下代码：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="c++" class="language-c++ hljs">db.Database.Log = s =&gt; System.Diagnostics.Debug.WriteLine(s);</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_依赖注入">4. 依赖注入</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_ninject">4.1. Ninject</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>常用条件绑定</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">方法</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">效果</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When(谓词)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当谓词（一个 lambda 表达式）的结果为 true 时，实施绑定</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WhenClassHas&lt;T&gt;()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当被注入的类以注解属性进行注释，而其类型为 T 时，实施绑定</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">WhenInjectedInto&lt;T&gt;()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">当要被注入的类是类型 T 时，实施绑定</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>常用作用域方法</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">名称</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">效果</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InTransientScope()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">与未指定作用域效果相同，为每一个被解析的依赖项创建一个新的对象（每依赖项一实例）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InSingletonScope()<br>
+ToConstant(object)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">创建一个单一实例，使其共享于整个应用程序。如果使用 InSingletonScope ，或者为 Ninject 提供 ToConstant 方法，Ninject 便会创建这种实例（每应用一实例）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InThreadScope()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">创建一个单一实例，将其用于解析一个线程中各个对象的依赖项（每线程一实例）</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">InRequestScope()</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">创建一个单一实例，用于解析一个 HTTP 请求中各个对象的依赖项（每请求一实例）</p></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-03-19 16:46:27 UTC
+</div>
+</div>
+<link rel="stylesheet" href="highlight/styles/monokai.min.css">
+<script src="highlight/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>

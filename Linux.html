@@ -1,0 +1,3776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.10">
+<title>Linux</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment @import statement to use as custom stylesheet */
+/*@import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700";*/
+article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+html{font-family:sans-serif;-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+abbr[title]{border-bottom:1px dotted}
+b,strong{font-weight:bold}
+dfn{font-style:italic}
+hr{-moz-box-sizing:content-box;box-sizing:content-box;height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type="button"],input[type="reset"],input[type="submit"]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type="checkbox"],input[type="radio"]{box-sizing:border-box;padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,*::before,*::after{-moz-box-sizing:border-box;-webkit-box-sizing:border-box;box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;font-weight:400;font-style:normal;line-height:1;position:relative;cursor:auto;tab-size:4;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0;direction:ltr}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{font-family:inherit;font-weight:400;font-size:1em;line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em;height:0}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+abbr,acronym{text-transform:uppercase;font-size:90%;color:rgba(0,0,0,.8);border-bottom:1px dotted #ddd;cursor:help}
+abbr{text-transform:none}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote cite{display:block;font-size:.9375em;color:rgba(0,0,0,.6)}
+blockquote cite::before{content:"\2014 \0020"}
+blockquote cite a,blockquote cite a:visited{color:rgba(0,0,0,.6)}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:solid 1px #dedede}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{display:table-cell;line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed;word-wrap:break-word}
+:not(pre)>code.nobreak{word-wrap:normal}
+:not(pre)>code.nowrap{white-space:nowrap}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin-left:auto;margin-right:auto;margin-top:0;margin-bottom:0;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:-ms-flexbox;display:-webkit-flex;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border-style:solid;border-width:1px;border-color:#e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;-webkit-border-radius:4px;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:100%;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:rgba(255,255,255,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details>summary:first-of-type{cursor:pointer;display:list-item;outline:none;margin-bottom:.75em}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+table.tableblock #preamble>.sectionbody>[class="paragraph"]:first-of-type p{font-size:inherit}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6)}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border-style:solid;border-width:1px;border-color:#e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;-webkit-border-radius:4px;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border-style:solid;border-width:1px;border-color:#dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;-webkit-border-radius:4px;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{-webkit-border-radius:4px;border-radius:4px;word-wrap:break-word;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class="highlight"],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;-webkit-border-radius:4px;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid currentColor;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid currentColor;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;text-align:left;margin-right:0}
+table.tableblock{max-width:100%;border-collapse:separate}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+td.tableblock>.content>:last-child.sidebarblock{margin-bottom:0}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
+table.frame-all{border-width:1px}
+table.frame-sides{border-width:0 1px}
+table.frame-topbot,table.frame-ends{border-width:1px 0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{display:table-cell;line-height:1.6;background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
+ul.inline{display:-ms-flexbox;display:-webkit-box;display:flex;-ms-flex-flow:row wrap;-webkit-flex-flow:row wrap;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);-webkit-border-radius:100px;border-radius:100px;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;-webkit-box-shadow:0 1px 4px #e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{-webkit-box-shadow:none!important;box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media print,amzn-kf8{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>Linux</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_常用命令">1. 常用命令</a>
+<ul class="sectlevel2">
+<li><a href="#_bzip2">1.1. bzip2</a></li>
+<li><a href="#_cd">1.2. cd</a></li>
+<li><a href="#_cp">1.3. cp</a></li>
+<li><a href="#_find">1.4. find</a></li>
+<li><a href="#_grep">1.5. grep</a></li>
+<li><a href="#_gzip">1.6. gzip</a></li>
+<li><a href="#_info">1.7. info</a></li>
+<li><a href="#_kill">1.8. kill</a></li>
+<li><a href="#_last">1.9. last</a></li>
+<li><a href="#_lastlog">1.10. lastlog</a></li>
+<li><a href="#_ll">1.11. ll</a></li>
+<li><a href="#_ln">1.12. ln</a></li>
+<li><a href="#_locate">1.13. locate</a></li>
+<li><a href="#_logout">1.14. logout</a></li>
+<li><a href="#_ls">1.15. ls</a></li>
+<li><a href="#_man">1.16. man</a></li>
+<li><a href="#_mkdir">1.17. mkdir</a></li>
+<li><a href="#_mount">1.18. mount</a></li>
+<li><a href="#_mv">1.19. mv</a></li>
+<li><a href="#_ping">1.20. ping</a></li>
+<li><a href="#_pwd">1.21. pwd</a></li>
+<li><a href="#_rm">1.22. rm</a></li>
+<li><a href="#_rmdir">1.23. rmdir</a></li>
+<li><a href="#_runlevel">1.24. runlevel</a></li>
+<li><a href="#_shutdown">1.25. shutdown</a></li>
+<li><a href="#_tar">1.26. tar</a></li>
+<li><a href="#_timedatectl">1.27. timedatectl</a></li>
+<li><a href="#_touch">1.28. touch</a></li>
+<li><a href="#_unzip">1.29. unzip</a></li>
+<li><a href="#_w">1.30. w</a></li>
+<li><a href="#_whereis">1.31. whereis</a></li>
+<li><a href="#_which">1.32. which</a></li>
+<li><a href="#_who">1.33. who</a></li>
+<li><a href="#_xz">1.34. xz</a></li>
+<li><a href="#_zip">1.35. zip</a></li>
+<li><a href="#_path">1.36. $PATH</a></li>
+</ul>
+</li>
+<li><a href="#_磁盘目录和文件的管理">2. 磁盘、目录和文件的管理</a>
+<ul class="sectlevel2">
+<li><a href="#_磁盘分区格式mbr_和_gpt">2.1. 磁盘分区格式：MBR 和 GPT</a>
+<ul class="sectlevel3">
+<li><a href="#_ms_dosmbrmaster_boot_record主引导记录">2.1.1. （MS-DOS）MBR（Master Boot Record）主引导记录</a></li>
+<li><a href="#_gptguid_partition_table分区表">2.1.2. GPT（GUID Partition Table）分区表</a></li>
+</ul>
+</li>
+<li><a href="#_文件系统格式">2.2. 文件系统格式</a></li>
+<li><a href="#_系统目录结构">2.3. 系统目录结构</a></li>
+</ul>
+</li>
+<li><a href="#_shell_和_shell_脚本">3. Shell 和 Shell 脚本</a></li>
+<li><a href="#_用户管理">4. 用户管理</a>
+<ul class="sectlevel2">
+<li><a href="#_账号管理与_acl_权限设置">4.1. 账号管理与 ACL 权限设置</a>
+<ul class="sectlevel3">
+<li><a href="#_账号与用户组的几个重要文件">4.1.1. 账号与用户组的几个重要文件</a>
+<ul class="sectlevel4">
+<li><a href="#_passwd">passwd</a></li>
+<li><a href="#_shadow">shadow</a></li>
+<li><a href="#_group">group</a></li>
+<li><a href="#_gshadow">gshadow</a></li>
+</ul>
+</li>
+<li><a href="#_账号管理">4.1.2. 账号管理</a>
+<ul class="sectlevel4">
+<li><a href="#_useradd">useradd</a></li>
+<li><a href="#_passwd_chage">passwd / (chage)</a></li>
+<li><a href="#_usermod">usermod</a></li>
+<li><a href="#_userdel">userdel</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_系统管理">5. 系统管理</a>
+<ul class="sectlevel2">
+<li><a href="#_基础设置">5.1. 基础设置</a>
+<ul class="sectlevel3">
+<li><a href="#_网络设置">5.1.1. 网络设置</a>
+<ul class="sectlevel4">
+<li><a href="#_ifconfig">ifconfig</a></li>
+<li><a href="#_nmcli">nmcli</a></li>
+<li><a href="#_hostnamectl">hostnamectl</a></li>
+</ul>
+</li>
+<li><a href="#_日期和时间设置">5.1.2. 日期和时间设置</a>
+<ul class="sectlevel4">
+<li><a href="#_timedatectl_2">timedatectl</a></li>
+<li><a href="#_ntpdate">ntpdate</a></li>
+</ul>
+</li>
+<li><a href="#_语言设置">5.1.3. 语言设置</a>
+<ul class="sectlevel4">
+<li><a href="#_localectl">localectl</a></li>
+<li><a href="#_locale">locale</a></li>
+</ul>
+</li>
+<li><a href="#_防火墙设置">5.1.4. 防火墙设置</a>
+<ul class="sectlevel4">
+<li><a href="#_firewall_cmd">firewall-cmd</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_硬件数据收集">5.2. 硬件数据收集</a>
+<ul class="sectlevel3">
+<li><a href="#_使用_dmidecode_查看硬件">5.2.1. 使用 dmidecode 查看硬件</a></li>
+<li><a href="#_硬件资源收集与分析">5.2.2. 硬件资源收集与分析</a>
+<ul class="sectlevel4">
+<li><a href="#_fdiskgdisk">fdisk/gdisk</a></li>
+<li><a href="#_dmesg">dmesg</a></li>
+<li><a href="#_vmstat">vmstat</a></li>
+<li><a href="#_lspci">lspci</a></li>
+<li><a href="#_lsusb">lsusb</a></li>
+<li><a href="#_iostat">iostat</a></li>
+</ul>
+</li>
+<li><a href="#_了解磁盘的健康状态">5.2.3. 了解磁盘的健康状态</a>
+<ul class="sectlevel4">
+<li><a href="#_smartctl">smartctl</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_systemd">5.3. systemd</a>
+<ul class="sectlevel3">
+<li><a href="#_systemctl">5.3.1. systemctl</a></li>
+<li><a href="#_systemd_analyze">5.3.2. systemd-analyze</a></li>
+<li><a href="#_hostnamectl_2">5.3.3. hostnamectl</a></li>
+<li><a href="#_localectl_2">5.3.4. localectl</a></li>
+<li><a href="#_loginctl">5.3.5. loginctl</a></li>
+<li><a href="#_timedatectl_3">5.3.6. timedatectl</a></li>
+</ul>
+</li>
+<li><a href="#_查询系统版本">5.4. 查询系统版本</a></li>
+<li><a href="#_备份">5.5. 备份</a>
+<ul class="sectlevel3">
+<li><a href="#_哪些数据需要备份">5.5.1. 哪些数据需要备份？</a>
+<ul class="sectlevel4">
+<li><a href="#_操作系统相关的">操作系统相关的：</a></li>
+<li><a href="#_网络服务相关的">网络服务相关的：</a></li>
+<li><a href="#_以上如果无法全部备份推荐备份以下">以上如果无法全部备份，推荐备份以下：</a></li>
+<li><a href="#_不需要备份的">不需要备份的：</a></li>
+</ul>
+</li>
+<li><a href="#_备份的种类频率和工具">5.5.2. 备份的种类、频率和工具</a>
+<ul class="sectlevel4">
+<li><a href="#_累积备份">累积备份</a></li>
+<li><a href="#_差异备份">差异备份</a></li>
+<li><a href="#_关键数据备份">关键数据备份</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_其他知识">6. 其他知识</a>
+<ul class="sectlevel2">
+<li><a href="#_net_tools_vs_iproute2">6.1. net-tools VS iproute2</a></li>
+<li><a href="#_系统启动和关闭">6.2. 系统启动和关闭</a></li>
+</ul>
+</li>
+<li><a href="#_常见问题">7. 常见问题</a>
+<ul class="sectlevel2">
+<li><a href="#_虚拟机环境安装完成后如何自动启动网络并获取ip">7.1. 虚拟机环境安装完成后，如何自动启动网络并获取IP？</a></li>
+<li><a href="#_vmware本地多开虚拟机网络适配器如何设置">7.2. VMWare本地多开虚拟机，网络适配器如何设置？</a></li>
+<li><a href="#_命令行窗口的命令提示符有什么含义">7.3. 命令行窗口的命令提示符有什么含义？</a></li>
+<li><a href="#x_ChangeDefaultSSHPort">7.4. 如何修改 SSH 默认端口（22）？   </a></li>
+<li><a href="#_如何安装jdk">7.5. 如何安装JDK？</a></li>
+<li><a href="#_如何追加开机启动脚本或服务">7.6. 如何追加开机启动脚本或服务？</a>
+<ul class="sectlevel3">
+<li><a href="#_ubuntu_16_04">7.6.1. Ubuntu 16.04</a>
+<ul class="sectlevel4">
+<li><a href="#_修改_etcrc_local_待确认">修改 /etc/rc.local （待确认）</a></li>
+<li><a href="#_update_rc_d_追加开机服务_待确认">update-rc.d 追加开机服务 （待确认）</a></li>
+<li><a href="#_直接追加服务">直接追加服务</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_shadowsocks">8. Shadowsocks</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="ulist">
+<div class="title">部分内容参考了：</div>
+<ul>
+<li>
+<p>《鸟哥的Linux私房菜 基础学习篇（第四版）》</p>
+</li>
+<li>
+<p><a href="http://www.ruanyifeng.com/blog">阮一峰的网络日志</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>如有侵权，请在 GitHub 联络 j0k3rk 删除。</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_常用命令">1. 常用命令</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>命令格式</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">命令 选项 参数</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>个别命令不遵循此格式</p>
+</li>
+<li>
+<p>有多个选项时，可以写在一起</p>
+</li>
+<li>
+<p>简化选项和完整选项</p>
+<div class="ulist">
+<ul>
+<li>
+<p>-a 等于 --all</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_bzip2">1.1. bzip2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 压缩为.bz2格式，不保留源文件
+bzip2 源文件
+
+# 压缩之后保留源文件
+bzip2 -k 源文件
+
+# 解压缩，-k保留压缩文件（2种方法）
+bzip2 -d 压缩文件
+bunzip2 压缩文件</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>bzip2 命令不能压缩目录</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cd">1.2. cd</h3>
+<div class="paragraph">
+<p>变更目录</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cd 目录
+
+cd ~    # 进入当前用户的home目录
+cd -    # 进入上次目录
+cd ..   # 进入上一级目录
+cd .    # 进入当前目录</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cp">1.3. cp</h3>
+<div class="paragraph">
+<p>复制文件或目录</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cp 选项 原文件或目录 目标目录</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-a   相当于 -dpr</p>
+</li>
+<li>
+<p>-d   若源文件是链接文件，则复制链接属性</p>
+</li>
+<li>
+<p>-p   连带文件属性复制</p>
+</li>
+<li>
+<p>-r   复制目录</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_find">1.4. find</h3>
+<div class="paragraph">
+<p>搜索文件</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">find 搜索范围 搜索条件</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>避免大范围搜索，会非常耗费系统资源</p>
+</li>
+<li>
+<p>find 是在系统当中搜索符合条件的文件名。如果需要匹配，使用通配符匹配，通配符是完全匹配。</p>
+</li>
+<li>
+<p>示例</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 使用通配符
+#   *  匹配任意内容
+#   ?  匹配任意一个字符
+#   [] 匹配任意一个中括号内的字符
+find /root -name "install.log*"
+
+# 不区分大小写
+find /root -iname install.log
+
+# 按照所有者搜索
+find /root -user root
+
+# 查找没有所有者的文件
+# 一般情况下，没有所有者的文件即为垃圾文件，但有两个例外：
+# （1）Linux内核直接产生，例如内存交换目录中的文件；
+# （2）外部产生的文件，例如Windows系统中创建的文件，通过U盘拷贝到Linux系统中。
+find /root -nouser
+
+# 查找10天前修改的文件
+find /var/log/ -mtime +10
+
+    #   atime   文件访问时间
+    #   ctime   改变文件属性
+    #   mtime   修改文件内容
+
+    #   -10 10天内修改的文件
+    #    10 10天当天修改的文件
+    #   +10 10天前修改的文件
+
+# 查找文件大小是25KB的文件
+find . -size 25k
+
+    #   -25k    小于25KB的文件
+    #    25k    等于25KB的文件
+    #   +25k    大于25KB的文件
+    #   注意：输入单位时，k 必须小写，M 必须大写。
+
+# 查找 i 节点是262422的文件
+find . -inum 262422
+
+# 查找/etc/目录下，大于20KB且小于50KB的文件
+find /etc -size +20k -a -size -50k
+    #   -a  and 逻辑与
+    #   -o  or  逻辑或
+
+# 查找/etc/目录下，大于20KB且小于50KB的文件，并显示详细信息
+# -exec/-ok 命令 {} \;  对搜索结果执行操作
+find /etc -size +20k -a -size -50k -exec ls -lh {} \;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_grep">1.5. grep</h3>
+<div class="paragraph">
+<p>在文件当中匹配符合条件的字符串，使用正则表达式进行匹配，匹配方式为包含匹配。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">grep 选项 字符串 文件名
+# -i   忽略大小写
+# -v   排除指定字符串</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>示例</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 通过管道过滤 ls 输出的内容，只显示以 a 开头的行。
+ls|grep '^a'
+
+# 显示所有以 r 开头的文件中包含 DATE_TIME 的行。
+grep 'DATE_TIME' r*
+
+# 显示在 aa、bb、cc 文件中匹配 rules 的行。
+grep 'rules' aa bb cc
+
+# 检索文件 aa，显示包含5个连续小写字母的行。
+grep '[a-z]\{5\}' aa
+
+# 查找指定进程 clustal2 。
+ps -ef|grep clustal2
+
+# 查找指定进程 clustal2 的运行个数。
+ps -ef|grep clustal2|wc -l
+
+# 显示包含 account 或者 auth 字符的内容行。
+cat aa.txt |grep -E "account|auth"</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_gzip">1.6. gzip</h3>
+<div class="listingblock">
+<div class="title">gz格式压缩</div>
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 压缩为.gz格式的压缩文件，源文件会消失
+gzip 源文件
+
+# 压缩为.gz格式，源文件保留
+gzip -c 源文件 &gt; 压缩文件
+
+# 压缩目录下所有的子文件，但是不能压缩目录
+gzip -r 目录
+
+# 解压缩文件（2种方法）
+gzip -d 压缩文件
+gunzip 压缩文件</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_info">1.7. info</h3>
+<div class="paragraph">
+<p>详细命令帮助</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">info 命令</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-回车：进入子帮助页面（带有*号标记）</p>
+</li>
+<li>
+<p>-u  ：进入上层页面</p>
+</li>
+<li>
+<p>-n  ：进入下一个帮助小节</p>
+</li>
+<li>
+<p>-p  ：进入上一个帮助小节</p>
+</li>
+<li>
+<p>-q  ：退出</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kill">1.8. kill</h3>
+<div class="paragraph">
+<p>杀死进程</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="title">参照 ps 命令，进程主要有5种状态:</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>D：不可被唤醒的睡眠状态，uninterruptible sleep (usually IO)</p>
+</li>
+<li>
+<p>R（Running）：运行中，running or runnable (on run queue)</p>
+</li>
+<li>
+<p>S（Sleep）：正在睡眠但可以被唤醒，interruptible sleep (waiting for an event to complete)</p>
+</li>
+<li>
+<p>T（sTop）：停止状态，stopped by job control signal</p>
+</li>
+<li>
+<p>Z（Zombie）：僵尸状态，进程已经终止，defunct ("zombie") process, terminated but not reaped by its parent</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_last">1.9. last</h3>
+<div class="paragraph">
+<p>查询当前登录和过去登录的用户信息。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>last命令默认读取/var/log/wtmp文件数据。</p>
+</li>
+<li>
+<p>命令输出：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>用户名</p>
+</li>
+<li>
+<p>登录终端</p>
+</li>
+<li>
+<p>登录IP</p>
+</li>
+<li>
+<p>登录时间</p>
+</li>
+<li>
+<p>退出时间（在线时间）</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_lastlog">1.10. lastlog</h3>
+<div class="paragraph">
+<p>查看所有用户的最后一次登录时间。</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>lastlog命令默认读取/var/log/lastlog文件内容</p>
+</li>
+<li>
+<p>命令输出</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>用户名</p>
+</li>
+<li>
+<p>登录终端</p>
+</li>
+<li>
+<p>登录IP</p>
+</li>
+<li>
+<p>最后一次登录时间</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ll">1.11. ll</h3>
+<div class="paragraph">
+<p>相当于 ls -l</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ln">1.12. ln</h3>
+<div class="paragraph">
+<p>生成链接文件</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ln -s 原文件 目标文件</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-s   创建软链接</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_locate">1.13. locate</h3>
+<div class="paragraph">
+<p>在后台数据库中按文件名搜索（比find速度快）</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">locate 文件名</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>locate命令所搜索的后台数据库：/var/lib/mlocate （不同的Linux发行版，数据库名称可能有差别）。</p>
+</li>
+<li>
+<p>该数据库并非实时更新，刚创建的文件可能搜不到，此时可用命令 updatedb 先更新数据库再搜索。</p>
+</li>
+<li>
+<p>locate的搜索行为由配置文件 /etc/updatedb.conf 定义：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 开启搜索限制
+PRUNE_BIND_MOUNTS = "yes"
+
+# 搜索时，不搜索的文件系统
+PRUNEFS =
+
+# 搜索时，不搜索的文件类型
+PRUNENAMES =
+
+# 搜索时，不搜索的路径
+PRUNEPATHS =</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_logout">1.14. logout</h3>
+<div class="paragraph">
+<p>退出登录</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ls">1.15. ls</h3>
+<div class="paragraph">
+<p>列出文件或目录</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ls 选项 文件或目录</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-a  显示所有文件，包含隐藏文件</p>
+</li>
+<li>
+<p>-d  查看目录属性</p>
+</li>
+<li>
+<p>-h  人性化显示文件大小</p>
+</li>
+<li>
+<p>-i  显示inode</p>
+</li>
+<li>
+<p>-l  显示详细信息</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">[root@localhost ~]# ls
+anaconda-ks.cfg
+[root@localhost ~]# ls -l
+总用量 4
+-rw-------. 1 root root 1326 5月   9 07:27 anaconda-ks.cfg</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>一共10位</p>
+</li>
+<li>
+<p>第1位的“-”：表示文件类型（-文件，d目录，l软链接文件）</p>
+</li>
+<li>
+<p>后9位分3组，每3位为1组，分别代表：u所有者，g所属组，o其他人 （权限表示为：r读，w写，x执行）</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_man">1.16. man</h3>
+<div class="paragraph">
+<p>查看帮助</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">man 命令</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>man的级别</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">#1   查看命令的帮助
+#2   查看可被内核调用的函数的帮助
+#3   查看函数和函数库的帮助
+#4   查看特殊文件的帮助（主要是/dev目录下的文件）
+#5   查看配置文件的帮助
+#6   查看游戏的帮助
+#7   查看其它杂项的帮助
+#8   查看系统管理员可用命令的帮助
+#9   查看和内核相关文件的帮助</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>查看命令拥有那个级别的帮助</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">man -f 命令
+# 相当于
+whatis 命令
+
+man -5 passwd
+man -8 ifconfig</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>查看和命令相关的所有帮助</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">man -k 命令
+# 相当于
+apropos 命令</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>选项帮助</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">命令 --help
+
+ls --help</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>shell内部命令帮助</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">help shell内部命令
+
+whereis cd  # 确定是否是shell内部命令。如果只能找到帮助、找不到可执行文件，说明是内部命令。
+help cd     # 获取内部命令帮助</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mkdir">1.17. mkdir</h3>
+<div class="paragraph">
+<p>创建目录</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">mkdir 单级目录
+mkdir -p 多级目录</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mount">1.18. mount</h3>
+<div class="paragraph">
+<p>挂载</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 格式
+mount [-t 文件系统] [-o 特殊选项] 设备文件名 挂载点
+
+# 查询系统中已经挂载的设备
+mount
+
+# 依据配置文件/etc/fstab的内容，自动挂载
+mount -a</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-t 文件系统：加入文件系统类型来指定挂载的类型，ext3、ext4、iso9660等</p>
+</li>
+<li>
+<p>-o 特殊选项：可以指定挂载的额外选项</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>atime/noatime</p>
+<div class="paragraph">
+<p>访问分区文件时，是否更新文件的访问时间，默认为更新。</p>
+</div>
+</li>
+<li>
+<p>async/sync</p>
+<div class="paragraph">
+<p>默认为异步。</p>
+</div>
+</li>
+<li>
+<p>auto/noauto</p>
+<div class="paragraph">
+<p>mount -a 命令执行时，是否自动安装/etc/fstab文件内容挂载，默认为自动。</p>
+</div>
+</li>
+<li>
+<p>defaults</p>
+<div class="paragraph">
+<p>定义默认值，相当于rw、suid、dev、exec、auto、nouser、async这七个选项。</p>
+</div>
+</li>
+<li>
+<p>exec/noexec</p>
+<div class="paragraph">
+<p>设定是否允许在文件系统中执行可执行文件，默认是exec允许。</p>
+</div>
+</li>
+<li>
+<p>remount</p>
+<div class="paragraph">
+<p>重新挂载已挂载的文件系统，一般用于指定修改特殊权限。</p>
+</div>
+</li>
+<li>
+<p>rw/ro</p>
+<div class="paragraph">
+<p>文件系统挂载时，是否具有读写权限，默认是rw。</p>
+</div>
+</li>
+<li>
+<p>suid/nosuid</p>
+<div class="paragraph">
+<p>设定文件系统是否具有SUID和SGID的权限，默认是具有。</p>
+</div>
+</li>
+<li>
+<p>user/nouser</p>
+<div class="paragraph">
+<p>设定文件系统是否允许普通用户挂载，默认是不允许，只有root可以挂载分区。</p>
+</div>
+</li>
+<li>
+<p>usrquota</p>
+<div class="paragraph">
+<p>写入代表文件系统支持用户磁盘配额，默认不支持。</p>
+</div>
+</li>
+<li>
+<p>grpquota</p>
+<div class="paragraph">
+<p>写入代表文件系统支持组磁盘配额，默认不支持。</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>挂载光盘</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 建立挂载点
+mkdir /mnt/cdrom/
+
+# 挂载光盘（2种方法）
+mount /dev/sr0 /mnt/cdrom/
+mount -t iso9660 /dev/cdrom /mnt/cdrom/
+
+# (卸载)。如果当前工作目录就是光盘目录，需要先退出光盘目录，才能正常卸载。
+umount /mnt/cdrom/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>挂载U盘</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 查看U盘设备文件名
+fdisk -l
+
+# 假设只有一块硬盘sda，则挂载U盘为sdb。vfat即fat32格式。
+mount -t vfat /dev/sdb1 /mnt/usb/</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Linux默认不支持NTFS文件系统，解决办法（只读、不能写入）：</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>重新编译内核</p>
+</li>
+<li>
+<p>下载NTFS-3G</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_mv">1.19. mv</h3>
+<div class="paragraph">
+<p>剪切或改名</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">mv 原文件或目录 目标目录</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ping">1.20. ping</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>指定次数为4次，数据包大小为 32767 Bytes：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ping -c 4 -s 32767 ip</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Windows下，指定次数为6次，ping包大小为 1500 Bytes：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ping -n 6 -l 1500 ip</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_pwd">1.21. pwd</h3>
+<div class="paragraph">
+<p>（打印）查询工作目录</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rm">1.22. rm</h3>
+<div class="paragraph">
+<p>删除文件或目录</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-r 表示递归（即包含子目录）</p>
+</li>
+<li>
+<p>-f 表示强制</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">rm -rf  # 强制删除目录下所有的东西</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_rmdir">1.23. rmdir</h3>
+<div class="paragraph">
+<p>删除空目录</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_runlevel">1.24. runlevel</h3>
+<div class="paragraph">
+<p>查询系统运行级别</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_shutdown">1.25. shutdown</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">shutdown 选项 时间</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-c ：取消前一个关机命令</p>
+</li>
+<li>
+<p>-h ：关机</p>
+</li>
+<li>
+<p>-r ：重启</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/tip.png" alt="Tip">
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>其他关机命令：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>halt</p>
+</li>
+<li>
+<p>poweroff</p>
+</li>
+<li>
+<p>init 0</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>其他重启命令：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>reboot</p>
+</li>
+<li>
+<p>init 6</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>init参数的含义（即系统运行级别）：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>0 关机</p>
+</li>
+<li>
+<p>1 单用户</p>
+</li>
+<li>
+<p>2 不完全多用户，不含NFS服务</p>
+</li>
+<li>
+<p>3 完全多用户</p>
+</li>
+<li>
+<p>4 未分配</p>
+</li>
+<li>
+<p>5 图形界面</p>
+</li>
+<li>
+<p>6 重启</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_tar">1.26. tar</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 打包
+tar -cvf 打包文件名 源文件
+
+# 解包
+tar -xvf 打包文件名
+
+# 打包且压缩
+tar -zcvf 压缩包名.tar.gz 源文件
+tar -jcvf 压缩包名.tar.bz2 源文件
+
+# 解压缩且解包
+tar -zxvf 压缩包名.tar.gz
+tar -jxvf 压缩包名.tar.bz2
+tar -xvJf 压缩包名.tar.xz   # 注意J大写
+
+# 测试
+tar -ztvf 压缩包名.tar.gz</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-c ：打包</p>
+</li>
+<li>
+<p>-v ：显示过程</p>
+</li>
+<li>
+<p>-f ：指定打包后的文件名</p>
+</li>
+<li>
+<p>-x ：解包</p>
+</li>
+<li>
+<p>-z ：压缩为.tar.gz格式</p>
+</li>
+<li>
+<p>-j ：压缩为.tar.bz2格式</p>
+</li>
+<li>
+<p>-J ：压缩为.tar.xz格式</p>
+</li>
+<li>
+<p>-t ：测试（查看压缩包中的内容，不实际解压）</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_timedatectl">1.27. timedatectl</h3>
+<div class="paragraph">
+<p>日期/时间/时区 设置</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 查看当前设定
+timedatectl
+
+# 列出时区
+timedatectl list-timezones
+
+# 变更时区
+timedatectl set-timezone Asia/Shanghai</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_touch">1.28. touch</h3>
+<div class="paragraph">
+<p>创建文件或修改文件时间</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_unzip">1.29. unzip</h3>
+<div class="paragraph">
+<p>解压缩文件</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">unzip 压缩文件</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_w">1.30. w</h3>
+<div class="paragraph">
+<p>查看登录用户信息。</p>
+</div>
+<div class="paragraph">
+<p>命令输出：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>user: 登录的用户名</p>
+</li>
+<li>
+<p>tty: 登录终端</p>
+</li>
+<li>
+<p>from: 从哪个IP登录</p>
+</li>
+<li>
+<p>login@: 登录时间</p>
+</li>
+<li>
+<p>idle: 用户闲置时间</p>
+</li>
+<li>
+<p>jcpu: 指的是和该终端连接的所有进程占用的时间。这个时间里不包括过去的后台作业时间，但包括当前正在运行的后台作业所占用的时间。</p>
+</li>
+<li>
+<p>pcpu: 指当前进程所占用的时间</p>
+</li>
+<li>
+<p>what: 当前正在运行的命令</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_whereis">1.31. whereis</h3>
+<div class="paragraph">
+<p>搜索命令所在路径及帮助文档所在位置</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">whereis 命令名</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>-b   只查找可执行文件</p>
+</li>
+<li>
+<p>-m   只查找帮助文件</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_which">1.32. which</h3>
+<div class="paragraph">
+<p>搜索命令所在路径及别名</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_who">1.33. who</h3>
+<div class="paragraph">
+<p>查看登录用户信息。</p>
+</div>
+<div class="paragraph">
+<p>命令输出：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>用户名</p>
+</li>
+<li>
+<p>登录终端</p>
+</li>
+<li>
+<p>登录时间（登录来源IP）</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_xz">1.34. xz</h3>
+<div class="paragraph">
+<p>*.tar.xz 文件的压缩率比 *.tar.gz 更高，用法如下：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>压缩</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 将 *.tar.gz 压缩为 *.tar.xz
+xz -z 要压缩的文件</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果要保留被压缩的文件，追加参数 -k 。  <br>
+如果要设置压缩率，加入参数 -0 到 -9 调节压缩率。默认压缩等级为 6 。</p>
+</div>
+</li>
+<li>
+<p>解压</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 将 *.tar.xz 解压为 *.tar.gz
+xz -d 要解压的文件</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_zip">1.35. zip</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>压缩文件</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">zip 压缩文件名 源文件</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>压缩目录</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">zip -r 压缩文件名 源目录</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_path">1.36. $PATH</h3>
+<div class="paragraph">
+<p>环境变量，定义的是系统搜索命令的路径。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">echo $PATH</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_磁盘目录和文件的管理">2. 磁盘、目录和文件的管理</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_磁盘分区格式mbr_和_gpt">2.1. 磁盘分区格式：MBR 和 GPT</h3>
+<div class="sect3">
+<h4 id="_ms_dosmbrmaster_boot_record主引导记录">2.1.1. （MS-DOS）MBR（Master Boot Record）主引导记录</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>分区类型</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>主分区</p>
+<div class="paragraph">
+<p>最多只能有4个。</p>
+</div>
+</li>
+<li>
+<p>扩展分区</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>最多只能有1个。</p>
+</li>
+<li>
+<p>主分区+扩展分区，最多有4个。</p>
+</li>
+<li>
+<p>不能写入数据，只能包含逻辑分区。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>逻辑分区</p>
+<div class="paragraph">
+<p>逻辑分区号从5开始（即使扩展分区3和4没有使用）</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>格式化</p>
+</li>
+<li>
+<p>分区（硬件）设备文件名</p>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">硬件</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">设备文件名</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IDE硬盘</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/hd[a-d]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SCSI/SATA/USB硬盘</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/sd[a-p]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">光驱</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/cdrom 或 /dev/hdc</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">软盘</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/fd[0-1]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">打印机（25针）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/lp[0-2]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">打印机（USB）</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/usb/lp[0-15]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">鼠标</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev/mouse</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>举例：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">/dev/hda1   （表示IDE硬盘a的第1个分区）</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>挂载</p>
+<div class="paragraph">
+<p>挂载点（目录，类似于Windows中的盘符）</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>必须分区</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>/ （根分区）</p>
+</li>
+<li>
+<p>swap分区 （交换分区）</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>内存在4G以内，则分配2倍内存大小</p>
+</li>
+<li>
+<p>内存超过4G，则分配内存同等大小</p>
+</li>
+<li>
+<p>做实验不超过2GB即可</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>推荐分区</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>/boot （启动分区，200MB）</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_gptguid_partition_table分区表">2.1.2. GPT（GUID Partition Table）分区表</h4>
+
+</div>
+</div>
+<div class="sect2">
+<h3 id="_文件系统格式">2.2. 文件系统格式</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">parted -l</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_系统目录结构">2.3. 系统目录结构</h3>
+<div class="paragraph">
+<p>登录系统后，输入 ls 命令可以查看目录结构：</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">目录</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">备注</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/bin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">bin是Binary的缩写, 这个目录存放着最经常使用的命令。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/boot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这里存放的是启动Linux时使用的一些核心文件，包括一些连接文件以及镜像文件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/dev</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dev是Device(设备)的缩写, 该目录下存放的是Linux的外部设备，在Linux中访问设备的方式和访问文件的方式是相同的。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录用来存放所有的系统管理所需要的配置文件和子目录。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/home</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">用户的主目录，在Linux中，每个用户都有一个自己的目录，一般该目录名是以用户的账号命名的。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/lib</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录里存放着系统最基本的动态连接共享库，其作用类似于Windows里的DLL文件。几乎所有的应用程序都需要用到这些共享库。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/lost+found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录一般情况下是空的，当系统非法关机后，这里就存放了一些文件。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/media</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linux系统会自动识别一些设备，例如U盘、光驱等等，当识别后，linux会把识别的设备挂载到这个目录下。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/mnt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系统提供该目录是为了让用户临时挂载别的文件系统的，我们可以将光驱挂载在/mnt/上，然后进入该目录就可以查看光驱里的内容了。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/opt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这是给主机额外安装软件所摆放的目录。比如你安装一个ORACLE数据库则就可以放到这个目录下。默认是空的。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/proc</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录是一个虚拟的目录，它是系统内存的映射，我们可以通过直接访问这个目录来获取系统信息。</p>
+<p class="tableblock">    这个目录的内容不在硬盘上而是在内存里，我们也可以直接修改里面的某些文件，比如可以通过下面的命令来屏蔽主机的ping命令，
+    使别人无法ping你的机器： echo 1 &gt; /proc/sys/net/ipv4/icmp_echo_ignore_all</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/root</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">该目录为系统管理员，也称作超级权限者的用户主目录。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/sbin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">s就是Super User的意思，这里存放的是系统管理员使用的系统管理程序。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/selinux</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录是Redhat/CentOS所特有的目录，Selinux是一个安全机制，类似于windows的防火墙，但是这套机制比较复杂，
+    这个目录就是存放selinux相关的文件的。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/srv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">该目录存放一些服务启动之后需要提取的数据。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/sys</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这是linux2.6内核的一个很大的变化。该目录下安装了2.6内核中新出现的一个文件系统 sysfs 。</p>
+<p class="tableblock">    sysfs文件系统集成了下面3种文件系统的信息：针对进程信息的proc文件系统、针对设备的devfs文件系统以及针对伪终端的devpts文件系统。</p>
+<p class="tableblock">    该文件系统是内核设备树的一个直观反映。</p>
+<p class="tableblock">    当一个内核对象被创建的时候，对应的文件和目录也在内核对象子系统中被创建。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/tmp</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录是用来存放一些临时文件的。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/usr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这是一个非常重要的目录，用户的很多应用程序和文件都放在这个目录下，类似于windows下的program files目录。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/usr/bin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">系统用户使用的应用程序。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/usr/sbin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">超级用户使用的比较高级的管理程序和系统守护程序。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/usr/src</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">内核源代码默认的放置目录。</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/var</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">这个目录中存放着在不断扩充着的东西，我们习惯将那些经常被修改的目录放在这个目录下。包括各种日志文件。</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_shell_和_shell_脚本">3. Shell 和 Shell 脚本</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_用户管理">4. 用户管理</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_账号管理与_acl_权限设置">4.1. 账号管理与 ACL 权限设置</h3>
+<div class="sect3">
+<h4 id="_账号与用户组的几个重要文件">4.1.1. 账号与用户组的几个重要文件</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">/etc/passwd
+/etc/shadow
+/etc/group
+/etc/gshadow</code></pre>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_passwd">passwd</h5>
+<div class="paragraph">
+<p>每行一个用户，设定信息有7段，用“:”分隔：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>账号名</p>
+</li>
+<li>
+<p>密码</p>
+<div class="paragraph">
+<p>早期存放密码用。因为安全的考虑，密码改放到 shadow 文件中后，此处只保留一个“x”。</p>
+</div>
+</li>
+<li>
+<p>UID</p>
+<div class="paragraph">
+<p>习惯用法如下：</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>【0】：系统管理员</p>
+</li>
+<li>
+<p>【1~999】：系统账号</p>
+</li>
+<li>
+<p>【1000+】：一般用户使用</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>GID</p>
+</li>
+<li>
+<p>用户信息说明</p>
+</li>
+<li>
+<p>Home目录</p>
+</li>
+<li>
+<p>默认Shell</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_shadow">shadow</h5>
+<div class="paragraph">
+<p>设定信息有9段，用“:”分隔：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">1账号名:
+2密码:
+3最近修改密码的日期:         16559 =&gt; 2015/05/04
+4密码不可被修改的天数(相对3):   5 =&gt; 2016/05/09
+5密码需要重新修改的天数(相对3):  60 =&gt; 16619 =&gt; 2015/07/03
+6密码需要修改前的警告天数(相对5): 7 =&gt; 2015/06/26~2015/07/03
+7密码过期后的宽限天数(相对5):   5 =&gt; 2015/07/08
+8账号失效日:                16679 =&gt; 2015/09/01
+9保留
+
+user01:$1$AIasdjfkajldikkda...:16559:5:60:7:5:16679:
+
+# 天数转日期的方法如下：
+date -u -d "1970-01-01 UTC $((16559 * 86400 )) seconds"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_group">group</h5>
+<div class="paragraph">
+<p>设定信息有4段，用“:”分隔：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">1组名:
+2用户组密码:
+3GID:
+4此用户组包含的账号名(多个账号间不要留空格、以“:”分隔)</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>passwd 文件中 GID 指定的为初始用户组，group 文件中赋权的为有效用户组。</p>
+</li>
+<li>
+<p>查看当前用户的有效用户组可使用命令 groups 。</p>
+</li>
+<li>
+<p>多个有效用户组可以通过命令 newgrp 进行切换，使用命令 exit 复原。</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_gshadow">gshadow</h5>
+<div class="paragraph">
+<p>设定信息有4段，用“:”分隔：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">1组名:
+2密码(开头为 ! 的表示无合法密码，所以无用户组管理员):
+3用户组管理员的账号:
+4加入该用户组的账号</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_账号管理">4.1.2. 账号管理</h4>
+<div class="sect4">
+<h5 id="_useradd">useradd</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>默认创建 Home 目录，且权限为700（仅自己可进入目录）。</p>
+</li>
+<li>
+<p>使用 -r 参数创建系统账号（UID小于1000），默认不会创建 Home 目录。</p>
+</li>
+<li>
+<p>默认值（来自 /etc/default/useradd）：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">useradd -D
+
+GROUP=100
+HOME=/home
+INACTIVE=-1         # 密码过期后是否会失效
+EXPIRE=         # 账号失效日期
+SHELL=/bin/sh       # 系统默认 shell
+SKEL=/etc/skel      # 用户 Home 目录参考的基准目录
+CREATE_MAIL_SPOOL=no    # 建立用户的 mailbox</code></pre>
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>公共/私有 用户组机制：</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>公共：参考值“GROUP=100”有效（即 users 用户组），组内用户可共享目录中的数据，代表发行版 SUSE 。</p>
+</li>
+<li>
+<p>私有：参考值“GROUP=100”无效（创建账号同名用户组），代表发行版 RHEL、Fedora、CentOS。</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>UID/GID 参考的文件为 /etc/login.defs</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_passwd_chage">passwd / (chage)</h5>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/important.png" alt="Important">
+</td>
+<td class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 使用 root 修改其他账号的密码时，一定要加参数，以防丢失 root 的密码。
+
+# 修改其他账号的密码
+passwd 【账号名】
+
+# 修改当前账号的密码
+passwd</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_usermod">usermod</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_userdel">userdel</h5>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_系统管理">5. 系统管理</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_基础设置">5.1. 基础设置</h3>
+<div class="sect3">
+<h4 id="_网络设置">5.1.1. 网络设置</h4>
+<div class="sect4">
+<h5 id="_ifconfig">ifconfig</h5>
+<div class="paragraph">
+<p>CentOS 7 网卡编号规则：</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>eno1：主板内置网卡</p>
+</li>
+<li>
+<p>ens1：主板内置 PCI-E 网卡</p>
+</li>
+<li>
+<p>enp2s0：PCI-E 独立网卡</p>
+</li>
+<li>
+<p>eth0：以上不适用时的默认网卡编号</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_nmcli">nmcli</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">nmcli connection show [网卡名称]
+
+nmcli connection modify [网卡名称] \
+&gt; ..... \
+&gt; .....
+
+nmcli connection up [网卡名称]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hostnamectl">hostnamectl</h5>
+
+</div>
+</div>
+<div class="sect3">
+<h4 id="_日期和时间设置">5.1.2. 日期和时间设置</h4>
+<div class="sect4">
+<h5 id="_timedatectl_2">timedatectl</h5>
+<div class="paragraph">
+<p>调整时间：set-time</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">timedatectl set-time "2018-11-19 19:03"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>通过此命令修改，不再需要使用 hwclock 去修正 BIOS 时间。</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_ntpdate">ntpdate</h5>
+<div class="paragraph">
+<p>手动网络校时</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 常用校时服务器
+#   time.pool.aliyun.com
+#     - time[1-7].aliyun.com
+#   time[1-7].apple.com
+#   time[1-4].google.com
+#   3.cn.pool.ntp.org
+ntpdate time.pool.aliyun.com
+
+hwclock -w</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_语言设置">5.1.3. 语言设置</h4>
+<div class="sect4">
+<h5 id="_localectl">localectl</h5>
+<div class="paragraph">
+<p>系统语言</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_locale">locale</h5>
+<div class="paragraph">
+<p>当前 bash 的语言设置</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_防火墙设置">5.1.4. 防火墙设置</h4>
+<div class="sect4">
+<h5 id="_firewall_cmd">firewall-cmd</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>运行时/永久</p>
+</li>
+<li>
+<p>区域：public/..</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_硬件数据收集">5.2. 硬件数据收集</h3>
+<div class="sect3">
+<h4 id="_使用_dmidecode_查看硬件">5.2.1. 使用 dmidecode 查看硬件</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">dmidecode -t [type]
+# type=1, SYSTEM
+# type=4, Processor
+# type=17, Memory Device
+# ...</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_硬件资源收集与分析">5.2.2. 硬件资源收集与分析</h4>
+<div class="sect4">
+<h5 id="_fdiskgdisk">fdisk/gdisk</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 列出分区信息
+fdisk -l
+gdisk -l</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_dmesg">dmesg</h5>
+<div class="paragraph">
+<p>查看内核运行过程中所显示的信息记录</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_vmstat">vmstat</h5>
+<div class="paragraph">
+<p>可分析系统（CPU/RAM/IO）目前的状态</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lspci">lspci</h5>
+<div class="paragraph">
+<p>列出所有 PCI 接口设备</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_lsusb">lsusb</h5>
+<div class="paragraph">
+<p>列出所有 USB 端口的状态和 USB 设备</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_iostat">iostat</h5>
+<div class="paragraph">
+<p>列出 CPU 与接口设备的 输入/输出 状态</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_了解磁盘的健康状态">5.2.3. 了解磁盘的健康状态</h4>
+<div class="sect4">
+<h5 id="_smartctl">smartctl</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 因为会进行磁盘自检，注意系统忙碌时不要使用
+smartctl -a /dev/sda</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_systemd">5.3. systemd</h3>
+<div class="paragraph">
+<p><span class="image"><img src="images/systemd_components.svg" alt="git tilder and caret"></span></p>
+</div>
+<div class="paragraph">
+<p>（图片来自 <a href="https://en.wikipedia.org/wiki/Systemd">wiki</a>）</p>
+</div>
+<div class="sect3">
+<h4 id="_systemctl">5.3.1. systemctl</h4>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>OPTIONS</p>
+</li>
+<li>
+<p>COMMANDS</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Unit Commands</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 列出正在运行的 Unit
+systemctl list-units
+# 列出加载失败的 Unit
+systemctl list-units --failed
+
+# 显示指定 Unit 的状态
+sysystemctl status bluetooth.service
+
+# 激活服务
+sudo systemctl enable apache.service
+# 启动服务
+sudo systemctl start apache.service
+# 停止服务
+sudo systemctl stop apache.service
+# 重新加载服务的配置文件
+sudo systemctl reload apache.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Unit File Commands</p>
+</li>
+<li>
+<p>Machine Commands</p>
+</li>
+<li>
+<p>Job Commands</p>
+</li>
+<li>
+<p>Environment Commands</p>
+</li>
+<li>
+<p>Manager Lifecycle Commands</p>
+</li>
+<li>
+<p>System Commands</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 重启
+sudo systemctl reboot
+
+# 关机断电
+sudo systemctl poweroff</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_systemd_analyze">5.3.2. systemd-analyze</h4>
+<div class="paragraph">
+<p>查看启动耗时。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 启动耗时
+systemd-analyze blame
+
+# 链式显示启动耗时
+$ systemd-analyze critical-chain
+
+# 链式显示指定服务的启动耗时
+$ systemd-analyze critical-chain atd.service</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_hostnamectl_2">5.3.3. hostnamectl</h4>
+<div class="paragraph">
+<p>主机信息，可查询系统和 kernel 的版本。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_localectl_2">5.3.4. localectl</h4>
+<div class="paragraph">
+<p>本地化信息。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_loginctl">5.3.5. loginctl</h4>
+<div class="paragraph">
+<p>登录信息。</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_timedatectl_3">5.3.6. timedatectl</h4>
+<div class="paragraph">
+<p>时区信息。</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_查询系统版本">5.4. 查询系统版本</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># CentOS
+cat /etc/redhat-release
+
+# Ubuntu
+hostnamectl</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_备份">5.5. 备份</h3>
+<div class="sect3">
+<h4 id="_哪些数据需要备份">5.5.1. 哪些数据需要备份？</h4>
+<div class="sect4">
+<h5 id="_操作系统相关的">操作系统相关的：</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>/etc/</p>
+</li>
+<li>
+<p>/home/</p>
+</li>
+<li>
+<p>/var/spool/mail/</p>
+</li>
+<li>
+<p>/var/spool/{at|cron}/</p>
+</li>
+<li>
+<p>/boot/</p>
+</li>
+<li>
+<p>/root/</p>
+</li>
+<li>
+<p>如果自行安装过其他软件， /usr/local/ 或 /opt/ 最好也备份一下。</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_网络服务相关的">网络服务相关的：</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>软件本身的配置文件，例如 /etc/ 、 /usr/local/ 。</p>
+</li>
+<li>
+<p>软件服务提供的数据，例如：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>WWW： /var/www/ 或 /srv/www/</p>
+</li>
+<li>
+<p>MariaDB： /var/lib/mysql/</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>其他提供服务的数据文件</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_以上如果无法全部备份推荐备份以下">以上如果无法全部备份，推荐备份以下：</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>/etc/</p>
+</li>
+<li>
+<p>/home/</p>
+</li>
+<li>
+<p>/root/</p>
+</li>
+<li>
+<p>/var/spool/mail/ 、 /var/spool/cron/ 、 /var/spool/at/</p>
+</li>
+<li>
+<p>/var/lib/</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_不需要备份的">不需要备份的：</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>/dev/</p>
+</li>
+<li>
+<p>/proc/ 、 /sys/ 、 /run/</p>
+</li>
+<li>
+<p>/mnt/ 、 /media/</p>
+</li>
+<li>
+<p>/tmp/</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_备份的种类频率和工具">5.5.2. 备份的种类、频率和工具</h4>
+<div class="sect4">
+<h5 id="_累积备份">累积备份</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>常用工具有：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>dd</p>
+</li>
+<li>
+<p>cpio</p>
+</li>
+<li>
+<p>xfsdump/xfsrestore</p>
+</li>
+<li>
+<p>tar</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_差异备份">差异备份</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>常用工具有：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>tar -N</p>
+</li>
+<li>
+<p>rsync</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_关键数据备份">关键数据备份</h5>
+<div class="paragraph">
+<p>利用 tar 备份的例子：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">tar -jpcvf mysql.`date +%Y-%m-%d`.tar.bz2 /var/lib/mysql</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_其他知识">6. 其他知识</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_net_tools_vs_iproute2">6.1. net-tools VS iproute2</h3>
+<table class="tableblock frame-all grid-all fit-content">
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">net-tools</th>
+<th class="tableblock halign-left valign-top">iproute2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">arp -na</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip neigh</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifconfig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifconfig -a</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip addr show</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifconfig --help</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip help</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifconfig -s</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip -s link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ifconfig eth0 up</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip link set eth0 up</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ipmaddr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip maddr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iptunnel</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip tunnel</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">netstat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ss</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">netstat -i</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip -s link</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">netstat -g</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip maddr</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">netstat -l</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ss -l</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">netstat -r</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip route</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">route add</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip route add</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">route del</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip route del</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">route -n</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip route show</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">vconfig</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ip link</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_系统启动和关闭">6.2. 系统启动和关闭</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>系统启动过程</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>BIOS开机自检 →</p>
+</li>
+<li>
+<p>操作系统接管硬件 →</p>
+</li>
+<li>
+<p>读入 /boot 目录下的内核文件 →</p>
+</li>
+<li>
+<p>运行 Init，此进程首先要读取配置文件 /etc/inittab →</p>
+</li>
+<li>
+<p>根据运行级别（runlevel）确定需要运行哪些程序 →</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Linux系统有7个运行级别(runlevel)：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">运行级别0：系统停机状态，系统默认运行级别不能设为0，否则不能正常启动
+运行级别1：单用户工作状态，root权限，用于系统维护，禁止远程登陆
+运行级别2：多用户状态(没有NFS)
+运行级别3：完全的多用户状态(有NFS)，登陆后进入控制台命令
+运行级别4：系统未使用，保留
+运行级别5：X11控制台，登陆后进入图形GUI模式
+运行级别6：系统正常关闭并重启，默认运行级别不能设为6，否则不能正常启动</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>注意：不同发行版中运行级别的含义可能有区别。</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>系统初始化（/etc/rc.d/init.d/） →</p>
+</li>
+<li>
+<p>建立终端，用户登录系统 →</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>用户登录方式一般有三种：</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>命令行登录</p>
+</li>
+<li>
+<p>ssh登录</p>
+</li>
+<li>
+<p>图形界面登录</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Login Shell</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>图形模式与文字模式的切换方式</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Linux预设提供了六个命令窗口终端机。</p>
+</li>
+<li>
+<p>默认登录的是第一个窗口，也就是tty1，这个六个窗口分别为tty1,tty2 … tty6，可以按下Ctrl + Alt + F1 ~ F6 来切换。</p>
+</li>
+<li>
+<p>如果安装了图形界面，默认情况是进入图形界面，此时你就可以按Ctrl + Alt + F1 ~ F6来进入其中一个命令窗口界面。</p>
+</li>
+<li>
+<p>当你进入命令窗口界面后再返回图形界面只要按下Ctrl + Alt + F7 。</p>
+</li>
+<li>
+<p>如果用的是 vmware 虚拟机，命令窗口切换的快捷键为 Alt + Space + F1~F6. 如果在图形界面下请按Alt + Shift + Ctrl + F1~F6 切换。</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>系统关机</p>
+<div class="paragraph">
+<p>正确的关机流程为：sync &gt; shutdown &gt; reboot &gt; halt</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sync 将数据由内存同步到硬盘中。
+
+shutdown –h 10 ‘This server will shutdown after 10 mins’ 这个命令会显示消息在登陆用户的当前屏幕中。
+
+Shutdown –h now 立刻关机
+
+Shutdown –h 20:25 系统会在今天20:25关机
+
+Shutdown –h +10 十分钟后关机
+
+Shutdown –r now 系统立刻重启
+
+Shutdown –r +10 系统十分钟后重启
+
+reboot 重启，等同于 shutdown –r now
+
+halt 关闭系统，等同于shutdown –h now 和 poweroff</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_常见问题">7. 常见问题</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_虚拟机环境安装完成后如何自动启动网络并获取ip">7.1. 虚拟机环境安装完成后，如何自动启动网络并获取IP？</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Red Hat</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>使用命令 setup 打开配置工具，选择网络配置，设定IP、子网掩码、DNS服务器等信息。</p>
+</li>
+<li>
+<p>使用如下命令重启网络服务：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">service network restart</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>CentOS_6</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>虚拟机网络适配器使用桥接模式（自动）</p>
+</li>
+<li>
+<p>使用命令 ifconfig 查看网络配置，如果有 eth0 ，试试用如下命令打开网卡：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">ifup eth0</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>或者使用如下命令手工编辑配置文件，将 ONBOOT=no 改为 ONBOOT=yes 。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">vi /etc/sysconfig/network-scripts/ifcfg-eth0
+
+:q      # 不保存退出vi
+:wq     # 保存退出</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>重启网络服务</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>CentOS_7</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>虚拟机网络适配器使用NAT模式</p>
+</li>
+<li>
+<p>eth0 对应变成了 ens33，使用如下命令编辑配置文件，将 ONBOOT=no 改为 ONBOOT=yes 。</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">vi /etc/sysconfig/network-scripts/ifcfg-ens33</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>重启网络服务</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vmware本地多开虚拟机网络适配器如何设置">7.2. VMWare本地多开虚拟机，网络适配器如何设置？</h3>
+<div class="paragraph">
+<p>（如下方法适用于对IP无严格管理要求的环境）</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>虚拟机使用桥接模式</p>
+<div class="paragraph">
+<p>“复制物理网络连接状态”可以不勾选。</p>
+</div>
+</li>
+<li>
+<p>修改虚拟机的网络设置，使虚拟机和物理机在同一子网中：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">vim /etc/sysconfig/network-scripts/ifcfg-ens33</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">...
+BOOTPROTO=static    #由dhcp改为static
+...
+ONBOOT=yes
+...
+IPADDR=192.168.1.201
+GATEWAY=192.168.1.1
+NETMASK=255.255.255.0
+DNS1=192.168.1.1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>重启网络服务</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">service network restart</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_命令行窗口的命令提示符有什么含义">7.3. 命令行窗口的命令提示符有什么含义？</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="shell" class="language-shell hljs">[root@localhost ~]#</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>root：当前登录用户</p>
+</li>
+<li>
+<p>localhost：主机名</p>
+</li>
+<li>
+<p>~：当前所在目录（家目录）</p>
+</li>
+<li>
+<p>#：超级用户的提示符（普通用户的提示符是 $）</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="x_ChangeDefaultSSHPort">7.4. 如何修改 SSH 默认端口（22）？   </h3>
+<div class="paragraph">
+<p>（以 CentOS_7 为例）</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>SSH 远程登录</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 默认端口
+ssh name@remoteserver
+
+# 非默认端口
+ssh name@remoteserver -p Your_Port_Number</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>修改ssh配置文件，增加新的端口：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># CentOS
+vi /etc/ssh/sshd_config
+
+# Ubuntu
+sudo vim /etc/ssh/sshd_config</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>按【I】或【Insert】进入编辑模式，在默认端口后增加一行：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">Port 22
+Port Your_New_SSH_Port</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>按【Esc】，输入“:wq”保存退出。</p>
+</div>
+</li>
+<li>
+<p>如果开启了 SELinux，需要开放新端口：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 安装 SELinux 管理工具
+yum install semanage  # 提示：No package semanage available.
+
+# 通过命令查找包名
+yum provides semanage
+
+# 填入找到的包名，安装工具
+yum install policycoreutils-python-X.X-...
+
+# 查询 SELinux 与 SSH 相关的端口
+semanage port -l|grep ssh_port_t
+
+# 如果新端口不存在，则增加到 SELinux
+semanage port -a -t ssh_port_t -p tcp Your_New_SSH_Port</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>重启 SSH 服务</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># CentOS
+service sshd restart
+
+# Ubuntu
+sudo service ssh restart</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>如果启用了防火墙，需要添加新开的端口：<a id="x_firewall"></a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># CentOS_7 默认使用 firewalld ，查看是否运行
+firewall-cmd --state
+
+# 查看端口
+firewall-cmd --permanent --list-port
+
+# 添加端口
+firewall-cmd --permanent --zone=public --add-port=Your_New_SSH_Port/tcp
+
+# 删除端口
+firewall-cmd --permanent --remove-port=Your_Old_Port/tcp
+
+# 重启防火墙
+firewall-cmd --reload
+
+# 启动
+systemctl start firewalld
+# 查看状态
+systemctl status firewalld
+# 停止
+systemctl disable firewalld
+# 禁用
+systemctl stop firewalld
+
+# 查看版本
+firewall-cmd --version
+# 查看帮助
+firewall-cmd --help
+# 显示状态
+firewall-cmd --state
+# 查看所有打开的端口
+firewall-cmd --zone=public --list-ports
+# 更新防火墙规则
+firewall-cmd --reload
+# 查看区域信息
+firewall-cmd --get-active-zones
+# 查看指定接口所属区域
+firewall-cmd --get-zone-of-interface=eth0
+# 拒绝所有包
+firewall-cmd --panic-on
+# 取消拒绝状态
+firewall-cmd --panic-off
+# 查看是否拒绝
+firewall-cmd --query-panic</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>使用 SSH 客户端测试新追加的端口能否正常登录，如果没问题了，再将默认端口注释掉：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># Port 22
+Port Your_New_SSH_Port</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_如何安装jdk">7.5. 如何安装JDK？</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>事前准备：</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>FTP软件（例如 WinSCP、FileZilla）</p>
+</li>
+<li>
+<p>JDK包（*.tar.gz）</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>JDK一般安装到/usr目录下，创建java文件夹</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cd /usr/
+mkdir java</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>使用FTP软件将JDK包上传到服务器的指定目录（WinSCP、FileZilla注意选择SFTP协议）</p>
+</li>
+<li>
+<p>进入java目录，解压缩文件包（以版本8u171为例）：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">tar -zxvf jdk-8u171-linux-x64.tar.gz</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>编辑配置文件：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">vim /etc/profile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>在文件末尾添加：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">export JAVA_HOME=/usr/java/jdk1.8.0_171
+export PATH=$JAVA_HOME/bin:$PATH
+export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>保存退出。</p>
+</div>
+</li>
+<li>
+<p>生效配置，输入：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">source /etc/profile</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>确认结果，输入：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">java -version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>如果出现相应的java版本信息，说明JDK安装成功。</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_如何追加开机启动脚本或服务">7.6. 如何追加开机启动脚本或服务？</h3>
+<div class="sect3">
+<h4 id="_ubuntu_16_04">7.6.1. Ubuntu 16.04</h4>
+<div class="sect4">
+<h5 id="_修改_etcrc_local_待确认">修改 /etc/rc.local （待确认）</h5>
+
+</div>
+<div class="sect4">
+<h5 id="_update_rc_d_追加开机服务_待确认">update-rc.d 追加开机服务 （待确认）</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>新建自定义脚本 myScript.sh</p>
+<div class="paragraph">
+<p>注意脚本中应追加：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          myScript.sh
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>否则后续追加服务时会报错：</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">insserv: warning: script 'myScript.sh' missing LSB tags and overrides</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>参考：
+<a href="https://wiki.debian.org/LSBInitScripts">LSBInitScripts</a></p>
+</div>
+</li>
+<li>
+<p>设置权限：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo chmod 755 myScript.sh</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>将脚本放到启动目录下：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">mv myScript.sh /etc/init.d/</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>进入启动目录，追加脚本：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">cd /etc/init.d/
+sudo update-rc.d myScript.sh defaults 50    # 数字50表示优先级，越大运行的越晚</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>也可以安装 sysv-rc-conf 来管理启动服务的启动级别。</p>
+</div>
+</li>
+<li>
+<p>移除脚本：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo update-rc.d -f myScript.sh remove</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_直接追加服务">直接追加服务</h5>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>创建打算要执行的脚本，例如 new-test.sh：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:          new-test.sh
+# Required-Start:    $all
+# Required-Stop:
+# Default-Start:     5
+# Default-Stop:      0 1 6
+# Short-Description: auto-start test
+# Description:       auto-start test
+### END INIT INFO
+
+echo "hello new test!"
+date
+date &gt;&gt; /home/userXXX/new-test.log</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>在 /etc/systemd/system/ 中创建文件 new-test.service</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo nano /etc/systemd/system/new-test.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>在文件中增加如下内容：</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">[Unit]
+# Description
+# Documentation
+# Requires：当前 Unit 依赖的其他 Unit，如果它们没有运行，当前 Unit 会启动失败
+# Wants：与当前 Unit 配合的其他 Unit，如果它们没有运行，当前 Unit 不会启动失败
+# BindsTo：与Requires类似，它指定的 Unit 如果退出，会导致当前 Unit 停止运行
+# Before：如果该字段指定的 Unit 也要启动，那么当前 Unit 在指定 Unit 之前启动
+# After：如果该字段指定的 Unit 也要启动，那么当前 Unit 在指定 Unit 之后启动
+# Conflicts：这里指定的 Unit 不能与当前 Unit 同时运行
+# Condition...：当前 Unit 运行必须满足的条件，否则不会运行
+# Assert...：当前 Unit 运行必须满足的条件，否则会报启动失败
+# ...
+Description=new-test
+
+[Service]
+# Type：定义启动时的进程行为。它有以下几种值。
+# - Type=simple：默认值，执行ExecStart指定的命令，启动主进程
+# - Type=forking：以 fork 方式从父进程创建子进程，创建后父进程会立即退出
+# - Type=oneshot：一次性进程，Systemd 会等当前服务退出，再继续往下执行
+# - Type=dbus：当前服务通过D-Bus启动
+# - Type=notify：当前服务启动完毕，会通知Systemd，再继续往下执行
+# - Type=idle：若有其他任务执行完毕，当前服务才会运行
+# ExecStart：启动当前服务的命令
+# ExecStartPre：启动当前服务之前执行的命令
+# ExecStartPost：启动当前服务之后执行的命令
+# ExecReload：重启当前服务时执行的命令
+# ExecStop：停止当前服务时执行的命令
+# ExecStopPost：停止当其服务之后执行的命令
+# RestartSec：自动重启当前服务间隔的秒数
+# Restart：定义何种情况 Systemd 会自动重启当前服务，可能的值包括always（总是重启）、
+#   on-success、on-failure、on-abnormal、on-abort、on-watchdog
+# TimeoutSec：定义 Systemd 停止当前服务之前等待的秒数
+# Environment：指定环境变量
+Type=forking
+ExecStart=/home/userXXX/new-test.sh
+
+[Install]
+# WantedBy：它的值是一个或多个 Target，当前 Unit 激活时，符号链接会放入 /etc/systemd/system 目录下
+#   以 Target 名 + .wants 后缀构成的子目录中
+# RequiredBy：它的值是一个或多个 Target，当前 Unit 激活时，符号链接会放入 /etc/systemd/system 目录下
+#   以 Target 名 + .required 后缀构成的子目录中
+# Alias：当前 Unit 可用于启动的别名
+# Also：当前 Unit 激活时，会被同时激活的其他 Unit
+WantedBy=graphical.target</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="title">内容注意事项：</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>字母区分大小写</p>
+</li>
+<li>
+<p>等号（=）两侧不要有空格</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="title">nano的用法：</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>保存：先 Ctrl+O ，再回车</p>
+</li>
+<li>
+<p>退出：Ctrl+X</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>激活新服务</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo systemctl enable new-test.service</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>手动启动服务并查看状态</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">sudo systemctl start new-test.service
+sudo systemctl status new-test</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>如果手动运行没问题，就可以重启电脑，进行自动化测试。</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_shadowsocks">8. Shadowsocks</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>VPS安装</p>
+<div class="paragraph">
+<p>选择CentOS 7 x64</p>
+</div>
+</li>
+<li>
+<p>SSH远程登录（默认端口22）</p>
+</li>
+<li>
+<p>Shadowsocks安装</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">yum install m2crypto python-setuptools
+
+easy_install pip
+
+pip install shadowsocks</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Shadowsocks设置</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>用vi创建或打开配置文件</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">vi  /etc/shadowsocks.json</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>编辑内容</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">{
+    "server": "Your_SS_IP",
+    "server_port": Your_SS_Port,
+    "local_address": "127.0.0.1",
+    "local_port": 1080,
+    "password": "Your_Shadowsocks_Password",
+    "timeout": 300,
+    "method": "aes-256-cfb",
+    "fast_open": false
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>【I】插入编辑，【Esc】退出编辑，“:q”退出，“:wq”保存退出</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>json文件的内容尽量手动输入，如果从Windows系统中拷贝，有可能带入BOM字符，导致文件解析失败。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><a href="#x_ChangeDefaultSSHPort">修改SSH默认端口</a></p>
+</li>
+<li>
+<p>防火墙安装</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">yum install firewalld
+
+systemctl start firewalld</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p><a href="#x_firewall">防火墙设置</a></p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 打开SSH端口
+firewall-cmd --permanent --zone=public --add-port=Your_SSH_Port/tcp
+# 打开SS端口
+firewall-cmd --permanent --zone=public --add-port=Your_SS_Port/tcp
+# 重载以便生效
+firewall-cmd --reload</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Shadowsocks启动</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs"># 前台运行
+ssserver -c /etc/shadowsocks.json
+
+# 或 后台运行
+nohup ssserver -c /etc/shadowsocks.json &amp;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<img src="./images/icons/note.png" alt="Note">
+</td>
+<td class="content">
+<div class="paragraph">
+<p>发生问题时应在前台运行，以便输出日志、分析原因。</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>CentOS更新</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code data-lang="bash" class="language-bash hljs">yum update</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2020-03-19 16:46:27 UTC
+</div>
+</div>
+<link rel="stylesheet" href="highlight/styles/monokai.min.css">
+<script src="highlight/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>
